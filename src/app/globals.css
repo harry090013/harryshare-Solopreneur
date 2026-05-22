@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FCFBF9;
+  --color-olive: #14532D;
+  --color-olive-dark: #0f3d1b;
+  --color-olive-light: #166534;
+  --color-sage: #8DD9A4;
+  --color-sage-light: #bbf7d0;
+  --color-sand: #F3EFE9;
+  --color-stone-850: #221f1d;
+  
+  --font-serif: var(--font-merriweather), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --background: #FCFBF9;
+  --foreground: #1c1917;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Fine Dot Pattern Background */
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(20, 83, 45, 0.07) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+/* Glassmorphism Classes */
+.glass {
+  background: rgba(252, 251, 249, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(20, 83, 45, 0.08);
+}
+
+.glass-dark {
+  background: rgba(28, 25, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FCFBF9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(20, 83, 45, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 83, 45, 0.4);
+}
+
+/* Custom Animations */
+@keyframes pulse-gentle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.98); }
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 3s infinite ease-in-out;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+/* Micro-animations and active indicators */
+.active-nav-indicator {
+  position: relative;
+}
+.active-nav-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #14532D;
+  border-radius: 9999px;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+/* Sound Wave Animations for AudioReader AI */
+@keyframes sound-wave-1 {
+  0%, 100% { height: 6px; }
+  50% { height: 16px; }
+}
+@keyframes sound-wave-2 {
+  0%, 100% { height: 4px; }
+  50% { height: 22px; }
+}
+@keyframes sound-wave-3 {
+  0%, 100% { height: 8px; }
+  50% { height: 14px; }
+}
+@keyframes sound-wave-4 {
+  0%, 100% { height: 5px; }
+  50% { height: 20px; }
+}
+@keyframes sound-wave-5 {
+  0%, 100% { height: 3px; }
+  50% { height: 12px; }
+}
+
+.animate-sound-wave-1 { animation: sound-wave-1 0.6s ease-in-out infinite; }
+.animate-sound-wave-2 { animation: sound-wave-2 0.7s ease-in-out infinite; }
+.animate-sound-wave-3 { animation: sound-wave-3 0.5s ease-in-out infinite; }
+.animate-sound-wave-4 { animation: sound-wave-4 0.8s ease-in-out infinite; }
+.animate-sound-wave-5 { animation: sound-wave-5 0.55s ease-in-out infinite; }
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+

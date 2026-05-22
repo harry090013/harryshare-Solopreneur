@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: harryshare-db
+    restart: always
+    environment:
+      POSTGRES_USER: harry
+      POSTGRES_PASSWORD: harryshare_secret
+      POSTGRES_DB: harryshare_db
+    ports:
+      - "5439:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U harry -d harryshare_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: harryshare-web
+    restart: always
+    ports:
+      - "3008:3000"
+    environment:
+      - DATABASE_URL=postgresql://harry:harryshare_secret@db:5432/harryshare_db?schema=public
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - JWT_SECRET=${JWT_SECRET:-harryshare_super_secret_jwt_key_2026}
+      - NEXT_PUBLIC_BASE_URL=http://localhost:3000
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

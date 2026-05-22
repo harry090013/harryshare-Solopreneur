@@ -1,0 +1,191 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String   // bcrypt hash of password
+  createdAt DateTime @default(now())
+}
+
+model Category {
+  id          String            @id @default(uuid())
+  name        String
+  slug        String
+  description String?
+  type        String            @default("post") // "post", "resource", "product"
+  icon        String?           // Lucide icon name (tùy chọn)
+  posts       Post[]
+  resources   ProjectResource[]
+  products    Product[]
+  createdAt   DateTime          @default(now())
+
+  @@unique([slug, type])
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String
+  content     String   // Markdown content
+  coverImage  String
+  readTime    Int      @default(5)
+  published   Boolean  @default(false)
+  date        DateTime @default(now())
+  
+  // Tương tác
+  views       Int      @default(0)
+  likes       Int      @default(0)
+  shares      Int      @default(0)
+  
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  comments    Comment[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+  postId      String
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorName  String
+  authorEmail String?
+  content     String
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model ProjectResource {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String
+  type        String   // "tool" or "freebie"
+  url         String
+  image       String
+  featured    Boolean  @default(false)
+  
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+}
+
+model Product {
+  id           String         @id @default(uuid())
+  title        String
+  slug         String         @unique
+  description  String
+  content      String         // Markdown detail
+  price        Float?         // Optional price
+  image        String
+  type         String         // "affiliate" or "main"
+  affiliateUrl String?        // For affiliate type
+  featured     Boolean        @default(false)
+  
+  categoryId   String
+  category     Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  orders       ProductOrder[]
+  
+  createdAt    DateTime       @default(now())
+}
+
+model ProductOrder {
+  id            String   @id @default(uuid())
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  customerName  String
+  customerEmail String
+  customerPhone String
+  note          String?
+  status        String   @default("pending") // "pending", "completed", "cancelled"
+  createdAt     DateTime @default(now())
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Newsletter {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Media {
+  id        String   @id @default(uuid())
+  name      String
+  type      String
+  size      Int
+  dataUrl   String
+  createdAt DateTime @default(now())
+}
+
+model Icon {
+  id        String   @id @default(uuid())
+  name      String   @unique // e.g. "Layers"
+  label     String   // e.g. "Lớp xếp"
+  createdAt DateTime @default(now())
+}
+
+model HomepageSetting {
+  id           String   @id @default("hero-setting")
+  welcomeText  String   @default("👋 Chào bạn ghé thăm góc của Harry")
+  title        String   @default("Hành trình Solopreneur: Ghi chép, Chia sẻ & Đồng hành")
+  description  String   @default("Chào mừng bạn đến với góc nhỏ của Harry (Quang Hiếu). Đây là nơi mình ghi lại hành trình thực tế của một Solopreneur, chia sẻ những tài nguyên đúc kết có giá trị cao, và giới thiệu các giải pháp công nghệ đồng hành cùng sự phát triển của bạn.")
+  
+  // Trụ cột định vị
+  pillar1Title String   @default("1. Ghi lại hành trình")
+  pillar1Desc  String   @default("Nhật ký ghi lại từng bước chân, những thử thách và bài học xương máu trên hành trình xây dựng sự nghiệp tự chủ của Harry.")
+  pillar2Title String   @default("2. Chia sẻ & Tặng quà")
+  pillar2Desc  String   @default("Những công thức, tài liệu và bộ công cụ đắc lực được đúc kết từ thành tựu thực tế, sẵn sàng gửi tặng bạn để rút ngắn con đường tự học.")
+  pillar3Title String   @default("3. Kinh doanh & Đồng hành")
+  pillar3Desc  String   @default("Giới thiệu các sản phẩm công nghệ chất lượng do mình sáng tạo và cơ hội hợp tác, đồng hành chuyên sâu cùng bạn bứt phá.")
+
+  updatedAt    DateTime @updatedAt
+}
+
+model HeroSlide {
+  id        String   @id @default(uuid())
+  imageUrl  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model AboutSetting {
+  id          String   @id @default("about-setting")
+  title       String   @default("Về Harry (Quang Hiếu)")
+  subtitle    String   @default("📖 Câu chuyện của mình")
+  avatarUrl   String   @default("/harry_Portrait.png")
+  description String   @default("Mình không xuất phát từ đỉnh vinh quang, cũng không có bệ đỡ lớn. Hành trình 10 năm của mình là chuỗi ngày bền bỉ tích lũy, tự học và thử thách bản thân qua nhiều ngã rẽ.")
+  updatedAt   DateTime @updatedAt
+}
+
+model AboutTimeline {
+  id          String   @id @default(uuid())
+  period      String
+  title       String
+  role        String
+  iconName    String   @default("Coffee")
+  description String
+  lesson      String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
