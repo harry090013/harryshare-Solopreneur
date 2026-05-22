@@ -31,7 +31,8 @@ export default function AdminLoginPage() {
         router.push('/admin');
         router.refresh();
       } else {
-        setError(data.error || 'Đăng nhập không thành công.');
+        const errMsg = data.detail ? `${data.error} (${data.detail})` : (data.error || 'Đăng nhập không thành công.');
+        setError(errMsg);
         setLoading(false);
       }
     } catch (err) {

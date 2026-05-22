@@ -52,10 +52,11 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Login error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Có lỗi xảy ra trong quá trình đăng nhập.' },
+      { error: 'Có lỗi xảy ra trong quá trình đăng nhập.', detail: errorMessage },
       { status: 500 }
     );
   }
