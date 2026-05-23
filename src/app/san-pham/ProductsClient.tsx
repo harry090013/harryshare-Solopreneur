@@ -134,7 +134,8 @@ export default function ProductsClient({
                   src={prod.image || 'https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=600&q=80'} 
                   alt={prod.title} 
                   fill 
-                  className="object-cover group-hover:scale-102 transition-transform duration-500" 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
+                  className="object-cover" 
                 />
                 
                 {/* Labels */}

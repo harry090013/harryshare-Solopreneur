@@ -16,7 +16,7 @@ export default function AdminSidebar() {
       <header className="md:hidden w-full bg-sand/80 backdrop-blur-md border-b border-olive/10 px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-xs">
         <div className="flex items-center gap-2.5">
           <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-olive/10 bg-white">
-            <Image src="/logo.png" alt="HarryShare Logo" fill className="object-cover" />
+            <Image src="/logo.png" alt="HarryShare Logo" fill sizes="32px" className="object-cover" />
           </div>
           <div className="flex flex-col animate-fade-in">
             <span className="font-serif font-bold text-olive leading-tight text-sm">HarryShare</span>
@@ -47,7 +47,7 @@ export default function AdminSidebar() {
         {/* Desktop Logo (hidden on mobile header layout) */}
         <div className="hidden md:flex items-center gap-2.5">
           <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-olive/10 bg-white">
-            <Image src="/logo.png" alt="HarryShare Logo" fill className="object-cover" />
+            <Image src="/logo.png" alt="HarryShare Logo" fill sizes="32px" className="object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="font-serif font-bold text-olive">HarryShare</span>

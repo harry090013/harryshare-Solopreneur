@@ -513,6 +513,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                                 src={post.coverImage || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=100&q=80'} 
                                 alt={post.title} 
                                 fill 
+                                sizes="48px"
                                 className="object-cover" 
                               />
                             </div>

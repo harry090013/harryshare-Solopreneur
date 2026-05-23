@@ -339,6 +339,7 @@ export default function OrdersClient({ initialOrders }: OrdersClientProps) {
                   src={selectedOrder.product?.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=100&q=80'} 
                   alt={selectedOrder.product?.title || 'Product'} 
                   fill 
+                  sizes="48px"
                   className="object-cover" 
                 />
               </div>

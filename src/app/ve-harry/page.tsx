@@ -101,7 +101,7 @@ export default async function AboutPage() {
       {/* 1. Header Hero */}
       <div className="flex flex-col md:flex-row gap-10 items-center border-b border-olive/5 pb-12">
         <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-olive/15 bg-sand shrink-0 shadow-md">
-          <Image src={aboutSetting.avatarUrl} alt="Harry" fill className="object-cover" />
+          <Image src={aboutSetting.avatarUrl} alt="Harry" fill sizes="(max-width: 768px) 144px, 176px" className="object-cover" />
         </div>
         <div className="flex flex-col gap-4 text-center md:text-left">
           <span className="text-xs font-bold text-olive uppercase tracking-widest bg-olive/5 px-3 py-1.5 rounded-full w-fit mx-auto md:mx-0">

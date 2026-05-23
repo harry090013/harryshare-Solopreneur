@@ -129,7 +129,8 @@ export default function ProjectsClient({
                   src={item.image} 
                   alt={item.title} 
                   fill 
-                  className="object-cover group-hover:scale-102 transition-transform duration-500" 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
+                  className="object-cover" 
                 />
                 <div className="absolute top-3 left-3 bg-cream/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-olive border border-olive/10 shadow-xs uppercase tracking-wider">
                   {item.type === 'tool' ? 'Công cụ khuyên dùng' : 'Tài nguyên miễn phí'}

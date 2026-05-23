@@ -177,6 +177,7 @@ Thương hiệu cá nhân không thể xây dựng sau một đêm. Hãy tận h
             src={post.coverImage} 
             alt={post.title} 
             fill 
+            sizes="(max-width: 768px) 100vw, 768px"
             className="object-cover" 
           />
         </div>
@@ -215,7 +216,7 @@ Thương hiệu cá nhân không thể xây dựng sau một đêm. Hãy tận h
         {/* Author Box */}
         <div className="flex flex-col sm:flex-row gap-5 p-6 rounded-2xl border border-olive/10 bg-cream/70 backdrop-blur-md items-center sm:items-start text-center sm:text-left mt-4 shadow-sm">
           <div className="relative w-16 h-16 rounded-full overflow-hidden border border-olive/10 shrink-0 bg-sand">
-            <Image src="/harry_Portrait.png" alt="Harry" fill className="object-cover" />
+            <Image src="/harry_Portrait.png" alt="Harry" fill sizes="64px" className="object-cover" />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex flex-col">

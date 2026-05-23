@@ -103,7 +103,7 @@ export default function ChatWidget() {
           <div className="bg-olive text-cream px-4 py-4 flex items-center justify-between shadow-md">
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10 rounded-full overflow-hidden border border-cream/20 bg-cream/10">
-                <Image src="/harry_Portrait.png" alt="Trợ lý AI Harry" fill className="object-cover" />
+                <Image src="/harry_Portrait.png" alt="Trợ lý AI Harry" fill sizes="40px" className="object-cover" />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
@@ -135,7 +135,7 @@ export default function ChatWidget() {
                 >
                   {isAi && (
                     <div className="relative w-7 h-7 rounded-full overflow-hidden border border-olive/10 shrink-0 bg-sand">
-                      <Image src="/harry_Portrait.png" alt="Harry" fill className="object-cover" />
+                      <Image src="/harry_Portrait.png" alt="Harry" fill sizes="28px" className="object-cover" />
                     </div>
                   )}
                   <div 
@@ -154,7 +154,7 @@ export default function ChatWidget() {
             {isTyping && (
               <div className="flex gap-2 self-start max-w-[85%]">
                 <div className="relative w-7 h-7 rounded-full overflow-hidden border border-olive/10 shrink-0 bg-sand">
-                  <Image src="/harry_Portrait.png" alt="Harry" fill className="object-cover" />
+                  <Image src="/harry_Portrait.png" alt="Harry" fill sizes="28px" className="object-cover" />
                 </div>
                 <div className="rounded-2xl rounded-tl-none px-4 py-3 bg-sand/60 border border-olive/5 flex items-center gap-1 h-9">
                   <span className="w-1.5 h-1.5 bg-olive/50 rounded-full animate-bounce" style={{ animationDelay: '0s' }} />

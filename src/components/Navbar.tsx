@@ -62,6 +62,7 @@ export default function Navbar() {
                 src="/logo.png" 
                 alt="HarryShare Logo" 
                 fill 
+                sizes="32px"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>

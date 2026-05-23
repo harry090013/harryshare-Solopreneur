@@ -317,7 +317,8 @@ export default async function Home() {
                     src={post.coverImage} 
                     alt={post.title} 
                     fill 
-                    className="object-cover group-hover:scale-103 transition-transform duration-500" 
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
+                    className="object-cover" 
                   />
                   <div className="absolute top-3 left-3 bg-cream/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-olive border border-olive/10 shadow-xs uppercase tracking-wider">
                     {post.category?.name}
@@ -393,6 +394,7 @@ export default async function Home() {
                       src={resource.image} 
                       alt={resource.title} 
                       fill 
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
                       className="object-cover" 
                     />
                     <div className="absolute top-3 left-3 bg-cream/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-olive border border-olive/10 shadow-xs uppercase tracking-wider">

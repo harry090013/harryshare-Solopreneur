@@ -108,6 +108,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               src={product.image || 'https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=600&q=80'} 
               alt={product.title} 
               fill 
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 480px"
               className="object-cover" 
             />
             {product.featured && (

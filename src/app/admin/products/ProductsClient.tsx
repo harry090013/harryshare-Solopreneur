@@ -387,6 +387,7 @@ export default function ProductsClient({ initialProducts, categories }: Products
                                 src={prod.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=100&q=80'} 
                                 alt={prod.title} 
                                 fill 
+                                sizes="48px"
                                 className="object-cover" 
                               />
                             </div>
