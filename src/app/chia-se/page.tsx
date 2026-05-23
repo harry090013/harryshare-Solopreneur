@@ -15,17 +15,20 @@ export default async function ChiaSePage({
   let categories: any[] = [];
 
   try {
-    posts = await db.post.findMany({
-      where: { published: true },
-      orderBy: { date: 'desc' },
-      include: {
-        category: true
-      }
-    });
+    // Chạy song song các truy vấn để giảm độ trễ mạng
+    const [dbPosts, dbCategories] = await Promise.all([
+      db.post.findMany({
+        where: { published: true },
+        orderBy: { date: 'desc' },
+        include: { category: true }
+      }),
+      db.category.findMany({
+        where: { type: 'post' }
+      })
+    ]);
 
-    categories = await db.category.findMany({
-      where: { type: 'post' }
-    });
+    if (dbPosts) posts = dbPosts;
+    if (dbCategories) categories = dbCategories;
   } catch (err) {
     console.error('Database query failed in ChiaSePage, using mock fallbacks:', err);
     // Fallback Mock Data

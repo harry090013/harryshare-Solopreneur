@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { db } from '@/lib/db';
 
-export const revalidate = 0; // Luôn lấy dữ liệu mới nhất từ DB
+export const revalidate = 30; // Cache trang Về Harry trong 30 giây (ISR) để tăng tốc độ tải trang
 
 // Dynamically resolve custom or standard Lucide icon component on the server
 const getTimelineIcon = (iconName: string) => {
@@ -35,22 +35,20 @@ export default async function AboutPage() {
   let timelineSteps = [];
 
   try {
-    const dbSetting = await db.aboutSetting.findUnique({
-      where: { id: 'about-setting' }
-    });
+    // Chạy song song các truy vấn để tối ưu hóa hiệu năng và giảm độ trễ mạng
+    const [dbSetting, dbTimeline] = await Promise.all([
+      db.aboutSetting.findUnique({ where: { id: 'about-setting' } }),
+      db.aboutTimeline.findMany({ orderBy: { order: 'asc' } })
+    ]);
+
     if (dbSetting) {
       aboutSetting = dbSetting;
     }
+    if (dbTimeline) {
+      timelineSteps = dbTimeline;
+    }
   } catch (error) {
-    console.error('Failed to fetch about settings:', error);
-  }
-
-  try {
-    timelineSteps = await db.aboutTimeline.findMany({
-      orderBy: { order: 'asc' }
-    });
-  } catch (error) {
-    console.error('Failed to fetch about timeline steps:', error);
+    console.error('Failed to fetch about page data:', error);
   }
 
   if (timelineSteps.length === 0) {

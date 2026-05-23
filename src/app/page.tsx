@@ -8,7 +8,7 @@ import * as LucideIcons from 'lucide-react';
 import { db } from '@/lib/db';
 import HeroSlideshow from '@/components/HeroSlideshow';
 
-export const revalidate = 0; // Luôn lấy dữ liệu mới nhất từ DB
+export const revalidate = 30; // Cache trang chủ trong 30 giây (ISR) để đạt tốc độ tải trang tối đa
 
 // Dynamically resolve custom or standard Lucide icon component on the server
 const getTopicIcon = (iconName: string) => {
@@ -32,6 +32,7 @@ export default async function Home() {
   let topics = [];
   let latestPosts = [];
   let featuredResources = [];
+  let slides: { id: string; imageUrl: string; order: number }[] = [];
 
   let homepageSetting = {
     welcomeText: "👋 Chào bạn ghé thăm góc của Harry",
@@ -44,53 +45,34 @@ export default async function Home() {
     pillar3Title: "3. Kinh doanh & Đồng hành",
     pillar3Desc: "Giới thiệu các sản phẩm công nghệ chất lượng do mình sáng tạo và cơ hội hợp tác, đồng hành chuyên sâu cùng bạn bứt phá."
   };
-  let slides: { id: string; imageUrl: string; order: number }[] = [];
 
   try {
-    const dbSetting = await db.homepageSetting.findUnique({
-      where: { id: 'hero-setting' }
-    });
-    if (dbSetting) {
-      homepageSetting = dbSetting;
-    }
-  } catch (error) {
-    console.error('Failed to fetch homepage settings:', error);
-  }
+    // Chạy song song toàn bộ truy vấn cơ sở dữ liệu để tối ưu hóa hiệu năng
+    const [dbSetting, dbSlides, dbTopics, dbLatestPosts, dbFeaturedResources] = await Promise.all([
+      db.homepageSetting.findUnique({ where: { id: 'hero-setting' } }),
+      db.heroSlide.findMany({ orderBy: { order: 'asc' } }),
+      db.category.findMany({
+        where: { type: 'post' },
+        include: { posts: { where: { published: true } } }
+      }),
+      db.post.findMany({
+        where: { published: true },
+        orderBy: { date: 'desc' },
+        take: 3,
+        include: { category: true }
+      }),
+      db.projectResource.findMany({
+        where: { featured: true },
+        take: 3
+      })
+    ]);
 
-  try {
-    slides = await db.heroSlide.findMany({
-      orderBy: { order: 'asc' }
-    });
-  } catch (error) {
-    console.error('Failed to fetch hero slides:', error);
-  }
+    if (dbSetting) homepageSetting = dbSetting;
+    if (dbSlides && dbSlides.length > 0) slides = dbSlides;
+    if (dbTopics) topics = dbTopics;
+    if (dbLatestPosts) latestPosts = dbLatestPosts;
+    if (dbFeaturedResources) featuredResources = dbFeaturedResources;
 
-  if (slides.length === 0) {
-    slides = [
-      { id: 'default-1', imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80", order: 0 },
-      { id: 'default-2', imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80", order: 1 },
-      { id: 'default-3', imageUrl: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=800&q=80", order: 2 }
-    ];
-  }
-
-  try {
-    // Attempt to fetch from Postgres
-    topics = await db.category.findMany({
-      where: { type: 'post' },
-      include: { posts: { where: { published: true } } }
-    });
-    
-    latestPosts = await db.post.findMany({
-      where: { published: true },
-      orderBy: { date: 'desc' },
-      take: 3,
-      include: { category: true }
-    });
-
-    featuredResources = await db.projectResource.findMany({
-      where: { featured: true },
-      take: 3
-    });
   } catch (error) {
     console.error('Database connection failed in Homepage, falling back to mock data:', error);
     
@@ -152,6 +134,14 @@ export default async function Home() {
         url: '#',
         image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=400&q=80'
       }
+    ];
+  }
+
+  if (slides.length === 0) {
+    slides = [
+      { id: 'default-1', imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80", order: 0 },
+      { id: 'default-2', imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80", order: 1 },
+      { id: 'default-3', imageUrl: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=800&q=80", order: 2 }
     ];
   }
 

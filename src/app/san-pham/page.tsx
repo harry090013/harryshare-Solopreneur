@@ -9,17 +9,19 @@ export default async function ProductsPage() {
   let categories = [];
 
   try {
-    products = await db.product.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        category: true
-      }
-    });
+    const [dbProducts, dbCategories] = await Promise.all([
+      db.product.findMany({
+        orderBy: { createdAt: 'desc' },
+        include: { category: true }
+      }),
+      db.category.findMany({
+        where: { type: 'product' },
+        orderBy: { name: 'asc' }
+      })
+    ]);
 
-    categories = await db.category.findMany({
-      where: { type: 'product' },
-      orderBy: { name: 'asc' }
-    });
+    if (dbProducts) products = dbProducts;
+    if (dbCategories) categories = dbCategories;
   } catch (err) {
     console.error('Database connection failed in Products Page, falling back to mock:', err);
     

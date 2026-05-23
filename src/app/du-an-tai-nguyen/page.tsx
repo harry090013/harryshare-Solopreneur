@@ -9,17 +9,19 @@ export default async function ProjectsPage() {
   let categories = [];
 
   try {
-    items = await db.projectResource.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        category: true
-      }
-    });
+    const [dbItems, dbCategories] = await Promise.all([
+      db.projectResource.findMany({
+        orderBy: { createdAt: 'desc' },
+        include: { category: true }
+      }),
+      db.category.findMany({
+        where: { type: 'resource' },
+        orderBy: { name: 'asc' }
+      })
+    ]);
 
-    categories = await db.category.findMany({
-      where: { type: 'resource' },
-      orderBy: { name: 'asc' }
-    });
+    if (dbItems) items = dbItems;
+    if (dbCategories) categories = dbCategories;
   } catch (err) {
     console.error('Database connection failed in Resources library, falling back to mock:', err);
     // Fallback Mock Data
