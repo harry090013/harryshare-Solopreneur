@@ -9,19 +9,23 @@ export default async function AdminResourcesPage() {
   let categories: any[] = [];
 
   try {
-    resources = await db.projectResource.findMany({
-      include: {
-        category: true
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
+    const [resourcesResult, categoriesResult] = await Promise.all([
+      db.projectResource.findMany({
+        include: {
+          category: true
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      }),
+      db.category.findMany({
+        where: { type: 'resource' },
+        orderBy: { name: 'asc' }
+      })
+    ]);
 
-    categories = await db.category.findMany({
-      where: { type: 'resource' },
-      orderBy: { name: 'asc' }
-    });
+    resources = resourcesResult;
+    categories = categoriesResult;
   } catch (err) {
     console.error('Database connection failed in resources page, using fallback:', err);
     categories = [

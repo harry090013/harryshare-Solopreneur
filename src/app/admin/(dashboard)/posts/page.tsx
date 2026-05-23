@@ -9,19 +9,21 @@ export default async function AdminPostsPage() {
   let categories: any[] = [];
 
   try {
-    // Fetch all post categories for select inputs
-    categories = await db.category.findMany({
-      where: { type: 'post' },
-      orderBy: { name: 'asc' }
-    });
+    const [categoriesResult, postsResult] = await Promise.all([
+      db.category.findMany({
+        where: { type: 'post' },
+        orderBy: { name: 'asc' }
+      }),
+      db.post.findMany({
+        orderBy: { date: 'desc' },
+        include: {
+          category: true
+        }
+      })
+    ]);
 
-    // Fetch all posts with category info
-    posts = await db.post.findMany({
-      orderBy: { date: 'desc' },
-      include: {
-        category: true
-      }
-    });
+    categories = categoriesResult;
+    posts = postsResult;
   } catch (err) {
     console.error('Failed to query database for admin posts page, using fallbacks:', err);
 

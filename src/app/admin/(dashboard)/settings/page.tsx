@@ -11,31 +11,29 @@ export default async function SettingsPage() {
   let timeline = [];
 
   try {
-    homepageSetting = await db.homepageSetting.findUnique({
-      where: { id: 'hero-setting' }
-    });
+    const [homeResult, aboutResult, slidesResult, timelineResult] = await Promise.all([
+      db.homepageSetting.findUnique({ where: { id: 'hero-setting' } }),
+      db.aboutSetting.findUnique({ where: { id: 'about-setting' } }),
+      db.heroSlide.findMany({ orderBy: { order: 'asc' } }),
+      db.aboutTimeline.findMany({ orderBy: { order: 'asc' } })
+    ]);
+
+    homepageSetting = homeResult;
+    aboutSetting = aboutResult;
+    slides = slidesResult;
+    timeline = timelineResult;
+
     if (!homepageSetting) {
       homepageSetting = await db.homepageSetting.create({
         data: { id: 'hero-setting' }
       });
     }
 
-    aboutSetting = await db.aboutSetting.findUnique({
-      where: { id: 'about-setting' }
-    });
     if (!aboutSetting) {
       aboutSetting = await db.aboutSetting.create({
         data: { id: 'about-setting' }
       });
     }
-
-    slides = await db.heroSlide.findMany({
-      orderBy: { order: 'asc' }
-    });
-
-    timeline = await db.aboutTimeline.findMany({
-      orderBy: { order: 'asc' }
-    });
   } catch (error) {
     console.error('Error fetching settings for admin:', error);
   }

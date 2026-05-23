@@ -9,19 +9,23 @@ export default async function AdminProductsPage() {
   let categories: any[] = [];
 
   try {
-    products = await db.product.findMany({
-      include: {
-        category: true
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
+    const [productsResult, categoriesResult] = await Promise.all([
+      db.product.findMany({
+        include: {
+          category: true
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      }),
+      db.category.findMany({
+        where: { type: 'product' },
+        orderBy: { name: 'asc' }
+      })
+    ]);
 
-    categories = await db.category.findMany({
-      where: { type: 'product' },
-      orderBy: { name: 'asc' }
-    });
+    products = productsResult;
+    categories = categoriesResult;
   } catch (err) {
     console.error('Database query failed in admin products page:', err);
   }

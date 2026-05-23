@@ -12,20 +12,7 @@ export default async function AdminLayout({
   const token = cookieStore.get('admin_token')?.value;
   const decoded = token ? verifyToken(token) : null;
 
-  const headerList = await import('next/headers');
-  const headers = await headerList.headers();
-  const pathname = headers.get('x-pathname') || '';
-
-  const isLoginPage = pathname === '/admin/login';
-
   if (!decoded) {
-    if (!isLoginPage) {
-      // Middleware redirects to /admin/login automatically if token is invalid
-    }
-  }
-
-  // If visiting /admin/login, we render clean, raw layout without sidebar
-  if (isLoginPage || !decoded) {
     return <div className="min-h-screen bg-cream flex flex-col">{children}</div>;
   }
 
