@@ -9,27 +9,30 @@ export default async function AdminCategoriesPage() {
   let icons: any[] = [];
 
   try {
-    // Fetch all categories with count of posts, resources, and products
-    categories = await db.category.findMany({
-      include: {
-        _count: {
-          select: { 
-            posts: true,
-            resources: true,
-            products: true
+    const [categoriesResult, iconsResult] = await Promise.all([
+      db.category.findMany({
+        include: {
+          _count: {
+            select: { 
+              posts: true,
+              resources: true,
+              products: true
+            }
           }
+        },
+        orderBy: {
+          createdAt: 'desc'
         }
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
+      }),
+      db.icon.findMany({
+        orderBy: {
+          label: 'asc'
+        }
+      })
+    ]);
 
-    icons = await db.icon.findMany({
-      orderBy: {
-        label: 'asc'
-      }
-    });
+    categories = categoriesResult;
+    icons = iconsResult;
   } catch (err) {
     console.error('Database connection failed in categories page, using fallback:', err);
     categories = [
