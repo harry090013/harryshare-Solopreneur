@@ -17,7 +17,7 @@ export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  if (pathname?.startsWith('/admin')) {
+  if (pathname?.startsWith('/quan-tri-harry')) {
     return null;
   }
   const [input, setInput] = useState('');

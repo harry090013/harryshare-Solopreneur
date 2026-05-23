@@ -10,7 +10,7 @@ export default function Footer() {
   const pathname = usePathname();
   const [email, setEmail] = useState('');
 
-  if (pathname?.startsWith('/admin')) {
+  if (pathname?.startsWith('/quan-tri-harry')) {
     return null;
   }
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');

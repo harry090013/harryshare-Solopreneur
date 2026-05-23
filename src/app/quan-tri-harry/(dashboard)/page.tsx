@@ -51,9 +51,9 @@ export default async function AdminDashboardPage() {
   }
 
   const metrics = [
-    { name: 'Bài viết', count: stats.posts, sub: `${stats.publishedPosts} đã xuất bản`, icon: BookOpen, color: 'bg-emerald-500/10 text-emerald-600', link: '/admin/posts' },
-    { name: 'Liên hệ', count: stats.contacts, sub: `${stats.unreadContacts} tin chưa đọc`, icon: Mail, color: 'bg-amber-500/10 text-amber-600', link: '/admin/contacts' },
-    { name: 'Newsletter', count: stats.subscribers, sub: 'Lượt nhận tin tức', icon: Send, color: 'bg-blue-500/10 text-blue-600', link: '/admin/subscribers' },
+    { name: 'Bài viết', count: stats.posts, sub: `${stats.publishedPosts} đã xuất bản`, icon: BookOpen, color: 'bg-emerald-500/10 text-emerald-600', link: '/quan-tri-harry/posts' },
+    { name: 'Liên hệ', count: stats.contacts, sub: `${stats.unreadContacts} tin chưa đọc`, icon: Mail, color: 'bg-amber-500/10 text-amber-600', link: '/quan-tri-harry/contacts' },
+    { name: 'Newsletter', count: stats.subscribers, sub: 'Lượt nhận tin tức', icon: Send, color: 'bg-blue-500/10 text-blue-600', link: '/quan-tri-harry/subscribers' },
   ];
 
   return (
@@ -97,7 +97,7 @@ export default async function AdminDashboardPage() {
             <h2 className="font-serif text-lg font-bold text-stone-850 flex items-center gap-2">
               <Mail className="w-5 h-5 text-olive" /> Thư liên hệ mới nhất
             </h2>
-            <Link href="/admin/contacts" className="text-xs font-bold text-olive flex items-center gap-1 hover:underline">
+            <Link href="/quan-tri-harry/contacts" className="text-xs font-bold text-olive flex items-center gap-1 hover:underline">
               Hộp thư <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -139,7 +139,7 @@ export default async function AdminDashboardPage() {
             <h2 className="font-serif text-lg font-bold text-stone-850 flex items-center gap-2">
               <Send className="w-5 h-5 text-olive" /> Nhận tin mới
             </h2>
-            <Link href="/admin/subscribers" className="text-xs font-bold text-olive flex items-center gap-1 hover:underline">
+            <Link href="/quan-tri-harry/subscribers" className="text-xs font-bold text-olive flex items-center gap-1 hover:underline">
               Newsletter <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

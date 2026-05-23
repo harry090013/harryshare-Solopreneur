@@ -16,16 +16,16 @@ export function middleware(request: NextRequest) {
   requestHeaders.set('x-pathname', pathname);
 
   // Protect Admin dashboard routes
-  if (pathname.startsWith('/admin')) {
-    if (pathname === '/admin/login') {
+  if (pathname.startsWith('/quan-tri-harry')) {
+    if (pathname === '/quan-tri-harry/login') {
       if (token) {
         // Already logged in, redirect to admin index
-        return NextResponse.redirect(new URL('/admin', request.url));
+        return NextResponse.redirect(new URL('/quan-tri-harry', request.url));
       }
     } else {
       if (!token) {
         // Not logged in, redirect to login
-        return NextResponse.redirect(new URL('/admin/login', request.url));
+        return NextResponse.redirect(new URL('/quan-tri-harry/login', request.url));
       }
     }
   }
@@ -38,5 +38,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/quan-tri-harry/:path*'],
 };

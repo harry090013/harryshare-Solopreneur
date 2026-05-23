@@ -11,7 +11,7 @@ export default function AdminLogoutButton() {
     try {
       const res = await fetch('/api/auth/logout', { method: 'POST' });
       if (res.ok) {
-        router.push('/admin/login');
+        router.push('/quan-tri-harry/login');
         router.refresh();
       }
     } catch (err) {

@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
       const data = await res.json();
       if (res.ok) {
         // Redirect to dashboard
-        router.push('/admin');
+        router.push('/quan-tri-harry');
         router.refresh();
       } else {
         const errMsg = data.detail ? `${data.error} (${data.detail})` : (data.error || 'Đăng nhập không thành công.');
