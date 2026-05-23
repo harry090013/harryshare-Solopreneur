@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Search, Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
 
 interface Category {
@@ -24,19 +25,20 @@ interface Post {
 
 export default function ChiaSeClient({ 
   initialPosts, 
-  categories,
-  defaultCategorySlug
+  categories
 }: { 
   initialPosts: Post[]; 
   categories: Category[];
-  defaultCategorySlug: string;
 }) {
+  const searchParams = useSearchParams();
+  const urlCategory = searchParams.get('category') || 'all';
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>(defaultCategorySlug);
+  const [selectedCategory, setSelectedCategory] = useState<string>(urlCategory);
 
   useEffect(() => {
-    setSelectedCategory(defaultCategorySlug);
-  }, [defaultCategorySlug]);
+    setSelectedCategory(urlCategory);
+  }, [urlCategory]);
 
   const filteredPosts = initialPosts.filter(post => {
     const matchesSearch = 

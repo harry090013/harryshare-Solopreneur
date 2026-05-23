@@ -1,16 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ChiaSeClient from './ChiaSeClient';
 import { db } from '@/lib/db';
 
 export const revalidate = 60;
 
-export default async function ChiaSePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>;
-}) {
-  const { category: selectedCategorySlug } = await searchParams;
-
+export default async function ChiaSePage() {
   let posts: any[] = [];
   let categories: any[] = [];
 
@@ -98,12 +92,13 @@ export default async function ChiaSePage({
         </p>
       </div>
 
-      {/* Client List component handles filters */}
-      <ChiaSeClient 
-        initialPosts={posts} 
-        categories={categories} 
-        defaultCategorySlug={selectedCategorySlug || 'all'}
-      />
+      {/* Client List component handles filters inside Suspense */}
+      <Suspense fallback={<div className="text-center text-stone-400 py-10">Đang tải danh sách bài viết...</div>}>
+        <ChiaSeClient 
+          initialPosts={posts} 
+          categories={categories} 
+        />
+      </Suspense>
     </div>
   );
 }
