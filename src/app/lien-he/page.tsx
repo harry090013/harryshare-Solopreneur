@@ -9,7 +9,8 @@ export default function ContactPage() {
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
+    website: '' // Honeypot field to block spam bots
   });
 
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -39,7 +40,8 @@ export default function ContactPage() {
           email: '',
           phone: '',
           subject: '',
-          message: ''
+          message: '',
+          website: ''
         });
         setStatusMsg('Tin nhắn của bạn đã được gửi đi thành công! Harry sẽ sớm phản hồi bạn nhé.');
       } else {
@@ -107,6 +109,20 @@ export default function ContactPage() {
             onSubmit={handleSubmit}
             className="flex flex-col gap-5 p-8 rounded-3xl border border-olive/10 bg-cream/70 backdrop-blur-md shadow-sm"
           >
+            {/* Honeypot field (hidden from humans, visible to bots) */}
+            <div className="hidden" aria-hidden="true">
+              <label htmlFor="website" className="text-xs font-bold text-stone-500 uppercase tracking-wider">Website</label>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={formData.website}
+                onChange={handleChange}
+              />
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {/* Name */}
               <div className="flex flex-col gap-1.5">
