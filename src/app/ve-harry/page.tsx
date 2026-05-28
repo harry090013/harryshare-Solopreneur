@@ -30,7 +30,7 @@ export default async function AboutPage() {
     title: "Về Harry (Quang Hiếu)",
     subtitle: "📖 Câu chuyện của mình",
     avatarUrl: "/harry_Portrait.png",
-    description: "Mình không xuất phát từ đỉnh vinh quang, cũng không có bệ đỡ lớn. Hành trình 10 năm của mình là chuỗi ngày bền bỉ tích lũy, tự học và thử thách bản thân qua nhiều ngã rẽ."
+    description: "Mình xuất thân là một dân IT - lập trình viên hướng ngoại, đam mê sáng tạo và giao tiếp. Hành trình tự học của mình là chuỗi ngày bền bỉ đi qua nhiều ngã rẽ sự nghiệp từ lập trình, kinh doanh cho đến Digital Marketing, với một mục tiêu duy nhất: kiến tạo nên những giá trị bền vững và mang lại những điều tốt lành cho mọi người xung quanh."
   };
   let timelineSteps = [];
 
@@ -54,44 +54,84 @@ export default async function AboutPage() {
   if (timelineSteps.length === 0) {
     timelineSteps = [
       {
-        period: 'Giai đoạn 1',
-        title: 'Phục vụ bàn quán cà phê',
-        role: 'Học việc & Rèn luyện kiên nhẫn',
+        period: 'Sau Tết 2026 - Nay',
+        title: 'Hành trình lập nghiệp hướng đến sản phẩm sạch & chay',
+        role: 'Lập nghiệp tự chủ',
+        iconName: 'Leaf',
+        description: 'Sau Tết 2026, mình quyết định đi từng bước chậm để chuẩn bị cho hành trình lập nghiệp lâu dài. Mình hướng đến việc phát triển thương hiệu nhang thảo mộc truyền thống của gia đình giữa không gian thiên nhiên yên bình, mở quán ăn và bán thực phẩm chay sạch.',
+        lesson: 'Bài học: Tôi luôn tin rằng sự kiên trì và tinh thần học hỏi là yếu tố tạo ra giá trị bền vững trong công việc và cuộc sống.'
+      },
+      {
+        period: 'Tháng 03/2026 - Nay',
+        title: 'Bứt phá Marketing & Sáng tạo cùng AI tại CloudFly',
+        role: 'Marketer & AI Automation Leader',
+        iconName: 'Cloud',
+        description: 'Đảm nhiệm vai trò Marketer tại CloudFly - một công ty công nghệ chuyên cung cấp cơ sở hạ tầng cloud. Thực chiến lượng kiến thức chuyên sâu về SEO website, chạy ads, phân tích và lên kế hoạch marketing. Đồng thời là Leader team sáng tạo cùng AI và nghiên cứu marketing automation (tự động hóa). Hàng ngày, mình kiên trì tự học tiếng Anh qua Brainkey.',
+        lesson: 'Bài học: Làm bạn với AI và ứng dụng tự động hóa là chìa khóa x10 hiệu suất công việc trong thời đại số.'
+      },
+      {
+        period: '04/2025 - 03/2026',
+        title: 'Trưởng phòng Marketing tại Tâm An Spa',
+        role: 'Trưởng phòng Marketing (Online & Offline tại Sài Gòn)',
+        iconName: 'Sparkles',
+        description: 'Chịu trách nhiệm phân tích thị trường, lập kế hoạch marketing, sáng tạo nội dung hình ảnh/video, tối ưu quy trình từ tiếp thị, remarketing đến chăm sóc khách hàng. Chạy quảng cáo tối ưu hiệu quả cao, đạt chi phí chỉ 34.000 VND / tin nhắn (trong ngành spa vô cùng cạnh tranh) và mang về 95 leads. Mình quyết định dừng lại để lên kế hoạch mới, tái xác định mục tiêu tránh kiệt sức.',
+        lesson: 'Bài học: Tập trung vào mục tiêu trọng điểm để tránh làm quá nhiều việc dẫn đến kiệt sức mà không đem lại hiệu quả cao nhất.'
+      },
+      {
+        period: 'Tháng 07/2025 (3 tháng)',
+        title: 'Rèn luyện sự kiên trì chịu khó tại Rex Hotel',
+        role: 'Nhân viên phục vụ tiệc & buffet',
         iconName: 'Coffee',
-        description: 'Lúc mới chân ướt chân ráo bước vào đời, mình dọn dẹp, bưng bê nước và lau dọn vệ sinh. Công việc tay chân mệt mỏi nhưng dạy cho mình bài học đầu đời về sự khiêm tốn, lòng chịu đựng và cách thấu hiểu tâm lý khách hàng khi giao tiếp.',
-        lesson: 'Bài học: Khách hàng luôn muốn cảm nhận sự tôn trọng và chân thành.'
+        description: 'Làm nhân viên phục vụ, set up tiệc cưới, buffet sáng tại Rex Hotel. Được đông đảo khách hàng yêu mến và đánh giá cao. Mình chọn dừng công việc này vì thời điểm cuối năm tăng ca khá nhiều, sức khỏe bản thân không đáp ứng được.',
+        lesson: 'Bài học: Rèn luyện cho mình sự kiên trì chịu khó và cách phục vụ chu đáo.'
       },
       {
-        period: 'Giai đoạn 2',
-        title: 'Bán áo thun Print-On-Demand (POD)',
-        role: 'Tập tành kinh doanh & Thương mại điện tử',
+        period: '02/2025 - 05/2025',
+        title: 'Sales & Marketing tại Vương Ngọc Vegan',
+        role: 'Content Creator & Bán hàng đa kênh',
         iconName: 'ShoppingBag',
-        description: 'Khám phá thế giới kiếm tiền online (MMO), tự thiết kế áo thun và chạy quảng cáo Facebook nhắm tới khách hàng Mỹ. Đây là cột mốc đầu tiên giúp mình biết thế nào là phễu chuyển đổi, cách làm quảng cáo và việc đối mặt với rủi ro tài chính.',
-        lesson: 'Bài học: Phải liên tục thích nghi và đổi mới để không bị đào thải.'
+        description: 'Đóng vai trò Content Creator, nhân viên bán hàng kênh truyền thống (GT) và thương mại điện tử (Shopee, Tiktok). Giúp tăng nhận diện thương hiệu trên các nền tảng mạng xã hội và bán được 300 sản phẩm sạch của công ty. Chọn dừng sớm để không ảnh hưởng sâu vào hệ thống vì định hướng 5 năm của công ty khác mục tiêu ngắn hạn cá nhân.',
+        lesson: 'Bài học: Lựa chọn dừng lại đúng lúc khi định hướng không đồng nhất là sự tôn trọng đối với cả hai bên.'
       },
       {
-        period: 'Giai đoạn 3',
-        title: 'Lập trình viên tự do (Freelance Developer)',
-        role: 'Làm chủ công nghệ & Tự học lập trình',
+        period: '10/2024 - 01/2025',
+        title: 'Tư vấn giải pháp tại MediaStep Software Việt Nam',
+        role: 'Chuyên viên tư vấn phần mềm GoSell',
+        iconName: 'HelpCircle',
+        description: 'Tìm kiếm khách hàng, lắng nghe và tư vấn giải pháp thúc đẩy lợi nhuận cho hơn 50 doanh nghiệp nhỏ và vừa, nhận được 10 lời cảm ơn từ khách hàng. Dừng việc vì nhận thấy bộ máy vận hành chèn ép nhân viên dù sản phẩm tốt.',
+        lesson: 'Bài học: Phần mềm tốt thôi chưa đủ, bộ máy vận hành tử tế và tôn trọng nhân viên mới là yếu tố quyết định.'
+      },
+      {
+        period: 'Năm 2024 (2 tháng)',
+        title: 'Vận hành dịch vụ ẩm thực tại Quán Chay Ưu Đàm',
+        role: 'Quản lý vận hành, điều phối bếp và order',
+        iconName: 'Utensils',
+        description: 'Quản lý vận hành dưới sự dẫn dắt của chị 2. Thiết lập quy trình chuẩn cho từng vai trò, ghi nhận phản hồi của khách hàng và nghiên cứu ra món mới. Giúp quán giữ chân hơn 30 khách trung thành ghé ủng hộ hàng tuần. Dừng để tiếp tục học hỏi thêm các món chay mới.',
+        lesson: 'Bài học: Vận hành thành công đến từ quy trình chuẩn chỉnh và sự tinh tế trong việc thấu hiểu khách hàng.'
+      },
+      {
+        period: 'Năm 2024 (3 tháng)',
+        title: 'Tự khởi nghiệp nhỏ với Thảo Mộc Hương T&T',
+        role: 'Nghiên cứu sản xuất & Tiếp thị bán lẻ',
+        iconName: 'Sprout',
+        description: 'Tự nghiên cứu công thức, sản xuất, làm marketing và bán lẻ nhang thảo mộc tự nhiên. Tiếp cận và thu hút thêm 300 khách hàng từ mạng xã hội, sản phẩm thảo mộc rất được ưa chuộng cho đến ngày nay. Tạm dừng dự án vì gặp khó khăn về vốn, sức khỏe và nhân sự.',
+        lesson: 'Bài học: Khởi nghiệp dạy mình cách tự đứng trên đôi chân của mình, chịu trách nhiệm tất cả khâu từ sản xuất đến bán hàng.'
+      },
+      {
+        period: 'Năm 2022 - 2023 (1 năm)',
+        title: 'Huynh trưởng hoạt động phong trào tại Đoàn Xã Duy Sơn',
+        role: 'Thành viên Hội LHTN xã Duy Sơn',
+        iconName: 'Award',
+        description: 'Tham gia phát triển đoàn thanh niên xã với vai trò huynh trưởng quản trò sinh hoạt hè. Thiết kế website đoàn thanh niên xã đạt Top 3 website phục vụ công tác đoàn thanh niên của xã, nhận được 3 giấy khen danh hiệu thanh niên tiêu biểu năm 2023.',
+        lesson: 'Bài học: Rèn luyện kỹ năng làm việc nhóm, giao tiếp, dẫn chương trình và ứng dụng công nghệ phục vụ cộng đồng.'
+      },
+      {
+        period: 'Năm 2022 - 2023 (6 tháng)',
+        title: 'Lập trình viên Front-end (Freelance Developer)',
+        role: 'Front-end Developer',
         iconName: 'Code',
-        description: 'Nhận thấy tầm quan trọng của kỹ thuật, mình tự học HTML, CSS, Javascript và các framework web. Những năm tháng cày Upwork xuyên màn đêm giúp mình làm chủ công nghệ, xây dựng tư duy giải quyết vấn đề bằng phần mềm hệ thống.',
-        lesson: 'Bài học: Kỹ năng kỹ thuật giúp bạn hiện thực hóa mọi ý tưởng sản phẩm.'
-      },
-      {
-        period: 'Giai đoạn 4',
-        title: 'Content Creator & SEO Strategist',
-        role: 'Kết nối sản phẩm & Tiếp thị số',
-        iconName: 'Megaphone',
-        description: 'Nhận ra code giỏi thôi chưa đủ, sản phẩm cần có người dùng. Mình chuyển sâu sang học về phễu marketing, SEO, viết lách sáng tạo nội dung và xây dựng thương hiệu cá nhân để phân phối sản phẩm hữu hiệu.',
-        lesson: 'Bài học: Sự kết hợp giữa kỹ thuật và marketing tạo nên sức mạnh khổng lồ.'
-      },
-      {
-        period: 'Giai đoạn 5',
-        title: 'Trở thành Solopreneur tự do',
-        role: 'Xây dựng cuộc đời tự chủ tài chính',
-        iconName: 'Milestone',
-        description: 'Hiện tại, mình độc lập vận hành các dự án cá nhân, viết blog, tạo ra các tài nguyên số hữu ích và các ứng dụng SaaS nhỏ giúp giải quyết vấn đề của cộng đồng. Mình tự làm chủ thời gian, tự do sáng tạo và chịu trách nhiệm 100% cuộc sống.',
-        lesson: 'Bài học: Tự do thực sự chỉ đến khi bạn dám dũng cảm đi con đường riêng của mình.'
+        description: 'Chịu trách nhiệm coding giao diện website cho các dự án bằng HTML, CSS, JavaScript (React.js) ngay sau khi tốt nghiệp chuyên ngành Công nghệ phần mềm. Dừng công việc vì bị đau và quá chán cảnh phải ngồi một chỗ ôm máy tính cả ngày.',
+        lesson: 'Bài học: Hiểu rõ tính cách hướng ngoại của bản thân, không phù hợp làm coder ngồi một chỗ và cần bứt phá ra ngoài.'
       }
     ];
   }
