@@ -30,7 +30,7 @@ const getLocalResponse = (message: string): string => {
   }
 
   if (contains('liên hệ', 'lien he', 'email', 'số điện thoại', 'sđt', 'gặp', 'trao đổi')) {
-    return 'Bạn có thể gửi liên hệ trực tiếp cho mình qua trang "/lien-he" trên thanh menu nha. Điền thông tin vào form đó, tin nhắn sẽ bay thẳng vào Admin Dashboard của mình. Hoặc bạn có thể gửi email trực tiếp cho mình tại địa chỉ: hi@harryshare.vn. Rất vui được kết nối cùng bạn!';
+    return 'Bạn có thể gửi liên hệ trực tiếp cho mình qua trang "/lien-he" trên thanh menu nha. Điền thông tin vào form đó, tin nhắn sẽ bay thẳng vào Admin Dashboard của mình. Hoặc bạn có thể gửi email trực tiếp cho mình tại địa chỉ: stshieu09@gmail.com. Rất vui được kết nối cùng bạn!';
   }
 
   if (contains('cảm ơn', 'cam on', 'thank', 'thanks')) {

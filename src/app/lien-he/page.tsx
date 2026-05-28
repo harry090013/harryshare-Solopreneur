@@ -82,8 +82,8 @@ export default function ContactPage() {
                 <Mail className="w-5 h-5 text-olive shrink-0 mt-0.5" />
                 <div className="flex flex-col">
                   <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Email</span>
-                  <a href="mailto:hi@harryshare.vn" className="text-sm font-medium hover:text-olive transition-colors">
-                    hi@harryshare.vn
+                  <a href="mailto:stshieu09@gmail.com" className="text-sm font-medium hover:text-olive transition-colors">
+                    stshieu09@gmail.com
                   </a>
                 </div>
               </div>
