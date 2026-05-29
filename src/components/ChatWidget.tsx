@@ -30,7 +30,7 @@ export default function ChatWidget() {
       {
         id: 'welcome',
         sender: 'ai',
-        text: 'Xin chào! Mình là Trợ lý AI của Harry (Quang Hiếu). Mình có thể chia sẻ với bạn về tư duy sản phẩm, cách xây dựng thương hiệu cá nhân, làn sóng AI & Vibe Coding hoặc hành trình làm Solopreneur của mình. Bạn muốn trò chuyện về chủ đề gì thế? 😊',
+        text: 'Xin chào! Mình là Trợ lý AI của Harry (Quang Hiếu). Mình có thể chia sẻ với bạn về tư duy sản phẩm, cách xây dựng thương hiệu cá nhân, thế giới Công nghệ & AI hoặc hành trình làm Solopreneur của mình. Bạn muốn trò chuyện về chủ đề gì thế? 😊',
         timestamp: new Date(),
       },
     ]);
@@ -90,7 +90,7 @@ export default function ChatWidget() {
   const suggestions = [
     'Tư duy sản phẩm là gì?',
     'Thương hiệu cá nhân từ 0?',
-    'Vibe coding là gì?',
+    'Công nghệ & AI có gì hay?',
     'Hành trình làm nghề của anh?',
   ];
 

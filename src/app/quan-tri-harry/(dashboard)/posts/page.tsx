@@ -31,7 +31,7 @@ export default async function AdminPostsPage() {
     categories = [
       { id: 't1', name: 'Tư duy sản phẩm', slug: 'tu-duy-san-pham' },
       { id: 't2', name: 'Thương hiệu cá nhân', slug: 'thuong-hieu-ca-nhan' },
-      { id: 't3', name: 'AI & Vibe Coding', slug: 'ai-vibe-coding' },
+      { id: 't3', name: 'Công nghệ & AI', slug: 'cong-nghe-ai' },
       { id: 't4', name: 'Hành trình làm nghề', slug: 'hanh-trinh-lam-nghe' }
     ];
 

@@ -433,7 +433,7 @@ export default function CategoriesClient({ initialCategories, initialIcons }: Ca
               <input
                 type="text"
                 required
-                placeholder="Ví dụ: AI & Vibe Coding"
+                placeholder="Ví dụ: Công nghệ & AI"
                 value={name}
                 onChange={handleNameChange}
                 className="w-full px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-sm outline-none text-stone-850 font-serif font-bold"
@@ -446,7 +446,7 @@ export default function CategoriesClient({ initialCategories, initialIcons }: Ca
               <input
                 type="text"
                 required
-                placeholder="ai-vibe-coding"
+                placeholder="cong-nghe-ai"
                 value={slug}
                 onChange={(e) => setSlug(generateSlug(e.target.value))}
                 className="w-full px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-xs outline-none text-stone-800 font-mono"

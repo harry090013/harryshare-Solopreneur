@@ -36,7 +36,7 @@ Chào bạn! Đây là chương trình đồng hành thực chiến cao cấp nh
 
 1. **Khảo sát & Lựa chọn ý tưởng**: Tìm ra ý tưởng sản phẩm khả thi, có tiềm năng thương mại hóa nhanh.
 2. **Thiết kế sản phẩm tinh gọn (MVP)**: Loại bỏ các tính năng thừa, tập trung vào giá trị cốt lõi.
-3. **Phát triển & Chuyển giao công nghệ**: Hướng dẫn bạn áp dụng Next.js, AI Coding (Vibe Coding) để làm app siêu tốc.
+3. **Phát triển & Chuyển giao công nghệ**: Hướng dẫn bạn áp dụng Next.js, công cụ AI để phát triển ứng dụng nhanh chóng.
 4. **Phát hành & Tiếp thị**: Lên phễu thu hút độc giả, tạo thương hiệu cá nhân bền vững trên mạng xã hội để có những đơn hàng đầu tiên.
 
 ### Bạn sẽ nhận được gì?

@@ -80,20 +80,20 @@ export default async function Home() {
     topics = [
       { id: '1', name: 'Tư duy sản phẩm', slug: 'tu-duy-san-pham', description: 'Khám phá triết lý xây dựng sản phẩm, tư duy giải quyết vấn đề và cách tối ưu trải nghiệm.', icon: 'Layers', posts: [1] },
       { id: '2', name: 'Thương hiệu cá nhân', slug: 'thuong-hieu-ca-nhan', description: 'Truyền tải giá trị bản thân, tạo dựng uy tín trong ngành và mở khóa cơ hội sự nghiệp.', icon: 'UserCheck', posts: [1] },
-      { id: '3', name: 'AI & Vibe Coding', slug: 'ai-vibe-coding', description: 'Ứng dụng trí tuệ nhân tạo, quy trình lập trình thế hệ mới và cách nhân bản hiệu suất.', icon: 'Sparkles', posts: [1] },
+      { id: '3', name: 'Công nghệ & AI', slug: 'cong-nghe-ai', description: 'Khám phá thế giới công nghệ, ứng dụng trí tuệ nhân tạo để tối ưu hóa cuộc sống và công việc.', icon: 'Sparkles', posts: [1] },
       { id: '4', name: 'Hành trình làm nghề', slug: 'hanh-trinh-lam-nghe', description: 'Chia sẻ chân thực về những cột mốc thăng trầm từ khi chạy bàn quán cafe đến Solopreneur.', icon: 'Compass', posts: [1] },
     ];
 
     latestPosts = [
       {
         id: '1',
-        title: 'Vibe Coding - Kỷ nguyên mới của các nhà sáng tạo công nghệ',
-        slug: 'vibe-coding-ky-nguyen-moi-cua-cac-nha-sang-tao-cong-nghe',
-        description: 'Lập trình viên tương lai sẽ không viết code từng dòng nữa. Chúng ta sẽ "vibe" cùng AI để biến ý tưởng thành sản phẩm thực tế.',
-        coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
-        readTime: 5,
+        title: 'Mình mê công nghệ vì mình thích giải quyết vấn đề',
+        slug: 'minh-me-cong-nghe-vi-thich-giai-quyet-van-de',
+        description: 'Công nghệ chỉ thực sự đẹp khi nó phục vụ cuộc sống và giải quyết các bài toán thực tế. Chia sẻ góc nhìn thực tế của một người mê công nghệ và cách ứng dụng AI làm bạn đồng hành tư duy.',
+        coverImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+        readTime: 4,
         date: new Date('2026-05-18'),
-        category: { name: 'AI & Vibe Coding', slug: 'ai-vibe-coding' }
+        category: { name: 'Công nghệ & AI', slug: 'cong-nghe-ai' }
       },
       {
         id: '2',

@@ -10,7 +10,7 @@ const getLocalResponse = (message: string): string => {
   };
 
   if (contains('chào', 'hello', 'hi', 'hey', 'alo')) {
-    return 'Xin chào! Rất vui được gặp bạn ghé thăm nhà của mình. Mình là Harry. Hôm nay bạn thế nào? Mình có thể chia sẻ với bạn về Tư duy sản phẩm, Thương hiệu cá nhân, AI & Vibe Coding hoặc kể bạn nghe về chặng đường 10 năm làm nghề của mình đấy! 😊';
+    return 'Xin chào! Rất vui được gặp bạn ghé thăm nhà của mình. Mình là Harry. Hôm nay bạn thế nào? Mình có thể chia sẻ với bạn về Tư duy sản phẩm, Thương hiệu cá nhân, Công nghệ & AI hoặc kể bạn nghe về chặng đường làm nghề của mình đấy! 😊';
   }
 
   if (contains('tư duy sản phẩm', 'tu duy san pham', 'làm sản phẩm', 'lam san pham', 'product thinking', 'phát triển sản phẩm')) {
@@ -21,12 +21,12 @@ const getLocalResponse = (message: string): string => {
     return 'Xây dựng thương hiệu cá nhân bền vững từ con số 0 là một hành trình trao đi giá trị một cách kiên trì. Nó KHÔNG phải là sự phô trương bóng bẩy. \n\n3 trụ cột mình luôn đúc kết là:\n1. Định vị bản thân (nhắm vào một ngách thật hẹp mà bạn xuất sắc).\n2. Nhất quán & Kiên trì (sáng tạo nội dung đều đặn).\n3. Chia sẻ câu chuyện "Behind the scenes" (cả những sai lầm và thăng trầm chân thực của bạn).\n\nHãy bắt đầu bằng một blog cá nhân độc lập thay vì chỉ phụ thuộc mạng xã hội. Đó chính là ngôi nhà số đích thực của bạn!';
   }
 
-  if (contains('vibe coding', 'lập trình', 'code', 'ai', 'trí tuệ nhân tạo', 'chát', 'chat')) {
-    return 'Ôi, Vibe Coding thực sự là một cuộc cách mạng! Định nghĩa ngắn gọn là: Bạn giữ vai trò Kiến trúc sư/Nhà thiết kế sản phẩm, chỉ đạo bằng ngôn ngữ tự nhiên, còn AI sẽ chịu trách nhiệm viết code, sửa lỗi và triển khai. \n\nKỹ năng viết cú pháp lập trình không còn là độc quyền nữa. Thay vào đó, bạn cần mài giũa:\n- Tư duy sản phẩm (hiểu luồng trải nghiệm người dùng).\n- Kỹ năng giao tiếp với AI (Prompt Engineering).\n- Tư duy thẩm định kiến trúc hệ thống.\n\nNhờ Vibe Coding, mình đã hoàn thành dự án clone HarryShare tuyệt đẹp này chỉ trong thời gian rất ngắn đấy!';
+  if (contains('công nghệ', 'cong nghe', 'ai', 'trí tuệ nhân tạo', 'chát', 'chat', 'tool', 'công cụ')) {
+    return 'Mình rất mê công nghệ và AI vì chúng giúp giải quyết các vấn đề trong công việc và cuộc sống nhanh hơn, nhẹ nhàng hơn. Mình thường dùng AI (như ChatGPT, Claude, Gemini) như một người bạn đồng hành cùng tư duy, bóc tách vấn đề để bớt overthinking. \n\nVới mình, một công cụ tốt không phải để làm mình lười đi, mà giúp suy nghĩ của mình rõ ràng hơn, tối ưu hóa hiệu suất làm việc. Bạn có muốn trao đổi về cách ứng dụng AI hay các công cụ hữu ích nào không?';
   }
 
   if (contains('hành trình', 'hanh trinh', 'làm nghề', 'lam nghe', 'phục vụ bàn', 'trước đây', 'freelancer', 'solopreneur', 'tiểu sử', 'sự nghiệp')) {
-    return 'Hành trình 10 năm của mình đi qua rất nhiều thăng trầm. Xuất phát điểm là một nhân viên phục vụ bàn quán cà phê với mức lương ít ỏi, sau đó rẽ hướng làm bán áo thun Print-On-Demand (POD), tự học lập trình web để đi làm Freelance trên Upwork, rồi lấn sân làm Marketing & SEO. \n\nCuối cùng, mình chọn con đường trở thành Solopreneur - tự do xây dựng các dự án của riêng mình và tự chịu trách nhiệm 100% cuộc đời mình. Mình đúc kết rằng: Không có trải nghiệm nào là lãng phí cả, tất cả đều là những mảnh ghép tuyệt vời cho tương lai!';
+    return 'Hành trình làm nghề của mình đi qua rất nhiều thăng trầm. Xuất phát điểm là một lập trình viên phần mềm, sau đó rẽ hướng làm bán hàng đa kênh, phục vụ buffet tại khách sạn Rex, làm tư vấn giải pháp phần mềm, rồi lấn sân làm Marketing & SEO. \n\nCuối cùng, mình chọn con đường trở thành Solopreneur - tự do xây dựng các dự án của riêng mình và tự chịu trách nhiệm 100% cuộc đời mình. Mình đúc kết rằng: Không có trải nghiệm nào là lãng phí cả, tất cả đều là những mảnh ghép tuyệt vời cho tương lai!';
   }
 
   if (contains('liên hệ', 'lien he', 'email', 'số điện thoại', 'sđt', 'gặp', 'trao đổi')) {
@@ -38,7 +38,7 @@ const getLocalResponse = (message: string): string => {
   }
 
   // Fallback smart response
-  return 'Câu hỏi của bạn rất thú vị! Dưới góc nhìn của một Solopreneur, mình nghĩ việc liên tục thử nghiệm, đúc kết bài học chân thực và chia sẻ nó là vô cùng quan trọng. Bạn có muốn đi sâu thảo luận về Tư duy làm sản phẩm (SaaS), xây dựng Thương hiệu cá nhân hay cách ứng dụng AI / Vibe Coding để tăng x10 năng suất làm việc không?';
+  return 'Câu hỏi của bạn rất thú vị! Dưới góc nhìn của một Solopreneur, mình nghĩ việc liên tục thử nghiệm, đúc kết bài học chân thực và chia sẻ nó là vô cùng quan trọng. Bạn có muốn đi sâu thảo luận về Tư duy làm sản phẩm (SaaS), xây dựng Thương hiệu cá nhân hay cách ứng dụng Công nghệ & AI để tăng năng suất làm việc không?';
 };
 
 export async function POST(request: Request) {
@@ -71,8 +71,8 @@ export async function POST(request: Request) {
 Thông tin cốt lõi về Harry để trả lời:
 - Tư duy sản phẩm (Product Thinking): giải quyết nỗi đau người dùng đơn giản nhất, tối ưu Aha! Moment, Product-Led Growth.
 - Thương hiệu cá nhân: kiên trì chia sẻ giá trị thực, nhất quán, không phô trương sáo rỗng.
-- AI & Vibe Coding: AI viết code chỉ đạo bởi con người, lập trình viên chuyển dịch thành kiến trúc sư sản phẩm.
-- Hành trình làm nghề: Phục vụ bàn -> Làm POD áo thun -> Freelance Dev trên Upwork -> Content & SEO -> Solopreneur tự do.
+- Công nghệ & AI: ứng dụng công cụ hữu ích, AI tool (ChatGPT, Claude, Gemini), tự động hóa giúp giải quyết vấn đề thực tế, nhẹ việc.
+- Hành trình làm nghề: Phục vụ bàn -> Tư vấn GoSell -> Content & SEO -> Solopreneur tự do.
 
 Độc giả hỏi: "${message}"`
                     }

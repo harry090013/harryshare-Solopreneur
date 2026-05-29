@@ -29,20 +29,20 @@ export default async function ChiaSePage() {
     categories = [
       { id: '1', name: 'Tư duy sản phẩm', slug: 'tu-duy-san-pham' },
       { id: '2', name: 'Thương hiệu cá nhân', slug: 'thuong-hieu-ca-nhan' },
-      { id: '3', name: 'AI & Vibe Coding', slug: 'ai-vibe-coding' },
+      { id: '3', name: 'Công nghệ & AI', slug: 'cong-nghe-ai' },
       { id: '4', name: 'Hành trình làm nghề', slug: 'hanh-trinh-lam-nghe' },
     ];
 
     posts = [
       {
         id: '1',
-        title: 'Vibe Coding - Kỷ nguyên mới của các nhà sáng tạo công nghệ',
-        slug: 'vibe-coding-ky-nguyen-moi-cua-cac-nha-sang-tao-cong-nghe',
-        description: 'Lập trình viên tương lai sẽ không viết code từng dòng nữa. Chúng ta sẽ "vibe" cùng AI để biến ý tưởng thành sản phẩm thực tế.',
-        coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
-        readTime: 5,
+        title: 'Mình mê công nghệ vì mình thích giải quyết vấn đề',
+        slug: 'minh-me-cong-nghe-vi-thich-giai-quyet-van-de',
+        description: 'Công nghệ chỉ thực sự đẹp khi nó phục vụ cuộc sống và giải quyết các bài toán thực tế. Chia sẻ góc nhìn thực tế của một người mê công nghệ và cách ứng dụng AI làm bạn đồng hành tư duy.',
+        coverImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+        readTime: 4,
         date: new Date('2026-05-18'),
-        category: { id: '3', name: 'AI & Vibe Coding', slug: 'ai-vibe-coding' }
+        category: { id: '3', name: 'Công nghệ & AI', slug: 'cong-nghe-ai' }
       },
       {
         id: '2',

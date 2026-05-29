@@ -83,9 +83,9 @@ async function main() {
 
   const catAiVibeCoding = await prisma.category.create({
     data: {
-      name: "AI & Vibe Coding",
-      slug: "ai-vibe-coding",
-      description: "Ứng dụng trí tuệ nhân tạo và quy trình lập trình thế hệ mới.",
+      name: "Công nghệ & AI",
+      slug: "cong-nghe-ai",
+      description: "Khám phá thế giới công nghệ, ứng dụng trí tuệ nhân tạo để tối ưu hóa cuộc sống và công việc.",
       type: "post",
       icon: "Sparkles"
     }
@@ -147,72 +147,443 @@ async function main() {
   console.log('Seeding posts...');
   const postsData = [
     {
-      title: "AI & CODING: KỶ NGUYÊN AGENTIC VÀ SỨC MẠNH CỦA ANTIGRAVITY",
-      slug: "ai-coding-antigravity-agentic-era",
-      description: "Từ việc hỏi ChatGPT từng bước để tự gõ code đến việc ra lệnh cho Antigravity thực hiện toàn bộ dự án từ đầu đến cuối - kỷ nguyên Vibe Coding thực thụ.",
-      content: "Hello mọi người, lại là Harry đây!\n\nHôm nay mình muốn nói về một chủ đề mà anh em dev nào dạo này cũng đang bàn tán xôn xao – lập trình cùng AI. Nhưng không phải là kiểu hỏi đáp thông thường đâu nhó.\n\nMọi người còn nhớ cái hồi chúng ta mới dùng ChatGPT hay Claude không?\n🫣 Hồi đó tụi mình toàn phải chat: \"Ê chỉ mình code chức năng này với\", rồi AI chỉ từng bước, rồi mình copy từng dòng, dán vô editor, chạy thử, lỗi, lại copy lỗi dán ngược lại bắt nó sửa...\nCứ lặp đi lặp lại như vậy, mệt muốn xỉu! Lúc đó AI chỉ đóng vai trò là người hướng dẫn, còn tay chân thực hiện vẫn là mình.\n\nNhưng bây giờ mọi chuyện đã khác rồi mọi người ơi. Mình đang trải nghiệm một công cụ cực kỳ bá đạo có tên là **Antigravity**.\n\nĐể mình kể cho nghe cách hoạt động của nó:\n✍🏻 Thay vì chỉ dẫn bạn từng bước, bạn chỉ cần ném toàn bộ yêu cầu dự án vào.\n✍🏻 Bạn bảo: \"Xây cho tôi một trang web Next.js bán nhang thảo mộc có thanh toán và quản lý đơn hàng\".\n✍🏻 Thế là Antigravity tự động phân tích cấu trúc dự án, tự tạo file, tự viết code, tự debug và chạy lệnh build luôn!\n✍🏻 Nó có thể đọc hiểu toàn bộ codebase của bạn, tự sửa lỗi terminal mà không cần bạn phải động tay gõ một dòng code nào.\n\nĐúng nghĩa là bạn chỉ cần \"vibe\" và ra quyết định thôi nhó!\n\n👉🏻 Đây chính là kỷ nguyên **Agentic** – nơi AI không chỉ trả lời câu hỏi, mà nó có khả năng **hành động** thay thế bạn.\n👉🏻 Lập trình viên bây giờ không còn là người ngồi gõ cú pháp (syntax) nữa, mà đã nâng tầm thành kiến trúc sư hệ thống, người định hướng sản phẩm (product thinker).\n👉🏻 Nếu bạn biết tận dụng sức mạnh của những Agent như Antigravity, bạn có thể x10, x20 năng suất của mình, tự tay làm ra những sản phẩm hoàn chỉnh chỉ trong vài tiếng đồng hồ.\n\nNên là, đừng sợ AI cướp việc, hãy sợ mình không biết cách điều khiển nó thôi nè. Hãy tập cách nói chuyện với nó, giao việc cho nó làm thay mình nhó.\n\nĐể lại comments dưới bài viết dồm thử anh em có đang dùng Agent nào xịn xò chưa i!\n\nP/s: Để hôm nào rảnh mình viết một bài chia sẻ chi tiết cách mình \"train\" Antigravity viết code cho dự án HarryShare này từ số 0 cho mọi người dồm nhó!\n\n#harrytapviet #harryshare",
-      coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+      title: "Vì sao mình tạo HarryShare?",
+      slug: "vi-sao-minh-tao-harryshare",
+      description: "Trải lòng của Quang Hiếu về lý do bắt đầu trang blog HarryShare – cuốn nhật ký công khai ghi lại hành trình học hỏi, làm việc và định vị bản thân giữa cuộc sống nhiều biến động.",
+      content: `Đã có lúc mình tự hỏi, tại sao con người lại có nhu cầu ghi chép nhiều đến thế? Có người viết nhật ký bằng sổ tay, có người chụp ảnh, có người lưu giữ bằng những dòng trạng thái ngắn trên mạng xã hội. Bản thân mình trước đây thường giữ mọi suy nghĩ trong đầu. Là một người có xu hướng overthinking, đầu óc mình giống như một căn phòng chứa đầy những mảnh lego rời rạc, lúc nào cũng tự sắp xếp, tự suy diễn rồi lại tự phá bỏ. Sự luẩn quẩn đó đôi khi khiến mình kiệt sức. Cho đến một ngày, mình nhận ra nếu không viết chúng ra, những suy nghĩ ấy sẽ mãi mãi bị giam cầm và đè nặng lên tâm trí mình mỗi ngày.
+
+Mình chỉ muốn có một nơi để ghi lại mọi thứ.
+
+Chỉ đơn giản là đặt xuống những suy nghĩ, những trải nghiệm, những bài học và cả những lần thử sai trên hành trình trưởng thành. Đó chính là lý do đầu tiên và giản dị nhất để HarryShare ra đời. 
+
+Mình là Quang Hiếu (mọi người vẫn hay gọi là Harry). Mình xuất thân từ dân IT, tốt nghiệp chuyên ngành phần mềm, nhưng rồi dòng đời đưa đẩy và bản thân lựa chọn rẽ lối sang làm Marketing. Đến nay, mình đã có khoảng 2 năm kinh nghiệm làm Marketing trong môi trường công nghệ. Trên hành trình đi qua những ngã rẽ đó, mình đã trải nghiệm nhiều môi trường khác nhau, từ những công việc tay chân như phục vụ nhà hàng, đến tư vấn giải pháp phần mềm cho doanh nghiệp, rồi tự tay làm marketing cho thương hiệu nhang thảo mộc truyền thống lâu đời của gia đình. 
+
+Mỗi chặng đường đi qua đều để lại cho mình những vết sẹo và cả những bông hoa. Có những lần thất bại vì thiếu vốn, thiếu kinh nghiệm vận hành; có những khi kiệt sức vì ôm đồm quá nhiều thứ; và cũng có cả những khoảnh khắc hạnh phúc khi sản phẩm mình làm ra được khách hàng trân quý đón nhận. Tất cả những điều đó đã nhào nặn nên mình của ngày hôm nay: một người trẻ biết nhìn nhận cuộc sống một cách lý trí hơn, trưởng thành hơn và luôn cố gắng tìm kiếm góc nhìn tích cực trong mọi hoàn cảnh.
+
+Nhiều người hỏi mình xây dựng HarryShare để làm gì? Có phải để làm thương hiệu cá nhân để sau này bán hàng, lùa gà hay bán khóa học không? 
+
+Mình muốn làm rõ một điều ngay từ đầu: HarryShare tuyệt đối không phải là một trang blog dạy đời. Mình không đứng trên sân khấu để khuyên bảo ai phải sống thế này hay thế kia. Mình viết trang web này trước hết là viết cho chính bản thân mình trước. Mình viết cho Quang Hiếu của 10 năm sau đọc lại, để sau này nhìn lại chặng đường tuổi trẻ, mình biết mình đã từng trăn trở điều gì, đã nỗ lực ra sao và đã không bỏ cuộc như thế nào.
+
+Mình tin vào triết lý "cho đi trước, nhận lại sau". Nếu trong lúc mình ghi chép cho chính mình, có một ai đó vô tình ghé qua đây, đọc được những câu chuyện của mình, thấy bóng dáng họ trong đó và học hỏi được điều gì đó hữu ích cho công việc hay cuộc sống của họ, thì đó là giá trị tốt lành mà mình rất hạnh phúc khi chia sẻ được.
+
+Về lâu dài, mình cũng có ước mơ xây dựng một doanh nghiệp tử tế của riêng mình, phát triển những sản phẩm sạch gắn liền với thiên nhiên – như truyền thống làm nhang thảo mộc của gia đình. Nhưng đó là câu chuyện của tương lai, khi mình đã tích lũy đủ năng lực, sự chín chắn và lòng tin bền vững từ mọi người. Còn hiện tại, mình chỉ muốn bắt đầu bằng sự chân thật nhất: viết thật, học thật và chia sẻ những giá trị thực tế.
+
+Cảm ơn bạn đã ghé thăm góc nhỏ của mình. Hy vọng bạn sẽ tìm thấy một chút bình yên hoặc một góc nhìn mới mẻ tại HarryShare.`,
+      coverImage: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      date: new Date("2026-05-30T00:00:00.000Z"),
+      categoryId: catCareerJourney.id,
+      views: 45,
+      likes: 12,
+      shares: 3,
+      comments: [
+        {
+          authorName: "Đức Anh",
+          authorEmail: "ducanh@gmail.com",
+          content: "Đọc những dòng tự sự của anh Hiếu thấy bình yên lạ kỳ. Chúc anh luôn vững vàng trên hành trình Solopreneur này và lan tỏa nhiều giá trị hơn nữa nhé.",
+          approved: true
+        },
+        {
+          authorName: "Minh Trang",
+          authorEmail: "trangm@yahoo.com",
+          content: "Rất đồng cảm với câu 'chỉ muốn có một nơi để ghi lại mọi thứ'. Nhiều khi viết ra là cách tốt nhất để đối thoại với chính mình.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Mình mê công nghệ vì mình thích giải quyết vấn đề",
+      slug: "minh-me-cong-nghe-vi-thich-giai-quyet-van-de",
+      description: "Công nghệ chỉ thực sự đẹp khi nó phục vụ cuộc sống và giải quyết các bài toán thực tế. Chia sẻ góc nhìn thực tế của một người mê công nghệ và cách ứng dụng AI làm bạn đồng hành tư duy.",
+      content: `Hồi còn đi học chuyên ngành Công nghệ phần mềm, mình từng bị cuốn vào những thuật toán phức tạp, những dòng code dài dằng dặc và các định nghĩa kỹ thuật cao siêu. Lúc đó, mình nghĩ công nghệ là một thế giới xa vời dành cho những bộ óc siêu việt. Nhưng sau khi ra trường, đi làm và bắt đầu cọ xát với thực tế kinh doanh, thế giới quan của mình về công nghệ đã thay đổi hoàn toàn.
+
+Mình nhận ra mình mê công nghệ không phải vì muốn tỏ ra sành điệu hay theo kịp xu hướng. Mình mê công nghệ đơn giản vì mình thích giải quyết vấn đề.
+
+Đối với mình, công nghệ hay nhất khi nó làm cuộc sống của chúng ta nhẹ nhàng hơn, giúp những công việc phức tạp trở nên trơn tru và hiệu quả hơn. Khi nhìn thấy ai đó đang loay hoay với một quy trình thủ công lặp đi lặp lại, hoặc gặp khó khăn trong việc quản lý dữ liệu, mình luôn cảm thấy tò mò. Mình thích đi tìm câu trả lời tối ưu nhất cho những bài toán đó bằng cách tận dụng sức mạnh của phần mềm và tự động hóa.
+
+Trong thời đại số hiện nay, sự phát triển của trí tuệ nhân tạo (AI) đã mở ra những khả năng hoàn toàn mới. Mình không xem AI như một thứ phép màu có thể thay thế con người hoàn toàn, mà coi nó như một người bạn đồng hành suy nghĩ (thinking partner). 
+
+Mỗi ngày làm việc, khi đối mặt với một chiến dịch Marketing mới hay một vấn đề kỹ thuật trên website, mình thường ngồi "thảo luận" với các công cụ AI như ChatGPT, Claude hay Gemini. Mình đặt câu hỏi, phản biện lại câu trả lời của AI và cùng nó bóc tách từng khía cạnh của vấn đề. Cách làm việc này giúp mình bớt overthinking, sắp xếp lại suy nghĩ ngăn nắp hơn và đưa ra quyết định nhanh hơn rất nhiều.
+
+Tuy nhiên, mình luôn giữ một nguyên tắc rõ ràng khi sử dụng công nghệ: một công cụ tốt không được làm mình lười đi, mà phải giúp tư duy của mình rõ ràng hơn. Nếu chúng ta chỉ phụ thuộc vào AI để nó làm thay mọi thứ mà không chịu suy nghĩ sâu xa, chúng ta sẽ dần đánh mất khả năng giải quyết vấn đề thực tế. Công nghệ chỉ là phương tiện, con người mới là thực thể định hướng và ra quyết định.
+
+Đừng học công nghệ vì nỗi sợ bị bỏ lại phía sau (FOMO). Hãy học công nghệ vì bạn muốn tìm một giải pháp tốt hơn cho cuộc sống và công việc của mình mỗi ngày. Khi bạn thay đổi góc nhìn từ "học công cụ" sang "giải quyết vấn đề", bạn sẽ thấy công nghệ trở nên gần gũi, thực tế và thú vị hơn rất nhiều.`,
+      coverImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      readTime: 4,
+      published: true,
+      date: new Date("2026-05-29T00:00:00.000Z"),
+      categoryId: catAiVibeCoding.id,
+      views: 38,
+      likes: 15,
+      shares: 2,
+      comments: [
+        {
+          authorName: "Quốc Bảo",
+          authorEmail: "quocbao@gmail.com",
+          content: "Thích góc nhìn thực tế này của anh. Công nghệ đúng là nên làm cuộc sống nhẹ đi chứ không phải làm mình rối hơn.",
+          approved: true
+        },
+        {
+          authorName: "Thu Thảo",
+          authorEmail: "thuthao@gmail.com",
+          content: "Em cũng đang tập cách dùng AI như một thinking partner. Công nhận nó giúp bớt overthinking và mở rộng góc nhìn rất nhiều.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Vì sao một dân IT như mình lại chọn Marketing?",
+      slug: "vi-sao-dan-it-nhu-minh-lai-chon-marketing",
+      description: "Chia sẻ chân thực về hành trình chuyển mình từ một lập trình viên thích giao tiếp sang thế giới của Marketing, và cách tư duy logic giúp giải quyết các bài toán thương hiệu.",
+      content: `Khi mình quyết định dừng công việc lập trình freelance để bước sang làm Marketing, rất nhiều bạn bè và đồng nghiệp cũ đã ngạc nhiên. Họ hỏi mình: "Đang làm coder ngồi máy lạnh gõ code lương ổn định, sao lại nhảy sang làm cái ngành suốt ngày phải chạy theo deadline quảng cáo, viết bài viết lách làm gì cho mệt?".
+
+Thực ra, quyết định đó không phải là một sự bộc phát hay "bộc lộ thất bại". Đó là kết quả của một quá trình tự quan sát bản thân sâu sắc.
+
+Ngay sau khi tốt nghiệp chuyên ngành Công nghệ phần mềm, mình dành hơn nửa năm làm freelance developer. Công việc viết code giúp mình rèn luyện tư duy logic rất tốt, nhưng việc ngồi một chỗ liên tục 8-10 tiếng trước màn hình laptop khiến cơ thể mình lên tiếng và bản thân cảm thấy thiếu thốn sự kết nối con người. Mình nhận ra mình là một người hướng ngoại, thích giao tiếp, thích quan sát tâm lý con người và mong muốn nhìn thấy sản phẩm mình làm ra mang lại giá trị trực tiếp cho khách hàng như thế nào. Và thế là, mình chọn Marketing làm ngã rẽ tiếp theo.
+
+Khi mới bắt đầu bước vào Marketing, mình cũng từng gặp nhiều bỡ ngỡ. Nhưng rất nhanh sau đó, mình phát hiện ra nền tảng IT không hề mất đi. Ngược lại, nó là một lợi thế cực kỳ lớn giúp mình làm Marketing khác biệt:
+
+Thứ nhất, đó là **tư duy hệ thống và logic**. Marketing hiện đại không chỉ có sự bay bổng của ngôn từ hay hình ảnh. Nó cần dữ liệu, cần đo lường và tối ưu hóa hệ thống. Khi lập kế hoạch SEO website, thiết lập các phễu marketing tự động (marketing automation) hay phân tích hành vi người dùng trên trang web, mình sử dụng chính tư duy phân tích của một lập trình viên để bóc tách số liệu.
+
+Thứ hai, đó là **khả năng tự xây dựng giải pháp**. Nhờ biết code và hiểu cấu trúc web, mình có thể tự tay tối ưu trải nghiệm người dùng (UX/UI) trên website mà không cần phải chờ đợi hay phụ thuộc vào đội ngũ kỹ thuật. Việc thấu hiểu cách vận hành của hệ thống giúp mình triển khai các chiến dịch online marketing nhanh chóng và mượt mà hơn.
+
+Đối với mình, Marketing không phải là việc làm màu hay tìm cách quảng cáo quá sự thật để bán được hàng. Marketing chân chính là thấu hiểu sâu sắc nỗi đau của khách hàng và dùng tư duy sản phẩm để mang đến cho họ giải pháp phù hợp nhất. Nền tảng IT giúp mình xây dựng phần "xương cốt" vững chắc về kỹ thuật và dữ liệu, còn Marketing cho mình phần "hồn" để kết nối cảm xúc với con người.
+
+Mình không hề bỏ lại IT phía sau. Mình chỉ đơn giản là mang theo tư duy kỹ thuật đi cùng trên hành trình chinh phục thế giới Marketing rộng lớn.`,
+      coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
       readTime: 5,
       published: true,
       date: new Date("2026-05-28T00:00:00.000Z"),
-      categoryId: catAiVibeCoding.id,
-      views: 154,
-      likes: 58,
-      shares: 18
+      categoryId: catPersonalBranding.id,
+      views: 52,
+      likes: 21,
+      shares: 4,
+      comments: [
+        {
+          authorName: "Hoàng Nam",
+          authorEmail: "hoangnam@gmail.com",
+          content: "Điểm giao thoa giữa logic kỹ thuật và thấu hiểu con người rất thú vị. Sự kết hợp này chắc chắn tạo nên lợi thế lớn cho anh.",
+          approved: true
+        },
+        {
+          authorName: "Hương Giang",
+          authorEmail: "huonggiang@gmail.com",
+          content: "Marketing dựa trên dữ liệu và quy trình tự động hóa đang là xu hướng. Thật tuyệt khi anh mang tư duy IT vào ngành này.",
+          approved: true
+        }
+      ]
     },
     {
-      title: "THƯƠNG HIỆU CÁ NHÂN TRONG THỜI ĐẠI SỐ: TRAO GIÁ TRỊ, NHẬN LÒNG TIN",
-      slug: "thuong-hieu-ca-nhan-thoi-dai-so",
-      description: "Tại sao xây dựng thương hiệu cá nhân không phải là \"lùa gà\" mà là chìa khóa mở ra sự tự do tài chính và tạo dựng giá trị thực tế trong thời đại số.",
-      content: "Um,... Bắt đầu từ đâu nhỉ...!\n\nDạo này lướt mạng xã hội, thấy người người nhà nhà làm thương hiệu cá nhân (Personal Branding). Nhiều bên làm bóng bẩy quá, nói đạo lý làm giàu nghe mà sợ.\n🫣 Thú thật là hồi xưa mình dị ứng lắm, cứ nghe tới thương hiệu cá nhân là nghĩ ngay tới mấy việc lùa gà, dạy làm giàu nhanh, hay mấy diễn giả tự phong.\n\nNhưng sau nhiều năm bôn ba qua đủ nghề, từ phục vụ Rex Hotel, bán hàng chay ở Vương Ngọc Vegan, đến chạy ads spa cho Tâm An, mình nhận ra một sự thật:\n👉🏻 Thương hiệu cá nhân thực chất chỉ là **sự tích lũy lòng tin** của mọi người dành cho bạn.\n👉🏻 Khi bạn không có mặt ở đó, người ta vẫn nhớ đến bạn vì một giá trị cụ thể nào đó bạn đã từng trao đi.\n\nTrong thời đại số và chuyển đổi số này, tại sao xây dựng thương hiệu cá nhân lại quan trọng đến thế?\n\n✍🏻 **Xây dựng lòng tin bền vững**: Giữa một rừng thông tin thật giả lẫn lộn, người ta chỉ mua hàng hoặc hợp tác với người họ tin tưởng.\n✍🏻 **Trao tặng giá trị trước, nhận lại sau**: Hãy chia sẻ những kiến thức thực tế, những bài học xương máu bạn đã trải qua mà không giấu nghề. Người nhận được giá trị sẽ tự động trân quý bạn.\n✍🏻 **Mở ra cơ hội tăng thu nhập (Income stream)**: Khi bạn có uy tín trong một ngách hẹp (ví dụ như marketing automation hay vibe coding), các cơ hội job, dự án freelance, cố vấn sẽ tự động tìm đến bạn mà bạn không cần phải đi năn nỉ xin việc.\n\nHarryShare này cũng vậy nhó. Mình viết ra trước hết là cho chính bản thân mình ghi nhớ, sau là chia sẻ điều tốt lành cho mọi người, không có lùa gà bán khóa học gì đâu nè. Nhưng từ đây, mình lại kết nối được với rất nhiều anh em chung chí hướng, mở ra bao nhiêu cơ hội mới.\n\nĐịnh vị bản thân ở ngách hẹp, kiên trì kể câu chuyện phía sau hậu trường (behind the scenes) của bạn một cách chân thành nhất. Đó chính là cách làm thương hiệu cá nhân bền vững nhất.\n\nHãy kiên trì gieo duyên lành nho Harry! Chúc anh em cũng sớm tìm thấy ngách đi riêng của mình nhó.\n\nP/s: Bài tiếp theo mình sẽ viết về triết lý \"Find Success By Limiting\" - cách thu hẹp ngách để nổi bật giữa đám đông. Anh em nhớ đón đọc i!\n\n#harrytapviet #harryshare",
-      coverImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
-      readTime: 6,
+      title: "Solopreneur trong đầu mình là gì?",
+      slug: "solopreneur-trong-dau-minh-la-gi",
+      description: "Solopreneur không phải là một trào lưu hào nhoáng để thể hiện bản thân. Đó là hành trình tự chịu trách nhiệm và kiên trì kiến tạo những giá trị thực tế.",
+      content: `Thời gian gần đây, cụm từ "Solopreneur" (người khởi nghiệp tự chủ) xuất hiện rất nhiều trên các phương tiện truyền thông. Nhiều người mô tả hành trình này rất hào nhoáng: tự do thời gian, làm việc ở bất cứ đâu mình thích, làm chủ chính mình và có nguồn thu nhập thụ động khổng lồ. 
+
+Tuy nhiên, khi bắt tay vào tự xây dựng những dự án nhỏ của riêng mình, mình nhận ra bức tranh thực tế không hề lung linh như vậy.
+
+Solopreneur trong định nghĩa của mình không phải là làm một mình cho ngầu, càng không phải là một lối thoát lười biếng để trốn tránh việc đi làm công sở. Thực chất, đó là hành trình bạn phải tự chịu trách nhiệm 100% với mọi quyết định của mình. Khi không còn sếp chỉ việc, không còn quy trình có sẵn của công ty, bạn vừa phải là người định hướng chiến lược, vừa phải là người trực tiếp bắt tay vào thực thi từng việc nhỏ nhất – từ viết content, tối ưu SEO, quản lý database đến chăm sóc khách hàng.
+
+Tại sao mình lại chọn con đường này?
+
+Bởi vì mình muốn tự tay kiến tạo những giá trị thực tế và có quyền kiểm soát chất lượng sản phẩm của mình. Khi làm việc trong các tổ chức lớn, đôi khi chúng ta phải thỏa hiệp với những quy trình cồng kềnh hoặc những định hướng kinh doanh không đồng nhất với giá trị cá nhân. Trở thành một Solopreneur cho phép mình được sống và làm việc đúng với niềm tin của bản thân: minh bạch, chân thực và tử tế.
+
+Để chuẩn bị cho hành trình này, mình tin rằng việc đầu tiên cần xây dựng không phải là sản phẩm thương mại để kiếm tiền ngay, mà là **xây dựng niềm tin**. Trong thế giới số đầy rẫy những lời hứa hẹn quá mức, lòng tin của khách hàng là tài sản quý giá nhất và cũng khó tích lũy nhất. Đó là lý do mình chọn đi chậm lại, bắt đầu bằng việc chia sẻ những giá trị miễn phí và viết nhật ký hành trình thật trên HarryShare.
+
+Làm Solopreneur cũng giống như việc bạn tự mình chèo lái một con thuyền nhỏ trên đại dương. Sẽ có những ngày giông bão, tự nghi ngờ bản thân và kiệt sức. Nhưng cảm giác được tự do quyết định hướng đi và tự tay tạo ra sản phẩm mang lại giá trị thật cho người dùng là một trải nghiệm vô cùng xứng đáng.`,
+      coverImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+      readTime: 4,
       published: true,
       date: new Date("2026-05-27T00:00:00.000Z"),
-      categoryId: catPersonalBranding.id,
-      views: 120,
-      likes: 49,
-      shares: 12
+      categoryId: catProductMindset.id,
+      views: 61,
+      likes: 19,
+      shares: 5,
+      comments: [
+        {
+          authorName: "Anh Tuấn",
+          authorEmail: "anhtuan@gmail.com",
+          content: "Rất chân thực anh ơi. Nhiều người cứ nghĩ Solopreneur là tự do nhàn hạ, nhưng thực ra là gánh vác 100% trách nhiệm.",
+          approved: true
+        },
+        {
+          authorName: "Thanh Vân",
+          authorEmail: "thanhvan@gmail.com",
+          content: "Bắt đầu từ sự chân thật và lòng tin là con đường bền vững nhất. Chúc anh gặt hái được nhiều quả ngọt!",
+          approved: true
+        }
+      ]
     },
     {
-      title: "TƯ DUY SẢN PHẨM: MỘT SẢN PHẨM NHƯ THẾ NÀO LÀ WIN?",
-      slug: "tu-duy-san-pham-nhu-the-nao-la-win",
-      description: "Phân tích sâu sắc về tư duy làm sản phẩm thắng cuộc (Win) dưới góc nhìn của một người từng thất bại và học hỏi không ngừng.",
-      content: "Chào mọi người ngày mới,\n\nHôm nay mình muốn ngồi lại tự sự một chút về tư duy làm sản phẩm (Product Thinking). Một chủ đề nghe có vẻ vĩ mô nhưng thực ra cực kỳ gần gũi.\n\n🫣 Trước đây khi làm dự án nhang Thảo Mộc Hương T&T, mình từng nghĩ chỉ cần sản phẩm thơm, tốt, bao bì đẹp là tự khắc người ta sẽ mua. Kết quả là sau 3 tháng phải tạm dừng vì thiếu vốn và không vận hành nổi. Đau đớn vô cùng!\nTừ thất bại đó, cộng với thời gian làm tư vấn phần mềm GoSell dồm thấy nỗi đau của hơn 50 doanh nghiệp, mình tự hỏi: **Một sản phẩm như thế nào mới được gọi là WIN?**\n\nTheo trải nghiệm của mình, một sản phẩm WIN phải hội tụ đủ các yếu tố này:\n\n✍🏻 **Giải quyết triệt để một nỗi đau thực tế (Pain Point)**: Sản phẩm của bạn không cần giải quyết mọi thứ trên đời. Chỉ cần giải quyết cực tốt một vấn đề nhức nhối của khách hàng. Khách hàng sẵn sàng trả tiền để nỗi đau đó biến mất.\n✍🏻 **Đơn giản đến mức tối đa (Simplicity)**: Đừng cố nhét quá nhiều tính năng. Người dùng bây giờ lười lắm nho! Sản phẩm càng ít bước để đạt được kết quả, sản phẩm đó càng dễ thắng.\n✍🏻 **Trải nghiệm Aha! Moment cực nhanh**: Ngay khi mở sản phẩm lên, trong vòng 30 giây đầu tiên, người dùng phải cảm nhận được giá trị cốt lõi của nó. Nếu bắt họ đăng ký rườm rà, điền form dài dòng, họ sẽ thoát ra ngay lập tức.\n✍🏻 **Có vòng lặp tăng trưởng tự thân (Product-Led Loop)**: Sản phẩm tốt là sản phẩm mà chính người dùng hiện tại sẽ giới thiệu cho người dùng mới thông qua các tính năng chia sẻ, tặng quà, hoặc đơn giản là vì nó quá tiện ích.\n\n👉🏻 Tóm lại, sản phẩm WIN không phải là sản phẩm có công nghệ phức tạp nhất, mà là sản phẩm **mang lại giá trị thực chất và dễ tiếp cận nhất** cho người dùng.\n👉🏻 Đừng bắt đầu từ việc: \"Tôi có công nghệ gì?\". Hãy bắt đầu từ việc: \"Người dùng đang đau ở đâu và tôi giúp họ giải quyết như thế nào?\".\n\nTự răn mình luôn ghi nhớ điều này khi xây dựng bất kỳ dự án nào trong tương lai nho Harry!\n\nAnh em có đồng ý với góc nhìn này của mình không? Để lại bình luận cho mình biết ý kiến với nhó!\n\nP/s: Sắp tới mình đang ấp ủ một sản phẩm số nhỏ hỗ trợ các marketer tự động hóa quy trình viết bài bằng AI. Khi nào xong sẽ gửi tặng mọi người dùng thử i!\n\n#harrytapviet #harryshare",
-      coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
-      readTime: 7,
+      title: "Một sản phẩm \"win\" nên bắt đầu từ vấn đề thật",
+      slug: "mot-san-pham-win-nen-bat-dau-tu-van-de-that",
+      description: "Phân tích về tư duy sản phẩm thắng cuộc (Win). Tại sao một sản phẩm tốt không bắt đầu từ công nghệ cao siêu, mà từ việc hiểu sâu sắc và giải quyết tốt nhất một nỗi đau thực tế.",
+      content: `Trong quá khứ, mình từng có một ảo tưởng rất lớn khi làm sản phẩm. Mình nghĩ chỉ cần sản phẩm của mình có chất lượng tốt, bao bì đẹp và bản thân mình thấy thích là tự khắc khách hàng sẽ tìm đến mua. Kết quả thực tế đã cho mình một bài học nhớ đời khi dự án phải tạm dừng sau vài tháng vận hành vì không giải quyết được bài toán đầu ra và dòng tiền.
+
+Từ thất bại của bản thân, cộng với khoảng thời gian tư vấn giải pháp cho nhiều khách hàng doanh nghiệp, mình bắt đầu tự hỏi: **Thế nào là một sản phẩm WIN thực thụ?**
+
+Nhà mình nhận ra một sản phẩm WIN không nhất thiết phải sở hữu công nghệ phức tạp nhất hay nhiều tính năng nhất. Sản phẩm thắng cuộc là sản phẩm giải quyết triệt để một nỗi đau có thật (Pain Point) của khách hàng một cách đơn giản và dễ dàng nhất.
+
+Khi xây dựng bất kỳ sản phẩm nào, chúng ta nên bám sát các nguyên lý cốt lõi sau:
+
+Một là, **bắt đầu từ nỗi đau thật**. Thay vì ngồi trong phòng kín và tự vẽ ra nhu cầu của thị trường, hãy đi ra ngoài, lắng nghe những khó khăn, những sự bất tiện mà mọi người đang gặp phải trong cuộc sống hoặc công việc hàng ngày. Khách hàng không mua sản phẩm của bạn vì nó có tính năng gì, họ trả tiền để nỗi đau của họ được biến mất.
+
+Hai là, **sự đơn giản tối đa**. Người dùng trong thời đại số rất thiếu kiên nhẫn. Nếu sản phẩm của bạn bắt họ phải đọc hướng dẫn sử dụng quá dài dòng hoặc trải qua quá nhiều bước đăng ký phức tạp để nhận được giá trị, họ sẽ rời đi ngay lập tức. Hãy làm cho sản phẩm đơn giản nhất có thể để khách hàng cảm nhận được giá trị cốt lõi ngay lập tức.
+
+Ba là, **tạo ra khoảnh khắc \"Aha!\" nhanh nhất**. Đây là khoảnh khắc người dùng lần đầu tiên trải nghiệm giá trị thực tế của sản phẩm và nhận ra: \"À, hóa ra công cụ này thực sự giúp ích cho mình!\". Rút ngắn thời gian dẫn đến khoảnh khắc này chính là chìa khóa để giữ chân người dùng ở lại lâu dài.
+
+Tóm lại, tư duy sản phẩm đúng đắn không bắt đầu bằng câu hỏi: \"Tôi có thể xây dựng công nghệ gì?\". Nó phải bắt đầu bằng câu hỏi: \"Khách hàng đang gặp khó khăn gì và tôi có thể giúp họ giải quyết vấn đề đó một cách đơn giản nhất như thế nào?\". Khắc ghi bài học này sẽ giúp mình và cả bạn tránh được những vết xe đổ lãng phí nguồn lực để xây dựng nên những sản phẩm thực sự có giá trị cho cộng đồng.`,
+      coverImage: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+      readTime: 4,
       published: true,
       date: new Date("2026-05-26T00:00:00.000Z"),
       categoryId: catProductMindset.id,
-      views: 185,
-      likes: 62,
-      shares: 20
+      views: 74,
+      likes: 28,
+      shares: 6,
+      comments: [
+        {
+          authorName: "Khánh Linh",
+          authorEmail: "khanhlinh@gmail.com",
+          content: "Bài học quá đắt giá! Em từng làm một app rất đẹp nhưng chẳng ai dùng vì chỉ là nhu cầu tự vẽ ra.",
+          approved: true
+        },
+        {
+          authorName: "Minh Triết",
+          authorEmail: "minhtriet@gmail.com",
+          content: "Simplicity và Aha! moment là 2 yếu tố em tâm đắc nhất. Cảm ơn anh đã chia sẻ bài viết cô đọng này.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Công nghệ hay nhất khi nó làm cuộc sống nhẹ hơn",
+      slug: "cong-nghe-lam-cuoc-song-nhe-hon",
+      description: "Góc nhìn cân bằng về công nghệ: không phải để nhồi nhét tính năng hay chạy đua AI, mà để giải phóng thời gian và giúp cuộc sống thường nhật trở nên nhẹ nhàng, bình yên hơn.",
+      content: `Chúng ta đang sống trong một kỷ nguyên mà mỗi ngày thức dậy đều có một công cụ AI mới ra đời, một bản cập nhật phần mềm mới được phát hành, hay một xu hướng công nghệ mới thu hút hàng triệu lượt thảo luận. Người ta đua nhau học cách dùng prompt, cách tích hợp API, cách tự động hóa mọi quy trình để x10, x20 hiệu suất. Bản thân mình, là một người xuất thân từ dân IT và đang làm Marketing trong ngành công nghệ, cũng từng bị cuốn vào làn sóng đó. Có những ngày, mình dành cả tiếng đồng hồ chỉ để thiết lập một hệ thống tự động hóa phức tạp để rồi nhận ra, nó chỉ giúp mình tiết kiệm được đúng 5 phút mỗi tuần.
+
+Chính lúc đó, mình tự hỏi bản thân: Ý nghĩa thực sự của công nghệ là gì?
+
+Mình nhận ra, công nghệ hay nhất và đẹp nhất không phải là khi nó phức tạp nhất hay sở hữu nhiều tính năng cao siêu nhất. Công nghệ tốt nhất là khi nó làm cuộc sống của chúng ta nhẹ nhàng hơn.
+
+Nhẹ nhàng ở đây không có nghĩa là lười biếng hay trốn tránh công việc. Nhẹ nhàng có nghĩa là giải phóng tâm trí chúng ta khỏi những tác vụ lặp đi lặp lại vô vị, để dành năng lượng cho những việc thực sự quan trọng: suy nghĩ sáng tạo, đưa ra chiến lược, hoặc đơn giản là có thêm thời gian để thở, để uống một tách cà phê và chăm sóc đời sống tinh thần của chính mình.
+
+In cuộc sống hàng ngày, mình ứng dụng công nghệ theo một cách rất thực dụng. Mình dùng các công cụ lưu trữ ghi chú đám mây để giải phóng bộ nhớ của não bộ, không cần phải cố nhớ mọi việc cần làm. Mình dùng chatbot AI như một người bạn để thảo luận ý tưởng, phản biện góc nhìn khi viết lách hay lên kế hoạch. Khi gặp một quy trình làm việc tẻ nhạt, mình thiết lập một luồng tự động hóa đơn giản để máy móc tự xử lý. 
+
+Nhưng điều quan trọng là, mình luôn biết điểm dừng. 
+
+Mình không cố biến cuộc sống của mình thành một chuỗi các thuật toán khô khan. Mình không cố gắng tối ưu hóa từng giây từng phút bằng công cụ. Mình hiểu rằng, công nghệ là công cụ để phục vụ con người, chứ không phải để biến con người thành những cỗ máy chạy đua với hiệu suất.
+
+Nếu bạn đang cảm thấy mệt mỏi trước làn sóng công nghệ dồn dập ngoài kia, hãy thử đi chậm lại một chút. Đừng cố gắng học mọi công cụ mới chỉ vì sợ bị bỏ lại. Hãy bắt đầu từ chính những khó khăn nhỏ nhất trong ngày của bạn, và tìm kiếm một giải pháp công nghệ đơn giản nhất để giải quyết nó. Khi công nghệ giúp cuộc sống của bạn nhẹ nhàng và bình yên hơn, đó mới là lúc nó thực sự phát huy giá trị cao nhất.`,
+      coverImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+      readTime: 4,
+      published: true,
+      date: new Date("2026-05-25T00:00:00.000Z"),
+      categoryId: catAiVibeCoding.id,
+      views: 89,
+      likes: 31,
+      shares: 4,
+      comments: [
+        {
+          authorName: "Quốc Bảo",
+          authorEmail: "quocbao@gmail.com",
+          content: "Thích góc nhìn thực tế này của anh. Công nghệ đúng là nên làm cuộc sống nhẹ đi chứ không phải làm mình rối hơn.",
+          approved: true
+        },
+        {
+          authorName: "Thu Thảo",
+          authorEmail: "thuthao@gmail.com",
+          content: "Em cũng đang tập cách dùng AI như một thinking partner. Công nhận nó giúp bớt overthinking và mở rộng góc nhìn rất nhiều.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Thương hiệu cá nhân không phải là lùa gà nếu bắt đầu từ sự thật",
+      slug: "thuong-hieu-ca-nhan-bat-dau-tu-su-that",
+      description: "Triết lý xây dựng thương hiệu cá nhân sạch: thương hiệu cá nhân không phải là phô trương, đạo lý làm giàu sáo rỗng, mà là tích lũy lòng tin bắt đầu từ những điều chân thật nhất.",
+      content: `Thú thật, trước đây mình từng rất dị ứng với cụm từ "Thương hiệu cá nhân". Mỗi lần nghe đến nó, đầu óc mình lại tự động liên tưởng đến những hình ảnh bóng bẩy trên mạng xã hội: những bộ vest lịch lãm chụp hình bên xe sang, những câu đạo lý làm giàu sáo rỗng, hay những lời hứa hẹn thay đổi cuộc đời nhanh chóng của các diễn giả tự phong. Đối với một người thích sự mộc mạc và rõ ràng như mình, những điều đó tạo cảm giác giả tạo và gượng ép. 
+
+Nhưng sau này, khi bước chân vào làm Marketing và quan sát kỹ hơn cách các mối quan hệ kinh doanh vận hành, mình đã thay đổi góc nhìn.
+
+Thương hiệu cá nhân thực chất không có gì cao siêu hay xấu xa. Nó đơn giản là **sự tích lũy lòng tin** của người khác dành cho bạn. Đó là những gì người ta nói về bạn khi bạn không có mặt trong phòng. 
+
+Và thương hiệu cá nhân sẽ tuyệt đối không phải là "lùa gà" nếu nó được bắt đầu và xây dựng từ chính sự thật.
+
+Trong thời đại số mà thông tin thật giả lẫn lộn, người đọc và khách hàng ngày càng thông minh hơn. Họ có thể dễ dàng nhận ra đâu là những nội dung được tô vẽ bóng bẩy để chuẩn bị bán hàng, và đâu là những chia sẻ chân thành từ trải nghiệm thực tế. Vì vậy, cách làm thương hiệu cá nhân bền vững nhất chính là sự chân thật:
+
+Một là, **chia sẻ trải nghiệm thật**. Đừng cố vẽ nên một hình ảnh hoàn hảo, không tì vết. Hãy dũng cảm chia sẻ cả những lần bạn thử sai, những thất bại và bài học xương máu mà bạn đã trải qua. Người đọc tin tưởng bạn không phải vì bạn luôn đúng, mà vì bạn dám thật thà đối diện với những sai lầm của mình.
+
+Hai là, **cho đi giá trị trước**. Thay vì vội vã thiết lập phễu bán hàng hay kêu gọi người khác mua sản phẩm của mình, hãy kiên trì viết và chia sẻ những kiến thức hữu ích mà bạn tích lũy được mà không giấu nghề. Khi bạn trao đi giá trị đủ lớn để giúp cuộc sống của người khác tốt hơn, lòng tin sẽ tự động được gieo mầm.
+
+Ba là, **nhất quán giữa lời nói và hành động**. Sản phẩm bạn bán phải là sản phẩm bạn tin tưởng và tự mình sử dụng. Giá trị bạn chia sẻ trên mạng phải đồng nhất với cách bạn sống và làm việc ở ngoài đời thực.
+
+Góc nhỏ HarryShare này cũng là nơi mình thực hành triết lý xây dựng thương hiệu cá nhân sạch. Mình viết trước hết để lưu giữ hành trình của bản thân, chia sẻ những gì mình thực sự hiểu và làm được. Mình tin rằng, cứ kiên trì gieo những duyên lành chân thật, quả ngọt của sự tin tưởng sẽ tự khắc đến mà không cần bất kỳ lời nói cường điệu nào.`,
+      coverImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      date: new Date("2026-05-24T00:00:00.000Z"),
+      categoryId: catPersonalBranding.id,
+      views: 94,
+      likes: 41,
+      shares: 5,
+      comments: [
+        {
+          authorName: "Anh Tuấn",
+          authorEmail: "anhtuan@gmail.com",
+          content: "Rất chân thực anh ơi. Nhiều người cứ nghĩ làm thương hiệu cá nhân là phô trương, nhưng từ sự thật mới là thứ bền nhất.",
+          approved: true
+        },
+        {
+          authorName: "Thanh Vân",
+          authorEmail: "thanhvan@gmail.com",
+          content: "Em rất thích tinh thần chia sẻ 'behind the scenes' của anh. Chúc anh gieo thêm nhiều hạt mầm ý nghĩa!",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Tại sao mình thích tự xây thứ của riêng mình?",
+      slug: "tai-sao-minh-thich-tu-xay-thu-cua-rieng-minh",
+      description: "Bài viết pillar về động lực sâu sắc của Solopreneur: tại sao việc kiến tạo một sản phẩm nhỏ nhưng do chính mình làm chủ lại mang đến sự tự chủ và hạnh phúc thực sự.",
+      content: `Trong suốt chặng đường đi làm thuê qua nhiều vị trí khác nhau, mình luôn hoàn thành tốt nhiệm vụ được giao. Mình học hỏi nhanh, thích ứng tốt và được đồng nghiệp quý mến. Thế nhưng, trong sâu thẳm, mình luôn có một cảm giác chưa trọn vẹn. Mỗi khi nhìn thấy một quy trình chưa tối ưu, một sản phẩm còn nhiều lỗi trải nghiệm của công ty, mình muốn thay đổi nhưng bộ máy vận hành cồng kềnh và những quyết định từ trên xuống thường không cho phép mình làm điều đó.
+
+Cảm giác đó thúc đẩy mình đi đến một quyết định: Mình muốn tự xây dựng một thứ gì đó của riêng mình.
+
+Tự xây thứ của riêng mình không phải vì mình muốn làm chủ để oai, hay để khoe khoang chức danh Founder trên trang cá nhân. Đối với mình, động lực sâu sắc nhất nằm ở hai chữ: **Tự chủ** và **Trách nhiệm**.
+
+Khi bạn tự tay xây dựng một sản phẩm, một trang web hay một dự án nhỏ, bạn có toàn quyền quyết định về chất lượng và định hướng của nó. Bạn không cần phải thỏa hiệp với những giá trị mà bản thân thấy không đúng chỉ để chạy theo các chỉ số KPI ngắn hạn của ban giám đốc. Bạn được tự do thử nghiệm những ý tưởng mới, tự chịu trách nhiệm hoàn toàn nếu nó thất bại, và tự rút ra bài học cho chính mình. Sự tự do lựa chọn và dám chịu trách nhiệm đó mang lại cho mình một nguồn năng lượng sống và làm việc vô cùng mạnh mẽ.
+
+Hơn thế nữa, việc tự mình làm chủ một sản phẩm nhỏ dạy cho mình tư duy bao quát (generalist setup). Bạn không còn chỉ là một mắt xích nhỏ trong dây chuyền. Bạn phải học cách nhìn toàn cảnh: từ nghiên cứu hành vi người dùng, thiết kế giao diện, viết code, làm nội dung đến cách tiếp cận khách hàng. Quá trình đó bắt buộc bạn phải phát triển toàn diện và trưởng thành nhanh chóng.
+
+Đương nhiên, tự xây dựng lối đi riêng đồng nghĩa với việc bạn phải đối mặt với sự cô đơn và những rủi ro tài chính không báo trước. Sẽ không có mức lương cố định đổ về tài khoản mỗi tháng, cũng không có quy trình sẵn có để bạn làm theo. Nhưng cảm giác nhìn thấy đứa con tinh thần của mình được hoàn thiện từng chút một, và nhận được những phản hồi trân quý từ những người dùng đầu tiên là một niềm hạnh phúc rất khó tả.
+
+Dự án HarryShare này là bước đi đầu tiên trong hành trình tự chủ của mình. Nó là phòng thí nghiệm nhỏ, nơi mình tự tay gõ từng dòng code, viết từng bài chia sẻ và kiến tạo những giá trị tử tế. Mình tin rằng, chỉ cần ta kiên trì gieo trồng những hạt mầm tốt lành bằng chính đôi tay của mình, khu vườn của riêng ta sẽ có ngày đơm hoa kết trái.`,
+      coverImage: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
+      readTime: 6,
+      published: true,
+      date: new Date("2026-05-23T00:00:00.000Z"),
+      categoryId: catProductMindset.id,
+      views: 110,
+      likes: 47,
+      shares: 8,
+      comments: [
+        {
+          authorName: "Đức Anh",
+          authorEmail: "ducanh@gmail.com",
+          content: "Tự chủ và Trách nhiệm - 2 từ khóa quá hay anh ơi. Tự mình làm chủ cái nhỏ trước cũng dạy mình lớn lên rất nhiều.",
+          approved: true
+        },
+        {
+          authorName: "Minh Trang",
+          authorEmail: "trangm@yahoo.com",
+          content: "Chúc khu vườn nhỏ HarryShare của anh Hiếu ngày càng đơm hoa kết trái ngọt ngào nha!",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Overthinking và lý do mình chọn viết ra",
+      slug: "overthinking-va-ly-do-minh-chon-viet-ra",
+      description: "Một bài viết nhẹ nhàng, chân thật về thói quen overthinking của Quang Hiếu, và cách đặt những suy nghĩ ngổn ngang lên trang giấy giúp tâm trí bình tĩnh và lý trí hơn.",
+      content: `Mình tự nhận mình là một kẻ overthinking chính hiệu. Đầu óc mình rất ít khi chịu im lặng. Chỉ cần một tình huống nhỏ xảy ra trong ngày – một email công việc chưa rõ ý, một quyết định Marketing cần đưa ra, hay thậm chí là một lời nhận xét bâng quơ của người quen – cũng có thể kích hoạt cả một chuỗi suy nghĩ dài dằng dặc trong đầu mình. Mình sẽ tự động phân tích mọi kịch bản có thể xảy ra, suy diễn các hướng đi tiêu cực nhất rồi lại cố tìm giải pháp cho những vấn đề thậm chí chưa từng tồn tại.
+
+Sự suy nghĩ quá mức đó đã có lúc làm mình kiệt sức, mất ngủ và tự nghi ngờ bản thân. 
+
+Nhưng rồi, sau nhiều lần chật vật tự đối thoại, mình tìm ra một liều thuốc giải đơn giản mà hiệu quả đến bất ngờ: **Viết ra**.
+
+Khi những suy nghĩ ngổn ngang còn nằm trong đầu, chúng giống như một cuộn len bị rối nùi. Bạn càng cố gỡ trong tư tưởng, cuộn len càng thắt chặt lại. Nhưng khi bạn cầm bút đặt lên trang giấy, hoặc mở máy tính lên gõ từng dòng chữ, một điều kỳ diệu sẽ xảy ra: bạn bắt buộc phải chuyển hóa những cảm xúc mơ hồ thành những ngôn từ có cấu trúc. 
+
+Quá trình viết ra giúp mình đạt được ba điều:
+
+Thứ nhất, nó tạo ra **khoảng cách an toàn**. Khi nhìn những suy nghĩ của mình được hiển thị trên trang giấy, mình không còn cảm thấy mình đang "ở trong" mớ hỗn độn đó nữa. Mình có thể quan sát chúng từ bên ngoài như một người quan sát độc lập và khách quan hơn.
+
+Thứ hai, nó giúp mình **lọc bỏ ảo tưởng**. Rất nhiều nỗi sợ do overthinking tạo ra thực chất chỉ là do trí tưởng tượng tự vẽ lên. Khi viết ra và nhìn nhận lại một cách lý trí, mình nhận ra: "À, hóa ra câu chuyện này không tệ đến thế, và mình hoàn toàn có thể kiểm soát được."
+
+Thứ thích, viết ra giúp mình **nhìn thấy hướng tích cực**. Trong mỗi tình huống khó khăn, mình luôn tự đặt câu hỏi trên giấy: Nếu nhìn theo hướng tiêu cực thì sao? Và nếu nhìn theo hướng tích cực, mình sẽ học được bài học gì? Việc chủ động lựa chọn góc nhìn tích cực giúp thế giới quan của mình trở nên nhẹ nhàng và đẹp đẽ hơn rất nhiều.
+
+HarryShare này cũng bắt đầu từ chính thói quen viết ấy. Mình viết trước hết là để tự chữa lành và sắp xếp lại tâm trí của mình. Nếu bạn cũng là một kẻ overthinking giống mình, mỗi khi cảm thấy đầu óc quá tải, đừng cố suy nghĩ thêm nữa. Hãy thử lấy một tờ giấy, đặt bút xuống và viết ra tất cả những gì đang chạy trong đầu. Bạn sẽ thấy lòng mình nhẹ đi và mọi thứ dần trở nên rõ ràng hơn rất nhiều.`,
+      coverImage: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      date: new Date("2026-05-22T00:00:00.000Z"),
+      categoryId: catCareerJourney.id,
+      views: 76,
+      likes: 35,
+      shares: 3,
+      comments: [
+        {
+          authorName: "Khánh Linh",
+          authorEmail: "khanhlinh@gmail.com",
+          content: "Viết ra đúng là cách tốt nhất để giải phóng tâm trí. Em cũng có thói quen viết journal mỗi khi đầu óc quá tải.",
+          approved: true
+        },
+        {
+          authorName: "Minh Triết",
+          authorEmail: "minhtriet@gmail.com",
+          content: "Cách phân tích cuộn len rối rất hình tượng anh ơi. Cảm ơn anh vì bài viết rất đồng điệu này.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Vì sao mình bắt đầu nghĩ về sản phẩm sạch?",
+      slug: "vi-sao-minh-bat-dau-nghi-ve-san-pham-sach",
+      description: "Hành trình chiêm nghiệm về sản phẩm sạch, lý do gia đình Quang Hiếu gắn bó với nhang thảo mộc truyền thống tự nhiên và khát vọng làm ra những sản phẩm an lành, tử tế.",
+      content: `Trong xã hội hiện đại, chúng ta đang bị bủa vây bởi sự vội vã và những sản phẩm công nghiệp sản xuất hàng loạt. Thực phẩm chứa hóa chất bảo quản, đồ dùng tiện lợi chứa vi nhựa, và cả những mùi hương nhân tạo nồng hắc được tạo nên từ các hợp chất hóa học tổng hợp. Đi qua những ngày tháng làm việc căng thẳng ở thành phố lớn, có những lúc trở về nhà, mình cảm thấy ngột ngạt trước sự thiếu vắng của tự nhiên.
+
+Cảm giác đó, cộng với nền tảng truyền thống lâu đời của gia đình, đã nhen nhóm trong mình câu hỏi: Tại sao mình không hướng tới việc xây dựng những sản phẩm sạch thực sự?
+
+Gia đình mình có truyền thống làm nhang tự nhiên lâu đời. Từ nhỏ, mình đã lớn lên cùng mùi thơm mộc mạc của các loại thảo mộc, hương trầm và những nguyên liệu thô được chuẩn bị thủ công. Đó không phải là mùi hương hóa chất tạo cảm giác nồng nặc và gây nhức đầu, mà là mùi hương nhẹ nhàng, ấm áp giúp tâm trí lắng dịu lại sau một ngày dài. Nhang thảo mộc không chỉ là một sản phẩm tâm linh hay thói quen sinh hoạt thường nhật, với gia đình mình, đó là sự gắn kết với tự nhiên và sự trân quý sức khỏe của người dùng.
+
+Khi mình bắt đầu bước vào tìm hiểu nghiêm túc về quy trình làm nhang và tư duy sản phẩm sạch, mình đặt ra ba nguyên tắc cốt lõi:
+
+Một là, **Minh bạch**. Một sản phẩm sạch đúng nghĩa không nên chỉ sạch trên lời quảng cáo. Mình muốn người dùng hiểu rõ sản phẩm chứa những gì, nguyên liệu từ đâu, và quy trình chuẩn bị thủ công gắn liền với tự nhiên ra sao. Sự thật chính là nền tảng của niềm tin.
+
+Hai là, **Sản phẩm mình bán phải là sản phẩm mình dùng**. Mỗi hộp nhang, mỗi sản phẩm thảo mộc làm ra trước hết phải an toàn cho chính gia đình mình và những người thân yêu sử dụng hàng ngày. Nếu bản thân mình còn e ngại về chất lượng, tuyệt đối không bao giờ được mang trao đến tay khách hàng.
+
+Ba là, **Tử tế dài hạn**. Xây dựng sản phẩm sạch đòi hỏi dòng vốn bền bỉ và sự kiên trì đi qua nhiều khó khăn về nguồn nguyên liệu và quy trình sản xuất thủ công tốn thời gian. Nó không thể mang lại lợi nhuận nhanh chóng như hàng công nghiệp hóa chất. Nhưng mình tin rằng, việc kinh doanh tử tế, tạo công ăn việc làm lành mạnh và mang lại sự an lành cho đời sống tinh thần của bà con mới là giá trị bền vững nhất.
+
+Ước mơ về một thương hiệu sản phẩm sạch tử tế vẫn đang được mình nỗ lực chuẩn bị từng bước nhỏ mỗi ngày. Mình không vội vã rao bán, mình chọn đi chậm lại để thấu hiểu sản phẩm sâu sắc hơn. Và hành trình chuẩn bị đó, mình muốn ghi lại từng chút một trên HarryShare, như một lời tự nhắc nhở bản thân luôn giữ vững cái tâm ban đầu khi làm nghề.`,
+      coverImage: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      date: new Date("2026-05-21T00:00:00.000Z"),
+      categoryId: catProductMindset.id,
+      views: 125,
+      likes: 54,
+      shares: 9,
+      comments: [
+        {
+          authorName: "Hương Giang",
+          authorEmail: "huonggiang@gmail.com",
+          content: "Tuyệt vời quá anh ơi. Sản phẩm sạch từ cái tâm gia đình thế này thì cực kỳ đáng quý và ủng hộ ạ.",
+          approved: true
+        },
+        {
+          authorName: "Quốc Bảo",
+          authorEmail: "quocbao@gmail.com",
+          content: "Sản phẩm mình bán cũng là sản phẩm mình dùng - triết lý đơn giản nhưng cực kỳ giá trị. Hóng ngày sản phẩm ra mắt!",
+          approved: true
+        }
+      ]
     }
   ];
 
-  for (const item of postsData) {
+  for (const postItem of postsData) {
+    const { comments, ...item } = postItem;
     const post = await prisma.post.create({ data: item });
     
-    // Seed some approved comments
-    await prisma.comment.create({
-      data: {
-        postId: post.id,
-        authorName: "Đức Anh",
-        authorEmail: "ducanh@gmail.com",
-        content: "Bài viết chia sẻ rất chân thành và thấm thía anh ơi! Em cũng từng chạy theo tính năng mà quên mất khách hàng thực sự cần gì.",
-        approved: true
+    if (comments && comments.length > 0) {
+      for (const comment of comments) {
+        await prisma.comment.create({
+          data: {
+            postId: post.id,
+            ...comment
+          }
+        });
       }
-    });
-
-    await prisma.comment.create({
-      data: {
-        postId: post.id,
-        authorName: "Minh Trang",
-        authorEmail: "trangm@yahoo.com",
-        content: "Giọng văn ấm áp và cực kỳ thực tế. Chúc Harry gieo thêm nhiều hạt mầm ý nghĩa nhó!",
-        approved: true
-      }
-    });
+    }
   }
 
   // 6. Seed project resources
@@ -256,8 +627,8 @@ async function main() {
   console.log('Seeding hero slideshow...');
   const slides = [
     { imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80", order: 0 },
-    { imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80", order: 1 },
-    { imageUrl: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=800&q=80", order: 2 }
+    { imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80", order: 1 },
+    { imageUrl: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80", order: 2 }
   ];
   for (const s of slides) {
     await prisma.heroSlide.create({ data: s });
@@ -292,7 +663,7 @@ async function main() {
       role: "Marketer & AI Automation Leader",
       iconName: "Cloud",
       description: "Gia nhập CloudFly - một công ty công nghệ chuyên cung cấp cơ sở hạ tầng cloud. Tại đây, mình được đắm mình vào thế giới của công nghệ, AI và SEO website chuyên sâu. Với vai trò Leader team sáng tạo cùng AI và nghiên cứu tự động hóa (automation) cho marketing, mình không chỉ làm việc mà còn đồng hành và học cách tối ưu hóa hiệu suất cùng các trợ lý AI thông minh. Mỗi tối, mình vẫn kiên trì rèn luyện tiếng Anh qua Brainkey với ước mơ một ngày tự tin trò chuyện cùng bạn bè quốc tế.",
-      lesson: "Bài học: Làm bạn với AI và ứng dụng tự động hóa là chìa khóa x10 hiệu suất công việc trong thời đại số.",
+      lesson: "Bài học: Làm bạn với AI và ứng dụng tự động hóa là khóa học x10 hiệu suất công việc trong thời đại số.",
       order: 1
     },
     {

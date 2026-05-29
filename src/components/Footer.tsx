@@ -55,7 +55,7 @@ export default function Footer() {
   const topics = [
     { name: 'Tư duy sản phẩm', path: '/chia-se?category=tu-duy-san-pham' },
     { name: 'Thương hiệu cá nhân', path: '/chia-se?category=thuong-hieu-ca-nhan' },
-    { name: 'AI & Vibe Coding', path: '/chia-se?category=ai-vibe-coding' },
+    { name: 'Công nghệ & AI', path: '/chia-se?category=cong-nghe-ai' },
     { name: 'Hành trình làm nghề', path: '/chia-se?category=hanh-trinh-lam-nghe' },
   ];
 
@@ -72,7 +72,7 @@ export default function Footer() {
               <span className="font-serif text-lg font-bold text-olive tracking-wide">HarryShare</span>
             </Link>
             <p className="text-sm text-stone-600 leading-relaxed font-sans max-w-sm">
-              HarryShare là góc nhỏ chia sẻ về tư duy sản phẩm, thương hiệu cá nhân, làn sóng AI, vibe coding và câu chuyện chân thực về hành trình làm nghề của Harry.
+              HarryShare là góc nhỏ chia sẻ về tư duy sản phẩm, thương hiệu cá nhân, công nghệ, AI và câu chuyện chân thực về hành trình làm nghề của Harry.
             </p>
             <p className="text-xs text-stone-400 font-semibold uppercase tracking-wider mt-2">
               © {new Date().getFullYear()} HarryShare. All rights reserved.

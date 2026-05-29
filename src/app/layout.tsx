@@ -21,8 +21,8 @@ const merriweather = Merriweather({
 
 export const metadata: Metadata = {
   title: 'HarryShare.vn - Tư duy sản phẩm & Thương hiệu cá nhân',
-  description: 'Chia sẻ chân thực về tư duy làm sản phẩm, xây dựng thương hiệu cá nhân bền vững, làn sóng AI & Vibe Coding và câu chuyện hành trình 10 năm làm nghề của Harry.',
-  keywords: ['HarryShare', 'Tư duy sản phẩm', 'Thương hiệu cá nhân', 'Vibe Coding', 'Solopreneur', 'Quang Hiếu', 'SaaS', 'AI'],
+  description: 'Chia sẻ chân thực về tư duy làm sản phẩm, xây dựng thương hiệu cá nhân bền vững, thế giới Công nghệ & AI và câu chuyện hành trình làm nghề của Harry.',
+  keywords: ['HarryShare', 'Tư duy sản phẩm', 'Thương hiệu cá nhân', 'Công nghệ & AI', 'Solopreneur', 'Quang Hiếu', 'SaaS', 'AI'],
   authors: [{ name: 'Harry (Quang Hiếu)' }],
   openGraph: {
     title: 'HarryShare.vn - Tư duy sản phẩm & Thương hiệu cá nhân',
