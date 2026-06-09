@@ -89,6 +89,7 @@ export default function SettingsClient({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Media Drawer Controls
+  const [isMediaDrawerOpen, setIsMediaDrawerOpen] = useState(false);
   const [mediaTarget, setMediaTarget] = useState<'slide' | 'about-avatar' | 'about-timeline' | null>(null);
   const [editingSlideId, setEditingSlideId] = useState<string | null>(null);
 
