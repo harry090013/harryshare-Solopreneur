@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
+import { db } from '@/lib/db';
 
-// 1. Rule-based intelligence engine in Harry's tone
+// 1. Rule-based intelligence engine in Harry's tone (local fallback)
 const getLocalResponse = (message: string): string => {
   const msg = message.toLowerCase().trim();
 
-  // Normalize Vietnamese accent marks slightly for broader matches
   const contains = (...keywords: string[]) => {
     return keywords.some(keyword => msg.includes(keyword));
   };
@@ -37,13 +37,12 @@ const getLocalResponse = (message: string): string => {
     return 'Không có gì nè! Rất vui được trò chuyện với bạn. Chúc bạn một ngày thật nhiều cảm hứng và năng lượng tích cực nha! Có câu hỏi gì cứ thoải mái nhắn mình nha. ✨';
   }
 
-  // Fallback smart response
   return 'Câu hỏi của bạn rất thú vị! Dưới góc nhìn của một Solopreneur, mình nghĩ việc liên tục thử nghiệm, đúc kết bài học chân thực và chia sẻ nó là vô cùng quan trọng. Bạn có muốn đi sâu thảo luận về Tư duy làm sản phẩm (SaaS), xây dựng Thương hiệu cá nhân hay cách ứng dụng Công nghệ & AI để tăng năng suất làm việc không?';
 };
 
 export async function POST(request: Request) {
   try {
-    const { message } = await request.json();
+    const { message, history } = await request.json();
 
     if (!message) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
@@ -51,9 +50,84 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.GEMINI_API_KEY;
 
-    // If API Key is present, attempt to use Google Gemini API
+    // 1. Fetch context from Database (RAG)
+    let contextText = '';
+    try {
+      const cleanMessage = message.toLowerCase()
+        .replace(/[^a-z0-9àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\s]/g, '')
+        .trim();
+      
+      const words = cleanMessage.split(/\s+/).filter((w: string) => w.length > 2);
+
+      if (words.length > 0) {
+        const posts = await db.post.findMany({
+          where: {
+            published: true,
+            OR: [
+              ...words.map((word: string) => ({ title: { contains: word, mode: 'insensitive' as const } })),
+              ...words.map((word: string) => ({ description: { contains: word, mode: 'insensitive' as const } })),
+              ...words.map((word: string) => ({ content: { contains: word, mode: 'insensitive' as const } }))
+            ]
+          },
+          take: 3,
+          select: {
+            title: true,
+            slug: true,
+            description: true
+          }
+        });
+
+        if (posts.length > 0) {
+          contextText = "\nDưới đây là danh sách bài viết liên quan của bạn (Quang Hiếu) khớp với nội dung hỏi:\n" +
+            posts.map(p => `- Tiêu đề: "${p.title}"\n  Đường dẫn: "/chia-se/${p.slug}"\n  Mô tả ngắn: "${p.description}"`).join('\n');
+        }
+      }
+    } catch (dbErr) {
+      console.error('Error fetching context for chat RAG:', dbErr);
+    }
+
+    // 2. If API Key is present, call Google Gemini API
     if (apiKey && apiKey.trim() !== '') {
       try {
+        const systemPrompt = `Bạn là Harry (Quang Hiếu), chủ sở hữu và tác giả của blog HarryShare.vn. Bạn đang trò chuyện trực tiếp với độc giả ghé thăm website thông qua khung chat.
+
+Hãy trò chuyện bằng phong cách tự sự sâu lắng, chân thành, nhiệt huyết, ấm áp và khiêm tốn của một công nghệ Solopreneur (28 tuổi, từng đi qua nhiều công việc vất vả như phục vụ tiệc cưới Rex Hotel, quản lý quán chay Ưu Đàm, làm tư vấn GoSell, trưởng phòng Marketing Tâm An Spa, team leader AI Marketing tại CloudFly).
+Hãy xưng hô "mình" (hoặc "Harry") và gọi độc giả là "bạn". Tránh dùng từ ngữ sáo rỗng, tránh giọng chuyên gia dạy đời. Hãy trả lời ngắn gọn, tập trung, đi vào cốt lõi và truyền tải năng lượng tích cực.
+
+Bản đồ cấu trúc website HarryShare.vn để bạn giới thiệu chính xác cho độc giả khi họ hỏi web có gì hoặc cần tìm kiếm:
+- Trang chủ (/): Giới thiệu chung và 3 trụ cột định hướng (Ghi lại hành trình, Chia sẻ & Tặng quà, Kinh doanh & Đồng hành).
+- Góc chia sẻ (/chia-se): Blog chứa toàn bộ bài viết chia sẻ thuộc 4 danh mục chính:
+  1. Tư duy sản phẩm (slug: tu-duy-san-pham) - nói về cách xây MVP, sản phẩm tinh gọn, Product-Led Growth.
+  2. Thương hiệu cá nhân (slug: thuong-hieu-ca-nhan) - cách xây dựng uy tín từ giá trị thật.
+  3. Công nghệ & AI (slug: cong-nghe-ai) - cách ứng dụng AI tool, automation để tối ưu cuộc sống và nhẹ việc.
+  4. Hành trình làm nghề (slug: hanh-trinh-lam-nghe) - nhật ký sự nghiệp, bài học cuộc sống, đối mặt overthinking.
+- Dự án & Tài nguyên (/du-an-tai-nguyen): Nơi chia sẻ các công cụ và tài nguyên miễn phí như "Notion Workspace: Trọn Bộ Template Quản Lý Vận Hành Và Đời Sống".
+- Sản phẩm (/san-pham): Nơi cung cấp các sản phẩm hữu ích như gói Cố vấn 1-1 Xây dựng Sản phẩm, Cẩm nang Solopreneur khởi nghiệp tinh gọn.
+- Về Harry (/ve-harry): Trang giới thiệu chi tiết tiểu sử và 9 cột mốc chặng đường tự học của Harry.
+- Liên hệ (/lien-he): Biểu mẫu gửi tin nhắn kết nối trực tiếp đến Harry.
+
+${contextText ? `\nNgữ cảnh bài viết tìm kiếm được từ cơ sở dữ liệu liên quan đến câu hỏi:${contextText}\n\nHƯỚNG DẪN: Hãy giới thiệu khéo léo bài viết này và cung cấp liên kết Markdown tương ứng (ví dụ: "[Tiêu đề bài viết](/chia-se/slug-bai-viet)") để độc giả có thể nhấp vào đọc chi tiết.` : ''}
+
+LƯU Ý QUAN TRỌNG:
+- Trả lời đúng trọng tâm câu hỏi. Nếu độc giả hỏi ngắn hoặc tiếp nối câu chuyện trước, hãy dựa vào lịch sử chat để trả lời tự nhiên.
+- Không lặp lại lời chào của hệ thống nếu cuộc hội thoại đã bắt đầu.`;
+
+        // Format chat contents with history
+        let formattedContents = [];
+        if (history && Array.isArray(history) && history.length > 0) {
+          formattedContents = history.map((h: any) => ({
+            role: h.role === 'model' ? 'model' : 'user',
+            parts: [{ text: h.text }]
+          }));
+        } else {
+          formattedContents = [
+            {
+              role: 'user',
+              parts: [{ text: message }]
+            }
+          ];
+        }
+
         const response = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
           {
@@ -62,25 +136,16 @@ export async function POST(request: Request) {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              contents: [
-                {
-                  parts: [
-                    {
-                      text: `Bạn là Harry (Quang Hiếu), tác giả của blog HarryShare.vn. Hãy trò chuyện với độc giả bằng giọng văn tiếng Việt thân thiện, khiêm tốn, nhiệt huyết, ấm áp và giàu kinh nghiệm của một công nghệ Solopreneur (28 tuổi, từng làm phục vụ bàn, POD, freelance developer, content marketer). Hãy nói xưng "mình" hoặc "Harry" và gọi đối phương là "bạn". Hãy trả lời ngắn gọn, tập trung và truyền cảm hứng.
-                      
-Thông tin cốt lõi về Harry để trả lời:
-- Tư duy sản phẩm (Product Thinking): giải quyết nỗi đau người dùng đơn giản nhất, tối ưu Aha! Moment, Product-Led Growth.
-- Thương hiệu cá nhân: kiên trì chia sẻ giá trị thực, nhất quán, không phô trương sáo rỗng.
-- Công nghệ & AI: ứng dụng công cụ hữu ích, AI tool (ChatGPT, Claude, Gemini), tự động hóa giúp giải quyết vấn đề thực tế, nhẹ việc.
-- Hành trình làm nghề: Phục vụ bàn -> Tư vấn GoSell -> Content & SEO -> Solopreneur tự do.
-
-Độc giả hỏi: "${message}"`
-                    }
-                  ]
-                }
-              ],
+              systemInstruction: {
+                parts: [
+                  {
+                    text: systemPrompt
+                  }
+                ]
+              },
+              contents: formattedContents,
               generationConfig: {
-                maxOutputTokens: 300,
+                maxOutputTokens: 400,
                 temperature: 0.7,
               }
             }),
@@ -99,11 +164,10 @@ Thông tin cốt lõi về Harry để trả lời:
       }
     }
 
-    // Fallback to local rule engine
+    // 3. Fallback to local rule engine
     const reply = getLocalResponse(message);
-    // Simulate a slight network latency for realistic chat feeling
     await new Promise((resolve) => setTimeout(resolve, 600));
-    
+
     return NextResponse.json({ reply });
   } catch (error) {
     console.error('Chat endpoint error:', error);

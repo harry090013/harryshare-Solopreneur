@@ -7,7 +7,7 @@ import { db } from '@/lib/db';
 import ReadingProgressBar from '@/components/ReadingProgressBar';
 import PostInteractions from '@/components/PostInteractions';
 import PostComments from '@/components/PostComments';
-import AudioReader from '@/components/AudioReader';
+// import AudioReader from '@/components/AudioReader';
 
 export const revalidate = 60;
 
@@ -182,8 +182,9 @@ Thương hiệu cá nhân không thể xây dựng sau một đêm. Hãy tận h
           />
         </div>
 
-        {/* AI Bilingual Audio Reader */}
+        {/* AI Bilingual Audio Reader (Temporarily hidden)
         <AudioReader content={post.content} title={post.title} />
+        */}
 
         {/* Markdown Rendered Content */}
         <div className="prose prose-stone max-w-none prose-headings:font-serif prose-headings:font-bold prose-headings:text-stone-850 prose-p:text-stone-700 prose-p:leading-relaxed prose-a:text-olive hover:prose-a:text-olive-dark prose-a:font-semibold prose-blockquote:border-l-4 prose-blockquote:border-olive prose-blockquote:bg-sand/30 prose-blockquote:pl-4 prose-blockquote:py-1 prose-blockquote:rounded-r-lg font-sans text-stone-700 text-base md:text-lg flex flex-col gap-6">

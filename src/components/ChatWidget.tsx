@@ -58,10 +58,18 @@ export default function ChatWidget() {
     setIsTyping(true);
 
     try {
+      const chatHistory = [...messages, userMsg].slice(-7).map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'model',
+        text: msg.text
+      }));
+
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: textToSend }),
+        body: JSON.stringify({ 
+          message: textToSend,
+          history: chatHistory
+        }),
       });
       const data = await res.json();
       
