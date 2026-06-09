@@ -834,11 +834,11 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                         components={{
                           h2: ({node, ...props}) => <h2 className="text-lg font-bold font-serif text-stone-850 mt-6 mb-3 leading-snug border-b border-olive/5 pb-1" {...props} />,
                           h3: ({node, ...props}) => <h3 className="text-base font-bold font-serif text-stone-850 mt-4 mb-2 leading-snug" {...props} />,
-                          p: ({node, ...props}) => <p className="leading-relaxed mb-3 text-stone-700 text-xs md:text-sm" {...props} />,
+                          p: ({node, ...props}) => <p className="leading-relaxed mb-3 text-stone-700 text-xs md:text-sm text-justify" {...props} />,
                           blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-olive bg-sand/30 pl-3 py-1 my-3 rounded-r-lg font-serif italic text-stone-600 text-xs" {...props} />,
                           ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 flex flex-col gap-1 text-stone-700 text-xs" {...props} />,
                           ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 flex flex-col gap-1 text-stone-700 text-xs" {...props} />,
-                          li: ({node, ...props}) => <li className="leading-relaxed" {...props} />,
+                          li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
                           strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
                           a: ({node, ...props}) => <a className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props} />,
                         }}

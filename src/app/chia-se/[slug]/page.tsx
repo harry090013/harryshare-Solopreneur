@@ -191,11 +191,11 @@ Thương hiệu cá nhân không thể xây dựng sau một đêm. Hãy tận h
             components={{
               h2: ({node, ...props}) => <h2 className="text-2xl font-bold font-serif text-stone-850 mt-8 mb-4 leading-snug border-b border-olive/5 pb-2" {...props} />,
               h3: ({node, ...props}) => <h3 className="text-xl font-bold font-serif text-stone-850 mt-6 mb-3 leading-snug" {...props} />,
-              p: ({node, ...props}) => <p className="leading-relaxed mb-4 text-stone-700" {...props} />,
+              p: ({node, ...props}) => <p className="leading-relaxed mb-4 text-stone-700 text-justify" {...props} />,
               blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-olive bg-sand/30 pl-4 py-2 my-4 rounded-r-lg font-serif italic text-stone-600" {...props} />,
               ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
               ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
-              li: ({node, ...props}) => <li className="leading-relaxed" {...props} />,
+              li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
               strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
               a: ({node, ...props}) => <a className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props} />,
             }}
