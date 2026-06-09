@@ -567,6 +567,65 @@ Ba là, **Tử tế dài hạn**. Xây dựng sản phẩm sạch đòi hỏi d�
           approved: true
         }
       ]
+    },
+    {
+      title: "Ngày bà nội mất, mình chọn dừng lại để bắt đầu lại thực sự",
+      slug: "ngay-ba-noi-mat-minh-chon-dung-lai-de-bat-dau-lai",
+      description: "Một bài viết tự sự sâu lắng về cột mốc ngày 01/06/2026 – khi biến cố lớn của gia đình thúc đẩy Quang Hiếu rời bỏ công việc Marketing tại CloudFly để định hình lại cuộc sống, rèn luyện sức khỏe và bắt tay tái khởi nghiệp Thảo Mộc Hương lần thứ hai.",
+      content: `Ngày 01/06/2026 sẽ mãi là một cột mốc khắc sâu vào tâm khảm của mình. Đó là ngày bà nội mình qua đời.
+
+Sự ra đi của bà là một nỗi đau quá lớn, một khoảng trống không gì bù đắp nổi trong cuộc đời mình. Trong những ngày đứng bên linh cữu của bà, nhìn dòng người đến viếng rồi đi, mình nhận ra cuộc đời này thực sự quá đỗi ngắn ngủi và vô thường. Những cuồng quay công việc thường nhật, những mục tiêu KPI Marketing, những cuộc họp kéo dài... bỗng chốc trở nên nhỏ bé trước ranh giới của sự sinh tử.
+
+Khoảnh khắc đó, mình tự hỏi bản thân: "Nếu ngày mai mình cũng ra đi, liệu mình đã sống một cuộc đời trọn vẹn và đúng nghĩa chưa?"
+
+Câu trả lời lúc đó là một khoảng lặng. Và đó cũng là lúc mình biết mình phải đưa ra những quyết định thay đổi cuộc đời.
+
+### Quyết định dừng lại ở CloudFly
+
+Ngay trong tuần đó, mình đã quyết định xin nghỉ công việc Marketing tại CloudFly – một công ty cung cấp cơ sở hạ tầng Cloud mà mình đã gắn bó và học hỏi được rất nhiều. Đó không phải là một quyết định bốc đồng. Mình biết ơn CloudFly, biết ơn những người anh em đồng nghiệp và những bài học Marketing thực chiến tại đây.
+
+Nhưng khi cuộc sống bắt mình dừng lại để đối diện với nỗi đau lớn nhất, mình hiểu rằng hệ giá trị ưu tiên trong mình đã hoàn toàn thay đổi. Mình không thể tiếp tục bán sức khỏe và thời gian cho những guồng quay cố định mà bỏ quên đi những điều cốt lõi nhất của cuộc sống.
+
+### Hành trình rèn luyện để mạnh mẽ hơn
+
+Quyết định rời bỏ một công việc ổn định để bước vào thế giới tự do luôn đi kèm với sự chông chênh. Nhưng lần này, mình chuẩn bị một tâm thế rất khác thông qua ba cam kết lớn cho bản thân:
+
+**1. Rèn luyện sức khỏe làm gốc**
+Trước đây, mình thường bỏ bê bản thân, thức khuya chạy deadline và xem nhẹ những cảnh báo của cơ thể. Nhưng khi đi qua biến cố, mình nhận ra một cơ thể yếu ớt không thể gánh vác nổi một tinh thần lớn lao, càng không thể là điểm tựa cho những người mình yêu thương. Mình chọn quay lại tập luyện, ăn uống lành mạnh và lắng nghe cơ thể mình mỗi ngày. Sức khỏe bền bỉ chính là nền tảng đầu tiên để mình đi đường dài.
+
+**2. Làm chủ thời gian bằng công việc tự do**
+Mình chuyển dịch sang làm các công việc freelance. Không còn những khung giờ văn phòng gò bó, mình tự lên lịch trình, tự chịu trách nhiệm với hiệu suất của mình. Làm tự do không có nghĩa là làm ít đi, mà là mình được quyền chọn lựa thời gian và không gian làm việc. Quan trọng hơn, mình có thể ở bên cạnh gia đình khi cần thiết mà không phải xin phép bất kỳ ai.
+
+**3. Tái khởi nghiệp Thảo Mộc Hương lần thứ hai**
+Và điều ý nghĩa nhất, đây là lúc mình bắt tay vào nghiên cứu và tái khởi động dự án Thảo Mộc Hương một cách nghiêm túc nhất. Đây là lần thứ hai mình bắt đầu với nó. Không còn sự vội vàng, không còn những tư duy chộp giật của một người trẻ muốn chứng tỏ bản thân. Thảo Mộc Hương lần này là sự tiếp nối truyền thống làm nhang sạch của gia đình, được vun đắp bằng tư duy sản phẩm tử tế, minh bạch từ nguyên liệu đến quy trình. Mình muốn làm ra những sản phẩm thực sự sạch, thực sự an lành để dâng lên tổ tiên và chia sẻ với những người có cùng phong cách sống.
+
+### Nỗi đau làm điểm tựa cho sự trưởng thành
+
+Đi qua giông bão, người ta thường chọn cách gục ngã hoặc đứng dậy mạnh mẽ hơn. Mình chọn vế thứ hai. Nỗi đau mất mát không làm mình yếu đuối đi, mà nó đã trở thành một thứ ánh sáng soi rọi, giúp mình nhìn rõ đâu là điều thực sự quan trọng trong cuộc đời ngắn ngủi này.
+
+Thảo Mộc Hương tái khởi, sức khỏe được phục hồi, và một cuộc sống tự chủ đang bắt đầu. Mình viết những dòng này trước hết để ghi nhớ quyết tâm của chính mình, và nếu bạn cũng đang đứng trước những chông chênh của cuộc đời, hy vọng bạn cũng sẽ tìm thấy sức mạnh để tự tay kiến tạo lại cuộc sống của mình.`,
+      coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+      readTime: 6,
+      published: true,
+      date: new Date("2026-06-01T00:00:00.000Z"),
+      categoryId: catCareerJourney.id,
+      views: 120,
+      likes: 64,
+      shares: 12,
+      comments: [
+        {
+          authorName: "Đức Huy",
+          authorEmail: "duchuy@gmail.com",
+          content: "Chia buồn cùng anh và gia đình. Quyết định nghỉ việc để tự chủ cuộc sống và làm sản phẩm truyền thống thực sự rất dũng cảm.",
+          approved: true
+        },
+        {
+          authorName: "Hoàng Mai",
+          authorEmail: "hoangmai@gmail.com",
+          content: "Đọc bài viết cảm nhận được sự chín chắn và định hướng rõ ràng của anh. Chúc Thảo Mộc Hương lần này sẽ thành công rực rỡ!",
+          approved: true
+        }
+      ]
     }
   ];
 
