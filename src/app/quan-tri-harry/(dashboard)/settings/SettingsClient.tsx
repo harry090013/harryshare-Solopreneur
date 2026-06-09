@@ -962,6 +962,7 @@ export default function SettingsClient({
         }}
         onSelectAsCover={handleMediaSelect}
         onInsertToContent={() => {}}
+        selectLabel="Chọn ảnh này"
       />
 
       {/* Timeline Milestone Create/Edit Modal POPUP */}

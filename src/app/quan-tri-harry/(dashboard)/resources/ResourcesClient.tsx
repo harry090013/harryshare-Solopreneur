@@ -606,6 +606,7 @@ export default function ResourcesClient({ initialResources, categories }: Resour
           setTimeout(() => setSuccess(null), 1500);
         }}
         onInsertToContent={() => {}}
+        selectLabel="Chọn làm ảnh tài nguyên"
       />
     </div>
   );

@@ -675,6 +675,7 @@ export default function ProductsClient({ initialProducts, categories }: Products
           setTimeout(() => setSuccess(null), 1500);
         }}
         onInsertToContent={() => {}}
+        selectLabel="Chọn làm ảnh sản phẩm"
       />
     </div>
   );

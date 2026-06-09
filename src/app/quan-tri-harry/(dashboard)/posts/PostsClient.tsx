@@ -875,6 +875,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
           setSuccess('Đã chèn ảnh vào nội dung!');
           setTimeout(() => setSuccess(null), 1500);
         }}
+        selectLabel="Làm ảnh bìa"
       />
     </div>
   );

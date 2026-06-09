@@ -27,13 +27,15 @@ interface MediaDrawerProps {
   onClose: () => void;
   onSelectAsCover?: (url: string) => void;
   onInsertToContent?: (url: string, name: string) => void;
+  selectLabel?: string;
 }
 
 export default function MediaDrawer({ 
   isOpen, 
   onClose, 
   onSelectAsCover, 
-  onInsertToContent 
+  onInsertToContent,
+  selectLabel
 }: MediaDrawerProps) {
   const [mediaList, setMediaList] = useState<MediaItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -241,7 +243,7 @@ export default function MediaDrawer({
                         onClick={() => onSelectAsCover(media.url)}
                         className="py-1 bg-white hover:bg-olive hover:text-white text-stone-850 rounded-md font-bold text-[9px] uppercase tracking-wider text-center transition-colors cursor-pointer"
                       >
-                        Làm ảnh bìa
+                        {selectLabel || "Chọn ảnh"}
                       </button>
                     )}
 
