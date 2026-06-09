@@ -187,6 +187,7 @@ model AboutTimeline {
   iconName    String   @default("Coffee")
   description String
   lesson      String
+  imageUrl    String?
   order       Int      @default(0)
   createdAt   DateTime @default(now())
 }

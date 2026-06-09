@@ -89,8 +89,7 @@ export default function SettingsClient({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Media Drawer Controls
-  const [isMediaDrawerOpen, setIsMediaDrawerOpen] = useState(false);
-  const [mediaTarget, setMediaTarget] = useState<'slide' | 'about-avatar' | null>(null);
+  const [mediaTarget, setMediaTarget] = useState<'slide' | 'about-avatar' | 'about-timeline' | null>(null);
   const [editingSlideId, setEditingSlideId] = useState<string | null>(null);
 
   // Form States - Homepage
@@ -126,6 +125,7 @@ export default function SettingsClient({
   const [mIconName, setMIconName] = useState('Coffee');
   const [mDescription, setMDescription] = useState('');
   const [mLesson, setMLesson] = useState('');
+  const [mImageUrl, setMImageUrl] = useState('');
   const [mOrder, setMOrder] = useState(0);
 
   const showToast = (msg: string, type: 'success' | 'error') => {
@@ -300,6 +300,7 @@ export default function SettingsClient({
       setMIconName(milestone.iconName);
       setMDescription(milestone.description);
       setMLesson(milestone.lesson);
+      setMImageUrl(milestone.imageUrl || '');
       setMOrder(milestone.order);
     } else {
       setMPeriod(`Giai đoạn ${timeline.length + 1}`);
@@ -308,6 +309,7 @@ export default function SettingsClient({
       setMIconName('Coffee');
       setMDescription('');
       setMLesson('');
+      setMImageUrl('');
       setMOrder(timeline.length > 0 ? Math.max(...timeline.map(t => t.order)) + 1 : 0);
     }
     setIsMilestoneModalOpen(true);
@@ -327,6 +329,7 @@ export default function SettingsClient({
       iconName: mIconName,
       description: mDescription,
       lesson: mLesson,
+      imageUrl: mImageUrl || null,
       order: Number(mOrder)
     };
 
@@ -395,11 +398,18 @@ export default function SettingsClient({
     setIsMediaDrawerOpen(true);
   };
 
+  const handleOpenMediaForTimeline = () => {
+    setMediaTarget('about-timeline');
+    setIsMediaDrawerOpen(true);
+  };
+
   const handleMediaSelect = (url: string) => {
     if (mediaTarget === 'about-avatar') {
       setAboutAvatarUrl(url);
     } else if (mediaTarget === 'slide') {
       setNewSlideUrl(url);
+    } else if (mediaTarget === 'about-timeline') {
+      setMImageUrl(url);
     }
     setIsMediaDrawerOpen(false);
     setMediaTarget(null);
@@ -889,10 +899,16 @@ export default function SettingsClient({
                       className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-5 rounded-2xl border border-olive/10 bg-cream/40 hover:border-olive/20 hover:bg-cream transition-all shadow-xs"
                     >
                       <div className="flex gap-4 items-center flex-1 max-w-xl">
-                        <div className="w-10 h-10 rounded-xl bg-olive/10 border border-olive/5 flex items-center justify-center text-olive shrink-0">
-                          {/* Dynamically resolve icon iconName indicator for list */}
-                          <Milestone className="w-5 h-5" />
-                        </div>
+                        {step.imageUrl ? (
+                          <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-olive/10 shrink-0 bg-sand">
+                            <Image src={step.imageUrl} alt={step.title} fill className="object-cover" />
+                          </div>
+                        ) : (
+                          <div className="w-10 h-10 rounded-xl bg-olive/10 border border-olive/5 flex items-center justify-center text-olive shrink-0">
+                            {/* Dynamically resolve icon iconName indicator for list */}
+                            <Milestone className="w-5 h-5" />
+                          </div>
+                        )}
                         <div className="flex flex-col gap-1 text-left">
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="text-[9px] font-bold text-olive uppercase tracking-widest bg-olive/5 px-2 py-0.5 rounded-md">
@@ -1032,6 +1048,28 @@ export default function SettingsClient({
                     <option key={icon.name} value={icon.name}>{icon.label}</option>
                   ))}
                 </select>
+              </div>
+
+              {/* Image Url */}
+              <div className="flex flex-col gap-1">
+                <label className="text-[9px] font-bold text-stone-500 uppercase tracking-widest">Hình ảnh minh họa (Milestone Image URL)</label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={mImageUrl}
+                    onChange={(e) => setMImageUrl(e.target.value)}
+                    placeholder="https://images.unsplash.com/... hoặc chọn từ thư viện ảnh"
+                    className="flex-1 px-3 py-2 rounded-lg border border-olive/10 bg-cream/30 text-xs text-stone-800 font-mono outline-none focus:border-olive"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleOpenMediaForTimeline}
+                    className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer"
+                    title="Chọn ảnh từ Thư viện Media"
+                  >
+                    <ImageIcon className="w-4 h-4 text-olive" />
+                  </button>
+                </div>
               </div>
 
               {/* Description */}

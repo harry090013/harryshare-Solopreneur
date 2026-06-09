@@ -189,16 +189,34 @@ export default async function AboutPage() {
                     </span>
                   </div>
                   
-                  <h3 className="font-serif text-lg font-bold text-stone-850 pt-1 leading-snug">
-                    {step.title}
-                  </h3>
-                  
-                  <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-sans mt-1 whitespace-pre-line text-justify">
-                    {step.description}
-                  </p>
+                  <div className={`flex flex-col ${step.imageUrl ? 'md:flex-row gap-6' : ''} pt-1`}>
+                    <div className={`flex flex-col gap-2 ${step.imageUrl ? 'md:w-[70%] flex-1' : 'w-full'}`}>
+                      <h3 className="font-serif text-lg font-bold text-stone-850 leading-snug">
+                        {step.title}
+                      </h3>
+                      
+                      <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-sans whitespace-pre-line text-justify">
+                        {step.description}
+                      </p>
 
-                  <div className="mt-2 p-3.5 rounded-xl bg-sand/40 border border-olive/5 text-xs font-serif text-olive font-medium italic whitespace-pre-line">
-                    {step.lesson}
+                      <div className="mt-2 p-3.5 rounded-xl bg-sand/40 border border-olive/5 text-xs font-serif text-olive font-medium italic whitespace-pre-line">
+                        {step.lesson}
+                      </div>
+                    </div>
+
+                    {step.imageUrl && (
+                      <div className="md:w-[30%] w-full shrink-0 flex items-start mt-4 md:mt-0">
+                        <div className="relative w-full aspect-video md:aspect-[4/3] rounded-xl overflow-hidden border border-olive/10 shadow-sm bg-sand">
+                          <Image 
+                            src={step.imageUrl} 
+                            alt={step.title} 
+                            fill 
+                            sizes="(max-width: 768px) 100vw, 250px"
+                            className="object-cover hover:scale-105 transition-transform duration-500" 
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

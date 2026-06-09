@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { period, title, role, iconName, description, lesson, order } = body;
+    const { period, title, role, iconName, description, lesson, imageUrl, order } = body;
 
     if (!period || !title || !role || !description || !lesson) {
       return NextResponse.json({ error: 'Vui lòng điền đầy đủ các thông tin bắt buộc.' }, { status: 400 });
@@ -48,6 +48,7 @@ export async function POST(request: Request) {
         iconName: iconName || 'Coffee',
         description,
         lesson,
+        imageUrl: imageUrl || null,
         order: order !== undefined ? Number(order) : 0
       }
     });

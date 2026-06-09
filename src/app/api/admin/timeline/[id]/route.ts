@@ -22,7 +22,7 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
-    const { period, title, role, iconName, description, lesson, order } = body;
+    const { period, title, role, iconName, description, lesson, imageUrl, order } = body;
 
     const milestone = await db.aboutTimeline.findUnique({
       where: { id }
@@ -41,6 +41,7 @@ export async function PUT(
         iconName: iconName !== undefined ? iconName : milestone.iconName,
         description: description !== undefined ? description : milestone.description,
         lesson: lesson !== undefined ? lesson : milestone.lesson,
+        imageUrl: imageUrl !== undefined ? imageUrl : milestone.imageUrl,
         order: order !== undefined ? Number(order) : milestone.order
       }
     });
