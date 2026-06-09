@@ -814,7 +814,7 @@ export default function SettingsClient({
                     value={aboutAvatarUrl}
                     onChange={(e) => setAboutAvatarUrl(e.target.value)}
                     className="flex-1 px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-xs outline-none text-stone-800 font-mono"
-                    placeholder="/harry_Portrait.png"
+                    placeholder="/harry_share_avt.png"
                   />
                   <button
                     type="button"

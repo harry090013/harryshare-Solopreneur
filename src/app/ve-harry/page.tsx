@@ -29,7 +29,7 @@ export default async function AboutPage() {
   let aboutSetting = {
     title: "Về Harry (Quang Hiếu)",
     subtitle: "📖 Câu chuyện của mình",
-    avatarUrl: "/harry_Portrait.png",
+    avatarUrl: "/harry_share_avt.png",
     description: "Mình xuất thân là một dân IT - lập trình viên hướng ngoại, đam mê sáng tạo và giao tiếp. Hành trình tự học của mình là chuỗi ngày bền bỉ đi qua nhiều ngã rẽ sự nghiệp từ lập trình, kinh doanh cho đến Digital Marketing, với một mục tiêu duy nhất: kiến tạo nên những giá trị bền vững và mang lại những điều tốt lành cho mọi người xung quanh."
   };
   let timelineSteps = [];
