@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { 
@@ -92,6 +92,11 @@ export default function SettingsClient({
   const [isMediaDrawerOpen, setIsMediaDrawerOpen] = useState(false);
   const [mediaTarget, setMediaTarget] = useState<'slide' | 'about-avatar' | 'about-timeline' | null>(null);
   const [editingSlideId, setEditingSlideId] = useState<string | null>(null);
+
+  // Direct File Upload Controls
+  const [isUploadingDirect, setIsUploadingDirect] = useState(false);
+  const [uploadTarget, setUploadTarget] = useState<'avatar' | 'slide' | 'timeline' | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form States - Homepage
   const [welcomeText, setWelcomeText] = useState(initialHomepageSetting?.welcomeText || '');
@@ -416,6 +421,57 @@ export default function SettingsClient({
     setMediaTarget(null);
   };
 
+  const triggerDirectUpload = (target: 'avatar' | 'slide' | 'timeline') => {
+    setUploadTarget(target);
+    fileInputRef.current?.click();
+  };
+
+  const handleDirectUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !e.target.files[0] || !uploadTarget) return;
+
+    const file = e.target.files[0];
+    setIsUploadingDirect(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/media', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error || 'Lỗi tải ảnh lên.');
+      }
+
+      const newMedia = await response.json();
+      const uploadedUrl = newMedia.url;
+
+      if (uploadTarget === 'avatar') {
+        setAboutAvatarUrl(uploadedUrl);
+        showToast('Tải ảnh đại diện thành công!', 'success');
+      } else if (uploadTarget === 'slide') {
+        setNewSlideUrl(uploadedUrl);
+        showToast('Tải ảnh slide thành công!', 'success');
+      } else if (uploadTarget === 'timeline') {
+        setMImageUrl(uploadedUrl);
+        showToast('Tải ảnh chặng đường thành công!', 'success');
+      }
+    } catch (err: any) {
+      console.error('Direct upload failed:', err);
+      showToast(err.message || 'Lỗi kết nối khi tải ảnh.', 'error');
+    } finally {
+      setIsUploadingDirect(false);
+      setUploadTarget(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       {/* Toast Messages */}
@@ -540,11 +596,16 @@ export default function SettingsClient({
                       />
                       <button
                         type="button"
-                        onClick={handleOpenMediaForNewSlide}
-                        className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer"
-                        title="Chọn ảnh từ Thư viện Media"
+                        onClick={() => triggerDirectUpload('slide')}
+                        disabled={isUploadingDirect}
+                        className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
+                        title="Tải ảnh lên từ máy tính"
                       >
-                        <ImageIcon className="w-4 h-4 text-olive" />
+                        {isUploadingDirect && uploadTarget === 'slide' ? (
+                          <RefreshCw className="w-4 h-4 animate-spin text-olive" />
+                        ) : (
+                          <ImageIcon className="w-4 h-4 text-olive" />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -720,11 +781,16 @@ export default function SettingsClient({
                   />
                   <button
                     type="button"
-                    onClick={handleOpenMediaForNewSlide}
-                    className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer"
-                    title="Chọn ảnh từ Thư viện Media"
+                    onClick={() => triggerDirectUpload('slide')}
+                    disabled={isUploadingDirect}
+                    className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
+                    title="Tải ảnh lên từ máy tính"
                   >
-                    <ImageIcon className="w-4 h-4 text-olive" />
+                    {isUploadingDirect && uploadTarget === 'slide' ? (
+                      <RefreshCw className="w-4 h-4 animate-spin text-olive" />
+                    ) : (
+                      <ImageIcon className="w-4 h-4 text-olive" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -829,11 +895,16 @@ export default function SettingsClient({
                   />
                   <button
                     type="button"
-                    onClick={handleOpenMediaForAvatar}
-                    className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer"
-                    title="Chọn ảnh từ Thư viện Media"
+                    onClick={() => triggerDirectUpload('avatar')}
+                    disabled={isUploadingDirect}
+                    className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
+                    title="Tải ảnh lên từ máy tính"
                   >
-                    <ImageIcon className="w-4 h-4 text-olive" />
+                    {isUploadingDirect && uploadTarget === 'avatar' ? (
+                      <RefreshCw className="w-4 h-4 animate-spin text-olive" />
+                    ) : (
+                      <ImageIcon className="w-4 h-4 text-olive" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -965,6 +1036,15 @@ export default function SettingsClient({
         selectLabel="Chọn ảnh này"
       />
 
+      {/* Hidden File Input for Direct Local Uploads */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleDirectUpload}
+        accept="image/*"
+        className="hidden"
+      />
+
       {/* Timeline Milestone Create/Edit Modal POPUP */}
       {isMilestoneModalOpen && (
         <div className="fixed inset-0 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
@@ -1065,11 +1145,16 @@ export default function SettingsClient({
                   />
                   <button
                     type="button"
-                    onClick={handleOpenMediaForTimeline}
-                    className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer"
-                    title="Chọn ảnh từ Thư viện Media"
+                    onClick={() => triggerDirectUpload('timeline')}
+                    disabled={isUploadingDirect}
+                    className="px-3 bg-sand/35 border border-olive/10 text-stone-600 hover:bg-sand/60 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
+                    title="Tải ảnh lên từ máy tính"
                   >
-                    <ImageIcon className="w-4 h-4 text-olive" />
+                    {isUploadingDirect && uploadTarget === 'timeline' ? (
+                      <RefreshCw className="w-4 h-4 animate-spin text-olive" />
+                    ) : (
+                      <ImageIcon className="w-4 h-4 text-olive" />
+                    )}
                   </button>
                 </div>
               </div>
