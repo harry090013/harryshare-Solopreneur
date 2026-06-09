@@ -5,24 +5,14 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Starting custom database seed...');
 
-  // 1. Clean existing data
-  await prisma.aboutTimeline.deleteMany({});
-  await prisma.aboutSetting.deleteMany({});
-  await prisma.heroSlide.deleteMany({});
-  await prisma.homepageSetting.deleteMany({});
-  await prisma.media.deleteMany({});
-  await prisma.productOrder.deleteMany({});
-  await prisma.product.deleteMany({});
-  await prisma.comment.deleteMany({});
-  await prisma.post.deleteMany({});
-  await prisma.projectResource.deleteMany({});
-  await prisma.category.deleteMany({});
-  await prisma.admin.deleteMany({});
-  await prisma.contact.deleteMany({});
-  await prisma.newsletter.deleteMany({});
-  await prisma.icon.deleteMany({});
+  // Only seed if database is empty to prevent overwriting user changes
+  const postCount = await prisma.post.count();
+  if (postCount > 0) {
+    console.log('Database already has data. Skipping seed to protect user modifications.');
+    return;
+  }
 
-  console.log('Database cleaned.');
+  console.log('Database is empty. Proceeding with seed...');
 
   // 2. Seed suggested icons
   console.log('Seeding icons...');
