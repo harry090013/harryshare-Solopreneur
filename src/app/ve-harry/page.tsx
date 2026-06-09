@@ -150,7 +150,7 @@ export default async function AboutPage() {
           <h1 className="font-serif text-4xl font-black text-stone-850 leading-tight">
             {aboutSetting.title}
           </h1>
-          <p className="text-stone-600 text-sm md:text-base leading-relaxed whitespace-pre-line">
+          <p className="text-stone-600 text-sm md:text-base leading-relaxed whitespace-pre-line text-justify">
             {aboutSetting.description}
           </p>
         </div>
@@ -193,7 +193,7 @@ export default async function AboutPage() {
                     {step.title}
                   </h3>
                   
-                  <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-sans mt-1 whitespace-pre-line">
+                  <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-sans mt-1 whitespace-pre-line text-justify">
                     {step.description}
                   </p>
 
@@ -215,7 +215,7 @@ export default async function AboutPage() {
         <h3 className="font-serif text-xl sm:text-2xl font-bold z-10">
           Bạn có muốn trò chuyện sâu hơn cùng mình?
         </h3>
-        <p className="text-xs sm:text-sm text-cream/80 leading-relaxed max-w-lg z-10">
+        <p className="text-xs sm:text-sm text-cream/80 leading-relaxed max-w-lg z-10 text-justify">
           Hãy ghé thăm trang Liên hệ để gửi tin nhắn trực tiếp, hoặc đơn giản là bật khung chat ở góc phải bên dưới để tương tác ngay với Trợ lý AI của mình nhé!
         </p>
         <Link 

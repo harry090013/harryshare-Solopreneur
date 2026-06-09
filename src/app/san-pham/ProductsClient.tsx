@@ -161,7 +161,7 @@ export default function ProductsClient({
                 <h3 className="font-serif text-lg font-bold text-stone-850 group-hover:text-olive transition-colors leading-snug line-clamp-1">
                   {prod.title}
                 </h3>
-                <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3">
+                <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
                   {prod.description}
                 </p>
 

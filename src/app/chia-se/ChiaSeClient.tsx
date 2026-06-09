@@ -143,7 +143,7 @@ export default function ChiaSeClient({
                   </Link>
                 </h3>
                 
-                <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3">
+                <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
                   {post.description}
                 </p>
 

@@ -147,7 +147,7 @@ export default function ProjectsClient({
                 <h3 className="font-serif font-bold text-stone-850 leading-snug group-hover:text-olive transition-colors line-clamp-1">
                   {item.title}
                 </h3>
-                <p className="text-stone-500 text-xs leading-relaxed font-sans line-clamp-2">
+                <p className="text-stone-500 text-xs leading-relaxed font-sans line-clamp-2 text-justify">
                   {item.description}
                 </p>
                 

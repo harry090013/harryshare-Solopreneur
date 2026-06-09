@@ -159,7 +159,7 @@ export default async function Home() {
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-black text-stone-850 leading-tight">
                 {homepageSetting.title}
               </h1>
-              <p className="text-lg text-stone-600 leading-relaxed font-sans">
+              <p className="text-lg text-stone-600 leading-relaxed font-sans text-justify">
                 {homepageSetting.description}
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
@@ -209,7 +209,7 @@ export default async function Home() {
               <h3 className="font-serif font-bold text-lg text-stone-850">
                 {homepageSetting.pillar1Title}
               </h3>
-              <p className="text-stone-600 text-sm leading-relaxed font-sans">
+              <p className="text-stone-600 text-sm leading-relaxed font-sans text-justify">
                 {homepageSetting.pillar1Desc}
               </p>
             </div>
@@ -222,7 +222,7 @@ export default async function Home() {
               <h3 className="font-serif font-bold text-lg text-stone-850">
                 {homepageSetting.pillar2Title}
               </h3>
-              <p className="text-stone-600 text-sm leading-relaxed font-sans">
+              <p className="text-stone-600 text-sm leading-relaxed font-sans text-justify">
                 {homepageSetting.pillar2Desc}
               </p>
             </div>
@@ -235,7 +235,7 @@ export default async function Home() {
               <h3 className="font-serif font-bold text-lg text-stone-850">
                 {homepageSetting.pillar3Title}
               </h3>
-              <p className="text-stone-600 text-sm leading-relaxed font-sans">
+              <p className="text-stone-600 text-sm leading-relaxed font-sans text-justify">
                 {homepageSetting.pillar3Desc}
               </p>
             </div>
@@ -271,7 +271,7 @@ export default async function Home() {
                     <h3 className="font-serif font-bold text-stone-800 group-hover:text-olive transition-colors leading-snug">
                       {topic.name}
                     </h3>
-                    <p className="text-stone-500 text-xs leading-relaxed font-sans line-clamp-3">
+                    <p className="text-stone-500 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
                       {topic.description}
                     </p>
                   </div>
@@ -344,7 +344,7 @@ export default async function Home() {
                     </Link>
                   </h3>
                   
-                  <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3">
+                  <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
                     {post.description}
                   </p>
 

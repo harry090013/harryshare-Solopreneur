@@ -156,7 +156,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             <h1 className="font-serif text-2xl sm:text-3xl font-black text-stone-850 leading-tight">
               {product.title}
             </h1>
-            <p className="text-stone-500 text-sm leading-relaxed italic border-l-2 border-olive/20 pl-3">
+            <p className="text-stone-500 text-sm leading-relaxed italic border-l-2 border-olive/20 pl-3 text-justify">
               {product.description}
             </p>
           </div>
