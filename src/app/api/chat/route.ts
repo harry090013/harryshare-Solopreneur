@@ -151,7 +151,7 @@ LƯU Ý QUAN TRỌNG:
                 },
                 contents: formattedContents,
                 generationConfig: {
-                  maxOutputTokens: 1000,
+                  maxOutputTokens: 2048,
                   temperature: 0.7,
                 }
               }),
@@ -168,8 +168,16 @@ LƯU Ý QUAN TRỌNG:
 
         if (response.ok) {
           const data = await response.json();
-          const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          const candidate = data.candidates?.[0];
+          const reply = candidate?.content?.parts?.[0]?.text;
+          const finishReason = candidate?.finishReason;
+          
+          console.log(`[Chat API] Model reply length: ${reply?.length || 0}, finishReason: ${finishReason}`);
+          
           if (reply) {
+            if (finishReason === 'MAX_TOKENS') {
+              console.warn('[Chat API] Warning: Response was truncated due to MAX_TOKENS limit.');
+            }
             return NextResponse.json({ reply: reply.trim() });
           }
         }
