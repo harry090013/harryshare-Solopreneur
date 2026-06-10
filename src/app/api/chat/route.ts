@@ -119,6 +119,11 @@ LƯU Ý QUAN TRỌNG:
             role: h.role === 'model' ? 'model' : 'user',
             parts: [{ text: h.text }]
           }));
+
+          // Gemini API requires the first turn to be 'user'
+          while (formattedContents.length > 0 && formattedContents[0].role === 'model') {
+            formattedContents.shift();
+          }
         } else {
           formattedContents = [
             {
@@ -128,29 +133,38 @@ LƯU Ý QUAN TRỌNG:
           ];
         }
 
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              systemInstruction: {
-                parts: [
-                  {
-                    text: systemPrompt
-                  }
-                ]
+        const callGemini = async (model: string) => {
+          return await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
               },
-              contents: formattedContents,
-              generationConfig: {
-                maxOutputTokens: 400,
-                temperature: 0.7,
-              }
-            }),
-          }
-        );
+              body: JSON.stringify({
+                systemInstruction: {
+                  parts: [
+                    {
+                      text: systemPrompt
+                    }
+                  ]
+                },
+                contents: formattedContents,
+                generationConfig: {
+                  maxOutputTokens: 1000,
+                  temperature: 0.7,
+                }
+              }),
+            }
+          );
+        };
+
+        let response = await callGemini('gemini-2.5-flash');
+
+        if (!response.ok) {
+          console.warn(`Gemini 2.5-flash failed with status ${response.status}. Trying gemini-2.5-flash-lite fallback...`);
+          response = await callGemini('gemini-2.5-flash-lite');
+        }
 
         if (response.ok) {
           const data = await response.json();
