@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter, Merriweather } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ChatWidget from '@/components/ChatWidget';
 import './globals.css';
 
 const inter = Inter({
@@ -53,9 +52,6 @@ export default function RootLayout({
         <main className="flex-grow flex flex-col">
           {children}
         </main>
-
-        {/* Floating AI Assistant Chatbot */}
-        <ChatWidget />
 
         {/* Footer */}
         <Footer />
