@@ -845,6 +845,9 @@ Những năm tháng lăn lộn trong công ty công nghệ đã mang lại cho m
       published: true,
       categoryId: catProductMindset.id,
       date: new Date("2026-06-12T08:00:00.000Z"),
+      views: 68,
+      likes: 24,
+      shares: 5,
       content: `## Bắt đầu từ những gì khó chịu nhất
 
 Trong những ngày đầu tiên chập chững bước chân vào con đường xây dựng các dự án cá nhân, mình thường mắc một sai lầm rất phổ biến: cố gắng nghĩ ra những ý tưởng thật to tát. Mình muốn làm một nền tảng quản trị công việc toàn diện cho doanh nghiệp, một mạng xã hội kết nối các Solopreneur, hay một hệ thống tự động hóa marketing siêu đẳng. Kết quả là gì? Mình bị ngợp bởi khối lượng tính năng khổng lồ, code mãi không xong, rồi chán nản và bỏ cuộc giữa chừng.
@@ -902,6 +905,9 @@ Sản phẩm đầu tiên của bạn có thể không giúp bạn giàu lên ng
       published: true,
       categoryId: catPersonalBranding.id,
       date: new Date("2026-06-13T09:00:00.000Z"),
+      views: 82,
+      likes: 37,
+      shares: 6,
       content: `## Chiếc mặt nạ "chuyên gia" bóng bẩy
 
 Trên các mạng xã hội nghề nghiệp hiện nay, mình thấy một trào lưu rất phổ biến: ai cũng cố gắng xây dựng cho mình một hình tượng thật hoàn hảo. Những bài đăng khoe thành tích vượt bậc, những thuật ngữ đắt đỏ, và những lời khuyên đạo lý được đóng gói rất bóng bẩy. 
@@ -959,6 +965,9 @@ Hãy cứ là chính mình, chia sẻ một cách chân thành và kiên trì. T
       published: true,
       categoryId: catAiVibeCoding.id,
       date: new Date("2026-06-13T10:00:00.000Z"),
+      views: 95,
+      likes: 43,
+      shares: 8,
       content: `## Nỗi sợ hãi mang tên "AI thay thế con người"
 
 Mấy năm gần đây, đi đâu mình cũng nghe thấy những lời cảnh báo đầy lo âu: *AI sắp thay thế lập trình viên, AI sắp cướp việc của copywriter, AI làm thiết kế đẹp hơn con người.* Nhiều bạn trẻ mới ra trường cảm thấy hoang mang vì sợ ngách nghề nghiệp của mình sẽ biến mất trước khi kịp tích lũy kinh nghiệm.
@@ -1010,6 +1019,9 @@ Vì thế, thay vì sợ hãi AI, hãy bắt đầu học cách làm việc cùn
       published: true,
       categoryId: catCareerJourney.id,
       date: new Date("2026-06-13T10:30:00.000Z"),
+      views: 76,
+      likes: 29,
+      shares: 4,
       content: `## Ngã rẽ bất ngờ của một dân IT
 
 Nếu bạn hỏi mình của 5 năm trước rằng: *'Sau này cậu có làm Marketing không?'*, chắc chắn mình sẽ cười lớn và lắc đầu. Khi đó, thế giới của mình chỉ xoay quanh những dòng lệnh, cấu trúc dữ liệu logic, và những đêm thức trắng để fix bug phần mềm. Đối với một dân IT chính hiệu, Marketing trong mắt mình lúc ấy là một thứ gì đó khá mơ hồ, bay bổng và đầy cảm tính.
@@ -1063,6 +1075,9 @@ Nếu bạn cũng đang đứng trước những quyết định rẽ hướng s
       published: true,
       categoryId: catProductMindset.id,
       date: new Date("2026-06-13T11:00:00.000Z"),
+      views: 54,
+      likes: 18,
+      shares: 3,
       content: `## Cái bẫy mang tên "Càng nhiều tính năng càng tốt"
 
 Trong những ngày đầu thiết kế sản phẩm, mình từng mắc một hội chứng rất phổ biến ở các lập trình viên: **Feature Creep** (tham lam tính năng). Mình luôn nghĩ rằng, để sản phẩm cạnh tranh được với các đối thủ lớn trên thị trường, nó phải có nhiều tính năng hơn. Mỗi khi nghe một ý kiến góp ý từ bạn bè hay khách hàng chạy thử, mình lại ngay lập tức thêm một nút bấm mới, một trang báo cáo mới, một lựa chọn cấu hình mới.
@@ -1120,6 +1135,9 @@ Mỗi khi định thêm một tính năng mới, hãy tự hỏi bản thân 3 c
       published: true,
       categoryId: catPersonalBranding.id,
       date: new Date("2026-06-13T12:00:00.000Z"),
+      views: 61,
+      likes: 22,
+      shares: 4,
       content: `## Học bằng cách dạy lại cho người khác
 
 Nhiều người nghĩ rằng bạn phải trở thành một chuyên gia thực thụ, có nhiều năm kinh nghiệm và thành tựu xuất sắc thì mới nên viết blog chia sẻ. Suy nghĩ này vô tình tạo ra một rào cản tâm lý rất lớn khiến nhiều bạn trẻ không dám đặt bút viết.
@@ -1175,6 +1193,9 @@ Viết lách là một kỹ năng cần sự rèn luyện kiên trì. Hãy coi b
       published: true,
       categoryId: catAiVibeCoding.id,
       date: new Date("2026-06-13T13:00:00.000Z"),
+      views: 112,
+      likes: 53,
+      shares: 12,
       content: `## Sự trỗi dậy của "Vibe Coding"
 
 Gần đây trong cộng đồng lập trình thế giới xôn xao một thuật ngữ mới: **Vibe Coding**. Thuật ngữ này mô tả cách lập trình mà ở đó, lập trình viên không trực tiếp gõ từng dòng lệnh (syntax), không ngồi gỡ từng dấu chấm phẩy, mà thay vào đó là điều phối các AI agent (như Claude, Cursor, Gemini) tự động viết code và xây dựng hệ thống theo yêu cầu.
@@ -1229,6 +1250,9 @@ Vibe Coding không làm giảm giá trị của lập trình viên, nó chỉ gi
       published: true,
       categoryId: catCareerJourney.id,
       date: new Date("2026-06-13T14:00:00.000Z"),
+      views: 89,
+      likes: 36,
+      shares: 7,
       content: `## Những bài học đắt giá được mua bằng tiền và thời gian
 
 Trước khi xây dựng HarryShare hay các dự án nhỏ hiện tại, mình từng có một quá khứ đầy những lần \"đứt gánh giữa đường\". Dự án đầu tiên của mình là một ứng dụng quản lý tài chính cá nhân dành cho sinh viên. Mình dành 6 tháng liền, thức đêm thức hôm để code các tính năng phân tích biểu đồ cực kỳ phức tạp. Kết quả: Khi ra mắt, chỉ có đúng 5 người bạn thân tải về dùng thử, và sau 2 tuần thì không ai mở lại nữa.
