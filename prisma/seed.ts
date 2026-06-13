@@ -622,7 +622,7 @@ Thảo Mộc Hương tái khởi, sức khỏe được phục hồi, và một 
       coverImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
       readTime: 5,
       published: true,
-      date: new Date("2026-06-12T00:00:00.000Z"),
+      date: new Date("2026-06-03T00:00:00.000Z"),
       categoryId: catProductMindset.id,
       views: 85,
       likes: 42,
@@ -682,7 +682,7 @@ Nếu bạn cũng đang trên hành trình xây dựng một dự án của riê
       coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
       readTime: 5,
       published: true,
-      date: new Date("2026-06-12T01:00:00.000Z"),
+      date: new Date("2026-06-05T00:00:00.000Z"),
       categoryId: catPersonalBranding.id,
       views: 94,
       likes: 51,
@@ -737,7 +737,7 @@ Nếu bạn cũng là một dân kỹ thuật đang nhen nhóm ý định lấn 
       coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
       readTime: 4,
       published: true,
-      date: new Date("2026-06-12T02:00:00.000Z"),
+      date: new Date("2026-06-07T00:00:00.000Z"),
       categoryId: catAiVibeCoding.id,
       views: 70,
       likes: 38,
@@ -790,7 +790,7 @@ Nếu bạn đang cảm thấy bị ngợp trước sự phát triển quá nhan
       coverImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
       readTime: 5,
       published: true,
-      date: new Date("2026-06-12T03:00:00.000Z"),
+      date: new Date("2026-06-09T00:00:00.000Z"),
       categoryId: catCareerJourney.id,
       views: 110,
       likes: 58,
@@ -844,7 +844,7 @@ Những năm tháng lăn lộn trong công ty công nghệ đã mang lại cho m
       readTime: 6,
       published: true,
       categoryId: catProductMindset.id,
-      date: new Date("2026-06-12T08:00:00.000Z"),
+      date: new Date("2026-06-11T00:00:00.000Z"),
       views: 68,
       likes: 24,
       shares: 5,
@@ -904,7 +904,7 @@ Sản phẩm đầu tiên của bạn có thể không giúp bạn giàu lên ng
       readTime: 5,
       published: true,
       categoryId: catPersonalBranding.id,
-      date: new Date("2026-06-13T09:00:00.000Z"),
+      date: new Date("2026-06-13T00:00:00.000Z"),
       views: 82,
       likes: 37,
       shares: 6,
@@ -964,7 +964,7 @@ Hãy cứ là chính mình, chia sẻ một cách chân thành và kiên trì. T
       readTime: 5,
       published: true,
       categoryId: catAiVibeCoding.id,
-      date: new Date("2026-06-13T10:00:00.000Z"),
+      date: new Date("2026-06-15T00:00:00.000Z"),
       views: 95,
       likes: 43,
       shares: 8,
@@ -1018,7 +1018,7 @@ Vì thế, thay vì sợ hãi AI, hãy bắt đầu học cách làm việc cùn
       readTime: 6,
       published: true,
       categoryId: catCareerJourney.id,
-      date: new Date("2026-06-13T10:30:00.000Z"),
+      date: new Date("2026-06-17T00:00:00.000Z"),
       views: 76,
       likes: 29,
       shares: 4,
@@ -1074,7 +1074,7 @@ Nếu bạn cũng đang đứng trước những quyết định rẽ hướng s
       readTime: 5,
       published: true,
       categoryId: catProductMindset.id,
-      date: new Date("2026-06-13T11:00:00.000Z"),
+      date: new Date("2026-06-19T00:00:00.000Z"),
       views: 54,
       likes: 18,
       shares: 3,
@@ -1134,7 +1134,7 @@ Mỗi khi định thêm một tính năng mới, hãy tự hỏi bản thân 3 c
       readTime: 5,
       published: true,
       categoryId: catPersonalBranding.id,
-      date: new Date("2026-06-13T12:00:00.000Z"),
+      date: new Date("2026-06-21T00:00:00.000Z"),
       views: 61,
       likes: 22,
       shares: 4,
@@ -1192,7 +1192,7 @@ Viết lách là một kỹ năng cần sự rèn luyện kiên trì. Hãy coi b
       readTime: 6,
       published: true,
       categoryId: catAiVibeCoding.id,
-      date: new Date("2026-06-13T13:00:00.000Z"),
+      date: new Date("2026-06-23T00:00:00.000Z"),
       views: 112,
       likes: 53,
       shares: 12,
@@ -1249,7 +1249,7 @@ Vibe Coding không làm giảm giá trị của lập trình viên, nó chỉ gi
       readTime: 6,
       published: true,
       categoryId: catCareerJourney.id,
-      date: new Date("2026-06-13T14:00:00.000Z"),
+      date: new Date("2026-06-25T00:00:00.000Z"),
       views: 89,
       likes: 36,
       shares: 7,
@@ -1292,6 +1292,199 @@ Quan trọng là bạn không được để những thất bại đó dập t�
           authorName: "Hồng Nhung",
           authorEmail: "nhung.hong@gmail.com",
           content: "Bài học về MVP luôn là bài học khó thực hành nhất vì ai cũng muốn sản phẩm của mình phải thật đẹp và nhiều tính năng trước khi ra mắt. Cảm ơn bài viết chia sẻ rất chân thật của anh Harry!",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Kiến trúc hóa sự đơn giản trong phát triển sản phẩm",
+      slug: "kien-truc-hoa-su-don-gian-trong-phat-trien-san-pham",
+      description: "Sự đơn giản không tự nhiên mà có, nó là kết quả của một quá trình lược bỏ và tối ưu hóa kiến trúc sản phẩm khắt khe.",
+      coverImage: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catProductMindset.id,
+      date: new Date("2026-06-27T00:00:00.000Z"),
+      views: 45,
+      likes: 15,
+      shares: 2,
+      content: `## Bản chất của sự đơn giản
+
+Nhiều người lầm tưởng rằng làm ra một sản phẩm đơn giản là việc dễ dàng. Thực tế hoàn toàn ngược lại. Thiết kế một giao diện phức tạp với hàng tá tính năng, nút bấm thực ra rất dễ – bạn chỉ cần xếp mọi thứ lên màn hình. Nhưng để gọt giũa sản phẩm chỉ giữ lại những gì tinh túy nhất, giúp người dùng đạt được mục tiêu mà không cần suy nghĩ, đó mới là đỉnh cao của thiết kế sản phẩm.
+
+Sự đơn giản không phải là sự nghèo nàn về tính năng. Nó là **sự rõ ràng tuyệt đối về mục đích**.
+
+---
+
+## Quá trình lược bỏ khắt khe
+
+Để kiến trúc hóa sự đơn giản, mình luôn áp dụng quy tắc "lược bỏ cho đến khi không thể lược bỏ thêm được nữa":
+1. **Loại bỏ nhiễu trực quan:** Mỗi nút bấm, mỗi dòng chữ trên màn hình đều phải có lý do tồn tại. Nếu nó không giúp ích trực tiếp cho bước đi tiếp theo của người dùng, hãy ẩn hoặc xóa nó đi.
+2. **Hợp nhất các bước:** Thay vì bắt người dùng đi qua một biểu mẫu 3 bước, hãy tìm cách tự động hóa dữ liệu đầu vào để rút gọn xuống còn 1 bước duy nhất.
+3. **Ẩn các tính năng nâng cao (Progressive Disclosure):** Giữ cho giao diện mặc định cực kỳ đơn giản cho người dùng mới, và chỉ hiển thị các tùy chọn cấu hình phức tạp khi người dùng chủ động tìm kiếm.
+
+---
+
+## Đơn giản là một cam hiện dài hạn
+
+Khi giữ cho sản phẩm đơn giản, anh không chỉ giúp khách hàng tiết kiệm năng lượng trí óc, mà còn giúp chính mình giảm thiểu gánh nặng bảo trì codebase. Một sản phẩm đơn giản sẽ ít bug hơn, dễ kiểm thử hơn và linh hoạt hơn rất nhiều khi cần xoay trục chiến lược trong tương lai.`,
+      comments: [
+        {
+          authorName: "Đình Trung",
+          authorEmail: "trung.dinh@outlook.com",
+          content: "Tư duy tối giản này rất khó áp dụng nhưng khi làm được thì sản phẩm cực kỳ đẳng cấp. Cảm ơn anh!",
+          approved: true
+        },
+        {
+          authorName: "Khánh Linh",
+          authorEmail: "linhk@gmail.com",
+          content: "Rất thích quy tắc ẩn tính năng nâng cao để tránh làm ngợp người dùng mới.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Sự nhất quán - Vũ khí thầm lặng xây dựng lòng tin",
+      slug: "su-nhat-quan-vu-khi-tham-lang-xay-dung-long-tin",
+      description: "Thương hiệu cá nhân không thành hình sau một đêm. Nó được tích lũy từ những hành động nhỏ và sự hiện diện nhất quán ngày qua ngày.",
+      coverImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catPersonalBranding.id,
+      date: new Date("2026-06-29T00:00:00.000Z"),
+      views: 58,
+      likes: 22,
+      shares: 4,
+      content: `## Sức mạnh của việc lặp đi lặp lại
+
+Khi bắt đầu xây dựng thương hiệu cá nhân, nhiều bạn thường dồn rất nhiều năng lượng vào tuần đầu tiên: viết những bài viết rất dài, thiết kế ảnh lung linh, đăng bài liên tục mỗi ngày. Nhưng đến tuần thứ hai, thứ ba, khi không thấy lượng tương tác tăng đột biến như kỳ vọng, ngọn lửa ban đầu lụi tàn và họ dần từ bỏ.
+
+Thương hiệu cá nhân không hoạt động theo cơ chế bùng nổ tức thì. Nó là một trò chơi tích lũy điểm tin cậy. Và vũ khí mạnh nhất trong trò chơi này chính là **sự nhất quán**.
+
+Sự nhất quán quan trọng hơn sự xuất sắc đột xuất. Thà anh đăng một bài viết hữu ích mỗi tuần đều đặn trong vòng một năm, còn hơn là đăng 10 bài một tuần rồi im lặng suốt 3 tháng sau đó.
+
+---
+
+## Sự nhất quán thể hiện ở đâu?
+
+1. **Nhất quán về tần suất xuất hiện:** Giúp người đọc hình thành thói quen mong đợi nội dung của anh vào những thời điểm cố định.
+2. **Nhất quán về giá trị cốt lõi:** Luôn trung thành với chủ đề và triết lý sống mà anh đã định vị. Đừng hôm nay viết về tư duy sản phẩm tử tế, ngày mai lại viết bài giật gân, câu view sáo rỗng.
+3. **Nhất quán giữa lời nói và thực tế:** Những gì anh chia sẻ trên mạng xã hội phải đồng nhất với cách anh hành xử và làm việc ngoài đời thực.
+
+---
+
+## Tích lũy lòng tin từng chút một
+
+Mỗi bài đăng chân thành, mỗi lần anh giúp đỡ một người đi sau rút ngắn con đường tự học đều là một hạt mầm lòng tin được gieo xuống. Lòng tin tích lũy đủ lớn sẽ tự động chuyển hóa thành cơ hội nghề nghiệp, đối tác và khách hàng trung thành mà anh không cần phải gồng mình chào bán sản phẩm.`,
+      comments: [
+        {
+          authorName: "Minh Anh",
+          authorEmail: "minhanh@gmail.com",
+          content: "Sự kiên trì đều đặn đúng là thứ khó nhất. Đọc bài viết của anh làm em có thêm động lực giữ nhịp viết bài.",
+          approved: true
+        },
+        {
+          authorName: "Văn Lâm",
+          authorEmail: "lamv@yahoo.com",
+          content: "Chân thật và nhất quán là chìa khóa vàng cho thương hiệu cá nhân bền vững.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Kỹ năng phản biện trong thời đại AI tạo sinh phát triển",
+      slug: "ky-nang-phan-bien-trong-thoi-dai-ai-tao-sinh",
+      description: "Khi thông tin được tạo ra quá dễ dàng, năng lực kiểm chứng và phản biện logic trở thành tấm khiên bảo vệ giá trị của bạn.",
+      coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catAiVibeCoding.id,
+      date: new Date("2026-07-01T00:00:00.000Z"),
+      views: 72,
+      likes: 31,
+      shares: 6,
+      content: `## Kỷ nguyên \"lạm phát thông tin\"
+
+Với sự ra đời của các mô hình ngôn ngữ lớn (LLMs), việc tạo ra một bài viết 1000 chữ, một đoạn code hay một bức ảnh nghệ thuật giờ đây chỉ mất vài giây. Thông tin đang được sản xuất hàng loạt với chi phí gần như bằng không.
+
+Nhưng đi kèm với sự tiện lợi đó là một vấn đề nghiêm trọng: **Sự tràn ngập của các thông tin sáo rỗng, thiếu chính xác hoặc thiếu cá tính.**
+
+Nếu anh chỉ tiếp nhận thông tin từ AI một cách thụ động và chia sẻ lại nguyên bản, anh đang tự biến mình thành một bản sao vô hồn của thuật toán. Trong thời đại này, giá trị của một người không còn nằm ở việc tạo ra thông tin, mà nằm ở **năng lực lọc nhiễu và phản biện logic**.
+
+---
+
+## Rèn luyện tư duy phản biện khi làm việc với AI
+
+Để không bị dẫn dắt bởi các câu trả lời trơn tru nhưng có thể sai lệch của AI, hãy luôn giữ bộ lọc phản biện:
+1. **Luôn đặt câu hỏi nghi vấn:** Đừng vội tin ngay số liệu hay lập luận đầu tiên AI đưa ra. Hãy hỏi nó: *"Nguồn của dữ liệu này ở đâu? Có bằng chứng thực tế nào chứng minh điều này không?"*
+2. **Tìm kiếm góc nhìn đối lập:** Yêu cầu AI đóng vai một người phản biện khó tính để tìm ra những điểm yếu trong chính ý tưởng của anh và của AI.
+3. **Thêm vào trải nghiệm cá nhân:** AI có thể tổng hợp kiến thức của nhân loại, nhưng nó không có những câu chuyện thử sai, những cảm xúc và trải nghiệm thực tế của riêng anh. Đó mới là thứ làm nên giá trị độc bản cho bài viết của anh.
+
+---
+
+## Tấm khiên bảo vệ giá trị cá nhân
+
+AI là một công cụ nhân năng suất tuyệt vời, nhưng tư duy độc lập và năng lực phản biện mới là thứ giữ cho anh sự tỉnh táo và tạo ra những giá trị thực sự chất lượng, vượt trội giữa làn sóng thông tin đại trà ngoài kia.`,
+      comments: [
+        {
+          authorName: "Quốc Bảo",
+          authorEmail: "baoq@gmail.com",
+          content: "Chuẩn luôn anh ơi, giờ lướt mạng thấy bài viết AI viết đọc qua là nhận ra ngay, rất sáo rỗng nếu thiếu tư duy phản biện của con người.",
+          approved: true
+        },
+        {
+          authorName: "Hải Yến",
+          authorEmail: "yendev@gmail.com",
+          content: "Sử dụng AI để kiểm tra chéo lập luận là phương pháp em đang áp dụng, rất hiệu quả.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Vượt qua nỗi sợ overthinking để bắt đầu hành động thực tế",
+      slug: "vuot-qua-noi-so-overthinking-de-bat-dau-hanh-dong",
+      description: "Từ suy nghĩ ngổn ngang đến những bước đi nhỏ đầu tiên. Làm thế nào để phá vỡ sự tê liệt phân tích và bắt đầu tạo ra kết quả.",
+      coverImage: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catCareerJourney.id,
+      date: new Date("2026-07-03T00:00:00.000Z"),
+      views: 66,
+      likes: 28,
+      shares: 5,
+      content: `## Cái bẫy của sự chuẩn bị hoàn hảo
+
+Là một người có thói quen overthinking, mình từng dành hàng tuần, thậm chí hàng tháng chỉ để \"chuẩn bị\". Mình muốn học thêm một khóa học nữa, đọc thêm một cuốn sách nữa, hay vẽ ra mọi kịch bản rủi ro có thể xảy ra trước khi bắt tay vào chạy một chiến dịch marketing hay tự code một ứng dụng nhỏ.
+
+Sự suy nghĩ quá mức này tạo ra một ảo giác rằng mình đang làm việc chăm chỉ. Nhưng thực tế, nó chỉ là một **cơ chế tự vệ của não bộ chống lại nỗi sợ thất bại**, dẫn đến sự tê liệt phân tích (analysis paralysis) – nghĩ rất nhiều nhưng không tạo ra bất cứ kết quả thực tế nào.
+
+Mình nhận ra: **Một kế hoạch trung bình được thực thi ngay lập tức tốt hơn gấp vạn lần một kế hoạch hoàn hảo nằm mãi trong ngăn kéo.**
+
+---
+
+## Phá vỡ sự tê liệt bằng những bước đi nhỏ nhất
+
+Để thoát khỏi vòng lặp overthinking và bắt đầu hành động, mình đã tự áp dụng những nguyên tắc sau:
+1. **Quy tắc 5 phút:** Đừng nghĩ đến việc hoàn thành cả dự án khổng lồ. Hãy cam kết ngồi vào bàn làm việc và chỉ làm đúng một tác vụ nhỏ trong 5 phút (ví dụ: viết tiêu đề bài viết, thiết kế một nút bấm). Khi đã bắt đầu, đà quán tính sẽ kéo anh tiếp tục làm việc.
+2. **Chấp nhận sự vụng về ban đầu:** Sản phẩm đầu tay của anh có thể chưa đẹp, bài viết đầu tiên có thể chưa hay. Đó là chuyện hết sức bình thường. Sự hoàn thiện chỉ đến từ quá trình cải tiến liên tục sau khi nhận được phản hồi thực tế.
+3. **Đặt thời hạn cứng (Hard Deadline):** Tự giới hạn thời gian nghiên cứu và bắt buộc phải đưa ra phiên bản thử nghiệm đầu tiên ra thị trường đúng ngày.
+
+---
+
+## Hành động định hình tư duy
+
+Đừng chờ đến khi hết sợ hay suy nghĩ thông suốt mới bắt đầu hành động. Chính quá trình hành động, đối diện với những vấn đề phát sinh thực tế và tìm cách giải quyết chúng sẽ giúp đầu óc anh trở nên sáng tỏ và bình tĩnh hơn rất nhiều.`,
+      comments: [
+        {
+          authorName: "Khánh An",
+          authorEmail: "an.khanh@gmail.com",
+          content: "Bài viết trúng tim đen của em luôn anh ơi. Em cũng bị overthinking làm trì hoãn dự án mãi. Phải áp dụng quy tắc 5 phút ngay.",
+          approved: true
+        },
+        {
+          authorName: "Đức Anh",
+          authorEmail: "ducanh@gmail.com",
+          content: "Hành động định hình tư duy - bài học quá sâu sắc. Cảm ơn anh Harry chia sẻ!",
           approved: true
         }
       ]
