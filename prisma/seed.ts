@@ -954,7 +954,7 @@ Hãy cứ là chính mình, chia sẻ một cách chân thành và kiên trì. T
       title: "AI không cướp đi sự sáng tạo, nó cướp đi sự lười biếng của bạn",
       slug: "ai-khong-cuop-di-su-sang-tao-no-cuop-di-su-luoi-bieng",
       description: "Cách sử dụng AI như một người bạn phản biện tư duy và nâng cao năng suất làm việc mỗi ngày thay vì phụ thuộc một cách thụ động.",
-      coverImage: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+      coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80",
       readTime: 5,
       published: true,
       categoryId: catAiVibeCoding.id,
