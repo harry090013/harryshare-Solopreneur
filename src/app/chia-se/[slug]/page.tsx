@@ -5,9 +5,8 @@ import ReactMarkdown from 'react-markdown';
 import { ArrowLeft, Calendar, Clock, Bookmark } from 'lucide-react';
 import { db } from '@/lib/db';
 import ReadingProgressBar from '@/components/ReadingProgressBar';
-import PostInteractions from '@/components/PostInteractions';
 import PostComments from '@/components/PostComments';
-// import AudioReader from '@/components/AudioReader';
+import ArticleActionsWrapper from '@/components/ArticleActionsWrapper';
 
 export const revalidate = 60;
 
@@ -136,103 +135,99 @@ Thương hiệu cá nhân không thể xây dựng sau một đêm. Hãy tận h
       {/* Dynamic viewport scroll progress indicator */}
       <ReadingProgressBar />
 
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 flex flex-col gap-8 animate-slide-up">
-        {/* Back and Category crumbs */}
-        <div className="flex justify-between items-center">
-          <Link href="/chia-se" className="flex items-center gap-1.5 text-xs font-bold text-stone-500 hover:text-olive uppercase tracking-widest transition-colors cursor-pointer w-fit">
-            <ArrowLeft className="w-3.5 h-3.5" /> Góc chia sẻ
-          </Link>
-          {post.category && (
-            <Link href={`/chia-se?category=${post.category.slug}`} className="text-xs font-bold text-olive bg-olive/5 border border-olive/10 rounded-lg px-3 py-1 cursor-pointer hover:bg-olive hover:text-cream transition-all uppercase tracking-wider">
-              {post.category.name}
+      <ArticleActionsWrapper
+        postId={post.id}
+        postTitle={post.title}
+        initialLikes={post.likes}
+        initialShares={post.shares}
+        initialViews={post.views}
+        content={post.content}
+      >
+        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 flex flex-col gap-8 animate-slide-up">
+          {/* Back and Category crumbs */}
+          <div className="flex justify-between items-center">
+            <Link href="/chia-se" className="flex items-center gap-1.5 text-xs font-bold text-stone-500 hover:text-olive uppercase tracking-widest transition-colors cursor-pointer w-fit">
+              <ArrowLeft className="w-3.5 h-3.5" /> Góc chia sẻ
             </Link>
-          )}
-        </div>
-
-        {/* Post Title */}
-        <div className="flex flex-col gap-4">
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-stone-850 leading-tight">
-            {post.title}
-          </h1>
-
-          <div className="flex flex-wrap items-center gap-4 text-stone-400 text-xs font-medium font-sans border-b border-olive/5 pb-6">
-            <span className="flex items-center gap-1.5">
-              <Calendar className="w-4 h-4" />
-              {new Date(post.date).toLocaleDateString('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" />
-              {post.readTime} phút đọc
-            </span>
-            <span className="flex items-center gap-1.5 text-olive font-semibold bg-olive/5 px-2 py-0.5 rounded-md">
-              <Bookmark className="w-3.5 h-3.5" />
-              Đúc kết thực tế
-            </span>
+            {post.category && (
+              <Link href={`/chia-se?category=${post.category.slug}`} className="text-xs font-bold text-olive bg-olive/5 border border-olive/10 rounded-lg px-3 py-1 cursor-pointer hover:bg-olive hover:text-cream transition-all uppercase tracking-wider">
+                {post.category.name}
+              </Link>
+            )}
           </div>
-        </div>
 
-        {/* Cover Image */}
-        <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden border border-olive/10 shadow-lg bg-sand">
-          <Image 
-            src={post.coverImage} 
-            alt={post.title} 
-            fill 
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover" 
-          />
-        </div>
+          {/* Post Title */}
+          <div className="flex flex-col gap-4">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-stone-850 leading-tight">
+              {post.title}
+            </h1>
 
-        {/* AI Bilingual Audio Reader (Temporarily hidden)
-        <AudioReader content={post.content} title={post.title} />
-        */}
-
-        {/* Markdown Rendered Content */}
-        <div className="prose prose-stone max-w-none prose-headings:font-serif prose-headings:font-bold prose-headings:text-stone-850 prose-p:text-stone-700 prose-p:leading-relaxed prose-a:text-olive hover:prose-a:text-olive-dark prose-a:font-semibold prose-blockquote:border-l-4 prose-blockquote:border-olive prose-blockquote:bg-sand/30 prose-blockquote:pl-4 prose-blockquote:py-1 prose-blockquote:rounded-r-lg font-sans text-stone-700 text-base md:text-lg flex flex-col gap-6">
-          <ReactMarkdown
-            components={{
-              h2: ({node, ...props}) => <h2 className="text-2xl font-bold font-serif text-stone-850 mt-8 mb-4 leading-snug border-b border-olive/5 pb-2" {...props} />,
-              h3: ({node, ...props}) => <h3 className="text-xl font-bold font-serif text-stone-850 mt-6 mb-3 leading-snug" {...props} />,
-              p: ({node, ...props}) => <p className="leading-relaxed mb-4 text-stone-700 text-justify" {...props} />,
-              blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-olive bg-sand/30 pl-4 py-2 my-4 rounded-r-lg font-serif italic text-stone-600" {...props} />,
-              ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
-              ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
-              li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
-              strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
-              a: ({node, ...props}) => <a className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props} />,
-            }}
-          >
-            {post.content}
-          </ReactMarkdown>
-        </div>
-
-        {/* Dynamic interactions bar */}
-        <PostInteractions
-          postId={post.id}
-          initialViews={post.views}
-          initialLikes={post.likes}
-          initialShares={post.shares}
-          postTitle={post.title}
-        />
-
-        {/* Author Box */}
-        <div className="flex flex-col sm:flex-row gap-5 p-6 rounded-2xl border border-olive/10 bg-cream/70 backdrop-blur-md items-center sm:items-start text-center sm:text-left mt-4 shadow-sm">
-          <div className="relative w-16 h-16 rounded-full overflow-hidden border border-olive/10 shrink-0 bg-sand">
-            <Image src="/harry_share_avt.png" alt="Harry" fill sizes="64px" className="object-cover" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col">
-              <span className="font-serif font-bold text-stone-850">Harry (Quang Hiếu)</span>
-              <span className="text-[10px] text-stone-400 font-semibold uppercase tracking-widest">Creative Solopreneur</span>
+            <div className="flex flex-wrap items-center gap-4 text-stone-400 text-xs font-medium font-sans border-b border-olive/5 pb-6">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-4 h-4" />
+                {new Date(post.date).toLocaleDateString('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4" />
+                {post.readTime} phút đọc
+              </span>
+              <span className="flex items-center gap-1.5 text-olive font-semibold bg-olive/5 px-2 py-0.5 rounded-md">
+                <Bookmark className="w-3.5 h-3.5" />
+                Đúc kết thực tế
+              </span>
             </div>
-            <p className="text-xs text-stone-500 leading-relaxed font-sans">
-              Chào bạn! Cảm ơn bạn đã đọc bài viết này. Mình hi vọng những chia sẻ chân thực từ thực tế làm sản phẩm và thương hiệu của mình mang lại giá trị hữu ích cho bạn. Hãy chia sẻ cảm nghĩ của bạn hoặc nhắn tin trực tiếp cho mình qua hộp chat AI ở góc nhé! 😊
-            </p>
           </div>
-        </div>
 
-        {/* Comments Section */}
-        <PostComments postId={post.id} />
-      </article>
+          {/* Cover Image */}
+          <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden border border-olive/10 shadow-lg bg-sand">
+            <Image 
+              src={post.coverImage} 
+              alt={post.title} 
+              fill 
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover" 
+            />
+          </div>
+
+          {/* Markdown Rendered Content */}
+          <div className="prose prose-stone max-w-none prose-headings:font-serif prose-headings:font-bold prose-headings:text-stone-850 prose-p:text-stone-700 prose-p:leading-relaxed prose-a:text-olive hover:prose-a:text-olive-dark prose-a:font-semibold prose-blockquote:border-l-4 prose-blockquote:border-olive prose-blockquote:bg-sand/30 prose-blockquote:pl-4 prose-blockquote:py-1 prose-blockquote:rounded-r-lg font-sans text-stone-700 text-base md:text-lg flex flex-col gap-6">
+            <ReactMarkdown
+              components={{
+                h2: ({node, ...props}) => <h2 className="text-2xl font-bold font-serif text-stone-850 mt-8 mb-4 leading-snug border-b border-olive/5 pb-2" {...props} />,
+                h3: ({node, ...props}) => <h3 className="text-xl font-bold font-serif text-stone-850 mt-6 mb-3 leading-snug" {...props} />,
+                p: ({node, ...props}) => <p className="leading-relaxed mb-4 text-stone-700 text-justify" {...props} />,
+                blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-olive bg-sand/30 pl-4 py-2 my-4 rounded-r-lg font-serif italic text-stone-600" {...props} />,
+                ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
+                ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
+                li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
+                strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
+                a: ({node, ...props}) => <a className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props} />,
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
+          </div>
+
+          {/* Author Box */}
+          <div className="flex flex-col sm:flex-row gap-5 p-6 rounded-2xl border border-olive/10 bg-cream/70 backdrop-blur-md items-center sm:items-start text-center sm:text-left mt-4 shadow-sm">
+            <div className="relative w-16 h-16 rounded-full overflow-hidden border border-olive/10 shrink-0 bg-sand">
+              <Image src="/harry_share_avt.png" alt="Harry" fill sizes="64px" className="object-cover" />
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
+                <span className="font-serif font-bold text-stone-850">Harry (Quang Hiếu)</span>
+                <span className="text-[10px] text-stone-400 font-semibold uppercase tracking-widest">Creative Solopreneur</span>
+              </div>
+              <p className="text-xs text-stone-500 leading-relaxed font-sans">
+                Chào bạn! Cảm ơn bạn đã đọc bài viết này. Mình hi vọng những chia sẻ chân thực từ thực tế làm sản phẩm và thương hiệu của mình mang lại giá trị hữu ích cho bạn. Hãy chia sẻ cảm nghĩ của bạn hoặc nhắn tin trực tiếp cho mình qua hộp chat AI ở góc nhé! 😊
+              </p>
+            </div>
+          </div>
+
+          {/* Comments Section */}
+          <PostComments postId={post.id} />
+        </article>
+      </ArticleActionsWrapper>
     </>
   );
 }
