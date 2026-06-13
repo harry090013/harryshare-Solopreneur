@@ -835,6 +835,224 @@ Những năm tháng lăn lộn trong công ty công nghệ đã mang lại cho m
           approved: true
         }
       ]
+    },
+    {
+      title: "Mọi sản phẩm tốt đều nên bắt đầu từ việc giải quyết nỗi đau của chính mình",
+      slug: "moi-san-pham-tot-deu-nen-bat-dau-tu-noi-dau-cua-chinh-minh",
+      description: "Tại sao việc giải quyết vấn đề của bản thân lại là điểm khởi đầu tốt nhất cho các Solopreneur? Chia sẻ bài học thực tế từ việc xây dựng các công cụ nhỏ của Harry.",
+      coverImage: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+      readTime: 6,
+      published: true,
+      categoryId: catProductMindset.id,
+      date: new Date("2026-06-12T08:00:00.000Z"),
+      content: `## Bắt đầu từ những gì khó chịu nhất
+
+Trong những ngày đầu tiên chập chững bước chân vào con đường xây dựng các dự án cá nhân, mình thường mắc một sai lầm rất phổ biến: cố gắng nghĩ ra những ý tưởng thật to tát. Mình muốn làm một nền tảng quản trị công việc toàn diện cho doanh nghiệp, một mạng xã hội kết nối các Solopreneur, hay một hệ thống tự động hóa marketing siêu đẳng. Kết quả là gì? Mình bị ngợp bởi khối lượng tính năng khổng lồ, code mãi không xong, rồi chán nản và bỏ cuộc giữa chừng.
+
+Cho đến một ngày, mình nhận ra những thứ thực sự hữu ích lại bắt nguồn từ việc giải quyết một sự khó chịu nhỏ của chính mình trong cuộc sống hàng ngày.
+
+Là một người có thói quen ghi chép liên tục nhưng lại dùng một chiếc điện thoại cũ có cấu hình khá yếu, mình thấy ứng dụng Notion load cực kỳ chậm mỗi khi cần ghi nhanh một ý tưởng. Thế là mình tự hỏi: *Tại sao mình không tự code ra một trang note siêu nhẹ, chỉ có đúng một ô text để lưu nhanh vào database cá nhân?* 
+
+Sản phẩm thô sơ đó được mình code xong chỉ trong vòng 3 tiếng đồng hồ. Nó không có định dạng đẹp đẽ, không có cộng tác nhóm, nhưng nó giải quyết đúng 100% nỗi đau của mình: mở app lên là ghi được ngay, không trễ một giây nào.
+
+---
+
+## Tại sao giải quyết nỗi đau của bản thân là "lợi thế bất công"?
+
+Khi bạn tự mình xây dựng một sản phẩm để giải quyết vấn đề của chính mình, bạn có hai lợi thế cực kỳ lớn mà không một cuộc nghiên cứu thị trường đắt đỏ nào có thể mang lại:
+
+### 1. Bạn hiểu nỗi đau đó một cách sâu sắc nhất
+Bạn không cần phải đoán mò xem khách hàng muốn gì, họ gặp khó khăn ở bước nào, hay họ có sẵn sàng trả tiền cho tính năng này không. Bạn chính là khách hàng đầu tiên. Mọi trải nghiệm khó chịu hay mượt mà, bạn đều là người cảm nhận trực tiếp nhất.
+
+### 2. Vòng lặp phản hồi (Feedback loop) diễn ra tức thì
+Bạn code xong tính năng mới vào buổi sáng, trải nghiệm nó vào buổi trưa, phát hiện ra lỗi và sửa nó ngay vào buổi chiều. Không có khoảng trễ giao tiếp giữa lập trình viên và khách hàng. Sự nhanh nhạy này giúp sản phẩm tiến hóa với tốc độ chóng mặt.
+
+---
+
+## Bài học cho các Solopreneur trên hành trình xây sản phẩm
+
+Nếu bạn cũng đang nhen nhóm ý định xây dựng một sản phẩm nhỏ, hãy thử bắt đầu bằng việc quan sát cuộc sống và công việc của chính mình:
+
+* **Tìm kiếm sự lặp lại:** Việc gì bạn đang phải làm thủ công hàng ngày và tốn nhiều thời gian?
+* **Tìm kiếm sự ức chế:** Công cụ nào bạn đang dùng hàng ngày nhưng luôn cảm thấy nó thiếu một tính năng cốt lõi nào đó hoặc quá rườm rà?
+* **Đơn giản hóa tối đa:** Đừng cố xây dựng một con phi thuyền. Hãy xây một chiếc xe đạp chạy tốt trước đã.
+
+Sản phẩm đầu tiên của bạn có thể không giúp bạn giàu lên ngay lập tức, nhưng nó chắc chắn sẽ dạy bạn cách đưa một ý tưởng từ bản thảo ra đời thực. Và quan trọng hơn cả, khi bạn giải quyết được vấn đề của chính mình, chắc chắn ngoài kia sẽ có những người khác cũng đang gặp vấn đề tương tự và cần đến giải pháp của bạn.`,
+      comments: [
+        {
+          authorName: "Khánh An",
+          authorEmail: "khanhan@outlook.com",
+          content: "Đọc bài viết thấy thấm thía quá anh ơi. Em cũng đang loay hoay vẽ ra sản phẩm to tát rồi bỏ dở. Chắc phải bắt đầu nhỏ lại thôi.",
+          approved: true
+        },
+        {
+          authorName: "Duy Mạnh",
+          authorEmail: "manh.duy@gmail.com",
+          content: "Lợi thế lớn nhất của Solopreneur đúng là tốc độ thử sai và thấu cảm sản phẩm. Cảm ơn bài viết thực tế của anh Harry!",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Thương hiệu cá nhân không phải là cố gắng diễn để giống một ai đó",
+      slug: "thuong-hieu-ca-nhan-khong-phai-la-co-gang-dien",
+      description: "Xây dựng thương hiệu cá nhân bằng cách sống thật với chính mình. Bài học từ hành trình ghi chép và chia sẻ công khai không màu mè của Harry.",
+      coverImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catPersonalBranding.id,
+      date: new Date("2026-06-13T09:00:00.000Z"),
+      content: `## Chiếc mặt nạ "chuyên gia" bóng bẩy
+
+Trên các mạng xã hội nghề nghiệp hiện nay, mình thấy một trào lưu rất phổ biến: ai cũng cố gắng xây dựng cho mình một hình tượng thật hoàn hảo. Những bài đăng khoe thành tích vượt bậc, những thuật ngữ đắt đỏ, và những lời khuyên đạo lý được đóng gói rất bóng bẩy. 
+
+Thành thật mà nói, mình cũng từng rơi vào cái bẫy đó. 
+
+Những ngày đầu làm thương hiệu cá nhân, mình cố gắng viết những bài viết thật 'ngầu', sử dụng nhiều từ tiếng Anh chuyên ngành marketing, và cố tỏ ra mình là người biết tuốt. Nhưng sau mỗi bài đăng như vậy, mình lại cảm thấy vô cùng trống rỗng và mệt mỏi. Trống rỗng vì mình biết đó không phải là mình đời thực – một cậu thanh niên IT rẽ ngang sang Marketing vẫn đang mò mẫm tự học mỗi ngày. Mệt mỏi vì việc phải gồng lên để 'diễn' cho tròn vai chuyên gia thực sự rất tốn năng lượng.
+
+Và mình đã quyết định dừng lại. Mình cởi bỏ chiếc mặt nạ đó xuống và bắt đầu viết thật hơn.
+
+---
+
+## Sức mạnh của sự chân thật và hành trình không màu mè
+
+Khi mình bắt đầu chia sẻ về những lần chạy chiến dịch marketing thất bại, những bài học xương máu khi tự làm sản phẩm, hay những trăn trở của một người có xu hướng overthinking, một điều kỳ diệu đã xảy ra: **Số người tương tác và nhắn tin trò chuyện với mình tăng lên rõ rệt.**
+
+Họ tìm đến mình không phải vì mình là một siêu sao marketing đứng trên bục giảng dạy đời, mà vì họ thấy bóng dáng của chính họ trong những câu chuyện thử sai của mình. Họ tin tưởng sự chân thành đó.
+
+Thương hiệu cá nhân bền vững nhất không được xây dựng từ những lời nói dối hay sự tô vẽ quá đà. Nó được xây dựng từ:
+
+1. **Sự nhất quán giữa nói và làm:** Bạn chia sẻ những gì bạn thực sự trải nghiệm và làm việc hàng ngày.
+2. **Sự dám thừa nhận thiếu sót:** Không ai biết hết mọi thứ. Thừa nhận mình chưa biết và đang học hỏi là biểu hiện của sự tự tin thực sự, chứ không phải yếu kém.
+3. **Giá trị thực tế trao đi:** Viết blog để giúp đỡ người đi sau rút ngắn con đường tự học, chứ không phải để đánh bóng cái tôi của bản thân.
+
+---
+
+## Lời nhắn gửi cho những bạn đang bắt đầu
+
+Đừng sợ hành trình của mình còn quá mới mẻ hay chưa có thành tựu gì to lớn để chia sẻ. Mỗi chặng đường bạn đi qua, mỗi lỗi sai bạn vừa sửa đều là những tư liệu vô giá.
+
+Hãy nhớ rằng: **Người đọc thích kết nối với một con người bằng xương bằng thịt có những vết sẹo và câu chuyện thật, chứ không phải một hình mẫu robot hoàn hảo không tì vết.** 
+
+Hãy cứ là chính mình, chia sẻ một cách chân thành và kiên trì. Thương hiệu cá nhân của bạn sẽ tự động được định hình từ chính những giá trị thật mà bạn gieo trồng mỗi ngày.`,
+      comments: [
+        {
+          authorName: "Minh Anh",
+          authorEmail: "minhanh.nguyen@gmail.com",
+          content: "Đồng cảm sâu sắc với anh Hiếu. Em cũng đang loay hoay vươn mình trên LinkedIn. Đọc bài viết thấy nhẹ lòng hẳn.",
+          approved: true
+        },
+        {
+          authorName: "Văn Lâm",
+          authorEmail: "lamv@yahoo.com",
+          content: "Sống thật và viết thật là thứ bền vững nhất. Chúc blog HarryShare luôn giữ vững tinh thần này anh nhé!",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "AI không cướp đi sự sáng tạo, nó cướp đi sự lười biếng của bạn",
+      slug: "ai-khong-cuop-di-su-sang-tao-no-cuop-di-su-luoi-bieng",
+      description: "Cách sử dụng AI như một người bạn phản biện tư duy và nâng cao năng suất làm việc mỗi ngày thay vì phụ thuộc một cách thụ động.",
+      coverImage: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catAiVibeCoding.id,
+      date: new Date("2026-06-13T10:00:00.000Z"),
+      content: `## Nỗi sợ hãi mang tên "AI thay thế con người"
+
+Mấy năm gần đây, đi đâu mình cũng nghe thấy những lời cảnh báo đầy lo âu: *AI sắp thay thế lập trình viên, AI sắp cướp việc của copywriter, AI làm thiết kế đẹp hơn con người.* Nhiều bạn trẻ mới ra trường cảm thấy hoang mang vì sợ ngách nghề nghiệp của mình sẽ biến mất trước khi kịp tích lũy kinh nghiệm.
+
+Là một người làm việc trực tiếp với code và marketing công nghệ, mình cũng từng dành nhiều giờ để thử nghiệm mọi công cụ AI mới nhất. Và kết luận của mình là: **AI không cướp đi sự sáng tạo. Cái nó cướp đi thực chất là sự lười biếng của chúng ta.**
+
+AI cực kỳ giỏi trong việc thực thi những tác vụ có tính lặp đi lặp lại hoặc tổng hợp thông tin sẵn có. Nếu công việc hàng ngày của bạn chỉ là viết những bài viết chuẩn SEO vô hồn theo công thức, dịch thuật thô, hoặc viết những đoạn code mẫu đơn giản – thì đúng vậy, bạn sẽ bị thay thế. Nhưng đó không phải là sự sáng tạo thực sự. Đó chỉ là sự thực thi chăm chỉ mà thôi.
+
+---
+
+## Biến AI thành một "Thinking Partner" phản biện tư duy
+
+Thay vì lười biếng phó mặc hoàn toàn cho AI viết bài hay code hộ (để rồi nhận lại những sản phẩm sáo rỗng, thiếu cá tính), cách tiếp cận thông minh là biến AI thành một **cộng sự phản biện tư duy** đắc lực:
+
+* **Phản biện logic:** Khi viết xong một outline bài viết hay một giải pháp kỹ thuật, mình thường hỏi AI: *'Điểm yếu trong lập luận này của tôi là gì? Có trường hợp góc (edge case) nào tôi đã bỏ sót trong đoạn code này không?'*
+* **Mở rộng góc nhìn:** AI có thể nhanh chóng đưa ra 5-10 góc tiếp cận khác nhau cho cùng một vấn đề, giúp mình thoát khỏi lối mòn suy nghĩ (overthinking tiêu cực).
+* **Tối ưu hóa thời gian thực thi:** Bắt AI làm những việc tẻ nhạt như định dạng dữ liệu, viết các hàm bổ trợ đơn giản, để dành 80% năng lượng đầu óc cho việc tư duy kiến trúc hệ thống và thấu hiểu khách hàng.
+
+---
+
+## Kỷ nguyên của những câu hỏi đúng
+
+Trong thời đại thông tin ngập tràn và AI có thể trả lời mọi thứ, giá trị của một người không nằm ở chỗ họ **nhớ được bao nhiêu câu trả lời**, mà nằm ở việc họ **dám và biết đặt ra những câu hỏi đúng (prompting)**.
+
+Để đặt được câu hỏi chất lượng, bạn phải có tư duy bóc tách vấn đề sâu sắc, có vốn sống thực tế và có sự thấu cảm con người. Đó là những thứ mà thuật toán AI không bao giờ tự sinh ra được.
+
+Vì thế, thay vì sợ hãi AI, hãy bắt đầu học cách làm việc cùng nó. Hãy nâng cấp tư duy của chính mình lên một tầm cao mới, bắt AI phải phục vụ cho trí tưởng tượng của bạn, và giữ cho mình một cái đầu tỉnh táo để đưa ra những quyết định sáng suốt nhất.`,
+      comments: [
+        {
+          authorName: "Quốc Bảo",
+          authorEmail: "baoq@gmail.com",
+          content: "Góc nhìn rất chuẩn ạ. Người lười dùng AI viết bài đọc là biết ngay, rất sáo rỗng. Phải dùng nó làm bạn phản biện mới đúng tầm.",
+          approved: true
+        },
+        {
+          authorName: "Hải Yến",
+          authorEmail: "haiyen.dev@gmail.com",
+          content: "Em dùng AI để giải thích code và tìm edge case cực kỳ tốt luôn. Tiết kiệm thời gian tự bơi rất nhiều.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Marketing công nghệ - Nơi logic của IT gặp gỡ sự thấu cảm con người",
+      slug: "marketing-cong-nghe-noi-logic-cua-it-gap-go-su-thau-cam",
+      description: "Trải lòng về những bài học thực tế sau 2 năm làm Marketing trong các doanh nghiệp công nghệ dưới góc nhìn của một cựu lập trình viên.",
+      coverImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+      readTime: 6,
+      published: true,
+      categoryId: catCareerJourney.id,
+      date: new Date("2026-06-13T10:30:00.000Z"),
+      content: `## Ngã rẽ bất ngờ của một dân IT
+
+Nếu bạn hỏi mình của 5 năm trước rằng: *'Sau này cậu có làm Marketing không?'*, chắc chắn mình sẽ cười lớn và lắc đầu. Khi đó, thế giới của mình chỉ xoay quanh những dòng lệnh, cấu trúc dữ liệu logic, và những đêm thức trắng để fix bug phần mềm. Đối với một dân IT chính hiệu, Marketing trong mắt mình lúc ấy là một thứ gì đó khá mơ hồ, bay bổng và đầy cảm tính.
+
+Nhưng dòng đời đưa đẩy và bản thân lựa chọn dấn thân. Đến nay, mình đã có 2 năm kinh nghiệm làm Marketing trong môi trường công nghệ. 
+
+Hành trình bước qua ngã rẽ này đã dạy cho mình một bài học lớn: **IT và Marketing không hề đối lập nhau. Ngược lại, chúng là mảnh ghép hoàn hảo để tạo nên những bứt phá độc đáo.**
+
+---
+
+## Khi logic kỹ thuật hỗ trợ sự thấu cảm con người
+
+Marketing công nghệ (Tech Marketing) đòi hỏi sự kết hợp nhuần nhuyễn giữa tư duy logic sắc bén của kỹ thuật và sự thấu cảm tinh tế đối với con người:
+
+### 1. Tư duy IT làm nền tảng cho hệ thống Marketing
+Nền tảng kỹ thuật giúp mình không bị bỡ ngỡ trước sự bùng nổ của các công cụ MarTech (Marketing Technology). Mình có thể tự tay cấu hình các phễu tự động hóa (marketing automation), phân tích dữ liệu số (data analytics) một cách khoa học mà không cần đợi đội ngũ kỹ thuật hỗ trợ. Mọi quyết định tối ưu hóa chiến dịch đều dựa trên số liệu thực tế chứ không phải phỏng đoán cảm tính.
+
+### 2. Sự thấu cảm Marketing làm mềm mại những dòng code
+Một lập trình viên giỏi thường tập trung vào việc code sao cho tối ưu và chạy không lỗi. Nhưng một marketer giỏi lại dạy mình câu hỏi quan trọng hơn: *'Người dùng thực tế cảm thấy thế nào khi bấm vào cái nút này? Sản phẩm này giải quyết nỗi đau nào của họ trong đời thực?'* Sự thấu cảm này giúp mình nhìn sản phẩm bằng con mắt của một con người bình thường, từ đó thiết kế ra những trải nghiệm tinh tế hơn.
+
+---
+
+## Tuổi trẻ không có trải nghiệm nào là lãng phí
+
+Nhìn lại chặng đường đã qua, mình nhận ra không có kiến thức hay kỹ năng nào mình từng học là bỏ phí. Những ngày tháng thức đêm lập trình tưởng chừng như xa lạ với công việc làm marketing hiện tại, thực chất lại là lợi thế cạnh tranh độc nhất của mình trong ngành.
+
+Nó cho phép mình hiểu sản phẩm công nghệ một cách sâu sắc để viết nội dung chân thực nhất, nói chuyện cùng ngôn ngữ với đội ngũ kỹ sư phát triển, và xây dựng các hệ thống vận hành trơn tru cho riêng mình.
+
+Nếu bạn cũng đang đứng trước những quyết định rẽ hướng sự nghiệp, hay đang lo lắng kiến thức cũ của mình không dùng được ở ngách mới – hãy tin rằng sự kết hợp giữa các lĩnh vực tưởng chừng khác biệt thường là nơi gieo mầm cho những năng lực độc đáo nhất của bạn.`,
+      comments: [
+        {
+          authorName: "Thế Vinh",
+          authorEmail: "vinh.the@gmail.com",
+          content: "Đọc bài viết truyền cảm hứng quá anh. Sự kết hợp giữa IT và Marketing đúng là vũ khí cực mạnh trong thời đại số hiện nay.",
+          approved: true
+        },
+        {
+          authorName: "Bích Phương",
+          authorEmail: "phuongb@gmail.com",
+          content: "Rất đồng cảm với câu 'không có trải nghiệm nào là lãng phí'. Chúc anh Hiếu gieo thêm nhiều hạt mầm ý nghĩa!",
+          approved: true
+        }
+      ]
     }
   ];
 
