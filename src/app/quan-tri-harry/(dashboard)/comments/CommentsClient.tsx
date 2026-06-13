@@ -48,6 +48,20 @@ export default function CommentsClient({ initialComments, categories }: Comments
   const [replyText, setReplyText] = useState('');
   const [savingReply, setSavingReply] = useState(false);
 
+  // Refs for auto-scroll and focus
+  const replyInputRef = React.useRef<HTMLTextAreaElement>(null);
+  const detailPanelRef = React.useRef<HTMLDivElement>(null);
+
+  // Auto scroll and focus when selecting a comment
+  React.useEffect(() => {
+    if (selectedComment) {
+      setTimeout(() => {
+        detailPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        replyInputRef.current?.focus();
+      }, 100);
+    }
+  }, [selectedComment]);
+
   // Feedback states
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -362,14 +376,26 @@ export default function CommentsClient({ initialComments, categories }: Comments
 
                         {/* Quick actions */}
                         <td className="py-4 px-5 text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                          <div className="flex justify-end gap-1">
+                          <div className="flex justify-end gap-1.5">
+                            <button
+                              onClick={() => setSelectedComment(comment)}
+                              className={`px-2.5 py-1.5 rounded-lg border text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                                comment.adminReply
+                                  ? 'border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100/30'
+                                  : 'border-olive/20 bg-cream text-olive hover:bg-olive/5'
+                              }`}
+                              title="Xem chi tiết & Trả lời"
+                            >
+                              <MessageSquare className="w-3.5 h-3.5 shrink-0" />
+                              <span>{comment.adminReply ? 'Phản hồi' : 'Trả lời'}</span>
+                            </button>
                             <button
                               onClick={() => handleToggleApproval(comment.id, comment.approved)}
                               disabled={updatingId === comment.id}
                               className={`p-2 rounded-lg border transition-all cursor-pointer ${
                                 comment.approved
-                                  ? 'border-amber-100 hover:border-amber-200 text-amber-700 hover:bg-amber-50/20'
-                                  : 'border-emerald-100 hover:border-emerald-200 text-emerald-700 hover:bg-emerald-50/20'
+                                  ? 'border-amber-100 hover:border-amber-250 text-amber-700 hover:bg-amber-50/20'
+                                  : 'border-emerald-100 hover:border-emerald-250 text-emerald-700 hover:bg-emerald-50/20'
                               }`}
                               title={comment.approved ? 'Ẩn bình luận' : 'Duyệt bình luận'}
                             >
@@ -395,7 +421,7 @@ export default function CommentsClient({ initialComments, categories }: Comments
 
         {/* Selected Comment Detail Panel */}
         {selectedComment && (
-          <div className="lg:col-span-5 border border-olive/15 rounded-2xl bg-cream/80 backdrop-blur-md p-5 flex flex-col gap-5 animate-slide-up sticky top-6">
+          <div ref={detailPanelRef} className="lg:col-span-5 border border-olive/15 rounded-2xl bg-cream/80 backdrop-blur-md p-5 flex flex-col gap-5 animate-slide-up sticky top-6">
             <div className="flex justify-between items-center border-b border-olive/15 pb-3">
               <h3 className="font-serif font-black text-stone-850 text-base flex items-center gap-1.5">
                 <MessageSquare className="w-4 h-4 text-olive" /> Chi tiết bình luận
@@ -457,6 +483,7 @@ export default function CommentsClient({ initialComments, categories }: Comments
             <div className="flex flex-col gap-2.5 text-xs pt-2 border-t border-olive/15 mt-1">
               <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Trả lời của Harry</span>
               <textarea
+                ref={replyInputRef}
                 rows={3}
                 placeholder="Nhập nội dung phản hồi bình luận..."
                 value={replyText}
