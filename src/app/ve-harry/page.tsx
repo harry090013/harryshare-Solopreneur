@@ -189,7 +189,7 @@ export default async function AboutPage() {
                     </span>
                   </div>
                   
-                  <div className={`flex flex-col ${step.imageUrl ? 'md:flex-row gap-6' : ''} pt-1`}>
+                  <div className={`flex flex-col ${step.imageUrl ? 'md:flex-row md:items-center gap-6' : ''} pt-1`}>
                     <div className={`flex flex-col gap-2 ${step.imageUrl ? 'md:w-[70%] flex-1' : 'w-full'}`}>
                       <h3 className="font-serif text-lg font-bold text-stone-850 leading-snug">
                         {step.title}
@@ -205,7 +205,7 @@ export default async function AboutPage() {
                     </div>
 
                     {step.imageUrl && (
-                      <div className="md:w-[30%] w-full shrink-0 flex items-start mt-4 md:mt-0">
+                      <div className="md:w-[30%] w-full shrink-0 flex items-center mt-4 md:mt-0">
                         <div className="relative w-full aspect-video md:aspect-[4/3] rounded-xl overflow-hidden border border-olive/10 shadow-sm bg-sand">
                           <Image 
                             src={step.imageUrl} 
