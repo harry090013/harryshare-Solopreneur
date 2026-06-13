@@ -1053,6 +1053,224 @@ Nếu bạn cũng đang đứng trước những quyết định rẽ hướng s
           approved: true
         }
       ]
+    },
+    {
+      title: "Đừng xây tính năng, hãy xây giải pháp cho một quy trình",
+      slug: "dung-xay-tinh-nang-hay-xay-giai-phap-cho-quy-trinh",
+      description: "Tại sao việc nhồi nhét tính năng chỉ làm sản phẩm phức tạp hơn? Tập trung tối ưu hóa một quy trình cốt lõi mang lại trải nghiệm khách hàng vượt trội.",
+      coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catProductMindset.id,
+      date: new Date("2026-06-13T11:00:00.000Z"),
+      content: `## Cái bẫy mang tên "Càng nhiều tính năng càng tốt"
+
+Trong những ngày đầu thiết kế sản phẩm, mình từng mắc một hội chứng rất phổ biến ở các lập trình viên: **Feature Creep** (tham lam tính năng). Mình luôn nghĩ rằng, để sản phẩm cạnh tranh được với các đối thủ lớn trên thị trường, nó phải có nhiều tính năng hơn. Mỗi khi nghe một ý kiến góp ý từ bạn bè hay khách hàng chạy thử, mình lại ngay lập tức thêm một nút bấm mới, một trang báo cáo mới, một lựa chọn cấu hình mới.
+
+Kết quả là gì? Sau vài tháng, sản phẩm của mình biến thành một con "quái vật Frankenstein" rối rắm. Giao diện chằng chịt nút bấm, người dùng mới mở lên thì ngơ ngác không biết bắt đầu từ đâu, còn mình thì kiệt sức vì phải duy trì và sửa lỗi cho hàng tá tính năng ít người dùng.
+
+Mình nhận ra: **Khách hàng không mua tính năng, họ mua sự giải quyết trọn vẹn cho một quy trình làm việc.**
+
+---
+
+## Tập trung tối ưu hóa "Happy Path"
+
+Thay vì cố gắng làm tất cả mọi thứ một cách nửa vời, một sản phẩm WIN thực thụ chỉ cần làm tốt nhất một quy trình duy nhất. Quy trình đó phải được thiết kế sao cho mượt mà, không có ma sát (frictionless) và dẫn người dùng đến kết quả mong muốn một cách nhanh nhất.
+
+Ví dụ, nếu bạn làm một công cụ gửi bản tin (newsletter system):
+* Thay vì thêm tính năng chỉnh sửa ảnh nâng cao, vẽ sơ đồ, hay chatbot tích hợp...
+* Hãy tập trung tối ưu hóa quy trình: **Viết bài viết -> Nhấp gửi -> Gửi đi thành công với tỷ lệ vào hộp thư chính (inbox) cao nhất.**
+
+Khi bạn đơn giản hóa sản phẩm và tập trung vào quy trình cốt lõi, bạn sẽ thấy:
+1. **Trải nghiệm người dùng tốt hơn:** Giao diện gọn gàng, trực quan và dễ sử dụng.
+2. **Chi phí bảo trì thấp hơn:** Codebase sạch sẽ, ít bug và dễ mở rộng khi cần.
+3. **Thông điệp sản phẩm rõ ràng:** Khách hàng hiểu ngay sản phẩm của bạn giải quyết vấn đề gì cho họ.
+
+---
+
+## Bài học đúc kết cho sản phẩm tiếp theo
+
+Mỗi khi định thêm một tính năng mới, hãy tự hỏi bản thân 3 câu hỏi:
+1. Tính năng này có thực sự giúp quy trình cốt lõi của người dùng nhanh hơn hoặc dễ dàng hơn không?
+2. Có thể giải quyết vấn đề của khách hàng bằng cách tối ưu hóa luồng hiện tại thay vì thêm nút mới không?
+3. Nếu không có tính năng này, sản phẩm có còn hoạt động được không?
+
+Đừng cố xây dựng một con dao đa năng nhưng lưỡi nào cũng cùn. Hãy xây một lưỡi dao sắc bén nhất để giải quyết đúng một vết cắt chí mạng của khách hàng.`,
+      comments: [
+        {
+          authorName: "Đình Trung",
+          authorEmail: "trung.dinh@outlook.com",
+          content: "Thấm thía quá anh Harry. Em đang làm sản phẩm SaaS cũng bị sa vào bẫy feature creep, khách hàng phàn nàn vì quá khó dùng.",
+          approved: true
+        },
+        {
+          authorName: "Mai Vy",
+          authorEmail: "maivy.design@gmail.com",
+          content: "Tối ưu hóa quy trình (workflow) thay vì tính năng rời rạc là tư duy sản phẩm cực kỳ chuẩn xác. Cảm ơn chia sẻ của anh!",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Viết blog là cách mình tự phản chiếu và học hỏi sâu hơn",
+      slug: "viet-blog-la-cach-tu-phan-chieu-va-hoc-hoi",
+      description: "Viết không chỉ là để chia sẻ cho người khác, mà là công cụ mạnh mẽ nhất để tự hệ thống hóa kiến thức và phản chiếu sự phát triển của bản thân.",
+      coverImage: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      categoryId: catPersonalBranding.id,
+      date: new Date("2026-06-13T12:00:00.000Z"),
+      content: `## Học bằng cách dạy lại cho người khác
+
+Nhiều người nghĩ rằng bạn phải trở thành một chuyên gia thực thụ, có nhiều năm kinh nghiệm và thành tựu xuất sắc thì mới nên viết blog chia sẻ. Suy nghĩ này vô tình tạo ra một rào cản tâm lý rất lớn khiến nhiều bạn trẻ không dám đặt bút viết.
+
+Nhưng đối với mình, viết blog không phải là hành động "dạy dỗ" ai cả. Viết blog chính là cách mình tự học.
+
+Có một phương pháp học tập rất nổi tiếng mang tên **Feynman Technique**: Cách tốt nhất để hiểu sâu một vấn đề là giải thích nó cho một người khác hiểu bằng ngôn ngữ đơn giản nhất. Khi mình bắt tay vào viết một bài chia sẻ về kỹ thuật hay tư duy làm marketing, mình buộc phải sắp xếp lại mớ kiến thức lộn xộn trong đầu thành một cấu trúc logic, rõ ràng. 
+
+Chính trong quá trình tìm từ ngữ để diễn đạt đó, mình phát hiện ra những lỗ hổng kiến thức của bản thân. Mình nhận ra mình chưa thực sự hiểu sâu phần này, chưa rõ bản chất phần kia. Thế là mình lại phải đi đọc thêm tài liệu, làm thử nghiệm để lấp đầy khoảng trống đó trước khi xuất bản bài viết.
+
+---
+
+## Cuốn nhật ký phản chiếu hành trình phát triển
+
+Viết blog còn là một công cụ tuyệt vời để bạn đối thoại với chính mình qua thời gian. 
+
+Khi đọc lại những bài viết mình viết từ 1-2 năm trước, đôi khi mình thấy những suy nghĩ của mình lúc đó thật ngây ngô, hoặc những giải pháp kỹ thuật mình đưa ra còn khá vụng về. Nhưng cảm giác đó không hề tệ chút nào. Nó là minh chứng rõ ràng nhất cho thấy mình đã phát triển và trưởng thành hơn qua từng ngày.
+
+Nếu không viết ra và lưu trữ lại, những suy nghĩ và bài học quý giá trên hành trình thử sai của bạn sẽ dễ dàng bị thời gian cuốn trôi. Bạn sẽ quên mất mình đã từng trăn trước điều gì, đã vượt qua những khó khăn đó ra sao.
+
+---
+
+## Bắt đầu đặt bút viết ngay hôm nay
+
+Nếu bạn cũng muốn viết nhưng còn ngần ngại sợ viết không hay, sợ bị người khác đánh giá:
+
+* **Hãy viết cho chính mình trước tiên:** Hãy viết để hệ thống hóa những gì bạn vừa học được hôm nay, để lưu lại một lỗi code bạn vừa sửa xong sau 3 tiếng mò mẫm.
+* **Tập trung vào giá trị thực tế:** Đừng cố viết những lời lẽ hoa mỹ, sáo rỗng. Hãy chia sẻ câu chuyện thật, trải nghiệm thật và cách bạn giải quyết vấn đề cụ thể.
+* **Đừng áp lực hoàn hảo:** Bài viết đầu tiên của bạn có thể không tốt, nhưng bài thứ 10, thứ 50 chắc chắn sẽ tốt hơn rất nhiều.
+
+Viết lách là một kỹ năng cần sự rèn luyện kiên trì. Hãy coi blog cá nhân như một khu vườn nhỏ. Bạn gieo những hạt giống suy nghĩ mỗi ngày, và theo thời gian, bạn sẽ nhận lại một tâm trí rõ ràng và một thương hiệu cá nhân chân thực nhất.`,
+      comments: [
+        {
+          authorName: "Thanh Hằng",
+          authorEmail: "hangt@gmail.com",
+          content: "Em rất thích phương pháp Feynman. Viết ra đúng là cách tốt nhất để biết mình thực sự hiểu vấn đề đến đâu.",
+          approved: true
+        },
+        {
+          authorName: "Đức Huy",
+          authorEmail: "huy.duc@gmail.com",
+          content: "Đọc xong bài viết này em có thêm động lực tự tạo một chiếc blog nhỏ cho riêng mình. Cảm ơn anh Harry!",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Vibe Coding - Khi lập trình trở thành nghệ thuật điều phối",
+      slug: "vibe-coding-khi-lap-trinh-tro-thanh-dieu-phoi",
+      description: "Khái niệm Vibe Coding dưới góc nhìn của một developer: AI viết code, con người định hướng kiến trúc và giữ 'nhịp điệu' sáng tạo.",
+      coverImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+      readTime: 6,
+      published: true,
+      categoryId: catAiVibeCoding.id,
+      date: new Date("2026-06-13T13:00:00.000Z"),
+      content: `## Sự trỗi dậy của "Vibe Coding"
+
+Gần đây trong cộng đồng lập trình thế giới xôn xao một thuật ngữ mới: **Vibe Coding**. Thuật ngữ này mô tả cách lập trình mà ở đó, lập trình viên không trực tiếp gõ từng dòng lệnh (syntax), không ngồi gỡ từng dấu chấm phẩy, mà thay vào đó là điều phối các AI agent (như Claude, Cursor, Gemini) tự động viết code và xây dựng hệ thống theo yêu cầu.
+
+Nhiều người coi đây là một trò đùa, nhưng đối với mình, đây thực sự là một cuộc chuyển giao thế hệ trong ngành phát triển phần mềm.
+
+Lập trình viên thời đại mới đang dịch chuyển từ vai trò một **"người thợ xây"** (chăm chỉ đặt từng viên gạch code) sang vai trò một **"kiến trúc sư và tổng đạo diễn"** (định hướng thiết kế, điều phối tài nguyên và kiểm soát chất lượng).
+
+---
+
+## Làm thế nào để "Vibe" một cách hiệu quả và an toàn?
+
+Để làm việc hiệu quả trong kỷ nguyên Vibe Coding, bạn cần trang bị cho mình những kỹ năng rất khác so với tư duy lập trình truyền thống:
+
+### 1. Hiểu sâu về kiến trúc hệ thống (System Architecture)
+AI có thể viết một hàm rất nhanh và tối ưu, nhưng nó không biết cấu trúc toàn bộ dự án của bạn nên đi theo hướng nào là tốt nhất cho tương lai. Bạn phải là người quyết định cấu trúc dữ liệu, cách các module giao tiếp với nhau và lựa chọn công nghệ phù hợp.
+
+### 2. Kỹ năng đặt câu hỏi và bóc tách vấn đề (Prompt Engineering)
+Để AI làm đúng ý, bạn phải biết chia nhỏ một bài toán lớn thành các nhiệm vụ con cực kỳ rõ ràng, logic. Nếu câu lệnh đầu vào của bạn mơ hồ, AI sẽ trả về một đống code rác khổng lồ và bạn sẽ mất nhiều thời gian hơn để đi dọn dẹp nó.
+
+### 3. Tư duy phản biện và kiểm thử (Critical Thinking & Testing)
+Đừng bao giờ tin tưởng hoàn toàn vào code do AI tạo ra. Bạn phải luôn là người kiểm tra logic, chạy thử các trường hợp biên (edge cases) và đảm bảo hệ thống vận hành an toàn trước khi đẩy lên production.
+
+---
+
+## Cơ hội lớn cho các Solopreneur
+
+Đối với một người tự xây sản phẩm một mình (Solopreneur) như mình, Vibe Coding là một món quà vô giá. Nó giúp mình rút ngắn thời gian phát triển sản phẩm từ hàng tháng xuống còn vài ngày. Mình có thể tự tay xây dựng một ứng dụng web hoàn chỉnh từ Front-end đến Back-end mà không cần một đội ngũ lập trình viên hùng hậu phía sau.
+
+Vibe Coding không làm giảm giá trị của lập trình viên, nó chỉ giải phóng chúng ta khỏi những tác vụ lặp đi lặp lại tẻ nhạt để tập trung vào phần thú vị nhất của công nghệ: **Sáng tạo và giải quyết vấn đề thực tế.**`,
+      comments: [
+        {
+          authorName: "Minh Quân",
+          authorEmail: "quanm@gmail.com",
+          content: "Thuật ngữ Vibe Coding nghe rất vui nhưng bản chất bên trong chính là sự nâng cấp tư duy thiết kế hệ thống. Bài viết hay lắm anh.",
+          approved: true
+        },
+        {
+          authorName: "Hoàng Yến",
+          authorEmail: "yen.hoang@gmail.com",
+          content: "Em cũng đang áp dụng cách này để tự làm các tool nhỏ hỗ trợ công việc. Tốc độ làm sản phẩm tăng lên chóng mặt.",
+          approved: true
+        }
+      ]
+    },
+    {
+      title: "Bài học từ những lần thất bại khi tự làm sản phẩm đầu tay",
+      slug: "bai-hoc-tu-nhung-lan-that-bai-khi-tu-lam-san-pham",
+      description: "Chia sẻ chân thật của Harry về những dự án cá nhân từng phải đóng cửa, bài học đắt giá về dòng tiền và cách xác định nhu cầu thực của thị trường.",
+      coverImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      readTime: 6,
+      published: true,
+      categoryId: catCareerJourney.id,
+      date: new Date("2026-06-13T14:00:00.000Z"),
+      content: `## Những bài học đắt giá được mua bằng tiền và thời gian
+
+Trước khi xây dựng HarryShare hay các dự án nhỏ hiện tại, mình từng có một quá khứ đầy những lần \"đứt gánh giữa đường\". Dự án đầu tiên của mình là một ứng dụng quản lý tài chính cá nhân dành cho sinh viên. Mình dành 6 tháng liền, thức đêm thức hôm để code các tính năng phân tích biểu đồ cực kỳ phức tạp. Kết quả: Khi ra mắt, chỉ có đúng 5 người bạn thân tải về dùng thử, và sau 2 tuần thì không ai mở lại nữa.
+
+Dự án thứ hai là một website kết nối các bạn freelancer viết lách với các chủ shop online. Lần này mình rút kinh nghiệm không code nhiều nữa, nhưng lại sa vào bẫy chi tiền quảng cáo rầm rộ khi chưa hoàn thiện luồng trải nghiệm. Dòng tiền cạn kiệt nhanh chóng và mình phải đóng dự án sau 3 tháng vận hành.
+
+Những thất bại đó từng làm mình suy sụp và tự nghi ngờ năng lực bản thân rất nhiều. Nhưng nhìn lại, đó là những học phí đắt giá nhất giúp mình hiểu được cách thế giới kinh doanh thực tế vận hành.
+
+---
+
+## 3 Bài học xương máu đúc kết lại
+
+### 1. Đừng xây sản phẩm khi chưa có khách hàng
+Sai lầm lớn nhất của mình là ngồi một chỗ suy diễn ra nhu cầu của người dùng. Hãy đi nói chuyện với họ trước, xem họ thực sự gặp khó khăn gì, họ có sẵn sàng trả tiền để giải quyết khó khăn đó không. Chỉ bắt tay vào code khi bạn đã có một danh sách những người thực sự mong chờ giải pháp của bạn.
+
+### 2. Tư duy tinh gọn (Lean Startup)
+Hãy làm ra một phiên bản thô sơ nhất có thể (MVP - Minimum Viable Product) để kiểm tra giả thuyết của bạn càng nhanh càng tốt. Đừng mất 6 tháng để xây một sản phẩm hoàn hảo rồi nhận ra không ai cần nó. Hãy làm nó trong 1-2 tuần, đưa cho khách hàng dùng và liên tục sửa đổi dựa trên phản hồi thực tế.
+
+### 3. Dòng tiền là dòng máu của dự án
+Một sản phẩm dù hay đến mấy nhưng không có mô hình tạo doanh thu hoặc không quản lý chi phí tốt sẽ nhanh chóng đi vào ngõ cụt. Hãy suy nghĩ về bài toán kinh tế ngay từ ngày đầu tiên, dù đó chỉ là một dự án nhỏ.
+
+---
+
+## Thất bại chỉ là một phần của quá trình thử sai
+
+Không ai sinh ra đã là một Solopreneur hay nhà sáng lập thành công ngay từ lần đầu tiên. Mỗi lần dự án thất bại là một lần bạn có thêm dữ liệu thực tế để biết hướng đi nào không hoạt động, từ đó điều chỉnh hướng đi tiếp theo chính xác hơn.
+
+Quan trọng là bạn không được để những thất bại đó dập tắt ngọn lửa đam mê sáng tạo bên trong mình. Hãy đứng dậy, phủi bụi, rút kinh nghiệm và tiếp tục kiến tạo những giá trị tốt đẹp hơn!`,
+      comments: [
+        {
+          authorName: "Quang Minh",
+          authorEmail: "minhq@gmail.com",
+          content: "Đọc câu chuyện của anh em thấy tự tin hơn nhiều. Em vừa phải dừng một dự án nhỏ sau 4 tháng phát triển, cảm giác rất tệ nhưng bài viết này làm em tỉnh ngộ.",
+          approved: true
+        },
+        {
+          authorName: "Hồng Nhung",
+          authorEmail: "nhung.hong@gmail.com",
+          content: "Bài học về MVP luôn là bài học khó thực hành nhất vì ai cũng muốn sản phẩm của mình phải thật đẹp và nhiều tính năng trước khi ra mắt. Cảm ơn bài viết chia sẻ rất chân thật của anh Harry!",
+          approved: true
+        }
+      ]
     }
   ];
 
