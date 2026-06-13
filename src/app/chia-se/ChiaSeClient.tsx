@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Search, Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
+import { Search, Calendar, Clock, ArrowRight, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Category {
   id: string;
@@ -35,10 +35,16 @@ export default function ChiaSeClient({
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>(urlCategory);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setSelectedCategory(urlCategory);
   }, [urlCategory]);
+
+  // Reset page to 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory]);
 
   const filteredPosts = initialPosts.filter(post => {
     const matchesSearch = 
@@ -49,6 +55,11 @@ export default function ChiaSeClient({
 
     return matchesSearch && matchesCategory;
   });
+
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedPosts = filteredPosts.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="flex flex-col gap-8">
@@ -102,61 +113,109 @@ export default function ChiaSeClient({
           <p className="text-xs text-stone-400">Bạn hãy thử thay đổi từ khóa tìm kiếm hoặc lọc danh mục khác xem sao nhé!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {filteredPosts.map((post) => (
-            <article 
-              key={post.id}
-              className="flex flex-col gap-4 rounded-2xl overflow-hidden border border-olive/10 bg-cream/70 backdrop-blur-md hover:border-olive/30 hover:bg-cream hover:shadow-lg transition-all duration-300 group"
-            >
-              {/* Cover image */}
-              <Link href={`/chia-se/${post.slug}`} className="relative h-48 w-full overflow-hidden block cursor-pointer">
-                <Image 
-                  src={post.coverImage} 
-                  alt={post.title} 
-                  fill 
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
-                  className="object-cover" 
-                />
-                {post.category && (
-                  <div className="absolute top-3 left-3 bg-cream/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-olive border border-olive/10 shadow-xs uppercase tracking-wider">
-                    {post.category.name}
-                  </div>
-                )}
-              </Link>
-
-              {/* Info */}
-              <div className="flex flex-col gap-3 p-5 pt-1 flex-1">
-                <div className="flex items-center gap-3.5 text-stone-400 text-[11px] font-medium font-sans">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {new Date(post.date).toLocaleDateString('vi-VN', { year: 'numeric', month: 'short', day: 'numeric' })}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    {post.readTime} phút đọc
-                  </span>
-                </div>
-
-                <h3 className="font-serif text-lg font-bold text-stone-850 group-hover:text-olive transition-colors leading-snug line-clamp-2">
-                  <Link href={`/chia-se/${post.slug}`} className="cursor-pointer">
-                    {post.title}
-                  </Link>
-                </h3>
-                
-                <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
-                  {post.description}
-                </p>
-
-                <Link 
-                  href={`/chia-se/${post.slug}`}
-                  className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 mt-auto pt-2 cursor-pointer"
-                >
-                  Đọc bài viết
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        <div className="flex flex-col gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in">
+            {paginatedPosts.map((post) => (
+              <article 
+                key={post.id}
+                className="flex flex-col gap-4 rounded-2xl overflow-hidden border border-olive/10 bg-cream/70 backdrop-blur-md hover:border-olive/30 hover:bg-cream hover:shadow-lg transition-all duration-300 group"
+              >
+                {/* Cover image */}
+                <Link href={`/chia-se/${post.slug}`} className="relative h-48 w-full overflow-hidden block cursor-pointer">
+                  <Image 
+                    src={post.coverImage} 
+                    alt={post.title} 
+                    fill 
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
+                    className="object-cover" 
+                  />
+                  {post.category && (
+                    <div className="absolute top-3 left-3 bg-cream/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-olive border border-olive/10 shadow-xs uppercase tracking-wider">
+                      {post.category.name}
+                    </div>
+                  )}
                 </Link>
-              </div>
-            </article>
-          ))}
+
+                {/* Info */}
+                <div className="flex flex-col gap-3 p-5 pt-1 flex-1">
+                  <div className="flex items-center gap-3.5 text-stone-400 text-[11px] font-medium font-sans">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {new Date(post.date).toLocaleDateString('vi-VN', { year: 'numeric', month: 'short', day: 'numeric' })}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5" />
+                      {post.readTime} phút đọc
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-lg font-bold text-stone-850 group-hover:text-olive transition-colors leading-snug line-clamp-2">
+                    <Link href={`/chia-se/${post.slug}`} className="cursor-pointer">
+                      {post.title}
+                    </Link>
+                  </h3>
+                  
+                  <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
+                    {post.description}
+                  </p>
+
+                  <Link 
+                    href={`/chia-se/${post.slug}`}
+                    className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 mt-auto pt-2 cursor-pointer"
+                  >
+                    Đọc bài viết
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-4">
+              <button
+                onClick={() => {
+                  setCurrentPage(prev => Math.max(prev - 1, 1));
+                  window.scrollTo({ top: 300, behavior: 'smooth' });
+                }}
+                disabled={currentPage === 1}
+                className="p-2.5 rounded-xl border border-olive/10 bg-cream text-stone-600 hover:border-olive/35 hover:text-olive disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer bg-cream"
+                title="Trang trước"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => {
+                    setCurrentPage(page);
+                    window.scrollTo({ top: 300, behavior: 'smooth' });
+                  }}
+                  className={`w-10 h-10 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    currentPage === page
+                      ? 'bg-olive text-cream shadow-sm'
+                      : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/35 hover:text-olive'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              <button
+                onClick={() => {
+                  setCurrentPage(prev => Math.min(prev + 1, totalPages));
+                  window.scrollTo({ top: 300, behavior: 'smooth' });
+                }}
+                disabled={currentPage === totalPages}
+                className="p-2.5 rounded-xl border border-olive/10 bg-cream text-stone-600 hover:border-olive/35 hover:text-olive disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer bg-cream"
+                title="Trang sau"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

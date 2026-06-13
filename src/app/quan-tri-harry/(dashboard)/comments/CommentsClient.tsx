@@ -7,9 +7,16 @@ import {
   MessageSquare, User, Mail, Calendar, CheckSquare, ShieldCheck, Eye, EyeOff
 } from 'lucide-react';
 
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 interface Post {
   title: string;
   slug: string;
+  categoryId: string;
 }
 
 interface Comment {
@@ -20,21 +27,26 @@ interface Comment {
   authorEmail: string | null;
   content: string;
   approved: boolean;
+  adminReply: string | null;
   createdAt: string;
 }
 
 interface CommentsClientProps {
   initialComments: Comment[];
+  categories: Category[];
 }
 
-export default function CommentsClient({ initialComments }: CommentsClientProps) {
+export default function CommentsClient({ initialComments, categories }: CommentsClientProps) {
   const router = useRouter();
   const [comments, setComments] = useState<Comment[]>(initialComments);
   
   // UI states
   const [searchQuery, setSearchQuery] = useState('');
   const [filterApproved, setFilterApproved] = useState('all'); // all, pending, approved
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState('all');
   const [selectedComment, setSelectedComment] = useState<Comment | null>(null);
+  const [replyText, setReplyText] = useState('');
+  const [savingReply, setSavingReply] = useState(false);
 
   // Feedback states
   const [error, setError] = useState<string | null>(null);
@@ -85,6 +97,53 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
     }
   };
 
+  // Sync reply text when comment selection changes
+  React.useEffect(() => {
+    if (selectedComment) {
+      setReplyText(selectedComment.adminReply || '');
+    } else {
+      setReplyText('');
+    }
+  }, [selectedComment]);
+
+  // Reply to comment handler
+  const handleSaveReply = async () => {
+    if (!selectedComment) return;
+
+    setSavingReply(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const res = await fetch(`/api/admin/comments/${selectedComment.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ adminReply: replyText })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Không thể lưu phản hồi.');
+      }
+
+      setComments(prev => prev.map(c => 
+        c.id === selectedComment.id 
+          ? { ...c, adminReply: replyText, approved: true } 
+          : c
+      ));
+
+      setSuccess('Đã lưu phản hồi và duyệt hiển thị bình luận thành công!');
+      setSelectedComment(prev => prev ? { ...prev, adminReply: replyText, approved: true } : null);
+      setTimeout(() => setSuccess(null), 2000);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || 'Lỗi kết nối máy chủ.');
+    } finally {
+      setSavingReply(false);
+    }
+  };
+
   // Delete comment
   const handleDelete = async (commentId: string) => {
     if (!confirm('Bạn có chắc chắn muốn xóa bình luận này không? Hành động này không thể hoàn tác.')) {
@@ -121,15 +180,20 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
         c.authorName.toLowerCase().includes(query) || 
         (c.authorEmail && c.authorEmail.toLowerCase().includes(query)) || 
         c.content.toLowerCase().includes(query) || 
-        c.post.title.toLowerCase().includes(query);
+        (c.post && c.post.title.toLowerCase().includes(query));
       
       let matchesStatus = true;
       if (filterApproved === 'pending') matchesStatus = !c.approved;
       if (filterApproved === 'approved') matchesStatus = c.approved;
+
+      let matchesCategory = true;
+      if (selectedCategoryFilter !== 'all') {
+        matchesCategory = c.post?.categoryId === selectedCategoryFilter;
+      }
       
-      return matchesSearch && matchesStatus;
+      return matchesSearch && matchesStatus && matchesCategory;
     });
-  }, [comments, searchQuery, filterApproved]);
+  }, [comments, searchQuery, filterApproved, selectedCategoryFilter]);
 
   return (
     <div className="flex flex-col gap-8">
@@ -208,9 +272,23 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
             onChange={(e) => setFilterApproved(e.target.value)}
             className="w-full px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-sm outline-none text-stone-850 cursor-pointer animate-fade-in"
           >
-            <option value="all">Tất cả bình luận</option>
+            <option value="all">Tất cả trạng thái</option>
             <option value="pending">Chờ duyệt</option>
             <option value="approved">Đã duyệt hiển thị</option>
+          </select>
+        </div>
+
+        {/* Filter Category Selection */}
+        <div className="w-full md:w-52">
+          <select
+            value={selectedCategoryFilter}
+            onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-sm outline-none text-stone-850 cursor-pointer animate-fade-in"
+          >
+            <option value="all">Tất cả chuyên mục</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -373,6 +451,26 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
               <div className="bg-sand/20 border border-olive/5 p-4 rounded-xl text-stone-850 font-serif leading-relaxed whitespace-pre-wrap">
                 {selectedComment.content}
               </div>
+            </div>
+
+            {/* Harry's Reply Section */}
+            <div className="flex flex-col gap-2.5 text-xs pt-2 border-t border-olive/15 mt-1">
+              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Trả lời của Harry</span>
+              <textarea
+                rows={3}
+                placeholder="Nhập nội dung phản hồi bình luận..."
+                value={replyText}
+                onChange={(e) => setReplyText(e.target.value)}
+                disabled={savingReply}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-olive/10 bg-cream/50 focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all placeholder:text-stone-400 font-sans resize-y outline-none"
+              />
+              <button
+                onClick={handleSaveReply}
+                disabled={savingReply}
+                className="py-2 px-4 rounded-xl bg-olive hover:bg-olive-dark text-cream text-[11px] font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 self-end cursor-pointer disabled:opacity-50 active:scale-95 shadow-sm"
+              >
+                {savingReply ? 'Đang lưu...' : 'Lưu phản hồi & Duyệt'}
+              </button>
             </div>
 
             {/* Moderation Actions */}

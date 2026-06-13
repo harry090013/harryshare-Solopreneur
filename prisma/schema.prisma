@@ -63,6 +63,7 @@ model Comment {
   authorEmail String?
   content     String
   approved    Boolean  @default(false)
+  adminReply  String?  // [NEW] Reply from the admin
   createdAt   DateTime @default(now())
 }
 

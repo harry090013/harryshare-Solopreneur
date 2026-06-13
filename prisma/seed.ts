@@ -659,6 +659,21 @@ Mô hình kinh doanh tinh gọn của một Solopreneur không cần hàng tri�
 Sản phẩm mình bán cũng phải là sản phẩm mình dùng. Đó không chỉ là một nguyên tắc kinh doanh, mà là phong cách sống của mình. Mình muốn thong thả đi qua từng chặng đường, hoàn thiện từng sản phẩm nhỏ một cách tử tế nhất, thà chậm một chút nhưng chắc chắn và minh bạch.
 
 Nếu bạn cũng đang trên hành trình xây dựng một dự án của riêng mình, hãy thử đặt câu hỏi đó cho bản thân. Có thể bạn sẽ tìm thấy một định hướng rõ ràng và bình yên hơn cho con đường phía trước.`
+      ,
+      comments: [
+        {
+          authorName: "Minh Thư",
+          authorEmail: "minhthu@gmail.com",
+          content: "Hoàn toàn đồng ý với anh. Xây dựng thương hiệu bền vững cần sự chân thực và đặt cái tâm vào sản phẩm đầu tiên.",
+          approved: true
+        },
+        {
+          authorName: "Quốc Anh",
+          authorEmail: "quocanh@gmail.com",
+          content: "Một tư duy làm sản phẩm rất đáng quý từ Solopreneur. Em hóng sản phẩm Thảo Mộc Hương ra mắt chính thức.",
+          approved: true
+        }
+      ]
     },
     {
       title: "Mình không bỏ IT, mình mang IT đi cùng trên hành trình Marketing",
@@ -699,6 +714,21 @@ Công nghệ không làm mình lười đi hay đánh mất bản sắc sáng t�
 Hành trình dịch chuyển này dạy mình một bài học lớn: tuổi trẻ không có trải nghiệm nào là lãng phí cả. Những ngày tháng thức đêm fix bug lập trình tưởng chừng như xa lạ với công việc hiện tại, thực chất lại là bệ đỡ giúp mình có một góc nhìn sắc bén và khác biệt trong ngành Marketing.
 
 Nếu bạn cũng là một dân kỹ thuật đang nhen nhóm ý định lấn sân sang các lĩnh vực nghệ thuật, kinh doanh, hay ngược lại, hãy tin rằng kiến thức cũ luôn có cách để tỏa sáng theo một cách rất riêng. Điều quan trọng không phải là bạn đứng ở đâu, mà là cách bạn mang những giá trị mình tích lũy được để làm mới thế giới mới của mình.`
+      ,
+      comments: [
+        {
+          authorName: "Thanh Tùng",
+          authorEmail: "thanhtung@gmail.com",
+          content: "Mình cũng là dân IT chuyển sang Marketing và thấy tư duy hệ thống giúp ích cực kỳ nhiều luôn.",
+          approved: true
+        },
+        {
+          authorName: "Mai Anh",
+          authorEmail: "maianh@gmail.com",
+          content: "Bài viết truyền cảm hứng lắm anh ơi. Không có kiến thức nào là bỏ phí cả.",
+          approved: true
+        }
+      ]
     },
     {
       title: "Một công cụ tốt không làm mình lười hơn, nó giúp mình rõ ràng hơn",
@@ -737,6 +767,21 @@ Trong quá trình xây dựng website HarryShare.vn, mình ứng dụng AI rất
 Một chiếc búa tốt chỉ giúp người thợ đóng đinh nhanh hơn, chứ không thể biến một người chưa biết gì thành một kiến trúc sư giỏi. Công cụ AI hay bất kỳ phần mềm nào cũng vậy, giá trị của chúng phụ thuộc hoàn toàn vào năng lực tư duy và cái tâm của người sử dụng.
 
 Nếu bạn đang cảm thấy bị ngợp trước sự phát triển quá nhanh của công nghệ, hãy thử thay đổi góc nhìn. Đừng cố gắng học thuộc lòng mọi tính năng của một công cụ mới, hãy tập trung rèn luyện tư duy đặt câu hỏi, tư duy bóc tách vấn đề và giữ cho mình một cái đầu tỉnh táo. Công nghệ sinh ra là để phục vụ đời sống, để làm cho cuộc sống của bạn nhẹ nhàng và rõ nét hơn mỗi ngày.`
+      ,
+      comments: [
+        {
+          authorName: "Khánh Linh",
+          authorEmail: "khanhlinh@gmail.com",
+          content: "Đồng ý ạ. Nhiều người đang dùng AI viết bài một cách thụ động, đọc rất sáo rỗng.",
+          approved: true
+        },
+        {
+          authorName: "Tuấn Hải",
+          authorEmail: "tuanhai@gmail.com",
+          content: "Dùng AI làm bạn phản biện tư duy là cách dùng thông minh nhất.",
+          approved: true
+        }
+      ]
     },
     {
       title: "Làm Marketing trong công ty công nghệ dạy mình điều gì?",
@@ -775,6 +820,21 @@ Làm việc trong một đội nhóm nhỏ nhưng có tính tự chủ cao giúp
 Không còn thói quen đổ lỗi cho hoàn cảnh hay chờ đợi sự hướng dẫn chi tiết từ cấp trên, mình chủ động tìm cách tối ưu hóa quy trình làm việc và đề xuất các giải pháp khả thi nhất. Tư duy chịu trách nhiệm này chính là bệ đỡ vững chắc nhất cho mình khi quyết định xây dựng các dự án cá nhân sau này.
 
 Những năm tháng lăn lộn trong công ty công nghệ đã mang lại cho mình nhiều hơn là một công việc kiếm sống. Đó là nơi mình được rèn luyện cả về tư duy logic, sự kiên trì lẫn cái đầu lạnh để sẵn sàng vững bước trên con đường Solopreneur mà mình đã chọn.`
+      ,
+      comments: [
+        {
+          authorName: "Ngọc Lan",
+          authorEmail: "ngoclan@gmail.com",
+          content: "Bài học về việc tập trung giải quyết nỗi đau của khách hàng luôn là bài học xương máu nhất.",
+          approved: true
+        },
+        {
+          authorName: "Văn Dũng",
+          authorEmail: "vandung@gmail.com",
+          content: "Tốc độ tự học đúng là chìa khóa sống còn trong ngành công nghệ hiện nay.",
+          approved: true
+        }
+      ]
     }
   ];
 

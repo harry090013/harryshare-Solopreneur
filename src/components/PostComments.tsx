@@ -7,6 +7,7 @@ interface Comment {
   id: string;
   authorName: string;
   content: string;
+  adminReply?: string | null;
   createdAt: string;
 }
 
@@ -105,30 +106,45 @@ export default function PostComments({ postId }: { postId: string }) {
           {comments.map((comment) => (
             <div 
               key={comment.id}
-              className="flex gap-4 p-5 rounded-2xl border border-olive/5 bg-cream/30 hover:bg-cream/50 transition-all"
+              className="flex flex-col gap-4 p-5 rounded-2xl border border-olive/5 bg-cream/30 hover:bg-cream/50 transition-all"
             >
-              {/* User Avatar */}
-              <div className="w-10 h-10 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold text-sm shrink-0 border border-olive/10">
-                {getInitials(comment.authorName)}
-              </div>
-              
-              {/* Comment content */}
-              <div className="flex flex-col gap-1.5 flex-1">
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-sm text-stone-850">{comment.authorName}</span>
-                  <span className="text-[10px] text-stone-400 font-medium flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {new Date(comment.createdAt).toLocaleDateString('vi-VN', { 
-                      year: 'numeric', 
-                      month: 'short', 
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
-                  </span>
+              <div className="flex gap-4">
+                {/* User Avatar */}
+                <div className="w-10 h-10 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold text-sm shrink-0 border border-olive/10">
+                  {getInitials(comment.authorName)}
                 </div>
-                <p className="text-stone-600 text-sm leading-relaxed whitespace-pre-wrap">{comment.content}</p>
+                
+                {/* Comment content */}
+                <div className="flex flex-col gap-1.5 flex-1">
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-sm text-stone-850">{comment.authorName}</span>
+                    <span className="text-[10px] text-stone-400 font-medium flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {new Date(comment.createdAt).toLocaleDateString('vi-VN', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </span>
+                  </div>
+                  <p className="text-stone-600 text-sm leading-relaxed whitespace-pre-wrap">{comment.content}</p>
+                </div>
               </div>
+
+              {/* Admin reply (nested block) */}
+              {comment.adminReply && (
+                <div className="mt-1 ml-14 p-4 rounded-xl bg-olive/5 border-l-2 border-olive flex gap-3 animate-slide-up">
+                  <div className="w-8 h-8 rounded-full bg-olive flex items-center justify-center text-cream font-bold text-xs shrink-0">
+                    H
+                  </div>
+                  <div className="flex flex-col gap-1 flex-1">
+                    <span className="font-bold text-xs text-olive">Harry (Quang Hiếu) phản hồi</span>
+                    <p className="text-stone-600 text-xs leading-relaxed whitespace-pre-wrap">{comment.adminReply}</p>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
