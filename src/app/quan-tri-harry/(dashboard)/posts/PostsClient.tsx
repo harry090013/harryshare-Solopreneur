@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -50,7 +50,13 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategoryId, setSelectedCategoryId] = useState('all');
   
-  // Form states
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategoryId]);
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
@@ -342,6 +348,14 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
     });
   }, [posts, searchQuery, selectedCategoryId]);
 
+  // Paginated search & filter results
+  const displayedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * postsPerPage;
+    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
+  }, [filteredPosts, currentPage, postsPerPage]);
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
   // Statistics
   const stats = useMemo(() => {
     return {
@@ -508,7 +522,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-olive/5 text-stone-700 text-xs font-medium">
-                    {filteredPosts.map((post) => (
+                    {displayedPosts.map((post) => (
                       <tr key={post.id} className="hover:bg-cream/40 transition-colors">
                         {/* Cover + Title + Desc */}
                         <td className="py-4 px-6 max-w-sm">
@@ -607,6 +621,67 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                   </tbody>
                 </table>
               </div>
+
+              {/* Pagination Bar */}
+              {totalPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 border-t border-olive/10 bg-sand/10">
+                  <span className="text-xs text-stone-500">
+                    Hiển thị <span className="font-semibold text-stone-700">{Math.min((currentPage - 1) * postsPerPage + 1, filteredPosts.length)}</span> đến{" "}
+                    <span className="font-semibold text-stone-700">{Math.min(currentPage * postsPerPage, filteredPosts.length)}</span> trong{" "}
+                    <span className="font-semibold text-stone-700">{filteredPosts.length}</span> bài viết
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                      className="px-3 py-1.5 rounded-lg border border-olive/10 bg-cream text-stone-600 hover:bg-sand/30 disabled:opacity-50 disabled:hover:bg-cream disabled:cursor-not-allowed transition-all text-xs font-semibold cursor-pointer shadow-xs"
+                    >
+                      Trước
+                    </button>
+                    
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
+                      if (
+                        page === 1 ||
+                        page === totalPages ||
+                        Math.abs(page - currentPage) <= 1
+                      ) {
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`w-8 h-8 rounded-lg border text-xs font-semibold transition-all cursor-pointer shadow-xs ${
+                              currentPage === page
+                                ? 'border-olive bg-olive text-cream'
+                                : 'border-olive/10 bg-cream text-stone-600 hover:bg-sand/30'
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        );
+                      } else if (
+                        page === 2 ||
+                        page === totalPages - 1
+                      ) {
+                        return <span key={page} className="px-1 text-stone-400 text-xs">...</span>;
+                      }
+                      return null;
+                    }).filter((el, index, arr) => {
+                      if (el?.type === 'span' && arr[index - 1]?.type === 'span') {
+                        return false;
+                      }
+                      return true;
+                    })}
+
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                      disabled={currentPage === totalPages}
+                      className="px-3 py-1.5 rounded-lg border border-olive/10 bg-cream text-stone-600 hover:bg-sand/30 disabled:opacity-50 disabled:hover:bg-cream disabled:cursor-not-allowed transition-all text-xs font-semibold cursor-pointer shadow-xs"
+                    >
+                      Sau
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </>
