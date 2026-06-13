@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 export const revalidate = 3600; // Cache sitemap for 1 hour
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://harryshare.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://harryshare.vn';
 
   // Static routes
   const staticRoutes = [
