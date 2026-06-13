@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { title, slug, description, content, coverImage, readTime, published, categoryId } = await request.json();
+    const { title, slug, description, content, coverImage, audioUrl, readTime, published, categoryId } = await request.json();
 
     if (!title || !slug || !content || !categoryId) {
       return NextResponse.json(
@@ -45,6 +45,7 @@ export async function POST(request: Request) {
         description: description || '',
         content,
         coverImage: coverImage || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
+        audioUrl: audioUrl || null,
         readTime: Number(readTime) || 5,
         published: Boolean(published),
         categoryId

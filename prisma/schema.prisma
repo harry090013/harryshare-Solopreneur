@@ -38,6 +38,7 @@ model Post {
   description String
   content     String   // Markdown content
   coverImage  String
+  audioUrl    String?  // Giọng đọc của tác giả (file MP3)
   readTime    Int      @default(5)
   published   Boolean  @default(false)
   date        DateTime @default(now())

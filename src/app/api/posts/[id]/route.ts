@@ -20,7 +20,7 @@ export async function PUT(
     }
 
     const { id } = await params;
-    const { title, slug, description, content, coverImage, readTime, published, categoryId } = await request.json();
+    const { title, slug, description, content, coverImage, audioUrl, readTime, published, categoryId } = await request.json();
 
     if (!title || !slug || !content || !categoryId) {
       return NextResponse.json(
@@ -30,14 +30,19 @@ export async function PUT(
     }
 
     // Verify slug unique to others
-    const existing = await db.post.findFirst({
+    const existing = await db.post.findUnique({
+      where: { slug }
+    });
+
+    // Verify unique to others
+    const existingOther = await db.post.findFirst({
       where: {
         slug,
         NOT: { id }
       }
     });
 
-    if (existing) {
+    if (existingOther) {
       return NextResponse.json(
         { error: 'Slug này đã được sử dụng bởi một bài viết khác.' },
         { status: 400 }
@@ -52,6 +57,7 @@ export async function PUT(
         description: description || '',
         content,
         coverImage: coverImage || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
+        audioUrl: audioUrl || null,
         readTime: Number(readTime) || 5,
         published: Boolean(published),
         categoryId

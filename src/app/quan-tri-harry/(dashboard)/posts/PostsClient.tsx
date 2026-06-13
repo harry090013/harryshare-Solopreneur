@@ -56,6 +56,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
   const [description, setDescription] = useState('');
   const [content, setContent] = useState('');
   const [coverImage, setCoverImage] = useState('');
+  const [audioUrl, setAudioUrl] = useState('');
   const [readTime, setReadTime] = useState(5);
   const [published, setPublished] = useState(false);
   const [categoryId, setCategoryId] = useState('');
@@ -113,6 +114,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
     setDescription('');
     setContent('');
     setCoverImage('https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80');
+    setAudioUrl('');
     setReadTime(5);
     setPublished(false);
     setCategoryId(categories[0]?.id || '');
@@ -130,6 +132,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
     setDescription(post.description);
     setContent(post.content);
     setCoverImage(post.coverImage);
+    setAudioUrl(post.audioUrl || '');
     setReadTime(post.readTime);
     setPublished(post.published);
     setCategoryId(post.categoryId);
@@ -164,6 +167,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
       description,
       content,
       coverImage: coverImage.trim() || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
+      audioUrl: audioUrl.trim() || null,
       readTime: Number(readTime) || 5,
       published,
       categoryId
@@ -229,6 +233,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
           content: post.content,
           categoryId: post.categoryId,
           coverImage: post.coverImage,
+          audioUrl: post.audioUrl,
           readTime: post.readTime,
           description: post.description,
           published: updatedPublished
@@ -723,6 +728,18 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                     <ImageIcon className="w-4 h-4 text-olive" />
                   </button>
                 </div>
+              </div>
+
+              {/* Audio URL (Optional) */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Tệp ghi âm giọng đọc (URL MP3 - Không bắt buộc)</label>
+                <input
+                  type="text"
+                  placeholder="https://example.com/audio.mp3"
+                  value={audioUrl}
+                  onChange={(e) => setAudioUrl(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-xs outline-none text-stone-800 font-mono"
+                />
               </div>
 
               {/* Flex row for ReadTime and Published status */}

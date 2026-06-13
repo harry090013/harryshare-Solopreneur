@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Headphones, ThumbsUp, ThumbsDown, Share2, Link as LinkIcon, Check, X } from 'lucide-react';
-import AudioReader from './AudioReader';
+import { Headphones, ThumbsUp, ThumbsDown, Share2, Link as LinkIcon, Check, Volume2, VolumeX } from 'lucide-react';
 
 interface ArticleActionsWrapperProps {
   postId: string;
@@ -10,7 +9,7 @@ interface ArticleActionsWrapperProps {
   initialLikes: number;
   initialShares: number;
   initialViews: number;
-  content: string;
+  audioUrl?: string | null;
   children: React.ReactNode;
 }
 
@@ -20,7 +19,7 @@ export default function ArticleActionsWrapper({
   initialLikes,
   initialShares,
   initialViews,
-  content,
+  audioUrl,
   children
 }: ArticleActionsWrapperProps) {
   const [likes, setLikes] = useState(initialLikes);
@@ -33,6 +32,14 @@ export default function ArticleActionsWrapper({
   const [showShareDropdown, setShowShareDropdown] = useState(false);
   const [copied, setCopied] = useState(false);
   const [currentUrl, setCurrentUrl] = useState('');
+
+  // Audio player states
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const [speed, setSpeed] = useState(1.0);
 
   const shareDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -74,7 +81,13 @@ export default function ArticleActionsWrapper({
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      // Clean up audio on unmount
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, [postId]);
 
   const handleLike = async () => {
@@ -147,25 +160,83 @@ export default function ArticleActionsWrapper({
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`
   };
 
+  // Audio actions
+  const togglePlayPause = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch(err => console.error("Audio play failed:", err));
+      setIsPlaying(true);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseFloat(e.target.value);
+    setCurrentTime(val);
+    if (audioRef.current) {
+      audioRef.current.currentTime = val;
+    }
+  };
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleSpeedChange = (val: number) => {
+    setSpeed(val);
+    if (audioRef.current) {
+      audioRef.current.playbackRate = val;
+    }
+  };
+
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return '0:00';
+    const mins = Math.floor(time / 60);
+    const secs = Math.floor(time % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
+  const showHeadphones = !!audioUrl;
+
   return (
     <div className="relative w-full">
       {/* 1. Desktop Left Sticky Action Bar (Hidden on mobile) */}
       <div className="hidden lg:block absolute -left-20 top-24 h-full">
-        <div className="sticky top-32 flex flex-col items-center gap-5 p-2.5 bg-cream/80 backdrop-blur-md rounded-full border border-olive/15 shadow-sm z-30">
-          {/* Audio toggle button */}
-          <button
-            onClick={() => setShowAudio(!showAudio)}
-            className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all cursor-pointer active:scale-95 ${
-              showAudio
-                ? 'bg-olive text-cream border-olive shadow-sm'
-                : 'border-olive/10 hover:border-olive/30 text-stone-600 hover:bg-olive/5'
-            }`}
-            title={showAudio ? 'Tắt đọc bài viết' : 'Nghe bài viết này'}
-          >
-            <Headphones className={`w-5 h-5 ${showAudio && !liked ? 'animate-pulse' : ''}`} />
-          </button>
-
-          <hr className="w-6 border-olive/10 my-0.5" />
+        <div className="sticky top-28 flex flex-col items-center gap-5 p-2.5 bg-cream/80 backdrop-blur-md rounded-full border border-olive/15 shadow-sm z-30">
+          {/* Audio toggle button (only shown if post has audio recording URL) */}
+          {showHeadphones && (
+            <>
+              <button
+                onClick={() => setShowAudio(!showAudio)}
+                className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all cursor-pointer active:scale-95 ${
+                  showAudio
+                    ? 'bg-olive text-cream border-olive shadow-sm'
+                    : 'border-olive/10 hover:border-olive/30 text-stone-600 hover:bg-olive/5'
+                }`}
+                title={showAudio ? 'Ẩn trình phát' : 'Nghe giọng đọc của Harry'}
+              >
+                <Headphones className={`w-5 h-5 ${showAudio && isPlaying ? 'animate-pulse' : ''}`} />
+              </button>
+              <hr className="w-6 border-olive/10 my-0.5" />
+            </>
+          )}
 
           {/* Like button */}
           <div className="flex flex-col items-center gap-1">
@@ -256,17 +327,19 @@ export default function ArticleActionsWrapper({
       {/* 2. Mobile Fixed Bottom Bar (Hidden on desktop) */}
       <div className="lg:hidden fixed bottom-0 left-0 w-full z-45 bg-cream/80 backdrop-blur-lg border-t border-olive/10 shadow-lg px-6 py-3 flex justify-around items-center">
         {/* Mobile Audio toggle */}
-        <button
-          onClick={() => setShowAudio(!showAudio)}
-          className={`p-2 rounded-xl border transition-all active:scale-95 ${
-            showAudio
-              ? 'bg-olive text-cream border-olive shadow-xs'
-              : 'border-olive/10 text-stone-600 bg-cream/50'
-          }`}
-          title="Nghe bài viết"
-        >
-          <Headphones className="w-5 h-5" />
-        </button>
+        {showHeadphones && (
+          <button
+            onClick={() => setShowAudio(!showAudio)}
+            className={`p-2 rounded-xl border transition-all active:scale-95 ${
+              showAudio
+                ? 'bg-olive text-cream border-olive shadow-xs'
+                : 'border-olive/10 text-stone-600 bg-cream/50'
+            }`}
+            title="Nghe bài viết"
+          >
+            <Headphones className="w-5 h-5" />
+          </button>
+        )}
 
         {/* Mobile Like */}
         <button
@@ -344,10 +417,75 @@ export default function ArticleActionsWrapper({
         </div>
       </div>
 
-      {/* 3. Audio Reader Widget (Conditional render at the top of the article) */}
-      {showAudio && (
-        <div className="max-w-3xl mx-auto mb-8 animate-slide-down">
-          <AudioReader content={content} title={postTitle} />
+      {/* 3. Sleek Custom Audio Player Widget (Renders at the top of the article) */}
+      {showAudio && audioUrl && (
+        <div className="max-w-3xl mx-auto mb-8 animate-slide-down bg-sand/20 border border-olive/15 rounded-3xl p-5 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 font-sans">
+          {/* Audio Info */}
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <div className="p-3 bg-olive/10 border border-olive/10 rounded-2xl text-olive shrink-0">
+              <Headphones className={`w-5 h-5 ${isPlaying ? 'animate-pulse' : ''}`} />
+            </div>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest leading-none">GIỌNG ĐỌC CỦA HARRY</span>
+              <span className="font-serif font-bold text-olive text-sm truncate mt-1 leading-snug">
+                {postTitle}
+              </span>
+            </div>
+          </div>
+
+          {/* Controls */}
+          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto flex-1 justify-end">
+            {/* Timeline Slider */}
+            <div className="flex items-center gap-2 flex-1 max-w-xs min-w-[120px]">
+              <span className="text-[10px] text-stone-450 font-mono">{formatTime(currentTime)}</span>
+              <input
+                type="range"
+                min={0}
+                max={duration || 100}
+                value={currentTime}
+                onChange={handleSeek}
+                className="flex-1 h-1 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-olive"
+              />
+              <span className="text-[10px] text-stone-450 font-mono">{formatTime(duration)}</span>
+            </div>
+
+            {/* Speed selection */}
+            <select
+              value={speed}
+              onChange={(e) => handleSpeedChange(parseFloat(e.target.value))}
+              className="px-2.5 py-1.5 text-xs font-bold bg-white border border-olive/15 rounded-xl outline-none text-stone-700 cursor-pointer hover:bg-olive/5 transition-colors"
+              title="Tốc độ đọc"
+            >
+              <option value="0.8">0.8x</option>
+              <option value="1.0">1.0x</option>
+              <option value="1.2">1.2x</option>
+              <option value="1.5">1.5x</option>
+            </select>
+
+            {/* Mute button */}
+            <button
+              onClick={toggleMute}
+              className="p-2 border border-olive/15 rounded-xl bg-white text-stone-600 hover:bg-olive/5 transition-colors cursor-pointer"
+              title={isMuted ? 'Mở tiếng' : 'Tắt tiếng'}
+            >
+              {isMuted ? <VolumeX className="w-4 h-4 text-red-500" /> : <Volume2 className="w-4 h-4" />}
+            </button>
+
+            {/* Play/Pause */}
+            <button
+              onClick={togglePlayPause}
+              className="px-4 py-2 bg-olive hover:bg-olive-dark text-cream rounded-xl text-xs font-bold uppercase transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
+            >
+              {isPlaying ? 'Tạm dừng' : 'Nghe ghi âm'}
+            </button>
+          </div>
+          <audio
+            ref={audioRef}
+            src={audioUrl}
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            onEnded={() => setIsPlaying(false)}
+          />
         </div>
       )}
 

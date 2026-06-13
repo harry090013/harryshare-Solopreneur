@@ -141,7 +141,7 @@ Thương hiệu cá nhân không thể xây dựng sau một đêm. Hãy tận h
         initialLikes={post.likes}
         initialShares={post.shares}
         initialViews={post.views}
-        content={post.content}
+        audioUrl={post.audioUrl}
       >
         <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 flex flex-col gap-8 animate-slide-up">
           {/* Back and Category crumbs */}
