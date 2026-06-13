@@ -613,9 +613,168 @@ Thảo Mộc Hương tái khởi, sức khỏe được phục hồi, và một 
           authorName: "Hoàng Mai",
           authorEmail: "hoangmai@gmail.com",
           content: "Đọc bài viết cảm nhận được sự chín chắn và định hướng rõ ràng của anh. Chúc Thảo Mộc Hương lần này sẽ thành công rực rỡ!",
-          approved: true
-        }
       ]
+    },
+    {
+      title: "Sản phẩm mình bán cũng phải là sản phẩm mình dùng",
+      slug: "san-pham-minh-ban-cung-phai-la-san-pham-minh-dung",
+      description: "Với mình, nguyên tắc tối thượng của một Solopreneur là sự chân thực. Sản phẩm mình bán cho khách hàng cũng chính là thứ mình dùng hàng ngày.",
+      coverImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      date: new Date("2026-06-12T00:00:00.000Z"),
+      categoryId: catProductMindset.id,
+      views: 85,
+      likes: 42,
+      shares: 8,
+      content: `Có một câu hỏi mà mình luôn tự hỏi mỗi khi bắt tay vào thiết kế một tính năng mới hay chọn lựa một sản phẩm để chia sẻ với mọi người: *"Nếu là người dùng, mình có thực sự bỏ tiền ra mua nó không?"*. 
+
+Trong thời đại số hóa, việc tạo ra một sản phẩm chưa bao giờ dễ dàng đến thế. Chỉ cần vài dòng code, một vài mẫu thiết kế có sẵn, hoặc một nguồn hàng nhập sỉ từ xa, bất kỳ ai cũng có thể tự gắn mác "nhà sáng lập" hay "chủ cửa hàng". Nhưng có một ranh giới rất lớn giữa việc "tạo ra sản phẩm để bán" và "tạo ra sản phẩm để dùng". Với mình, nguyên tắc tối thượng của một Solopreneur là sự chân thực. Sản phẩm mình bán cho khách hàng cũng chính là thứ mình dùng hàng ngày.
+
+### Sự chân thực không nằm ở lời quảng cáo
+
+Khi bước chân vào con đường làm Solopreneur, mình nhận ra tài sản lớn nhất không phải là nguồn vốn hay công nghệ vượt trội, mà chính là lòng tin từ những người đồng hành. Lòng tin đó không được xây dựng bằng những slogan bóng bẩy hay những chiến dịch quảng cáo rầm rộ. Nó được xây dựng từ một thứ đơn giản hơn nhiều: sự chân thực.
+
+Nếu bạn bán một phần mềm quản lý công việc, nhưng hàng ngày bạn vẫn dùng sổ tay hoặc một ứng dụng của đối thủ để ghi chép, sản phẩm của bạn thiếu đi linh hồn. Nếu mình muốn chia sẻ với bạn về một template Notion quản lý đời sống, mình phải là người đã sống cùng nó suốt nhiều tháng trời, tự tay sửa từng lỗi nhỏ khi nó phát sinh trong quá trình vận hành thực tế của chính mình.
+
+Điều này lại càng đúng khi mình nghĩ về hướng đi dài hạn cho những sản phẩm vật lý sau này. Gia đình mình vốn có truyền thống làm nhang sạch lâu đời từ nguyên liệu tự nhiên. Mình lớn lên trong mùi thơm của các loại thảo mộc, thảo dược thiên nhiên. Khi bắt đầu nhen nhóm ý tưởng phát triển thương hiệu Thảo Mộc Hương, câu hỏi đầu tiên xuất hiện trong đầu mình không phải là: *"Thị trường cần gì để bán chạy nhất?"*, mà là: *"Nén nhang này gia đình mình có thắp lên bàn thờ tổ tiên mỗi ngày hay không?"*. 
+
+Câu trả lời bắt buộc phải là: *"Có, và đó phải là thứ tốt nhất mình có thể làm ra."*
+
+### Khi người bán cũng là người dùng khó tính nhất
+
+Khi bạn là người dùng chính sản phẩm của mình, bạn sẽ có một góc nhìn hoàn toàn khác. Bạn sẽ không chấp nhận những hạt bụi nhỏ trên giao diện, không chấp nhận những lỗi giật lag dù là nhỏ nhất trên website, và chắc chắn sẽ không chấp nhận một nén nhang thảo mộc có pha lẫn tạp chất hóa học để giảm chi phí sản xuất.
+
+Tự trải nghiệm sản phẩm giúp mình phát hiện ra những điểm bất tiện mà nếu chỉ đứng ở góc độ người bán, mình sẽ dễ dàng tặc lưỡi bỏ qua. 
+- Một dòng mô tả chưa rõ nghĩa trên blog.
+- Một nút nhấn quá nhỏ trên giao diện di động.
+- Một mùi hương nhang cần được điều chỉnh tỉ lệ bột keo bời lời để khói bay lên được thanh nhẹ và an lành nhất.
+
+Tất cả những chi tiết siêu nhỏ đó chỉ có thể được tìm thấy và tối ưu khi ta đặt mình vào vị trí của người dùng cuối một cách kiên trì.
+
+### Cho đi giá trị thật để nhận lại niềm tin bền vững
+
+Mô hình kinh doanh tinh gọn của một Solopreneur không cần hàng triệu khách hàng đại trà. Nó cần những người đồng điệu - những người thực sự cảm nhận được cái tâm và chất lượng của sản phẩm. Và cách duy nhất để tìm được những người như thế là chia sẻ chân thực nhất những gì mình đang làm và đang sống.
+
+Sản phẩm mình bán cũng phải là sản phẩm mình dùng. Đó không chỉ là một nguyên tắc kinh doanh, mà là phong cách sống của mình. Mình muốn thong thả đi qua từng chặng đường, hoàn thiện từng sản phẩm nhỏ một cách tử tế nhất, thà chậm một chút nhưng chắc chắn và minh bạch.
+
+Nếu bạn cũng đang trên hành trình xây dựng một dự án của riêng mình, hãy thử đặt câu hỏi đó cho bản thân. Có thể bạn sẽ tìm thấy một định hướng rõ ràng và bình yên hơn cho con đường phía trước.`
+    },
+    {
+      title: "Mình không bỏ IT, mình mang IT đi cùng trên hành trình Marketing",
+      slug: "it-mang-di-cung-hanh-trinh-marketing",
+      description: "Nhiều người nghĩ mình đổi ngành là bỏ phí background IT cũ. Nhưng thực tế, tư duy logic của dân kỹ thuật lại chính là lợi thế giúp mình làm Marketing khác đi.",
+      coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      date: new Date("2026-06-12T01:00:00.000Z"),
+      categoryId: catPersonalBranding.id,
+      views: 94,
+      likes: 51,
+      shares: 10,
+      content: `Một trong những câu hỏi mình nhận được nhiều nhất từ bạn bè và đồng nghiệp cũ là: *"Học IT ra đi làm Marketing chi cho phí bằng cấp vậy?"*. 
+
+Vào thời điểm mình quyết định chuyển dịch hướng đi sự nghiệp từ một lập trình viên phần mềm sang làm Digital Marketing, bản thân mình cũng đã từng tự vấn rất nhiều. Có những đêm nằm suy nghĩ, mình tự hỏi liệu 4 năm học lập trình cùng những dòng code khô khan có bị trôi tuột xuống sông xuống biển khi mình bước chân vào thế giới của content, thương hiệu và cảm xúc khách hàng. Nhưng đi qua hơn 2 năm thực chiến, mình nhận ra một sự thật thú vị: mình chưa từng bỏ IT, mình chỉ đang mang tư duy IT đi cùng trên hành trình Marketing của mình.
+
+### Lợi thế của "cái đầu lạnh" dân kỹ thuật
+
+Thế giới Marketing thường được mô tả là vùng đất của sự bay bổng, sáng tạo và cảm xúc. Nhưng trong thời đại số hóa ngày nay, Marketing hiện đại là sự giao thoa mạnh mẽ giữa nghệ thuật truyền tải thông điệp và khoa học phân tích dữ liệu. Đây chính là nơi tư duy IT của mình bắt đầu phát huy thế mạnh.
+
+Lập trình viên được rèn luyện để giải quyết vấn đề (problem-solving) bằng cách bóc tách một hệ thống lớn thành những module nhỏ hoạt động độc lập và logic. Khi chuyển sang làm Marketing, mình cũng nhìn một chiến dịch hay một kế hoạch xây dựng thương hiệu cá nhân y hệt như vậy.
+- Thay vì viết nội dung theo cảm hứng, mình thiết lập một "hệ thống tư duy nội dung" (Content Framework) rõ ràng, phân chia theo tỷ lệ phần trăm các cột trụ nội dung (pillars) tương tự như cách thiết kế cấu trúc thư mục dự án.
+- Thay vì phỏng đoán hành vi người dùng, mình đọc các báo cáo số liệu, phân tích tỷ lệ chuyển đổi, đường đi của người dùng trên trang (user flow) bằng tư duy thuật toán.
+
+Tuy quan điểm kỹ thuật giúp mình không bị cảm tính kéo đi quá xa khi đưa ra các quyết định tiếp thị.
+
+### Biến công nghệ thành trợ thủ đắc lực
+
+Học IT giúp mình có một khả năng tự học và làm quen với công cụ rất nhanh. Khi trào lưu AI hay các giải pháp tự động hóa (automation) bùng nổ, thay vì lo lắng hay từ chối, mình nhanh chóng đón nhận và đưa chúng vào quy trình làm việc hằng ngày.
+- Mình tự tay setup và tùy biến website HarryShare.vn bằng Next.js và Tailwind thay vì sử dụng các công cụ kéo thả có sẵn để tối ưu hóa tốc độ tải trang và trải nghiệm người dùng.
+- Mình viết các script nhỏ để tự động hóa quy trình thu thập dữ liệu, phân loại bình luận hay quản lý hòm thư liên hệ của độc giả.
+
+Công nghệ không làm mình lười đi hay đánh mất bản sắc sáng tạo, nó là cánh tay nối dài giúp mình có thêm thời gian để tập trung vào việc tạo ra những nội dung thực sự sâu sắc và chạm tới người đọc.
+
+### Trải nghiệm không bao giờ lãng phí
+
+Hành trình dịch chuyển này dạy mình một bài học lớn: tuổi trẻ không có trải nghiệm nào là lãng phí cả. Những ngày tháng thức đêm fix bug lập trình tưởng chừng như xa lạ với công việc hiện tại, thực chất lại là bệ đỡ giúp mình có một góc nhìn sắc bén và khác biệt trong ngành Marketing.
+
+Nếu bạn cũng là một dân kỹ thuật đang nhen nhóm ý định lấn sân sang các lĩnh vực nghệ thuật, kinh doanh, hay ngược lại, hãy tin rằng kiến thức cũ luôn có cách để tỏa sáng theo một cách rất riêng. Điều quan trọng không phải là bạn đứng ở đâu, mà là cách bạn mang những giá trị mình tích lũy được để làm mới thế giới mới của mình.`
+    },
+    {
+      title: "Một công cụ tốt không làm mình lười hơn, nó giúp mình rõ ràng hơn",
+      slug: "cong-cu-tot-giup-tu-duy-ro-rang",
+      description: "Mình dùng AI không phải để lười suy nghĩ, mà để bóc tách vấn đề, tổ chức tư duy và loại bỏ những áp lực không tên trong công việc.",
+      coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+      readTime: 4,
+      published: true,
+      date: new Date("2026-06-12T02:00:00.000Z"),
+      categoryId: catAiVibeCoding.id,
+      views: 70,
+      likes: 38,
+      shares: 6,
+      content: `Dạo gần đây, khi đi đâu cũng nghe người ta bàn tán về việc AI sẽ thay thế lập trình viên, viết bài thay cho copywriter hay làm hộ mọi công việc văn phòng, mình chợt nhận ra có một sự hiểu lầm rất lớn về vai trò của công cụ trong đời sống.
+
+Có một thực tế là nhiều người đang dùng ChatGPT hay Claude như một chiếc máy chép phạt. Họ quăng cho AI một yêu cầu ngắn củn cỡn, rồi copy-paste nguyên văn câu trả lời dài dòng, sáo rỗng đưa lên website hay gửi cho khách hàng. Đối với mình, cách dùng đó không chỉ làm giảm chất lượng công việc mà còn đang dần thui chột khả năng tư duy độc lập của chính họ. Mình luôn tin rằng: Một công cụ tốt không làm mình lười hơn, nó giúp suy nghĩ của mình trở nên rõ ràng và sắc bén hơn.
+
+### Dùng AI làm bạn đồng hành cùng tư duy
+
+Thay vì bắt AI làm hết mọi việc từ A đến Z, mình thường đặt AI vào vai trò của một người bạn phản biện (sparring partner) - một người đồng hành cùng tư duy.
+
+Khi gặp một vấn đề phức tạp trong công việc hay cuộc sống khiến bản thân dễ rơi vào trạng thái overthinking, mình sẽ viết ra những luồng suy nghĩ lộn xộn trong đầu, cấu trúc chúng lại và gửi cho AI kèm theo yêu cầu: *"Hãy chỉ ra những điểm chưa hợp lý trong lập luận này của tôi"* hoặc *"Hãy giúp tôi bóc tách vấn đề này thành 3 bước đơn giản nhất có thể giải quyết ngay lập tức"*.
+
+Lúc này, AI hoạt động giống như một chiếc gương phản chiếu. Nó giúp mình sắp xếp lại mớ bòng bong trong đầu thành những gạch đầu dòng mạch lạc, giúp mình nhìn rõ bản chất của vấn đề mà không bị cảm xúc hay sự quá tải thông tin che mờ.
+
+### Công cụ giải phóng sức lao động cơ bắp
+
+Trong quá trình xây dựng website HarryShare.vn, mình ứng dụng AI rất nhiều trong việc viết code (vibe coding). Tuy nhiên, mình không để AI tự quyết định kiến trúc hệ thống hay logic cốt lõi. 
+- Mình sử dụng AI để tạo ra các hàm tiện ích (helper functions) nhỏ, các cấu hình boilerplate khô khan hoặc viết unit test - những phần việc mang tính lặp đi lặp lại và tốn thời gian.
+- Nhờ giải phóng được năng lượng khỏi những tác vụ "cơ bắp" đó, mình có nhiều thời gian và tâm trí hơn để tập trung thiết kế luồng trải nghiệm người dùng thật mượt mà, tối ưu hóa bố cục giao diện hay ngồi viết những bài chia sẻ thật sâu sắc gửi đến các bạn.
+
+Đó chính là giá trị cốt lõi của công nghệ: nó giúp ta rảnh tay để làm những phần việc thực sự cần đến sự thấu cảm, trải nghiệm và tư duy sáng tạo của con người.
+
+### Làm chủ công nghệ thay vì để công nghệ dẫn dắt
+
+Một chiếc búa tốt chỉ giúp người thợ đóng đinh nhanh hơn, chứ không thể biến một người chưa biết gì thành một kiến trúc sư giỏi. Công cụ AI hay bất kỳ phần mềm nào cũng vậy, giá trị của chúng phụ thuộc hoàn toàn vào năng lực tư duy và cái tâm của người sử dụng.
+
+Nếu bạn đang cảm thấy bị ngợp trước sự phát triển quá nhanh của công nghệ, hãy thử thay đổi góc nhìn. Đừng cố gắng học thuộc lòng mọi tính năng của một công cụ mới, hãy tập trung rèn luyện tư duy đặt câu hỏi, tư duy bóc tách vấn đề và giữ cho mình một cái đầu tỉnh táo. Công nghệ sinh ra là để phục vụ đời sống, để làm cho cuộc sống của bạn nhẹ nhàng và rõ nét hơn mỗi ngày.`
+    },
+    {
+      title: "Làm Marketing trong công ty công nghệ dạy mình điều gì?",
+      slug: "marketing-trong-cong-ty-cong-nghe-bai-hoc",
+      description: "Trải nghiệm thực tế từ một công việc thực sự giúp mình hiểu sâu sắc về sản phẩm, khách hàng và cách tự học để thích nghi nhanh trong môi trường công nghệ.",
+      coverImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+      readTime: 5,
+      published: true,
+      date: new Date("2026-06-12T03:00:00.000Z"),
+      categoryId: catCareerJourney.id,
+      views: 110,
+      likes: 58,
+      shares: 11,
+      content: `Trải qua hơn 2 năm đảm nhận vai trò Marketing tại một công ty công nghệ, mình thường nhìn lại khoảng thời gian này giống như một khóa học thực chiến đặc biệt. Nó không chỉ giúp mình nâng cao chuyên môn mà quan trọng hơn, nó đã rèn giũa và thay đổi hoàn toàn tư duy của mình về cách làm việc, cách học hỏi và cách đối mặt với những thử thách.
+
+Môi trường công nghệ vốn nổi tiếng với tốc độ thay đổi nhanh chóng, áp lực cao và yêu cầu sự thích nghi liên tục. Dưới đây là ba bài học lớn nhất mà mình tự đúc kết lại cho hành trình trưởng thành của bản thân.
+
+### 1. Đừng bán tính năng, hãy giải quyết nỗi đau của khách hàng
+
+Khi làm việc chung với các kỹ sư và lập trình viên phát triển sản phẩm, mình nhận ra một khoảng cách rất lớn giữa những gì người làm sản phẩm tự hào và những gì khách hàng thực sự quan tâm. Các lập trình viên thường say sưa nói về những công nghệ mới nhất họ áp dụng, những dòng code tối ưu hay những tính năng phức tạp họ vừa xây dựng. Nhưng khách hàng thì không quan tâm đến những điều đó. Họ chỉ hỏi một câu duy nhất: *"Sản phẩm này có giúp tôi giải quyết được vấn đề của tôi nhanh hơn, rẻ hơn không?"*.
+
+Bài học này thay đổi hoàn toàn cách mình viết content và lên chiến dịch tiếp thị. Mình học cách dịch chuyển ngôn ngữ từ mô tả tính năng khô khan sang giải thích giá trị thực tế. Đừng nói phần mềm của bạn có tính năng tự động hóa bằng AI, hãy nói nó giúp họ tiết kiệm được 2 tiếng làm việc mỗi ngày để có thể về nhà ăn cơm tối cùng gia đình.
+
+### 2. Tốc độ tự học là chìa khóa sinh tồn
+
+Trong ngành công nghệ, kiến thức bạn học được ngày hôm nay có thể đã trở nên lỗi thời vào ngày mai. Một công cụ mới xuất hiện, một thuật toán tìm kiếm thay đổi, hay một mô hình AI mới ra đời có thể làm thay đổi hoàn toàn cuộc chơi chỉ sau một đêm.
+
+Môi trường này dạy mình cách dẹp bỏ nỗi sợ hãi trước những cái mới và rèn luyện kỹ năng tự học siêu tốc. 
+- Không có ai cầm tay chỉ việc, mình học cách đọc tài liệu kỹ thuật, tự mày mò thử nghiệm các công cụ mới và chấp nhận việc thử sai liên tục.
+- Việc đối mặt với những thứ chưa biết giúp mình vượt qua hội chứng impostor syndrome (hội chứng kẻ giả mạo) và nhận ra rằng: không ai biết hết mọi thứ, người chiến thắng là người có khả năng học hỏi và thích nghi nhanh nhất.
+
+### 3. Tư duy làm chủ và chịu trách nhiệm 100%
+
+Làm việc trong một đội nhóm nhỏ nhưng có tính tự chủ cao giúp mình sớm định hình tư duy Solopreneur. Khi được giao một dự án, mình học cách tự lên kế hoạch, tự quản lý tiến độ, tự tìm kiếm giải pháp khi gặp khó khăn và quan trọng nhất là dám chịu trách nhiệm 100% với kết quả cuối cùng, dù đó là thành công hay thất bại.
+
+Không còn thói quen đổ lỗi cho hoàn cảnh hay chờ đợi sự hướng dẫn chi tiết từ cấp trên, mình chủ động tìm cách tối ưu hóa quy trình làm việc và đề xuất các giải pháp khả thi nhất. Tư duy chịu trách nhiệm này chính là bệ đỡ vững chắc nhất cho mình khi quyết định xây dựng các dự án cá nhân sau này.
+
+Những năm tháng lăn lộn trong công ty công nghệ đã mang lại cho mình nhiều hơn là một công việc kiếm sống. Đó là nơi mình được rèn luyện cả về tư duy logic, sự kiên trì lẫn cái đầu lạnh để sẵn sàng vững bước trên con đường Solopreneur mà mình đã chọn.`
     }
   ];
 
