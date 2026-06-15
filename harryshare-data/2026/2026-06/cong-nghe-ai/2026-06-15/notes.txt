@@ -1,0 +1,3 @@
+[Ghi chú xu hướng - Công nghệ & AI - 15/06/2026]
+- Khái niệm "Vibe Coding" và "AI Agent" đang trở thành xu hướng thảo luận nóng hổi trong giới lập trình và tech startup tại Việt Nam. Người dùng muốn biết làm thế nào để biến ý tưởng thành ứng dụng thực tế mà không cần có kỹ năng lập trình chuyên sâu.
+- Các bài viết nên hướng tới việc đơn giản hóa các khái niệm công nghệ phức tạp bằng các ví dụ thực tế trên website HarryShare, giúp độc giả cảm thấy công nghệ gần gũi và dễ ứng dụng.

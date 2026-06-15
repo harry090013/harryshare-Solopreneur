@@ -1,0 +1,54 @@
+{
+  "category": "Công nghệ & AI",
+  "date": "2026-06-15",
+  "location": "Vietnam",
+  "time_range": "Past 12 months",
+  "source": "Google Trends & Tech Reports 2026",
+  "main_keyword": "AI tools",
+  "related_queries": [
+    "deepseek ai vietnam",
+    "gemini advanced vs chatgpt plus",
+    "vibe coding tutorial",
+    "ai agents workflow automation",
+    "no-code tools 2026",
+    "ai writing assistant",
+    "pixverse ai video generation"
+  ],
+  "related_topics": [
+    "Artificial Intelligence (AI)",
+    "Vibe Coding",
+    "AI Agent",
+    "Workflow Automation",
+    "Generative AI",
+    "No-Code / Low-Code"
+  ],
+  "rising_keywords": [
+    "deepseek v3 usage",
+    "vibe coding app building",
+    "ai agent workflow builder"
+  ],
+  "top_keywords": [
+    "ai tools",
+    "deepseek",
+    "chatgpt",
+    "vibe coding"
+  ],
+  "trend_direction": "rising",
+  "search_intent": "informational / transactional",
+  "seo_priority": "high",
+  "content_angle": "AI không còn là xu hướng để bàn luận mà là công cụ chạy ngầm trong mọi luồng công việc. Kỷ nguyên mới thuộc về 'Vibe Coding' (lập trình bằng ý tưởng kết hợp AI) và các hệ thống AI Agent tự động hóa quy trình từ A đến Z.",
+  "suggested_article_ideas": [
+    {
+      "title": "Trải nghiệm 'Vibe Coding' thực tế: Mình đã tự xây dựng ứng dụng nhỏ mà không cần nhớ cú pháp code thế nào",
+      "outline": "Góc nhìn cá nhân mộc mạc của Harry về xu hướng Vibe Coding. Chia sẻ cách kết hợp tư duy IT sẵn có với các AI code assistants (như Cursor, Gemini) để tạo ra sản phẩm thực tế nhanh gấp 10 lần."
+    },
+    {
+      "title": "DeepSeek vs ChatGPT vs Gemini: Lựa chọn nào cho các tác vụ viết bài và phân tích dữ liệu tại Việt Nam?",
+      "outline": "Bài viết so sánh thực tế, không lý thuyết. Đánh giá ưu nhược điểm của từng chatbot dựa trên việc hiểu văn hóa, ngôn ngữ Việt Nam và khả năng hỗ trợ công việc marketing hàng ngày."
+    },
+    {
+      "title": "Cách thiết lập một AI Agent Workflow cơ bản để tự động hóa nghiên cứu từ khóa và lên ý tưởng content",
+      "outline": "Hướng dẫn từng bước (step-by-step) sử dụng các công cụ AI và no-code để xây dựng hệ thống tự động quét trend và xuất ý tưởng nội dung."
+    }
+  ]
+}
