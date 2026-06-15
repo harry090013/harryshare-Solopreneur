@@ -9,7 +9,7 @@ export default function MusicPlayer() {
 
   useEffect(() => {
     // Instantiate audio object on mount
-    audioRef.current = new Audio('/amthanhsaotruc.mp3');
+    audioRef.current = new Audio('/amthanhsaotruc2.MP3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.4;
 
