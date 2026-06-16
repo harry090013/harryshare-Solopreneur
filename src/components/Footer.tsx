@@ -15,6 +15,7 @@ export default function Footer() {
   }
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +34,9 @@ export default function Footer() {
         setStatus('success');
         setEmail('');
         setMessage('Đăng ký nhận tin thành công! Cảm ơn bạn.');
+        if (data.downloadUrl) {
+          setDownloadUrl(data.downloadUrl);
+        }
       } else {
         setStatus('error');
         setMessage(data.error || 'Có lỗi xảy ra, vui lòng thử lại.');
@@ -136,9 +140,20 @@ export default function Footer() {
 
               {/* Status Message */}
               {status === 'success' && (
-                <div className="flex items-center gap-1.5 text-xs text-olive font-medium mt-1 animate-fade-in">
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                  <span>{message}</span>
+                <div className="flex flex-col gap-1.5 mt-1 animate-fade-in">
+                  <div className="flex items-center gap-1.5 text-xs text-olive font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>{message}</span>
+                  </div>
+                  {downloadUrl && (
+                    <a
+                      href={downloadUrl}
+                      download
+                      className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-olive text-cream text-[10px] font-bold hover:bg-olive-dark transition-all cursor-pointer w-full text-center mt-1"
+                    >
+                      📥 Tải xuống tài liệu quà tặng
+                    </a>
+                  )}
                 </div>
               )}
               {status === 'error' && (

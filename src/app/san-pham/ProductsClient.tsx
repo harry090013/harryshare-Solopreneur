@@ -37,6 +37,7 @@ export default function ProductsClient({
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subsStatus, setSubsStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [subsMessage, setSubsMessage] = useState('');
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,6 +54,9 @@ export default function ProductsClient({
         setSubsStatus('success');
         setNewsletterEmail('');
         setSubsMessage('Đăng ký nhận tin thành công! Cảm ơn bạn.');
+        if (data.downloadUrl) {
+          setDownloadUrl(data.downloadUrl);
+        }
       } else {
         setSubsStatus('error');
         setSubsMessage(data.error || 'Có lỗi xảy ra, vui lòng thử lại.');
@@ -205,7 +209,18 @@ export default function ProductsClient({
               </button>
             </div>
             {subsStatus === 'success' && (
-              <p className="text-[11px] text-olive font-semibold text-left">{subsMessage}</p>
+              <div className="flex flex-col gap-2 mt-2">
+                <p className="text-[11px] text-olive font-semibold text-center">{subsMessage}</p>
+                {downloadUrl && (
+                  <a
+                    href={downloadUrl}
+                    download
+                    className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-olive text-cream text-xs font-bold hover:bg-olive-dark shadow-sm hover:shadow-md transition-all cursor-pointer w-full text-center"
+                  >
+                    📥 Tải xuống tài liệu quà tặng
+                  </a>
+                )}
+              </div>
             )}
             {subsStatus === 'error' && (
               <p className="text-[11px] text-red-500 font-semibold text-left">{subsMessage}</p>

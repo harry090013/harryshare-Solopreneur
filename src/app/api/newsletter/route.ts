@@ -29,7 +29,10 @@ export async function POST(request: Request) {
       data: { email },
     });
 
-    return NextResponse.json({ success: true }, { status: 201 });
+    return NextResponse.json({ 
+      success: true, 
+      downloadUrl: '/resources/Solopreneur_Automation_Checklist.pdf' 
+    }, { status: 201 });
   } catch (error) {
     console.error('Newsletter error:', error);
     return NextResponse.json(
