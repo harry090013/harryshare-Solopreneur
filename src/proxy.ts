@@ -1,14 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// We implement token check directly using jose or jwt verification.
-// Wait! Since standard jsonwebtoken doesn't run in edge runtime (middleware is edge),
-// we can do a simple verification by checking if the cookie exists, or decode it.
-// To keep middleware extremely lightweight, perform cookie existence validation.
-// This is extremely fast and robust, and then the layout/routes (which run on Node server) can do full cryptographical verification!
-// This hybrid approach is the gold standard for Next.js App Router performance and security!
-
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get('admin_token')?.value;
 
