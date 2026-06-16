@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 export const revalidate = 3600; // Cache for 1 hour
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://harryshare.vn';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://harryshare.vn';
   let urlElements = '';
 
   try {

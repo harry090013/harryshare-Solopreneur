@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export const revalidate = 3600; // Cache for 1 hour
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://harryshare.vn';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://harryshare.vn';
   const now = new Date().toISOString();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

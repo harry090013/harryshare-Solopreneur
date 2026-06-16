@@ -3,6 +3,8 @@ import { Inter, Merriweather } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
+import { Analytics } from '@vercel/analytics/next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 
 const inter = Inter({
@@ -30,6 +32,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'Harry (Quang Hiếu)' }],
   alternates: {
     canonical: '/',
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
   },
   openGraph: {
     title: 'HarryShare.vn - Tư duy sản phẩm & Thương hiệu cá nhân',
@@ -97,6 +102,10 @@ export default function RootLayout({
 
         {/* Footer */}
         <Footer />
+        <Analytics />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );
