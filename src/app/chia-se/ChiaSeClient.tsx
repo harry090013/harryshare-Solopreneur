@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { Search, Calendar, Clock, ArrowRight, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Category {
@@ -25,18 +24,20 @@ interface Post {
 
 export default function ChiaSeClient({ 
   initialPosts, 
-  categories
+  categories,
+  urlCategory = 'all',
+  urlSearch = ''
 }: { 
   initialPosts: Post[]; 
   categories: Category[];
+  urlCategory?: string;
+  urlSearch?: string;
 }) {
-  const searchParams = useSearchParams();
-  const urlCategory = searchParams.get('category') || 'all';
-
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [selectedCategory, setSelectedCategory] = useState<string>(urlCategory);
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Sync category if URL category changes
   useEffect(() => {
     setSelectedCategory(urlCategory);
   }, [urlCategory]);
@@ -161,7 +162,7 @@ export default function ChiaSeClient({
 
                   <Link 
                     href={`/chia-se/${post.slug}`}
-                    className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 mt-auto pt-2 cursor-pointer"
+                    className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 mt-auto pt-2 cursor-pointer group-hover:text-olive-dark"
                   >
                     Đọc bài viết
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

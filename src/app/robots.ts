@@ -22,7 +22,6 @@ export default function robots(): MetadataRoute.Robots {
           'ClaudeBot',
           'Google-Extended',
           'CCBot',
-          'FacebookBot',
           'PerplexityBot',
           'Omgilibot',
           'cohere-ai'

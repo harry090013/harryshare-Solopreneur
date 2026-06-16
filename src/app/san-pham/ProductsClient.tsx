@@ -34,6 +34,35 @@ export default function ProductsClient({
   const [activeTab, setActiveTab] = useState<'main' | 'affiliate'>('main');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [subsStatus, setSubsStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [subsMessage, setSubsMessage] = useState('');
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    setSubsStatus('loading');
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSubsStatus('success');
+        setNewsletterEmail('');
+        setSubsMessage('Đăng ký nhận tin thành công! Cảm ơn bạn.');
+      } else {
+        setSubsStatus('error');
+        setSubsMessage(data.error || 'Có lỗi xảy ra, vui lòng thử lại.');
+      }
+    } catch (err) {
+      setSubsStatus('error');
+      setSubsMessage('Không thể kết nối đến máy chủ. Vui lòng thử lại.');
+    }
+  };
+
   // Filter products by active tab and selected category
   const filteredProducts = useMemo(() => {
     return initialProducts.filter(prod => {
@@ -142,14 +171,46 @@ export default function ProductsClient({
 
       {/* Grid Display */}
       {filteredProducts.length === 0 ? (
-        <div className="py-24 text-center border border-dashed border-olive/20 bg-cream/40 rounded-3xl flex flex-col items-center gap-3 animate-slide-up shadow-xs">
-          <div className="w-12 h-12 rounded-full bg-sand flex items-center justify-center text-olive border border-olive/10">
+        <div className="py-16 px-6 text-center border border-olive/10 bg-cream/70 backdrop-blur-md rounded-3xl flex flex-col items-center gap-6 animate-slide-up max-w-2xl mx-auto shadow-sm">
+          <div className="w-14 h-14 rounded-2xl bg-olive/5 flex items-center justify-center text-olive border border-olive/10">
             <Sparkles className="w-6 h-6 animate-pulse" />
           </div>
-          <p className="text-stone-755 text-sm font-bold mt-1">Chưa có sản phẩm nào thuộc bộ lọc này.</p>
-          <p className="text-xs text-stone-450 max-w-sm mx-auto leading-relaxed">
-            Harry sẽ cập nhật thêm nhiều sản phẩm chất lượng trong thời gian sớm nhất!
-          </p>
+          
+          <div className="flex flex-col gap-2 max-w-md">
+            <h3 className="font-serif text-lg font-bold text-stone-850">
+              Chưa có sản phẩm nào thuộc bộ lọc này
+            </h3>
+            <p className="text-stone-600 text-xs sm:text-sm leading-relaxed text-justify">
+              Các sản phẩm xịn sò đang được Harry hoàn thiện để sớm ra mắt. Trong lúc chờ đợi, bạn có thể đăng ký Bản tin HarryShare để nhận ngay các tài liệu/checklist độc quyền và được thông báo sớm nhất khi sản phẩm ra mắt nhé!
+            </p>
+          </div>
+
+          <form onSubmit={handleNewsletterSubmit} className="w-full max-w-md flex flex-col gap-2 mt-2">
+            <div className="flex flex-col sm:flex-row gap-2.5">
+              <input
+                type="email"
+                required
+                disabled={subsStatus === 'loading'}
+                placeholder="Email của bạn..."
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                className="flex-1 px-4 py-2.5 text-xs rounded-xl border border-olive/10 bg-cream focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all placeholder:text-stone-400"
+              />
+              <button
+                type="submit"
+                disabled={subsStatus === 'loading'}
+                className="px-5 py-2.5 rounded-xl bg-olive text-cream text-xs font-bold hover:bg-olive-dark transition-all disabled:opacity-50 cursor-pointer whitespace-nowrap animate-pulse hover:animate-none"
+              >
+                {subsStatus === 'loading' ? 'Đang gửi...' : 'Nhận tài liệu ngay'}
+              </button>
+            </div>
+            {subsStatus === 'success' && (
+              <p className="text-[11px] text-olive font-semibold text-left">{subsMessage}</p>
+            )}
+            {subsStatus === 'error' && (
+              <p className="text-[11px] text-red-500 font-semibold text-left">{subsMessage}</p>
+            )}
+          </form>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

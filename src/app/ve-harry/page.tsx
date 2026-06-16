@@ -4,8 +4,22 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { db } from '@/lib/db';
+import JsonLd from '@/components/JsonLd';
+import type { Metadata } from 'next';
 
 export const revalidate = 30; // Cache trang Về Harry trong 30 giây (ISR) để tăng tốc độ tải trang
+
+export const metadata: Metadata = {
+  title: 'Về Harry (Quang Hiếu)',
+  description: 'Câu chuyện và hành trình làm nghề của Harry (Quang Hiếu) — từ lập trình viên đến Marketer, AI Automation và con đường Solopreneur.',
+  alternates: { canonical: '/ve-harry' },
+  openGraph: {
+    title: 'Về Harry (Quang Hiếu)',
+    description: 'Hành trình làm nghề thật, nói thật của một Solopreneur.',
+    url: 'https://harryshare.vn/ve-harry',
+    type: 'profile',
+  },
+};
 
 // Dynamically resolve custom or standard Lucide icon component on the server
 const getTimelineIcon = (iconName: string) => {
@@ -136,8 +150,23 @@ export default async function AboutPage() {
     ];
   }
 
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Harry (Quang Hiếu)',
+    jobTitle: 'Creative Solopreneur',
+    description: aboutSetting.description,
+    image: `https://harryshare.vn${aboutSetting.avatarUrl}`,
+    url: 'https://harryshare.vn/ve-harry',
+    sameAs: [
+      'https://www.facebook.com/q.hieu09'
+    ]
+  };
+
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col gap-16">
+    <>
+      <JsonLd data={personSchema} />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col gap-16">
       {/* 1. Header Hero */}
       <div className="flex flex-col md:flex-row gap-10 items-center border-b border-olive/5 pb-12">
         <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-olive/15 bg-sand shrink-0 shadow-md">
@@ -224,6 +253,7 @@ export default async function AboutPage() {
           })}
         </div>
       </div>
+      </div>
 
       {/* 3. Connect CTA */}
       <div className="p-8 rounded-2xl bg-olive text-cream flex flex-col items-center text-center gap-5 shadow-lg relative overflow-hidden">
@@ -244,6 +274,6 @@ export default async function AboutPage() {
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
-    </div>
+    </>
   );
 }

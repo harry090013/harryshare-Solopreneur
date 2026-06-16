@@ -1,8 +1,15 @@
 import React from 'react';
 import ProductsClient from './ProductsClient';
 import { db } from '@/lib/db';
+import type { Metadata } from 'next';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: 'Cửa hàng',
+  description: 'Sản phẩm công nghệ do Harry thiết kế và các công cụ, khóa học affiliate uy tín đã được trải nghiệm.',
+  alternates: { canonical: '/san-pham' },
+};
 
 export default async function ProductsPage() {
   let products = [];

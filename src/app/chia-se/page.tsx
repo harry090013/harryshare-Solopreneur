@@ -1,15 +1,34 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ChiaSeClient from './ChiaSeClient';
 import { db } from '@/lib/db';
+import type { Metadata } from 'next';
 
 export const revalidate = 60;
 
-export default async function ChiaSePage() {
+export const metadata: Metadata = {
+  title: 'Góc chia sẻ',
+  description: 'Tất cả bài học xương máu về tư duy sản phẩm, thương hiệu cá nhân, Công nghệ & AI và hành trình Solopreneur của Harry.',
+  alternates: { canonical: '/chia-se' },
+};
+
+interface SearchParams {
+  category?: string;
+  search?: string;
+}
+
+export default async function ChiaSePage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
   let posts: any[] = [];
   let categories: any[] = [];
 
+  const resolvedParams = await searchParams;
+  const urlCategory = resolvedParams.category || 'all';
+  const urlSearch = resolvedParams.search || '';
+
   try {
-    // Chạy song song các truy vấn để giảm độ trễ mạng
     const [dbPosts, dbCategories] = await Promise.all([
       db.post.findMany({
         where: { published: true },
@@ -25,7 +44,6 @@ export default async function ChiaSePage() {
     if (dbCategories) categories = dbCategories;
   } catch (err) {
     console.error('Database query failed in ChiaSePage, using mock fallbacks:', err);
-    // Fallback Mock Data
     categories = [
       { id: '1', name: 'Tư duy sản phẩm', slug: 'tu-duy-san-pham' },
       { id: '2', name: 'Thương hiệu cá nhân', slug: 'thuong-hieu-ca-nhan' },
@@ -38,41 +56,11 @@ export default async function ChiaSePage() {
         id: '1',
         title: 'Mình mê công nghệ vì mình thích giải quyết vấn đề',
         slug: 'minh-me-cong-nghe-vi-thich-giai-quyet-van-de',
-        description: 'Công nghệ chỉ thực sự đẹp khi nó phục vụ cuộc sống và giải quyết các bài toán thực tế. Chia sẻ góc nhìn thực tế của một người mê công nghệ và cách ứng dụng AI làm bạn đồng hành tư duy.',
+        description: 'Công nghệ chỉ thực sự đẹp khi nó phục vụ cuộc sống và giải quyết các bài toán thực tế.',
         coverImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
         readTime: 4,
         date: new Date('2026-05-18'),
         category: { id: '3', name: 'Công nghệ & AI', slug: 'cong-nghe-ai' }
-      },
-      {
-        id: '2',
-        title: 'Xây dựng thương hiệu cá nhân bền vững từ số 0',
-        slug: 'xay-dung-thuong-hieu-ca-nhan-ben-vung-tu-so-0',
-        description: 'Thương hiệu cá nhân không phải là phô trương bóng bẩy. Nó là việc kiên trì chia sẻ giá trị thực đến đúng đối tượng.',
-        coverImage: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80',
-        readTime: 8,
-        date: new Date('2026-05-15'),
-        category: { id: '2', name: 'Thương hiệu cá nhân', slug: 'thuong-hieu-ca-nhan' }
-      },
-      {
-        id: '3',
-        title: 'Tư duy Product-Led Growth cho Solopreneur',
-        slug: 'tu-duy-product-led-growth-cho-solopreneur',
-        description: 'Làm sao để sản phẩm tự bán chính nó? Khám phá cách Solopreneur áp dụng mô hình PLG để phát triển bền vững.',
-        coverImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
-        readTime: 6,
-        date: new Date('2026-05-10'),
-        category: { id: '1', name: 'Tư duy sản phẩm', slug: 'tu-duy-san-pham' }
-      },
-      {
-        id: '4',
-        title: 'Hành trình từ cậu bé phục vụ bàn đến Solopreneur tự do',
-        slug: 'hanh-trinh-tu-cau-be-phuc-vu-ban-den-solopreneur-tu-do',
-        description: 'Nhìn lại chặng đường 10 năm bôn ba qua đủ nghề: Phục vụ bàn, bán áo thun POD, lập trình tự do, làm marketing và cuối cùng là tự xây sản phẩm riêng.',
-        coverImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
-        readTime: 10,
-        date: new Date('2026-05-20'),
-        category: { id: '4', name: 'Hành trình làm nghề', slug: 'hanh-trinh-lam-nghe' }
       }
     ];
   }
@@ -92,13 +80,12 @@ export default async function ChiaSePage() {
         </p>
       </div>
 
-      {/* Client List component handles filters inside Suspense */}
-      <Suspense fallback={<div className="text-center text-stone-400 py-10">Đang tải danh sách bài viết...</div>}>
-        <ChiaSeClient 
-          initialPosts={posts} 
-          categories={categories} 
-        />
-      </Suspense>
+      <ChiaSeClient 
+        initialPosts={posts} 
+        categories={categories} 
+        urlCategory={urlCategory}
+        urlSearch={urlSearch}
+      />
     </div>
   );
 }

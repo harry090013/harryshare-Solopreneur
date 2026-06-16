@@ -1,8 +1,22 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import ProjectsClient from './ProjectsClient';
 import { db } from '@/lib/db';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: 'Dự án & Tài nguyên',
+  description: 'Tổng hợp các công cụ đắc lực khuyên dùng để làm sản phẩm, cùng các tài liệu, cẩm nang, checklist miễn phí do Harry tự tay biên soạn.',
+  alternates: {
+    canonical: '/du-an-tai-nguyen',
+  },
+  openGraph: {
+    title: 'Dự án & Tài nguyên',
+    description: 'Tổng hợp các công cụ đắc lực khuyên dùng để làm sản phẩm, cùng các tài liệu, cẩm nang, checklist miễn phí do Harry tự tay biên soạn.',
+    url: 'https://harryshare.vn/du-an-tai-nguyen',
+  },
+};
 
 export default async function ProjectsPage() {
   let items = [];
