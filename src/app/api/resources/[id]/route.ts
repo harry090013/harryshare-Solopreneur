@@ -22,7 +22,7 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
-    const { title, slug, description, type, url, image, featured, categoryId } = body;
+    const { title, slug, description, type, url, image, featured, categoryId, downloadUrl } = body;
 
     if (!title || !slug || !description || !type || !url || !image || !categoryId) {
       return NextResponse.json(
@@ -81,7 +81,8 @@ export async function PUT(
         url,
         image,
         featured: !!featured,
-        categoryId
+        categoryId,
+        downloadUrl: downloadUrl || null
       },
       include: {
         category: true

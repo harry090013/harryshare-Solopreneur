@@ -26,6 +26,7 @@ interface ProjectResource {
   featured: boolean;
   categoryId: string;
   category: Category;
+  downloadUrl?: string | null;
 }
 
 interface ResourcesClientProps {
@@ -53,6 +54,7 @@ export default function ResourcesClient({ initialResources, categories }: Resour
   const [image, setImage] = useState('');
   const [featured, setFeatured] = useState(false);
   const [categoryId, setCategoryId] = useState('');
+  const [downloadUrl, setDownloadUrl] = useState('');
 
   // Feedback states
   const [error, setError] = useState<string | null>(null);
@@ -98,6 +100,7 @@ export default function ResourcesClient({ initialResources, categories }: Resour
     setImage('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80');
     setFeatured(false);
     setCategoryId(categories[0]?.id || '');
+    setDownloadUrl('');
     setError(null);
     setSuccess(null);
   };
@@ -114,6 +117,7 @@ export default function ResourcesClient({ initialResources, categories }: Resour
     setImage(res.image);
     setFeatured(res.featured);
     setCategoryId(res.categoryId);
+    setDownloadUrl(res.downloadUrl || '');
     setError(null);
     setSuccess(null);
   };
@@ -145,7 +149,8 @@ export default function ResourcesClient({ initialResources, categories }: Resour
       url,
       image: image.trim() || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80',
       featured,
-      categoryId
+      categoryId,
+      downloadUrl: downloadUrl.trim() || null
     };
 
     try {
@@ -540,6 +545,18 @@ export default function ResourcesClient({ initialResources, categories }: Resour
                 <option value="tool">Công cụ khuyên dùng (Tool)</option>
                 <option value="freebie">Tài nguyên miễn phí (Freebie)</option>
               </select>
+            </div>
+
+            {/* Download URL for freebies */}
+            <div className="flex flex-col gap-1.5 md:col-span-2">
+              <label className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Link tải file (downloadUrl) - Chỉ dành cho Freebie</label>
+              <input
+                type="text"
+                placeholder="Ví dụ: https://drive.google.com/... hoặc /files/checklist.pdf"
+                value={downloadUrl}
+                onChange={(e) => setDownloadUrl(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-xs outline-none text-stone-850 font-mono"
+              />
             </div>
 
             {/* Description */}

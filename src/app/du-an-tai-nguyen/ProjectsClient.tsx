@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { ExternalLink, Download, Sparkles, Folder } from 'lucide-react';
+import FreebieModal from '@/components/FreebieModal';
 
 interface Category {
   id: string;
@@ -31,6 +32,8 @@ export default function ProjectsClient({
 }) {
   const [filterType, setFilterType] = useState<'all' | 'tool' | 'freebie'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedResource, setSelectedResource] = useState<ProjectResource | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredItems = useMemo(() => {
     return initialItems.filter(item => {
@@ -105,7 +108,7 @@ export default function ProjectsClient({
         {categories.length > 0 && (
           <div className="flex flex-wrap gap-2 justify-center items-center pt-3 border-t border-olive/5">
             <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold mr-1 flex items-center gap-1">
-              <Folder className="w-3 h-3 text-olive" /> Danh mục:
+              <Folder className="w-3.5 h-3.5 text-olive" /> Danh mục:
             </span>
             <button
               onClick={() => setSelectedCategory('all')}
@@ -187,29 +190,43 @@ export default function ProjectsClient({
                   {item.description}
                 </p>
                 
-                <a 
-                  href={item.url} 
-                  target={item.url.startsWith('http') ? "_blank" : "_self"}
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-olive uppercase tracking-widest mt-auto pt-5 group-hover:text-olive-dark transition-all duration-300 w-fit"
-                >
-                  {item.type === 'tool' ? (
-                    <>
-                      Khám phá công cụ
-                      <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </>
-                  ) : (
-                    <>
-                      Tải tài liệu ngay
-                      <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
-                    </>
-                  )}
-                </a>
+                {item.type === 'tool' ? (
+                  <a 
+                    href={item.url} 
+                    target={item.url.startsWith('http') ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-olive uppercase tracking-widest mt-auto pt-5 group-hover:text-olive-dark transition-all duration-300 w-fit"
+                  >
+                    Khám phá công cụ
+                    <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      setSelectedResource(item);
+                      setIsModalOpen(true);
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-olive uppercase tracking-widest mt-auto pt-5 group-hover:text-olive-dark transition-all duration-300 w-fit cursor-pointer border-none bg-transparent"
+                  >
+                    Tải miễn phí 🎁
+                    <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+                  </button>
+                )}
               </div>
             </div>
           ))}
         </div>
       )}
+
+      {/* Freebie Modal */}
+      <FreebieModal 
+        resource={selectedResource}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedResource(null);
+        }}
+      />
     </div>
   );
 }

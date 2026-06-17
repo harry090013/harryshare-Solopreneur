@@ -1,0 +1,265 @@
+HARRYSHARE — 30 PROMPT AI CỦA HARRY
+
+Sao chép prompt dưới đây, thay thế phần trong [ngoặc vuông] bằng thông tin của bạn và dán vào các AI Chat (Claude, ChatGPT, Gemini, v.v.)
+
+=========================================
+NHÓM 1: TƯ DUY & PHÂN TÍCH SẢN PHẨM
+=========================================
+
+P01 — Kiểm tra vấn đề có thật không:
+-----------------------------------------
+Mình đang nghĩ đến việc build [mô tả sản phẩm/tính năng].
+Hãy đóng vai người dùng skeptic nhất và hỏi mình 5 câu hỏi khó để kiểm tra xem vấn đề này có thật không, hay mình đang tự tưởng tượng ra nhu cầu.
+
+P02 — Tìm điểm đau thật:
+-----------------------------------------
+Tệp người dùng của mình là [mô tả tệp: nghề nghiệp, hoàn cảnh, mục tiêu].
+Họ đang cố giải quyết [vấn đề X].
+Liệt kê 7 điểm đau cụ thể họ gặp phải — không phải điểm đau chung chung, mà là những thứ khiến họ bực bội vào đúng lúc đang làm việc đó.
+
+P03 — Phân tích "tại sao chưa ai giải quyết":
+-----------------------------------------
+[Mô tả vấn đề và giải pháp mình đang nghĩ tới].
+Phân tích tại sao vấn đề này vẫn chưa được giải quyết tốt. Có thể vì: khó về kỹ thuật, thị trường quá nhỏ, người dùng không sẵn sàng trả tiền, hay mình đang nhìn nhầm vấn đề?
+
+P04 — Tìm phiên bản nhỏ nhất có giá trị (MVP):
+-----------------------------------------
+Mình muốn build [mô tả sản phẩm đầy đủ].
+Hãy giúp mình tìm phiên bản nhỏ nhất có thể test được giả thuyết cốt lõi — phiên bản chỉ cần 1 tuần để làm, không có database, không có UI đẹp, nhưng vẫn trả lời được câu hỏi "có ai cần cái này không".
+
+P05 — So sánh với giải pháp hiện tại của người dùng:
+-----------------------------------------
+Người dùng mục tiêu của mình hiện đang giải quyết [vấn đề X] bằng cách [mô tả cách họ đang làm — Excel, làm tay, dùng tool Y...].
+Phân tích: cái họ đang làm có gì tốt (tại sao họ chưa đổi), và cái gì thật sự bất tiện (điểm mình có thể thắng).
+
+P06 — Kiểm tra distribution trước khi build:
+-----------------------------------------
+Mình đang nghĩ build [sản phẩm X] cho [tệp người dùng Y].
+Giả sử sản phẩm xong ngay hôm nay — mình sẽ tiếp cận 100 người dùng đầu tiên bằng cách nào cụ thể? Liệt kê 5 kênh thực tế, không phải "đăng mạng xã hội" chung chung.
+
+P07 — Ra quyết định build hay không:
+-----------------------------------------
+Mình đang cân nhắc [dự án/tính năng X].
+Cho mình một framework quyết định đơn giản: với 3 câu hỏi Yes/No — nếu trả lời không đúng ngưỡng thì không nên làm. Câu hỏi phải cụ thể, không phải "có phù hợp với tầm nhìn không".
+
+
+=========================================
+NHÓM 2: VIẾT CONTENT & BLOG
+=========================================
+
+P08 — Dựng dàn ý bài blog từ trải nghiệm thật:
+-----------------------------------------
+Mình muốn viết bài về [chủ đề].
+Trải nghiệm thật của mình liên quan: [kể tóm tắt 3–5 câu về điều mình đã thật sự làm/học được].
+Giúp mình dựng dàn ý 5 phần dựa trên trải nghiệm đó — không phải dàn ý lý thuyết. Mỗi phần phải có một insight cụ thể, không phải tiêu đề chung chung.
+
+P09 — Viết description SEO (dùng cho meta + OG):
+-----------------------------------------
+Bài viết của mình nói về: [tóm tắt 2–3 câu nội dung chính].
+Từ khóa mục tiêu: [từ khóa].
+Viết 3 phiên bản description — mỗi cái ≤155 ký tự, phải: có từ khóa tự nhiên, gợi tò mò mà không clickbait, và đọc được như người nói chứ không phải robot SEO.
+
+P10 — Đặt title bài viết:
+-----------------------------------------
+Bài viết của mình về: [mô tả nội dung + góc chính].
+Đối tượng đọc: [ai, đang gặp vấn đề gì].
+Viết 5 title theo 5 góc khác nhau:
+1. Ngôi thứ nhất chân thật ("Mình đã...")
+2. Câu hỏi gợi tò mò
+3. Kết quả cụ thể ("Sau X tháng/lần...")
+4. Phản trực giác ("Tại sao [điều tưởng đúng] lại sai")
+5. Mộc, không cần câu view ("Điều mình học được từ...")
+Mỗi title ≤60 ký tự.
+
+P11 — Viết mở bài không bắt đầu bằng định nghĩa:
+-----------------------------------------
+Bài của mình về [chủ đề]. Insight chính: [1 câu].
+Trải nghiệm thật: [1–2 câu kể cụ thể].
+Viết 3 phiên bản mở bài — mỗi cái 3–4 câu:
+1. Bắt đầu bằng một câu ngắn gây bất ngờ
+2. Bắt đầu bằng câu hỏi người đọc đang tự hỏi
+3. Bắt đầu bằng một chi tiết cụ thể từ trải nghiệm thật
+Không được bắt đầu bằng định nghĩa. Không được dùng "Trong thời đại...".
+
+P12 — Pass kiểm tra "có giống AI không":
+-----------------------------------------
+Đây là đoạn văn của mình:
+"""
+[Dán đoạn văn vào đây]
+"""
+Kiểm tra và chỉ ra:
+1. Câu nào đọc ra ngay là AI viết (cân đối quá, sáo, lặp cấu trúc)
+2. Cụm từ nào mình nên xóa hoặc thay
+3. Viết lại đoạn đó với giọng tự nhiên hơn — ngắn hơn, bớt câu đối xứng, giữ ý gốc
+
+P13 — Viết kết bài có CTA thật:
+-----------------------------------------
+Bài của mình về [chủ đề]. Người đọc lý tưởng: [ai].
+Viết 3 phiên bản kết bài — mỗi cái có CTA cụ thể:
+1. Mời bình luận/kể chuyện của họ
+2. Gợi ý bài tiếp theo họ nên đọc (nối chủ đề)
+3. Câu hỏi để họ tự áp dụng ngay
+Không được kết bằng "Hy vọng bài viết hữu ích" hay "Hẹn gặp lại ở bài sau".
+
+P14 — Tóm tắt bài dài thành post ngắn (repurpose):
+-----------------------------------------
+Đây là bài viết đầy đủ của mình:
+"""
+[Dán toàn bộ bài]
+"""
+Tóm tắt thành 3 phiên bản post ngắn:
+1. Thread 5 điểm (mỗi điểm 1–2 câu, có thể dùng trên LinkedIn/Facebook)
+2. 1 đoạn 100 từ dùng cho caption mạng xã hội
+3. 3 câu quote từ bài — trích dẫn thật, có thể đăng riêng
+
+P15 — Lên kế hoạch content 1 tháng từ 1 bài anchor:
+-----------------------------------------
+Bài anchor của mình là: [tiêu đề + link hoặc tóm tắt].
+Chủ đề: [pillar].
+Lên kế hoạch 4 bài vệ tinh trong tháng tới — mỗi bài đào sâu 1 khía cạnh của bài anchor, link tự nhiên về anchor, và nhắm đúng 1 từ khóa khác nhau.
+
+
+=========================================
+NHÓM 3: CODE & VIBE CODING
+=========================================
+
+P16 — Viết task cho AI agent (chuẩn nhất):
+-----------------------------------------
+Mình cần AI agent thực hiện task sau trong dự án [tên dự án / stack: Next.js 16 + Prisma + TypeScript]:
+Yêu cầu: [mô tả OUTPUT mong muốn, không mô tả cách làm]
+File liên quan: [liệt kê file cần đọc/sửa]
+Không được thay đổi: [liệt kê những thứ không được đụng vào]
+Định dạng output: [code, file mới, migration, hay gì khác]
+Sau khi xong: chạy [lệnh gì để verify — npm run build, npm run dev, hay test cụ thể]
+
+P17 — Debug theo kiểu mô tả triệu chứng:
+-----------------------------------------
+Stack của mình: [framework, version, thư viện liên quan].
+Vấn đề đang gặp: [mô tả triệu chứng — thấy gì, xảy ra khi nào, lần đầu xảy ra sau thay đổi gì].
+Đã thử: [liệt kê những gì đã thử].
+Error message đầy đủ:
+"""
+[Dán error vào đây]
+"""
+Phân tích nguyên nhân có thể và đề xuất cách debug theo thứ tự — thứ đơn giản nhất trước.
+
+P18 — Review code trước khi merge:
+-----------------------------------------
+Đây là code mình vừa viết/nhận từ AI:
+"""
+[Dán code]
+"""
+Review theo 4 tiêu chí:
+1. Logic có đúng không (edge case nào chưa xử lý)
+2. Performance (có gì chạy không cần thiết không)
+3. Security (nếu đây là API/form — có validate đúng không)
+4. Consistency (có theo đúng pattern của codebase không)
+Chỉ ra vấn đề, đừng rewrite toàn bộ.
+
+P19 — Chọn kiến trúc / pattern đúng:
+-----------------------------------------
+Mình đang build [tính năng X] trong stack [Next.js 16 App Router + Prisma + TypeScript].
+Tính năng này cần: [liệt kê yêu cầu].
+Đề xuất 2–3 cách tiếp cận khác nhau — so sánh trade-off của mỗi cách về: độ phức tạp, performance, maintainability. Khuyến nghị cách nào và tại sao.
+
+P20 — Viết schema Prisma cho model mới:
+-----------------------------------------
+Mình cần thêm model [tên model] vào Prisma schema.
+Yêu cầu về dữ liệu: [mô tả bằng tiếng Việt — lưu gì, quan hệ với model nào, field nào bắt buộc].
+Viết Prisma schema cho model này, gồm: field types đúng, relations, indexes cần thiết. Giải thích từng quyết định thiết kế.
+
+P21 — Tối ưu query Prisma:
+-----------------------------------------
+Đây là query Prisma của mình:
+"""
+[Dán query]
+"""
+Query này đang chạy [chậm / N+1 / quá nhiều data]. Phân tích vấn đề và đề xuất cách viết lại — dùng include, select, hay cách nào hiệu quả hơn.
+
+P22 — Viết TypeScript types cho dữ liệu phức tạp:
+-----------------------------------------
+Mình có dữ liệu từ API/DB dạng như sau:
+"""
+[Dán ví dụ JSON hoặc mô tả cấu trúc]
+"""
+Viết TypeScript interface/type đầy đủ cho dữ liệu này — bao gồm cả optional fields và nested objects. Giải thích chỗ nào không chắc.
+
+P23 — Tạo README cho dự án:
+-----------------------------------------
+Dự án của mình: [tên + mô tả 1 câu].
+Stack: [liệt kê].
+Tính năng chính: [liệt kê 4–5 tính năng].
+Viết README.md chuẩn gồm: mô tả ngắn, tech stack, cách setup local (với .env.example), cấu trúc thư mục chính, và cách deploy. Ngắn gọn, dev đọc 2 phút là hiểu.
+
+
+=========================================
+NHÓM 4: MARKETING & THƯƠNG HIỆU CÁ NHÂN
+=========================================
+
+P24 — Phân tích đối thủ / người đi trước:
+-----------------------------------------
+Mình đang xây thương hiệu cá nhân / sản phẩm trong lĩnh vực [lĩnh vực].
+Người đi trước mình đang tham khảo: [liệt kê 2–3 tên].
+Phân tích: họ đang làm gì tốt, khoảng trống nào họ chưa lấp, và góc độ nào mình có thể làm khác đi mà không cần cạnh tranh trực tiếp.
+
+P25 — Viết bio/giới thiệu bản thân:
+-----------------------------------------
+Thông tin về mình:
+- Nền tảng: [IT / Marketing / ngành khác]
+- Đang làm: [công việc hiện tại]
+- Đang xây: [dự án / thương hiệu]
+- Giá trị mang lại cho người đọc: [1 câu]
+Viết 3 phiên bản bio:
+1. Ngắn (50 từ) — dùng cho profile mạng xã hội
+2. Trung (100 từ) — dùng cho trang Về tôi
+3. Conversational (150 từ, ngôi thứ nhất) — dùng cho bài blog
+
+P26 — Xác định giọng văn thương hiệu:
+-----------------------------------------
+Đây là 3 đoạn văn mình đã viết (chọn từ các bài mình thấy đúng nhất):
+"""
+[Đoạn 1]
+"""
+"""
+[Đoạn 2]
+"""
+"""
+[Đoạn 3]
+"""
+Phân tích giọng văn của mình: 5 tính từ mô tả đúng nhất, 3 thứ mình KHÔNG làm (so với phần lớn người viết trong lĩnh vực), và 2 câu mô tả "giọng văn của [tên mình] nghe như thế nào".
+
+P27 — Viết email newsletter đầu tiên:
+-----------------------------------------
+Mình vừa có subscriber đầu tiên cho newsletter [tên newsletter / blog].
+Họ đăng ký vì: [họ tải freebie gì / họ đọc bài gì].
+Viết email chào mừng — không phải template corporate. Giọng như người bạn vừa gặp nhau:
+- Nói mình là ai (1–2 câu, không tự quảng cáo)
+- Họ sẽ nhận được gì (cụ thể, không hứa chung chung)
+- 1 câu hỏi để họ reply (tạo tương tác ngay từ đầu)
+Dài không quá 200 từ.
+
+P28 — Định giá sản phẩm / dịch vụ:
+-----------------------------------------
+Mình đang cân nhắc bán [mô tả sản phẩm/dịch vụ].
+Tệp khách: [ai, thu nhập ước tính, họ đang dùng gì tương tự].
+Chi phí mình bỏ ra: [thời gian, công sức, chi phí vận hành].
+Đề xuất 3 mức giá với lý do — không chỉ dựa trên chi phí mà còn dựa trên giá trị người mua nhận được.
+
+P29 — Viết landing page ngắn cho sản phẩm:
+-----------------------------------------
+Sản phẩm của mình: [tên + mô tả 1 câu].
+Người mua lý tưởng: [ai, vấn đề họ đang có].
+Kết quả họ nhận được sau khi dùng: [cụ thể].
+Viết copy cho landing page ngắn (dưới 300 từ) gồm: headline, subheadline, 3 bullet point lợi ích (dùng ngôn ngữ của người mua, không phải tính năng), và CTA. Không dùng từ "chất lượng cao", "tốt nhất", "uy tín".
+
+P30 — Viết case study ngắn từ trải nghiệm thật:
+-----------------------------------------
+Mình đã [làm gì / giải quyết vấn đề gì] cho [bản thân / khách hàng / dự án].
+Trước: [tình trạng ban đầu — cụ thể].
+Sau: [kết quả — cụ thể, có số nếu có].
+Quá trình: [3–4 bước chính].
+Viết case study ngắn (200–300 từ) theo structure Before → Process → After — dùng để chia sẻ trên blog hoặc portfolio. Giọng mộc, thật, không thổi phồng.
+
+-----------------------------------------
+Tải thêm tài nguyên tại: harryshare.vn/du-an-tai-nguyen
+v1 — Tháng 6/2026

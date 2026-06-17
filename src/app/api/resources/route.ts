@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { title, slug, description, type, url, image, featured, categoryId } = body;
+    const { title, slug, description, type, url, image, featured, categoryId, downloadUrl } = body;
 
     if (!title || !slug || !description || !type || !url || !image || !categoryId) {
       return NextResponse.json(
@@ -105,7 +105,8 @@ export async function POST(request: Request) {
         url,
         image,
         featured: !!featured,
-        categoryId
+        categoryId,
+        downloadUrl: downloadUrl || null
       },
       include: {
         category: true
