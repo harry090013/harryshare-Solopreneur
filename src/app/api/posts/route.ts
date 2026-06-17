@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { title, slug, description, content, coverImage, audioUrl, readTime, published, categoryId } = await request.json();
+    const { title, slug, description, content, coverImage, audioUrl, readTime, published, categoryId, date } = await request.json();
 
     if (!title || !slug || !content || !categoryId) {
       return NextResponse.json(
@@ -48,7 +48,8 @@ export async function POST(request: Request) {
         audioUrl: audioUrl || null,
         readTime: Number(readTime) || 5,
         published: Boolean(published),
-        categoryId
+        categoryId,
+        date: date ? new Date(date) : new Date()
       }
     });
 

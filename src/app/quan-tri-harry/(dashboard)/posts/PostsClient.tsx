@@ -66,6 +66,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
   const [readTime, setReadTime] = useState(5);
   const [published, setPublished] = useState(false);
   const [categoryId, setCategoryId] = useState('');
+  const [date, setDate] = useState('');
   
   // Feedback states
   const [error, setError] = useState<string | null>(null);
@@ -124,6 +125,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
     setReadTime(5);
     setPublished(false);
     setCategoryId(categories[0]?.id || '');
+    setDate(new Date().toISOString().substring(0, 16)); // YYYY-MM-DDTHH:mm format for datetime-local
     setError(null);
     setSuccess(null);
     setEditorTab('edit');
@@ -142,6 +144,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
     setReadTime(post.readTime);
     setPublished(post.published);
     setCategoryId(post.categoryId);
+    setDate(new Date(post.date).toISOString().substring(0, 16));
     setError(null);
     setSuccess(null);
     setEditorTab('edit');
@@ -176,7 +179,8 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
       audioUrl: audioUrl.trim() || null,
       readTime: Number(readTime) || 5,
       published,
-      categoryId
+      categoryId,
+      date: new Date(date).toISOString()
     };
 
     try {
@@ -242,7 +246,8 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
           audioUrl: post.audioUrl,
           readTime: post.readTime,
           description: post.description,
-          published: updatedPublished
+          published: updatedPublished,
+          date: post.date
         })
       });
 
@@ -845,6 +850,18 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                     {published ? 'Công khai' : 'Bản nháp'}
                   </button>
                 </div>
+              </div>
+
+              {/* Date Input */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Ngày đăng / Lên lịch đăng bài</label>
+                <input
+                  type="datetime-local"
+                  required
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-olive/10 bg-cream/30 focus:border-olive focus:bg-cream transition-all text-xs outline-none text-stone-800 font-mono"
+                />
               </div>
             </div>
           </div>
