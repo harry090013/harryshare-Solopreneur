@@ -34,7 +34,7 @@ async function run() {
         type: "freebie",
         url: "/downloads/harryshare_30_prompt_ai_v1.pdf",
         downloadUrl: "/downloads/harryshare_30_prompt_ai_v1.pdf",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80",
+        image: "/images/bo-30-prompt-ai-cua-harry.png",
         featured: true,
         categoryId: category.id
       },
@@ -45,7 +45,7 @@ async function run() {
         type: "freebie",
         url: "/downloads/harryshare_checklist_publish_v1.pdf",
         downloadUrl: "/downloads/harryshare_checklist_publish_v1.pdf",
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80",
+        image: "/images/checklist-truoc-khi-publish.png",
         featured: true,
         categoryId: category.id
       },
@@ -56,7 +56,7 @@ async function run() {
         type: "freebie",
         url: "/downloads/harryshare_checklist_build_v1.pdf",
         downloadUrl: "/downloads/harryshare_checklist_build_v1.pdf",
-        image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=400&q=80",
+        image: "/images/checklist-truoc-khi-build.png",
         featured: true,
         categoryId: category.id
       },
@@ -67,7 +67,7 @@ async function run() {
         type: "freebie",
         url: "/downloads/harryshare_agents_md_template_v1.md",
         downloadUrl: "/downloads/harryshare_agents_md_template_v1.md",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80",
+        image: "/images/template-agents-md-vibe-coding.png",
         featured: true,
         categoryId: category.id
       },
@@ -78,7 +78,7 @@ async function run() {
         type: "freebie",
         url: "/downloads/harryshare_workbook_thuong_hieu_v1.pdf",
         downloadUrl: "/downloads/harryshare_workbook_thuong_hieu_v1.pdf",
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80",
+        image: "/images/workbook-dinh-vi-thuong-hieu-ca-nhan.png",
         featured: true,
         categoryId: category.id
       },
@@ -89,7 +89,7 @@ async function run() {
         type: "freebie",
         url: "https://app.notion.com/p/Template-90-Ng-y-u-Solopreneur-382d5acbcf0b80d79a5bc3cc99877686?source=copy_link",
         downloadUrl: "https://app.notion.com/p/Template-90-Ng-y-u-Solopreneur-382d5acbcf0b80d79a5bc3cc99877686?source=copy_link",
-        image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=400&q=80",
+        image: "/images/template-90-ngay-solopreneur.png",
         featured: true,
         categoryId: category.id
       }
