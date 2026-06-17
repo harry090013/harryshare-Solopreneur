@@ -29,9 +29,10 @@ export default async function ChiaSePage({
   const urlSearch = resolvedParams.search || '';
 
   try {
+    const now = new Date();
     const [dbPosts, dbCategories] = await Promise.all([
       db.post.findMany({
-        where: { published: true },
+        where: { published: true, date: { lte: now } },
         orderBy: { date: 'desc' },
         include: { category: true }
       }),

@@ -8,8 +8,9 @@ export async function GET() {
   
   let posts: any[] = [];
   try {
+    const now = new Date();
     posts = await db.post.findMany({
-      where: { published: true },
+      where: { published: true, date: { lte: now } },
       orderBy: { date: 'desc' },
       take: 20,
       include: { category: true }

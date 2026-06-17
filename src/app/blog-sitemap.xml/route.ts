@@ -8,8 +8,9 @@ export async function GET() {
   let urlElements = '';
 
   try {
+    const now = new Date();
     const posts = await db.post.findMany({
-      where: { published: true },
+      where: { published: true, date: { lte: now } },
       select: { slug: true, updatedAt: true },
       orderBy: { updatedAt: 'desc' },
     });

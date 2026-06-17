@@ -47,16 +47,17 @@ export default async function Home() {
   };
 
   try {
+    const now = new Date();
     // Chạy song song toàn bộ truy vấn cơ sở dữ liệu để tối ưu hóa hiệu năng
     const [dbSetting, dbSlides, dbTopics, dbLatestPosts, dbFeaturedResources] = await Promise.all([
       db.homepageSetting.findUnique({ where: { id: 'hero-setting' } }),
       db.heroSlide.findMany({ orderBy: { order: 'asc' } }),
       db.category.findMany({
         where: { type: 'post' },
-        include: { posts: { where: { published: true } } }
+        include: { posts: { where: { published: true, date: { lte: now } } } }
       }),
       db.post.findMany({
-        where: { published: true },
+        where: { published: true, date: { lte: now } },
         orderBy: { date: 'desc' },
         take: 3,
         include: { category: true }

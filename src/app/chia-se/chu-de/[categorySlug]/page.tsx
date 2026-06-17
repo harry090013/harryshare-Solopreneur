@@ -13,12 +13,13 @@ interface Props {
 // Caching query function to avoid duplicate calls for metadata and render
 const getCategoryData = React.cache(async (categorySlug: string) => {
   try {
+    const now = new Date();
     const [category, dbPosts, dbCategories] = await Promise.all([
       db.category.findFirst({
         where: { slug: categorySlug, type: 'post' }
       }),
       db.post.findMany({
-        where: { published: true },
+        where: { published: true, date: { lte: now } },
         orderBy: { date: 'desc' },
         include: { category: true }
       }),

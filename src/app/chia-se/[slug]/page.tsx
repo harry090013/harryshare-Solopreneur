@@ -67,6 +67,12 @@ export default async function PostDetailPage({
 }) {
   const { slug } = await params;
   let post = await getPost(slug);
+  
+  // Hide future posts unless published is false (meaning draft/admin mode can preview, but standard visitor cannot access future published posts)
+  if (post && post.published && new Date(post.date) > new Date()) {
+    post = null;
+  }
+
   let relatedPosts: any[] = [];
 
   // Fallbacks if DB query fails or post not found in DB
@@ -95,9 +101,11 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
   // Query related posts
   if (post && post.id) {
     try {
+      const now = new Date();
       relatedPosts = await db.post.findMany({
         where: {
           published: true,
+          date: { lte: now },
           categoryId: post.categoryId,
           NOT: { id: post.id }
         },
