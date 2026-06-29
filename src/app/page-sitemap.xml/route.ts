@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/db';
 
 export const revalidate = 3600; // Cache for 1 hour
 
@@ -16,21 +15,7 @@ export async function GET() {
     '/ve-harry',
   ];
 
-  let dynamicRoutes: string[] = [];
-
-  try {
-    const categories = await db.category.findMany({
-      where: { type: 'post' },
-      select: { slug: true }
-    });
-    dynamicRoutes = categories.map(cat => `/chia-se/chu-de/${cat.slug}`);
-  } catch (err) {
-    console.error('Failed to query categories for sitemap:', err);
-  }
-
-  const allRoutes = [...staticRoutes, ...dynamicRoutes];
-
-  const urlElements = allRoutes.map((route) => {
+  const urlElements = staticRoutes.map((route) => {
     const priority = route === '' ? '1.0' : '0.8';
     return `  <url>
     <loc>${baseUrl}${route}</loc>
