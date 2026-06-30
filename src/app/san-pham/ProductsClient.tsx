@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, ExternalLink, Tag } from 'lucide-react';
@@ -31,13 +31,20 @@ export default function ProductsClient({
   initialProducts: Product[];
   categories?: Category[];
 }) {
+  const defaultCategory = categories[0]?.slug || '';
   const [activeTab, setActiveTab] = useState<'main' | 'affiliate'>('main');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>(defaultCategory);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subsStatus, setSubsStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [subsMessage, setSubsMessage] = useState('');
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, selectedCategory]);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +78,7 @@ export default function ProductsClient({
   const filteredProducts = useMemo(() => {
     return initialProducts.filter(prod => {
       const matchesTab = prod.type === activeTab;
-      const matchesCategory = selectedCategory === 'all' || prod.category?.slug === selectedCategory;
+      const matchesCategory = prod.category?.slug === selectedCategory;
       return matchesTab && matchesCategory;
     });
   }, [initialProducts, activeTab, selectedCategory]);
@@ -95,6 +102,11 @@ export default function ProductsClient({
     return { main, affiliate, catCounts };
   }, [initialProducts, categories, activeTab]);
 
+  const itemsPerPage = 9;
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+
   return (
     <div className="flex flex-col gap-8">
       {/* Tabs Switcher & Categories Toolbar */}
@@ -104,7 +116,7 @@ export default function ProductsClient({
           <button
             onClick={() => {
               setActiveTab('main');
-              setSelectedCategory('all');
+              setSelectedCategory(defaultCategory);
             }}
             className={`flex-1 text-xs font-bold px-4 py-2.5 rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
               activeTab === 'main'
@@ -120,7 +132,7 @@ export default function ProductsClient({
           <button
             onClick={() => {
               setActiveTab('affiliate');
-              setSelectedCategory('all');
+              setSelectedCategory(defaultCategory);
             }}
             className={`flex-1 text-xs font-bold px-4 py-2.5 rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
               activeTab === 'affiliate'
@@ -141,16 +153,6 @@ export default function ProductsClient({
             <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold mr-1 flex items-center gap-1">
               <Tag className="w-3 h-3 text-olive" /> Lọc danh mục:
             </span>
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`text-xs font-bold px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
-                selectedCategory === 'all'
-                  ? 'bg-olive text-cream shadow-sm'
-                  : 'bg-cream border border-olive/10 text-stone-650 hover:border-olive/35 hover:text-olive'
-              }`}
-            >
-              Tất cả
-            </button>
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -228,85 +230,124 @@ export default function ProductsClient({
           </form>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProducts.map((prod) => (
-            <div 
-              key={prod.id}
-              className="flex flex-col rounded-3xl overflow-hidden border border-olive/10 bg-cream/70 backdrop-blur-md hover:border-olive/25 hover:bg-cream hover:shadow-[0_15px_35px_rgba(94,100,74,0.07)] hover:-translate-y-1 transition-all duration-300 group"
-            >
-              {/* Product Image */}
-              <div className="relative h-56 w-full overflow-hidden bg-sand">
-                <Image 
-                  src={prod.image || 'https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=600&q=80'} 
-                  alt={prod.title} 
-                  fill 
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                {/* Labels */}
-                {prod.featured && (
-                  <div className="absolute top-3.5 left-3.5 bg-olive text-cream px-2.5 py-1 rounded-md text-[9px] font-extrabold border border-olive/15 shadow-sm uppercase tracking-wider flex items-center gap-1">
-                    <Sparkles className="w-2.5 h-2.5" /> Nổi bật
-                  </div>
-                )}
-                
-                {prod.category && (
-                  <div className="absolute bottom-3.5 left-3.5 bg-stone-850/95 text-cream px-3 py-1 rounded-md text-[9px] font-extrabold border border-stone-800 shadow-xs uppercase tracking-wider">
-                    {prod.category.name}
-                  </div>
-                )}
+        <div className="flex flex-col gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {paginatedProducts.map((prod) => (
+              <div 
+                key={prod.id}
+                className="flex flex-col rounded-3xl overflow-hidden border border-olive/10 bg-cream/70 backdrop-blur-md hover:border-olive/25 hover:bg-cream hover:shadow-[0_15px_35px_rgba(94,100,74,0.07)] hover:-translate-y-1 transition-all duration-300 group"
+              >
+                {/* Product Image */}
+                <div className="relative h-56 w-full overflow-hidden bg-sand">
+                  <Image 
+                    src={prod.image || 'https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&w=600&q=80'} 
+                    alt={prod.title} 
+                    fill 
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 384px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  {/* Labels */}
+                  {prod.featured && (
+                    <div className="absolute top-3.5 left-3.5 bg-olive text-cream px-2.5 py-1 rounded-md text-[9px] font-extrabold border border-olive/15 shadow-sm uppercase tracking-wider flex items-center gap-1">
+                      <Sparkles className="w-2.5 h-2.5" /> Nổi bật
+                    </div>
+                  )}
+                  
+                  {prod.category && (
+                    <div className="absolute bottom-3.5 left-3.5 bg-stone-850/95 text-cream px-3 py-1 rounded-md text-[9px] font-extrabold border border-stone-800 shadow-xs uppercase tracking-wider">
+                      {prod.category.name}
+                    </div>
+                  )}
 
-                <div className="absolute bottom-3.5 right-3.5 bg-cream/95 backdrop-blur-md px-3.5 py-1.5 rounded-lg text-xs font-bold text-olive border border-olive/10 shadow-sm font-serif">
-                  {formatPrice(prod.price)}
+                  <div className="absolute bottom-3.5 right-3.5 bg-cream/95 backdrop-blur-md px-3.5 py-1.5 rounded-lg text-xs font-bold text-olive border border-olive/10 shadow-sm font-serif">
+                    {formatPrice(prod.price)}
+                  </div>
                 </div>
-              </div>
 
-              {/* Content info */}
-              <div className="p-6 flex flex-col gap-3 flex-1">
-                <h3 className="font-serif text-base font-bold text-stone-850 group-hover:text-olive transition-colors leading-snug line-clamp-1">
-                  {prod.title}
-                </h3>
-                <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
-                  {prod.description}
-                </p>
+                {/* Content info */}
+                <div className="p-6 flex flex-col gap-3 flex-1">
+                  <h3 className="font-serif text-base font-bold text-stone-850 group-hover:text-olive transition-colors leading-snug line-clamp-1">
+                    {prod.title}
+                  </h3>
+                  <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
+                    {prod.description}
+                  </p>
 
-                {/* Actions */}
-                <div className="mt-auto pt-5 flex items-center justify-between border-t border-olive/5">
-                  {prod.type === 'main' ? (
-                    <Link 
-                      href={`/san-pham/${prod.slug}`}
-                      className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 cursor-pointer hover:text-olive-dark transition-all duration-300"
-                    >
-                      Chi tiết & Đặt mua
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
-                  ) : (
-                    <>
+                  {/* Actions */}
+                  <div className="mt-auto pt-5 flex items-center justify-between border-t border-olive/5">
+                    {prod.type === 'main' ? (
                       <Link 
                         href={`/san-pham/${prod.slug}`}
-                        className="text-xs font-semibold text-stone-500 hover:text-olive cursor-pointer transition-colors"
+                        className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 cursor-pointer hover:text-olive-dark transition-all duration-300"
                       >
-                        Xem đánh giá
+                        Chi tiết & Đặt mua
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
-                      {prod.affiliateUrl && (
-                        <a 
-                          href={prod.affiliateUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 cursor-pointer hover:text-olive-dark transition-all duration-300 w-fit"
+                    ) : (
+                      <>
+                        <Link 
+                          href={`/san-pham/${prod.slug}`}
+                          className="text-xs font-semibold text-stone-500 hover:text-olive cursor-pointer transition-colors"
                         >
-                          Mua ngay
-                          <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </a>
-                      )}
-                    </>
-                  )}
+                          Xem đánh giá
+                        </Link>
+                        {prod.affiliateUrl && (
+                          <a 
+                            href={prod.affiliateUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-bold text-olive tracking-widest uppercase flex items-center gap-1.5 cursor-pointer hover:text-olive-dark transition-all duration-300 w-fit"
+                          >
+                            Mua ngay
+                            <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          </a>
+                        )}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-6">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-3.5 py-2 rounded-xl border border-olive/10 bg-cream text-xs font-bold text-stone-600 hover:border-olive/30 hover:text-olive disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
+              >
+                Trước
+              </button>
+              
+              <div className="flex gap-1.5">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-9 h-9 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      currentPage === page
+                        ? 'bg-olive text-cream shadow-sm'
+                        : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-3.5 py-2 rounded-xl border border-olive/10 bg-cream text-xs font-bold text-stone-600 hover:border-olive/30 hover:text-olive disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer"
+              >
+                Sau
+              </button>
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>

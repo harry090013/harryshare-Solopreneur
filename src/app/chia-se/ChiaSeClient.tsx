@@ -33,14 +33,17 @@ export default function ChiaSeClient({
   urlCategory?: string;
   urlSearch?: string;
 }) {
+  const defaultCategory = categories[0]?.slug || '';
   const [searchTerm, setSearchTerm] = useState(urlSearch);
-  const [selectedCategory, setSelectedCategory] = useState<string>(urlCategory);
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    urlCategory === 'all' ? defaultCategory : urlCategory
+  );
   const [currentPage, setCurrentPage] = useState(1);
 
   // Sync category if URL category changes
   useEffect(() => {
-    setSelectedCategory(urlCategory);
-  }, [urlCategory]);
+    setSelectedCategory(urlCategory === 'all' ? defaultCategory : urlCategory);
+  }, [urlCategory, defaultCategory]);
 
   // Reset page to 1 when filters change
   useEffect(() => {
@@ -52,7 +55,7 @@ export default function ChiaSeClient({
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.description.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesCategory = selectedCategory === 'all' || post.category?.slug === selectedCategory;
+    const matchesCategory = post.category?.slug === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -80,16 +83,6 @@ export default function ChiaSeClient({
 
         {/* Categories Chips */}
         <div className="flex flex-wrap gap-2 w-full md:w-auto items-center justify-start md:justify-end">
-          <button
-            onClick={() => setSelectedCategory('all')}
-            className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all cursor-pointer ${
-              selectedCategory === 'all'
-                ? 'bg-olive text-cream shadow-sm'
-                : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
-            }`}
-          >
-            Tất cả
-          </button>
           {categories.map((cat) => (
             <button
               key={cat.id}
