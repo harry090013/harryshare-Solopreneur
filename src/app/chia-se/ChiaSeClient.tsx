@@ -68,34 +68,44 @@ export default function ChiaSeClient({
   return (
     <div className="flex flex-col gap-8">
       {/* Search & Filter Toolbar */}
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-cream/70 backdrop-blur-md p-4 rounded-2xl border border-olive/10 shadow-xs">
-        {/* Search Input */}
-        <div className="relative w-full md:w-80">
-          <input
-            type="text"
-            placeholder="Tìm kiếm chia sẻ..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-olive/10 bg-cream focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all placeholder:text-stone-400"
-          />
-          <Search className="absolute left-3.5 top-3 w-4 h-4 text-stone-400" />
+      <div className="flex flex-col gap-5 bg-cream/70 backdrop-blur-md p-5 rounded-2xl border border-olive/10 shadow-xs">
+        {/* Row 1: Search */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="relative w-full md:w-80">
+            <input
+              type="text"
+              placeholder="Tìm kiếm chia sẻ..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-olive/10 bg-cream focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all placeholder:text-stone-400"
+            />
+            <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-stone-400" />
+          </div>
+          <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider hidden md:block">
+            Sắp xếp theo mới nhất
+          </span>
         </div>
 
-        {/* Categories Chips */}
-        <div className="flex flex-wrap gap-2 w-full md:w-auto items-center justify-start md:justify-end">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.slug)}
-              className={`text-xs font-semibold px-4 py-2 rounded-xl transition-all cursor-pointer ${
-                selectedCategory === cat.slug
-                  ? 'bg-olive text-cream shadow-sm'
-                  : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
+        {/* Row 2: Categories Grid (4 columns, from left to right) */}
+        <div className="flex flex-col gap-2.5 border-t border-olive/10 pt-4">
+          <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold">
+            Lọc theo chủ đề:
+          </span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.slug)}
+                className={`text-xs font-semibold py-2.5 px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
+                  selectedCategory === cat.slug
+                    ? 'bg-olive text-cream shadow-sm font-bold'
+                    : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
