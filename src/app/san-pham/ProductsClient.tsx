@@ -31,15 +31,33 @@ export default function ProductsClient({
   initialProducts: Product[];
   categories?: Category[];
 }) {
-  const defaultCategory = categories[0]?.slug || '';
   const [activeTab, setActiveTab] = useState<'main' | 'affiliate'>('main');
-  const [selectedCategory, setSelectedCategory] = useState<string>(defaultCategory);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
 
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subsStatus, setSubsStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [subsMessage, setSubsMessage] = useState('');
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+
+  // Filter categories that have items of the current activeTab
+  const visibleCategories = useMemo(() => {
+    return categories.filter(cat => {
+      return initialProducts.some(p => p.type === activeTab && p.category?.slug === cat.slug);
+    });
+  }, [categories, initialProducts, activeTab]);
+
+  // Sync selectedCategory when visibleCategories change
+  useEffect(() => {
+    if (visibleCategories.length > 0) {
+      const isStillVisible = visibleCategories.some(cat => cat.slug === selectedCategory);
+      if (!isStillVisible) {
+        setSelectedCategory(visibleCategories[0].slug);
+      }
+    } else {
+      setSelectedCategory('');
+    }
+  }, [visibleCategories, selectedCategory]);
 
   // Reset page when filters change
   useEffect(() => {
@@ -116,7 +134,6 @@ export default function ProductsClient({
           <button
             onClick={() => {
               setActiveTab('main');
-              setSelectedCategory(defaultCategory);
             }}
             className={`flex-1 text-xs font-bold px-4 py-2.5 rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
               activeTab === 'main'
@@ -132,7 +149,6 @@ export default function ProductsClient({
           <button
             onClick={() => {
               setActiveTab('affiliate');
-              setSelectedCategory(defaultCategory);
             }}
             className={`flex-1 text-xs font-bold px-4 py-2.5 rounded-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 ${
               activeTab === 'affiliate'
@@ -148,12 +164,12 @@ export default function ProductsClient({
         </div>
 
         {/* Categories Chips */}
-        {categories.length > 0 && (
+        {visibleCategories.length > 0 && (
           <div className="flex flex-wrap gap-2 justify-center items-center pt-3 border-t border-olive/5">
             <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold mr-1 flex items-center gap-1">
               <Tag className="w-3 h-3 text-olive" /> Lọc danh mục:
             </span>
-            {categories.map((cat) => (
+            {visibleCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}

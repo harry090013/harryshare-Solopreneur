@@ -30,12 +30,30 @@ export default function ProjectsClient({
   initialItems: ProjectResource[];
   categories?: Category[];
 }) {
-  const defaultCategory = categories[0]?.slug || '';
   const [filterType, setFilterType] = useState<'tool' | 'freebie'>('tool');
-  const [selectedCategory, setSelectedCategory] = useState<string>(defaultCategory);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedResource, setSelectedResource] = useState<ProjectResource | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Filter categories that have items of the current filterType
+  const visibleCategories = useMemo(() => {
+    return categories.filter(cat => {
+      return initialItems.some(i => i.type === filterType && i.category?.slug === cat.slug);
+    });
+  }, [categories, initialItems, filterType]);
+
+  // Sync selectedCategory when visibleCategories change
+  useEffect(() => {
+    if (visibleCategories.length > 0) {
+      const isStillVisible = visibleCategories.some(cat => cat.slug === selectedCategory);
+      if (!isStillVisible) {
+        setSelectedCategory(visibleCategories[0].slug);
+      }
+    } else {
+      setSelectedCategory('');
+    }
+  }, [visibleCategories, selectedCategory]);
 
   // Reset page to 1 when filters change
   useEffect(() => {
@@ -58,11 +76,11 @@ export default function ProjectsClient({
 
     const catCounts: Record<string, number> = {};
     categories.forEach(cat => {
-      catCounts[cat.slug] = initialItems.filter(i => i.category?.slug === cat.slug).length;
+      catCounts[cat.slug] = initialItems.filter(i => i.type === filterType && i.category?.slug === cat.slug).length;
     });
 
     return { total, tools, freebies, catCounts };
-  }, [initialItems, categories]);
+  }, [initialItems, categories, filterType]);
 
   const itemsPerPage = 9;
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
@@ -111,13 +129,13 @@ export default function ProjectsClient({
         </div>
 
         {/* Row 2: Category Filters */}
-        {categories.length > 0 && (
+        {visibleCategories.length > 0 && (
           <div className="flex flex-wrap gap-2 items-center pt-4 border-t border-olive/10">
             <span className="text-[10px] uppercase tracking-wider text-stone-400 font-extrabold mr-2 flex items-center gap-1.5 shrink-0">
               <Folder className="w-3.5 h-3.5 text-olive" /> Bộ lọc danh mục:
             </span>
 
-            {categories.map((cat) => (
+            {visibleCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}
