@@ -89,7 +89,7 @@ export default function PostComments({ postId }: { postId: string }) {
     <div className="flex flex-col gap-8 mt-12 pt-8 border-t border-olive/10 font-sans">
       <div className="flex items-center gap-2">
         <MessageSquare className="w-5 h-5 text-olive" />
-        <h3 className="font-serif text-xl font-bold text-stone-850">
+        <h3 id="comments" className="font-serif text-xl font-bold text-stone-850">
           Bình luận ({comments.length})
         </h3>
       </div>

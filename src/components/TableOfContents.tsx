@@ -20,9 +20,15 @@ export default function TableOfContents() {
     const items: HeadingItem[] = [];
 
     headingElements.forEach((el, index) => {
-      const text = el.textContent || '';
+      let text = el.textContent || '';
       let id = el.id;
-      if (!id) {
+      
+      // Normalize Comments section link
+      if (id === 'comments' || text.startsWith('Bình luận')) {
+        text = 'Bình luận';
+        id = 'comments';
+        el.id = id;
+      } else if (!id) {
         id = text
           .toLowerCase()
           .replace(/[^a-z0-9 -]/g, '')
@@ -33,6 +39,7 @@ export default function TableOfContents() {
         id = `${id}-${index}`;
         el.id = id;
       }
+      
       items.push({
         id,
         text,
