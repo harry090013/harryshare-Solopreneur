@@ -36,7 +36,7 @@ async function run() {
         description: "Nén và giảm dung lượng ảnh PNG, JPG trực tiếp trên trình duyệt của bạn với tốc độ tức thì, bảo mật 100%.",
         type: "tool",
         url: "/du-an-tai-nguyen/nen-anh",
-        image: "/images/checklist-truoc-khi-build.png",
+        image: "/images/thumb-nen-anh-online.png",
         featured: true,
         categoryId: category.id
       },
@@ -46,7 +46,7 @@ async function run() {
         description: "Chuyển đổi các định dạng hình ảnh sang WebP hàng loạt để tối ưu hóa SEO và tốc độ tải trang web.",
         type: "tool",
         url: "/du-an-tai-nguyen/convert-webp",
-        image: "/images/checklist-truoc-khi-publish.png",
+        image: "/images/thumb-convert-webp.png",
         featured: true,
         categoryId: category.id
       },
@@ -56,7 +56,7 @@ async function run() {
         description: "Công cụ phân tích mật độ từ khóa, đếm từ, đếm câu và ước tính thời gian đọc thời gian thực.",
         type: "tool",
         url: "/du-an-tai-nguyen/dem-tu",
-        image: "/images/bo-30-prompt-ai-cua-harry.png",
+        image: "/images/thumb-dem-tu.png",
         featured: true,
         categoryId: category.id
       }
