@@ -61,6 +61,7 @@ export default function Footer() {
     { name: 'Thương hiệu cá nhân', path: '/chia-se/chu-de/thuong-hieu-ca-nhan' },
     { name: 'Công nghệ & AI', path: '/chia-se/chu-de/cong-nghe-ai' },
     { name: 'Hành trình làm nghề', path: '/chia-se/chu-de/hanh-trinh-lam-nghe' },
+    { name: 'Tuổi trẻ & Thanh Xuân', path: '/chia-se/chu-de/tuoi-tre-thanh-xuan' },
   ];
 
   return (
