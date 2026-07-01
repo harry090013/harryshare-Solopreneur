@@ -59,7 +59,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-olive/10 group-hover:border-olive/30 transition-all duration-300">
               <Image 
-                src="/logo.png" 
+                src="/logo.webp" 
                 alt="HarryShare Logo" 
                 fill 
                 sizes="32px"

@@ -71,7 +71,7 @@ export default function Footer() {
           <div className="md:col-span-5 flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2.5">
               <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-olive/10">
-                <Image src="/logo.png" alt="HarryShare Logo" fill sizes="32px" className="object-cover" />
+                <Image src="/logo.webp" alt="HarryShare Logo" fill sizes="32px" className="object-cover" />
               </div>
               <span className="font-serif text-lg font-bold text-olive tracking-wide">HarryShare</span>
             </Link>
