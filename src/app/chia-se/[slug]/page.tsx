@@ -13,6 +13,21 @@ import type { Metadata } from 'next';
 
 export const revalidate = 60;
 
+export async function generateStaticParams() {
+  try {
+    const posts = await db.post.findMany({
+      where: { published: true },
+      select: { slug: true }
+    });
+    return posts.map((post) => ({
+      slug: post.slug,
+    }));
+  } catch (err) {
+    console.error('Failed to generate static params for posts:', err);
+    return [];
+  }
+}
+
 // Cache post fetch to prevent multiple DB queries for metadata & page render
 const getPost = cache(async (slug: string) => {
   try {

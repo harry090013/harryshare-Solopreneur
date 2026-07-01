@@ -8,6 +8,20 @@ import type { Metadata } from 'next';
 
 export const revalidate = 60;
 
+export async function generateStaticParams() {
+  try {
+    const products = await db.product.findMany({
+      select: { slug: true }
+    });
+    return products.map((prod) => ({
+      slug: prod.slug,
+    }));
+  } catch (err) {
+    console.error('Failed to generate static params for products:', err);
+    return [];
+  }
+}
+
 // Cache product retrieval
 const getProduct = cache(async (slug: string) => {
   try {
