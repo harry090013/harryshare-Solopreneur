@@ -33,17 +33,14 @@ export default function ChiaSeClient({
   urlCategory?: string;
   urlSearch?: string;
 }) {
-  const defaultCategory = categories[0]?.slug || '';
   const [searchTerm, setSearchTerm] = useState(urlSearch);
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    urlCategory === 'all' ? defaultCategory : urlCategory
-  );
+  const [selectedCategory, setSelectedCategory] = useState<string>(urlCategory);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Sync category if URL category changes
   useEffect(() => {
-    setSelectedCategory(urlCategory === 'all' ? defaultCategory : urlCategory);
-  }, [urlCategory, defaultCategory]);
+    setSelectedCategory(urlCategory);
+  }, [urlCategory]);
 
   // Reset page to 1 when filters change
   useEffect(() => {
@@ -55,7 +52,7 @@ export default function ChiaSeClient({
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.description.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesCategory = post.category?.slug === selectedCategory;
+    const matchesCategory = selectedCategory === 'all' || post.category?.slug === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -86,12 +83,22 @@ export default function ChiaSeClient({
           </span>
         </div>
 
-        {/* Row 2: Categories Grid (4 columns, from left to right) */}
+        {/* Row 2: Categories Grid (5 columns, from left to right) */}
         <div className="flex flex-col gap-2.5 border-t border-olive/10 pt-4">
           <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold">
             Lọc theo chủ đề:
           </span>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 w-full">
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`text-xs font-semibold py-2.5 px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
+                selectedCategory === 'all'
+                  ? 'bg-olive text-cream shadow-sm font-bold'
+                  : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
+              }`}
+            >
+              Tất cả
+            </button>
             {categories.map((cat) => (
               <button
                 key={cat.id}
