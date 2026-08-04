@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { X, Mail, Download, Loader2, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
 
@@ -22,6 +22,15 @@ export default function FreebieModal({ resource, isOpen, onClose }: FreebieModal
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [downloadUrl, setDownloadUrl] = useState('');
+
+  // Reset modal state when closed or when resource changes
+  useEffect(() => {
+    if (!isOpen) {
+      setStatus('idle');
+      setDownloadUrl('');
+      setErrorMsg('');
+    }
+  }, [isOpen, resource?.id]);
 
   if (!isOpen || !resource) return null;
 
