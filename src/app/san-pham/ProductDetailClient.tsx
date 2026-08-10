@@ -38,6 +38,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   const [error, setError] = useState('');
 
   const formatPrice = (price: number | null) => {
+    if (price === 0) return 'Miễn phí';
     if (price === null || price === undefined) return 'Liên hệ';
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };
@@ -125,16 +126,27 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             </div>
 
             {product.type === 'main' ? (
-              <button
-                onClick={() => {
-                  setSuccess(false);
-                  setError('');
-                  setIsModalOpen(true);
-                }}
-                className="w-full bg-olive text-cream hover:bg-olive-dark py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-widest shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <ShoppingBag className="w-4 h-4" /> Đặt mua sản phẩm
-              </button>
+              product.price === 0 && product.affiliateUrl ? (
+                <a
+                  href={product.affiliateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-olive text-cream hover:bg-olive-dark py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-widest shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-center"
+                >
+                  Trải nghiệm miễn phí <ExternalLink className="w-4 h-4" />
+                </a>
+              ) : (
+                <button
+                  onClick={() => {
+                    setSuccess(false);
+                    setError('');
+                    setIsModalOpen(true);
+                  }}
+                  className="w-full bg-olive text-cream hover:bg-olive-dark py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-widest shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <ShoppingBag className="w-4 h-4" /> Đặt mua sản phẩm
+                </button>
+              )
             ) : (
               product.affiliateUrl && (
                 <a
@@ -143,7 +155,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                   rel="noopener noreferrer"
                   className="w-full bg-olive text-cream hover:bg-olive-dark py-3 px-6 rounded-xl font-bold text-xs uppercase tracking-widest shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Mua tại đối tác <ExternalLink className="w-4 h-4" />
+                  {product.price === 0 ? 'Trải nghiệm miễn phí' : 'Mua tại đối tác'} <ExternalLink className="w-4 h-4" />
                 </a>
               )
             )}

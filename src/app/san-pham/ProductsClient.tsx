@@ -101,8 +101,8 @@ export default function ProductsClient({
     });
   }, [initialProducts, activeTab, selectedCategory]);
 
-  // Format price
   const formatPrice = (price: number | null) => {
+    if (price === 0) return 'Miễn phí';
     if (price === null || price === undefined) return 'Liên hệ';
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };

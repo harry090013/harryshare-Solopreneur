@@ -34,8 +34,8 @@ export default async function ProductsPage() {
     
     // Fallback Mock Categories
     categories = [
-      { id: 'cat-main-service', name: 'Dịch vụ của Harry', slug: 'dich-vu-cua-harry' },
       { id: 'cat-digital-prod', name: 'Sản phẩm số', slug: 'san-pham-so' },
+      { id: 'cat-physical-prod', name: 'Sản phẩm vật lý', slug: 'san-pham-vat-ly' },
       { id: 'cat-affiliate-gear', name: 'Thiết bị làm việc (Affiliate)', slug: 'thiet-bi-lam-viec' },
       { id: 'cat-affiliate-course', name: 'Khóa học khuyên dùng (Affiliate)', slug: 'khoa-hoc-khuyen-dung' },
     ];
@@ -43,17 +43,17 @@ export default async function ProductsPage() {
     // Fallback Mock Products
     products = [
       {
-        id: 'p1',
-        title: 'Cố vấn 1-1: Xây dựng Sản phẩm & Thương hiệu cá nhân',
-        slug: 'co-van-1-1-xay-dung-san-pham',
-        description: 'Chương trình đồng hành 8 tuần giúp bạn từ số 0 phát triển một sản phẩm công nghệ hoàn chỉnh và thu hút nhóm độc giả đầu tiên.',
-        content: 'Đây là chương trình cố vấn đặc biệt được thiết kế riêng cho các bạn Solopreneur...',
-        price: 15000000,
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
+        id: 'p-wiszy',
+        title: 'Wiszy - Phần mềm giáo dục tương tác cho giáo viên và học sinh',
+        slug: 'wiszy-phan-mem-giao-duc-tuong-tac',
+        description: 'Phần mềm học tập và quản lý lớp học tương tác trò chơi hóa (gamification) hoàn toàn miễn phí dành cho giáo viên cấp 1 và phụ huynh học sinh.',
+        content: 'Wiszy là nền tảng giáo dục hiện đại số một dành cho trẻ em...',
+        price: 0,
+        image: '/images/wiszy/wiszy_cover.webp',
         type: 'main',
-        affiliateUrl: null,
+        affiliateUrl: 'https://wiszy.vn/',
         featured: true,
-        category: { id: 'cat-main-service', name: 'Dịch vụ của Harry', slug: 'dich-vu-cua-harry' }
+        category: { id: 'cat-digital-prod', name: 'Sản phẩm số', slug: 'san-pham-so' }
       },
       {
         id: 'p2',
