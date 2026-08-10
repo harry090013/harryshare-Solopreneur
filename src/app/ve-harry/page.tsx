@@ -44,7 +44,7 @@ export default async function AboutPage() {
     title: "Về Harry (Quang Hiếu)",
     subtitle: "📖 Câu chuyện của mình",
     avatarUrl: "/api/media/53a545d8-073a-4a0d-b98f-a929df9a372c",
-    description: "Tôi sinh năm 2000, học chuyên ngành Công nghệ phần mềm. Nhưng tốt nghiệp xong, tôi nhận ra mình không hợp ngồi một chỗ ôm máy tính cả ngày. Chân tôi muốn đi, miệng tôi muốn nói. Nhờ kiến thức công nghệ làm nền tảng, tôi bước sang tự học marketing, làm vận hành, đi bưng bê tiệc cưới, và giờ là tự làm chủ. Trang web này đơn giản là cuốn nhật ký tôi tự viết cho bản thân 10 năm sau nhìn lại, và chia sẻ lại những bài học tôi đã tự thử sai trên hành trình của mình."
+    description: "Harry sinh năm 2000, học chuyên ngành Công nghệ phần mềm. Nhưng tốt nghiệp xong, Harry nhận ra mình không hợp ngồi một chỗ ôm máy tính cả ngày. Chân Harry muốn đi, miệng Harry muốn nói. Nhờ kiến thức công nghệ làm nền tảng, Harry bước sang tự học marketing, làm vận hành, đi bưng bê tiệc cưới, và giờ là tự làm chủ. Trang web này đơn giản là cuốn nhật ký Harry tự viết cho bản thân 10 năm sau nhìn lại, và chia sẻ lại những bài học Harry đã tự thử sai trên hành trình của mình."
   };
   let timelineSteps = [];
 
@@ -72,8 +72,8 @@ export default async function AboutPage() {
         title: 'Hành trình lập nghiệp hướng tới sản phẩm sạch & ẩm thực chay',
         role: 'Lập nghiệp tự chủ',
         iconName: 'Leaf',
-        description: 'Tôi chọn đi chậm lại sau giai đoạn đi làm thuê. Tôi muốn tập trung phát triển nghề sản xuất nhang sạch thảo mộc của gia đình và mở một quán chay nhỏ yên bình. Tôi nhận ra niềm vui của mình lúc này là được tự làm ra những sản phẩm lành tính, gieo những duyên tốt lành cho mọi người xung quanh.',
-        lesson: 'Bài học: Sự kiên nhẫn tích lũy giá trị thực giúp tôi bình tĩnh hơn, không còn nôn nóng chạy theo những con số ngắn hạn.',
+        description: 'Harry chọn đi chậm lại sau giai đoạn đi làm thuê. Harry muốn tập trung phát triển nghề sản xuất nhang sạch thảo mộc của gia đình và mở một quán chay nhỏ yên bình. Harry nhận ra niềm vui của mình lúc này là được tự làm ra những sản phẩm lành tính, gieo những duyên tốt lành cho mọi người xung quanh.',
+        lesson: 'Bài học: Sự kiên nhẫn tích lũy giá trị thực giúp Harry bình tĩnh hơn, không còn nôn nóng chạy theo những con số ngắn hạn.',
         imageUrl: '/harry-kinh-doanh-huong-thao-moc.webp'
       },
       {
@@ -81,8 +81,8 @@ export default async function AboutPage() {
         title: 'Bứt phá Marketing & Sáng tạo cùng AI tại CloudFly',
         role: 'Marketer & AI Automation Leader',
         iconName: 'Cloud',
-        description: 'Tôi gia nhập CloudFly để nghiên cứu sâu về hạ tầng mạng, SEO website và ứng dụng AI tự động hóa vào marketing. Tôi tự tay xây dựng các quy trình tự động hóa quy trình làm việc cùng các trợ lý AI để giải phóng sức lao động của chính mình. Tối đến, tôi tự học thêm tiếng Anh để mở rộng thế giới quan.',
-        lesson: 'Bài học: Tôi nhận ra AI không thay thế con người, nhưng biết cách tận dụng AI giúp tôi giải quyết lượng công việc khổng lồ một mình.',
+        description: 'Harry gia nhập CloudFly để nghiên cứu sâu về hạ tầng mạng, SEO website và ứng dụng AI tự động hóa vào marketing. Harry tự tay xây dựng các quy trình tự động hóa quy trình làm việc cùng các trợ lý AI để giải phóng sức lao động của chính mình. Tối đến, Harry tự học thêm tiếng Anh để mở rộng thế giới quan.',
+        lesson: 'Bài học: Harry nhận ra AI không thay thế con người, nhưng biết cách tận dụng AI giúp Harry giải quyết lượng công việc khổng lồ một mình.',
         imageUrl: '/harry-cloudfly.webp'
       },
       {
@@ -90,8 +90,8 @@ export default async function AboutPage() {
         title: 'Trưởng phòng Marketing tại Tâm An Spa',
         role: 'Trưởng phòng Marketing (Online & Offline tại Sài Gòn)',
         iconName: 'Sparkles',
-        description: 'Tôi nhận trách nhiệm làm marketing cho spa trong thị trường cạnh tranh gắt gao tại Sài Gòn. Tôi tự học chụp ảnh, dựng video, tự chạy quảng cáo tối ưu ngân sách. Tôi quyết định dừng lại khi thấy bản thân đang ôm đồm quá nhiều việc cùng lúc dẫn đến quá tải, không còn thời gian để thở.',
-        lesson: 'Bài học: Tôi học được cách buông bớt những thứ không quan trọng để tập trung bảo toàn năng lượng cho việc cốt lõi.',
+        description: 'Harry nhận trách nhiệm làm marketing cho spa trong thị trường cạnh tranh gắt gao tại Sài Gòn. Harry tự học chụp ảnh, dựng video, tự chạy quảng cáo tối ưu ngân sách. Harry quyết định dừng lại khi thấy bản thân đang ôm đồm quá nhiều việc cùng lúc dẫn đến quá tải, không còn thời gian để thở.',
+        lesson: 'Bài học: Harry học được cách buông bớt những thứ không quan trọng để tập trung bảo toàn năng lượng cho việc cốt lõi.',
         imageUrl: '/harry-tam-an-spa.webp'
       },
       {
@@ -99,8 +99,8 @@ export default async function AboutPage() {
         title: 'Rèn luyện sự kiên trì chịu khó tại Rex Hotel',
         role: 'Nhân viên phục vụ tiệc & buffet',
         iconName: 'Coffee',
-        description: 'Tôi đi làm bưng bê tiệc cưới và buffet sáng tại khách sạn Rex. Một công việc tay chân vất vả đòi hỏi sự nhẫn nại cao, đứng liên tục nhiều giờ liền. Nhưng bù lại, tôi có cơ hội quan sát thực tế cách phục vụ khách hàng cao cấp và rèn luyện cho mình tính kiên trì, chịu khó từ những việc nhỏ nhất.',
-        lesson: 'Bài học: Tôi học được sự khiêm nhường và thấu hiểu khách hàng từ những trải nghiệm tay chân bình dị.',
+        description: 'Harry đi làm bưng bê tiệc cưới và buffet sáng tại khách sạn Rex. Một công việc tay chân vất vả đòi hỏi sự nhẫn nại cao, đứng liên tục nhiều giờ liền. Nhưng bù lại, Harry có cơ hội quan sát thực tế cách phục vụ khách hàng cao cấp và rèn luyện cho mình tính kiên trì, chịu khó từ những việc nhỏ nhất.',
+        lesson: 'Bài học: Harry học được sự khiêm nhường và thấu hiểu khách hàng từ những trải nghiệm tay chân bình dị.',
         imageUrl: '/harry-rex-hotel.webp'
       },
       {
@@ -108,8 +108,8 @@ export default async function AboutPage() {
         title: 'Xây dựng thương hiệu thực phẩm chay tại Vương Ngọc Vegan',
         role: 'Content Creator & Bán hàng đa kênh',
         iconName: 'ShoppingBag',
-        description: 'Tôi phụ trách lên nội dung, làm video ngắn giới thiệu sản phẩm chay sạch trên TikTok và các sàn thương mại điện tử. Tôi chọn dừng công việc sớm khi nhận thấy định hướng phát triển lâu dài của doanh nghiệp không còn đồng nhất với mục tiêu học hỏi ngắn hạn của mình.',
-        lesson: 'Bài học: Tôi học được cách dũng cảm dừng lại đúng lúc để tránh làm mất thời gian của cả hai bên.',
+        description: 'Harry phụ trách lên nội dung, làm video ngắn giới thiệu sản phẩm chay sạch trên TikTok và các sàn thương mại điện tử. Harry chọn dừng công việc sớm khi nhận thấy định hướng phát triển lâu dài của doanh nghiệp không còn đồng nhất với mục tiêu học hỏi ngắn hạn của mình.',
+        lesson: 'Bài học: Harry học được cách dũng cảm dừng lại đúng lúc để tránh làm mất thời gian của cả hai bên.',
         imageUrl: '/harry-vuong-ngoc.webp'
       },
       {
@@ -117,8 +117,8 @@ export default async function AboutPage() {
         title: 'Tư vấn giải pháp GoSell tại MediaStep Software Việt Nam',
         role: 'Chuyên viên tư vấn phần mềm hỗ trợ doanh nghiệp',
         iconName: 'HelpCircle',
-        description: 'Tôi tư vấn giải pháp phần mềm GoSell hỗ trợ các hộ kinh doanh và doanh nghiệp vừa và nhỏ tối ưu quy trình bán hàng. Tôi lắng nghe câu chuyện kinh doanh thực tế từ nhiều chủ cửa hàng. Tôi dừng lại khi cảm thấy môi trường và bộ máy vận hành nội bộ không còn phù hợp với hệ giá trị nhân văn của mình.',
-        lesson: 'Bài học: Tôi hiểu ra một sản phẩm tốt đến mấy cũng cần một bộ máy vận hành nhân văn để đi được dài hạn.',
+        description: 'Harry tư vấn giải pháp phần mềm GoSell hỗ trợ các hộ kinh doanh và doanh nghiệp vừa và nhỏ tối ưu quy trình bán hàng. Harry lắng nghe câu chuyện kinh doanh thực tế từ nhiều chủ cửa hàng. Harry dừng lại khi cảm thấy môi trường và bộ máy vận hành nội bộ không còn phù hợp với hệ giá trị nhân văn của mình.',
+        lesson: 'Bài học: Harry hiểu ra một sản phẩm tốt đến mấy cũng cần một bộ máy vận hành nhân văn để đi được dài hạn.',
         imageUrl: '/harry-mediastep.webp'
       },
       {
@@ -126,8 +126,8 @@ export default async function AboutPage() {
         title: 'Quản lý vận hành & Nghiên cứu món mới tại Quán Chay Ưu Đàm',
         role: 'Quản lý vận hành, điều phối bếp và order',
         iconName: 'Utensils',
-        description: 'Tôi phụ trách điều phối bếp, order và chăm sóc khách hàng tại quán chay của chị hai. Tôi trực tiếp chuẩn hóa lại quy trình gọi món, trò chuyện lắng nghe phản hồi của thực khách và tự mày mò học hỏi các công thức món chay mới để hoàn thiện menu.',
-        lesson: 'Bài học: Vận hành một quán ăn nhỏ dạy tôi bài học về sự chi tiết, tỉ mỉ và cái tâm đặt vào từng đĩa ăn phục vụ khách.',
+        description: 'Harry phụ trách điều phối bếp, order và chăm sóc khách hàng tại quán chay của chị hai. Harry trực tiếp chuẩn hóa lại quy trình gọi món, trò chuyện lắng nghe phản hồi của thực khách và tự mày mò học hỏi các công thức món chay mới để hoàn thiện menu.',
+        lesson: 'Bài học: Vận hành một quán ăn nhỏ dạy Harry bài học về sự chi tiết, tỉ mỉ và cái tâm đặt vào từng đĩa ăn phục vụ khách.',
         imageUrl: '/harry-chay-uu-dam.webp'
       },
       {
@@ -135,8 +135,8 @@ export default async function AboutPage() {
         title: 'Tự nghiên cứu & Sản xuất tại Thảo Mộc Hương T&T',
         role: 'Nhà sáng lập dự án thảo mộc',
         iconName: 'Sprout',
-        description: 'Tôi tự nghiên cứu công thức, tự sản xuất nhang thảo mộc sạch và tự tìm khách hàng qua mạng xã hội. Tôi bán được hơn 300 sản phẩm đầu tiên. Tuy nhiên, tôi phải dừng dự án sau 3 tháng do cạn kiệt nguồn vốn dự phòng, sức khỏe suy giảm và thiếu kinh nghiệm quản trị dòng tiền.',
-        lesson: 'Bài học: Dự án thất bại đầu đời dạy tôi bài học đắt giá về tầm quan trọng của dòng tiền và quản trị rủi ro khi tự kinh doanh.',
+        description: 'Harry tự nghiên cứu công thức, tự sản xuất nhang thảo mộc sạch và tự tìm khách hàng qua mạng xã hội. Harry bán được hơn 300 sản phẩm đầu tiên. Tuy nhiên, Harry phải dừng dự án sau 3 tháng do cạn kiệt nguồn vốn dự phòng, sức khỏe suy giảm và thiếu kinh nghiệm quản trị dòng tiền.',
+        lesson: 'Bài học: Dự án thất bại đầu đời dạy Harry bài học đắt giá về tầm quan trọng của dòng tiền và quản trị rủi ro khi tự kinh doanh.',
         imageUrl: '/harry-tu-hu-huong.webp'
       },
       {
@@ -144,8 +144,8 @@ export default async function AboutPage() {
         title: 'Hoạt động cộng đồng tại Đoàn Xã Duy Sơn',
         role: 'Thành viên Hội LHTN xã Duy Sơn',
         iconName: 'Award',
-        description: 'Tôi tham gia tổ chức sinh hoạt hè, quản trò và hỗ trợ hoạt động Đoàn thanh niên ở quê nhà Duy Xuyên. Tôi tự xây dựng website Đoàn xã để phục vụ công tác truyền thông tin tức. Quá trình làm việc tập thể giúp tôi tự tin đứng trước đám đông và rèn luyện sự kết nối.',
-        lesson: 'Bài học: Tôi nhận ra công nghệ sẽ phát huy giá trị lớn nhất khi phục vụ cho cộng đồng và gieo những điều tốt lành.',
+        description: 'Harry tham gia tổ chức sinh hoạt hè, quản trò và hỗ trợ hoạt động Đoàn thanh niên ở quê nhà Duy Xuyên. Harry tự xây dựng website Đoàn xã để phục vụ công tác truyền thông tin tức. Quá trình làm việc tập thể giúp Harry tự tin đứng trước đám đông và rèn luyện sự kết nối.',
+        lesson: 'Bài học: Harry nhận ra công nghệ sẽ phát huy giá trị lớn nhất khi phục vụ cho cộng đồng và gieo những điều tốt lành.',
         imageUrl: '/harry-doan-xa.webp'
       },
       {
@@ -153,8 +153,8 @@ export default async function AboutPage() {
         title: 'Lập trình viên Front-end (Freelance Developer)',
         role: 'Front-end Developer',
         iconName: 'Code',
-        description: 'Sau khi tốt nghiệp, tôi bắt đầu làm Freelance Developer thiết kế giao diện web. Công việc giúp tôi rèn luyện tư duy logic tốt. Tuy nhiên, sau 6 tháng ngồi lì trước laptop, tôi bị đau mỏi vai gáy và cảm thấy chán nản. Tôi nhận ra tính cách mình cần sự vận động và kết nối nhiều hơn.',
-        lesson: 'Bài học: Tôi học cách dũng cảm lắng nghe cơ thể và bước ra khỏi vùng an toàn khi nhận ra công việc không còn phù hợp.',
+        description: 'Sau khi tốt nghiệp, Harry bắt đầu làm Freelance Developer thiết kế giao diện web. Công việc giúp Harry rèn luyện tư duy logic tốt. Tuy nhiên, sau 6 tháng ngồi lì trước laptop, Harry bị đau mỏi vai gáy và cảm thấy chán nản. Harry nhận ra tính cách mình cần sự vận động và kết nối nhiều hơn.',
+        lesson: 'Bài học: Harry học cách dũng cảm lắng nghe cơ thể và bước ra khỏi vùng an toàn khi nhận ra công việc không còn phù hợp.',
         imageUrl: '/harry-laptrinh.webp'
       }
     ];
