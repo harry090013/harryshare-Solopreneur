@@ -44,7 +44,7 @@ export default async function AboutPage() {
     title: "Về Harry (Quang Hiếu)",
     subtitle: "📖 Câu chuyện của mình",
     avatarUrl: "/harry_share_avt.webp",
-    description: "Mình xuất thân là một dân IT - lập trình viên hướng ngoại, đam mê sáng tạo và giao tiếp. Hành trình tự học của mình là chuỗi ngày bền bỉ đi qua nhiều ngã rẽ sự nghiệp từ lập trình, kinh doanh cho đến Digital Marketing, với một mục tiêu duy nhất: kiến tạo nên những giá trị bền vững và mang lại những điều tốt lành cho mọi người xung quanh."
+    description: "Tôi sinh năm 2000, học chuyên ngành Công nghệ phần mềm. Nhưng tốt nghiệp xong, tôi nhận ra mình không hợp ngồi một chỗ ôm máy tính cả ngày. Chân tôi muốn đi, miệng tôi muốn nói. Nhờ kiến thức công nghệ làm nền tảng, tôi bước sang tự học marketing, làm vận hành, đi bưng bê tiệc cưới, và giờ là tự làm chủ. Trang web này đơn giản là cuốn nhật ký tôi tự viết cho bản thân 10 năm sau nhìn lại, và chia sẻ lại những bài học tôi đã tự thử sai trên hành trình của mình."
   };
   let timelineSteps = [];
 
@@ -69,83 +69,83 @@ export default async function AboutPage() {
     timelineSteps = [
       {
         period: 'Năm 2026 - Nay',
-        title: 'Hành trình lập nghiệp hướng tới sản phẩm sạch & ẩm thực chay',
-        role: 'Lập nghiệp tự chủ',
+        title: 'Xây dựng nhang sạch thảo mộc và quán chay nhỏ',
+        role: 'Tự kinh doanh tự chủ',
         iconName: 'Leaf',
-        description: 'Thực ra, ý tưởng về con đường riêng đã nhen nhóm trong mình từ trước, nhưng sau Tết 2026, mình quyết định đi từng bước chậm lại để chuẩn bị chu đáo nhất cho hành trình này. Không còn vội vã chạy theo những mục tiêu ngắn hạn, mình muốn hướng tới việc kinh doanh các sản phẩm sạch, phát triển nghề sản xuất nhang thảo mộc truyền thống của gia đình và mở một quán ăn chay lành mạnh giữa thiên nhiên bình yên. Mình nhận ra hạnh phúc thực sự là khi được gieo duyên lành và mang đến những giá trị an lành cho mọi người xung quanh.',
-        lesson: 'Bài học: Mình luôn tin rằng sự kiên trì và tinh thần học hỏi là yếu tố tạo ra giá trị bền vững trong công việc và cuộc sống.'
+        description: 'Tôi chọn đi chậm lại sau giai đoạn đi làm thuê. Tôi muốn tập trung phát triển nghề sản xuất nhang sạch thảo mộc của gia đình và mở một quán chay nhỏ yên bình. Tôi nhận ra niềm vui của mình lúc này là được tự làm ra những sản phẩm lành tính, gieo những duyên tốt lành cho mọi người xung quanh.',
+        lesson: 'Bài học: Sự kiên nhẫn tích lũy giá trị thực giúp tôi bình tĩnh hơn, không còn nôn nóng chạy theo những con số ngắn hạn.'
       },
       {
         period: 'Năm 2026',
-        title: 'Bứt phá Marketing & Sáng tạo cùng AI tại CloudFly',
-        role: 'Marketer & AI Automation Leader',
+        title: 'Làm Marketing và ứng dụng AI tại CloudFly',
+        role: 'Marketing & AI Automation',
         iconName: 'Cloud',
-        description: 'Gia nhập CloudFly - một công ty công nghệ chuyên cung cấp cơ sở hạ tầng cloud. Tại đây, mình được đắm mình vào thế giới của công nghệ, AI và SEO website chuyên sâu. Với vai trò Leader team sáng tạo cùng AI và nghiên cứu tự động hóa (automation) cho marketing, mình không chỉ làm việc mà còn đồng hành và học cách tối ưu hóa hiệu suất cùng các trợ lý AI thông minh. Mỗi tối, mình vẫn kiên trì rèn luyện tiếng Anh qua Brainkey với ước mơ một ngày tự tin trò chuyện cùng bạn bè quốc tế.',
-        lesson: 'Bài học: Làm bạn với AI và ứng dụng tự động hóa là chìa khóa x10 hiệu suất công việc trong thời đại số.'
+        description: 'Tôi gia nhập CloudFly để nghiên cứu sâu về hạ tầng mạng, SEO website và ứng dụng AI tự động hóa vào marketing. Tôi tự tay xây dựng các quy trình tự động hóa quy trình làm việc cùng các trợ lý AI để giải phóng sức lao động của chính mình. Tối đến, tôi tự học thêm tiếng Anh để mở rộng thế giới quan.',
+        lesson: 'Bài học: Tôi nhận ra AI không thay thế con người, nhưng biết cách tận dụng AI giúp tôi giải quyết lượng công việc khổng lồ một mình.'
       },
       {
         period: 'Năm 2025 - 2026',
-        title: 'Trưởng phòng Marketing tại Tâm An Spa',
-        role: 'Trưởng phòng Marketing (Online & Offline tại Sài Gòn)',
+        title: 'Làm Marketing cho Tâm An Spa',
+        role: 'Quản lý Marketing (Online & Offline)',
         iconName: 'Sparkles',
-        description: 'Đảm nhận vị trí Trưởng phòng Marketing cho Tâm An Spa với sự linh hoạt giữa Sài Gòn và làm việc online. Mình trực tiếp lo từ phân tích thị trường, chụp ảnh, dựng video cho đến tối ưu quảng cáo và chăm sóc khách hàng. Thành tích đáng nhớ là xây dựng nội dung chất lượng thu hút hơn 80.000 người quan tâm và tối ưu chi phí quảng cáo xuống còn 34.000 VND/tin nhắn trong thị trường spa cực kỳ khốc liệt. Mình chọn dừng lại khi nhận ra việc ôm đồm quá nhiều mục tiêu sẽ dẫn đến kiệt sức mà không mang lại giá trị cao nhất.',
-        lesson: 'Bài học: Tập trung vào mục tiêu trọng điểm là cách tốt nhất để bảo toàn năng lượng và đạt hiệu quả tối ưu.'
+        description: 'Tôi nhận trách nhiệm làm marketing cho spa trong thị trường cạnh tranh gắt gao tại Sài Gòn. Tôi tự học chụp ảnh, dựng video, tự chạy quảng cáo tối ưu ngân sách. Tôi quyết định dừng lại khi thấy bản thân đang ôm đồm quá nhiều việc cùng lúc dẫn đến quá tải, không còn thời gian để thở.',
+        lesson: 'Bài học: Tôi học được cách buông bớt những thứ không quan trọng để tập trung bảo toàn năng lượng cho việc cốt lõi.'
       },
       {
         period: 'Năm 2025',
-        title: 'Rèn luyện sự kiên trì chịu khó tại Rex Hotel',
-        role: 'Nhân viên phục vụ tiệc & buffet',
+        title: 'Bưng bê tiệc cưới và buffet tại Rex Hotel',
+        role: 'Nhân viên phục vụ part-time',
         iconName: 'Coffee',
-        description: 'Một ngã rẽ thú vị khi mình làm nhân viên phục vụ, set up tiệc cưới và buffet sáng tại Rex Hotel. Công việc bưng bê chân tay vất vả, đòi hỏi sự kiên nhẫn cao và phục vụ khách hàng chuẩn chỉ. Được khách hàng yêu mến và phản hồi hài lòng là niềm vui lớn nhất mỗi ngày. Mình dừng công việc này do đợt cuối năm tăng ca liên tục khiến sức khỏe không đáp ứng nổi, nhưng những bài học giao tiếp tại đây vẫn là vô giá đối với mình sau này.',
-        lesson: 'Bài học: Rèn luyện lòng chịu khó và thấu hiểu khách hàng từ những công việc bình dị nhất.'
+        description: 'Tôi đi làm bưng bê tiệc cưới và buffet sáng tại khách sạn Rex. Một công việc tay chân vất vả đòi hỏi sự nhẫn nại cao, đứng liên tục nhiều giờ liền. Nhưng bù lại, tôi có cơ hội quan sát thực tế cách phục vụ khách hàng cao cấp và rèn luyện cho mình tính kiên trì, chịu khó từ những việc nhỏ nhất.',
+        lesson: 'Bài học: Tôi học được sự khiêm nhường và thấu hiểu khách hàng từ những trải nghiệm tay chân bình dị.'
       },
       {
         period: 'Năm 2025',
-        title: 'Xây dựng thương hiệu thực phẩm chay tại Vương Ngọc Vegan',
-        role: 'Content Creator & Bán hàng đa kênh',
+        title: 'Làm Content Creator tại Vương Ngọc Vegan',
+        role: 'Sáng tạo nội dung & Bán hàng đa kênh',
         iconName: 'ShoppingBag',
-        description: 'Mình phụ trách sáng tạo nội dung, xây dựng thương hiệu trên mạng xã hội, xây kênh TikTok và bán sản phẩm sạch của Vương Ngọc Vegan trên cả kênh truyền thống (GT) lẫn thương mại điện tử. Sau khi giúp tăng độ nhận diện và bán được hơn 300 sản phẩm sạch, mình chọn dừng sớm khi thấy định hướng lâu dài 5 năm của công ty không còn đồng nhất với các mục tiêu ngắn hạn của mình để tránh ảnh hưởng sâu vào hệ thống.',
-        lesson: 'Bài học: Dừng lại đúng lúc khi không còn chung định hướng phát triển là sự tôn trọng đối với cả hai bên.'
+        description: 'Tôi phụ trách lên nội dung, làm video ngắn giới thiệu sản phẩm chay sạch trên TikTok và các sàn thương mại điện tử. Tôi chọn dừng công việc sớm khi nhận thấy định hướng phát triển lâu dài của doanh nghiệp không còn đồng nhất với mục tiêu học hỏi ngắn hạn của mình.',
+        lesson: 'Bài học: Tôi học được cách dũng cảm dừng lại đúng lúc để tránh làm mất thời gian của cả hai bên.'
       },
       {
         period: 'Năm 2024 - 2025',
-        title: 'Tư vấn giải pháp GoSell tại MediaStep Software Việt Nam',
-        role: 'Chuyên viên tư vấn phần mềm hỗ trợ doanh nghiệp',
+        title: 'Tư vấn phần mềm tại MediaStep Software',
+        role: 'Chuyên viên tư vấn giải pháp bán hàng',
         iconName: 'HelpCircle',
-        description: 'Làm việc tại MediaStep Software, tư vấn giải pháp phần mềm giúp các doanh nghiệp vừa và nhỏ tối ưu quy trình bán hàng và tăng lợi nhuận. Mình đã lắng nghe câu chuyện kinh doanh của hơn 50 khách hàng, có 10 khách gửi thư cảm ơn vì sự nhiệt tình của mình. Quyết định dừng lại khi chứng kiến bộ máy vận hành chèn ép nhân viên, vì mình tin rằng một doanh nghiệp không thể bền vững nếu thiếu đi sự tử tế với nhân sự của mình.',
-        lesson: 'Bài học: Phần mềm tốt thôi chưa đủ, bộ máy vận hành nhân văn mới là nền tảng của sự phát triển.'
+        description: 'Tôi tư vấn giải pháp phần mềm GoSell hỗ trợ các hộ kinh doanh và doanh nghiệp vừa và nhỏ tối ưu quy trình bán hàng. Tôi lắng nghe câu chuyện kinh doanh thực tế từ nhiều chủ cửa hàng. Tôi dừng lại khi cảm thấy môi trường và bộ máy vận hành nội bộ không còn phù hợp với hệ giá trị nhân văn của mình.',
+        lesson: 'Bài học: Tôi hiểu ra một sản phẩm tốt đến mấy cũng cần một bộ máy vận hành nhân văn để đi được dài hạn.'
       },
       {
         period: 'Năm 2024',
-        title: 'Quản lý vận hành & Nghiên cứu món mới tại Quán Chay Ưu Đàm',
-        role: 'Quản lý vận hành, điều phối bếp và order',
+        title: 'Vận hành tại Quán Chay Ưu Đàm',
+        role: 'Quản lý vận hành & Hỗ trợ bếp',
         iconName: 'Utensils',
-        description: 'Dưới sự dẫn dắt của chị 2, mình đảm nhận việc quản lý vận hành, điều phối bếp và order tại Quán Chay Ưu Đàm. Mình trực tiếp chuẩn hóa quy trình phục vụ, lắng nghe phản hồi của khách và thử nghiệm nghiên cứu ra các món chay mới. Nhìn quán đón nhận hơn 30 khách trung thành ghé ủng hộ mỗi tuần mang lại cho mình động lực lớn. Mình dừng công việc để tiếp tục học hỏi thêm các công thức nấu chay mới.',
-        lesson: 'Bài học: Vận hành quán ăn thành công đòi hỏi sự chặt chẽ trong quy trình và cái tâm đặt vào từng hương vị món ăn.'
+        description: 'Tôi phụ trách điều phối bếp, order và chăm sóc khách hàng tại quán chay của chị hai. Tôi trực tiếp chuẩn hóa lại quy trình gọi món, trò chuyện lắng nghe phản hồi của thực khách và tự mày mò học hỏi các công thức món chay mới để hoàn thiện menu.',
+        lesson: 'Bài học: Vận hành một quán ăn nhỏ dạy tôi bài học về sự chi tiết, tỉ mỉ và cái tâm đặt vào từng đĩa ăn phục vụ khách.'
       },
       {
         period: 'Năm 2024',
-        title: 'Tự nghiên cứu & Sản xuất tại Thảo Mộc Hương T&T',
-        role: 'Nhà sáng lập dự án thảo mộc',
+        title: 'Sáng lập dự án Thảo Mộc Hương T&T',
+        role: 'Tự sản xuất & Kinh doanh nhang sạch',
         iconName: 'Sprout',
-        description: 'Khởi nguồn từ tình yêu với sản phẩm tự nhiên, mình tự tay nghiên cứu công thức, sản xuất nhang thảo mộc và làm marketing, bán hàng cho thương hiệu Thảo Mộc Hương T&T. Bằng sức trẻ, mình thu hút được hơn 300 khách hàng từ mạng xã hội, tạo ra những sản phẩm thảo mộc được khách hàng rất ưa chuộng. Tuy nhiên, dự án phải tạm dừng sau 3 tháng do những khó khăn lớn về nguồn vốn, sức khỏe và nhân sự vận hành.',
-        lesson: 'Bài học: Khởi nghiệp dạy cho mình bài học xương máu về quản trị rủi ro, dòng vốn và sự kiên cường khi đối mặt với thất bại.'
+        description: 'Tôi tự nghiên cứu công thức, tự sản xuất nhang thảo mộc sạch và tự tìm khách hàng qua mạng xã hội. Tôi bán được hơn 300 sản phẩm đầu tiên. Tuy nhiên, tôi phải dừng dự án sau 3 tháng do cạn kiệt nguồn vốn dự phòng, sức khỏe suy giảm và thiếu kinh nghiệm quản trị dòng tiền.',
+        lesson: 'Bài học: Dự án thất bại đầu đời dạy tôi bài học đắt giá về tầm quan trọng của dòng tiền và quản trị rủi ro khi tự kinh doanh.'
       },
       {
         period: 'Năm 2022 - 2023',
-        title: 'Hoạt động cộng đồng tại Đoàn Xã Duy Sơn',
+        title: 'Làm hoạt động Đoàn thanh niên tại Duy Sơn',
         role: 'Thành viên Hội LHTN xã Duy Sơn',
         iconName: 'Award',
-        description: 'Muốn đóng góp sức trẻ cho quê hương Duy Xuyên, mình tham gia Hội LHTN xã Duy Sơn với vai trò huynh trưởng quản trò sinh hoạt hè và phát triển đoàn. Mình đã thiết kế website phục vụ công tác đoàn thanh niên xã (lọt Top 3 website xuất sắc của xã) và vinh dự nhận được 3 giấy khen thanh niên tiêu biểu năm 2023. Đây là khoảng thời gian tuyệt đẹp giúp mình cải thiện kỹ năng dẫn chương trình, làm việc nhóm và giao tiếp tự tin trước đám đông.',
-        lesson: 'Bài học: Mang kiến thức công nghệ phục vụ cộng đồng và gieo những hạt mầm tích cực cho thế hệ trẻ.'
+        description: 'Tôi tham gia tổ chức sinh hoạt hè, quản trò và hỗ trợ hoạt động Đoàn thanh niên ở quê nhà Duy Xuyên. Tôi tự xây dựng website Đoàn xã để phục vụ công tác truyền thông tin tức. Quá trình làm việc tập thể giúp tôi tự tin đứng trước đám đông và rèn luyện sự kết nối.',
+        lesson: 'Bài học: Tôi nhận ra công nghệ sẽ phát huy giá trị lớn nhất khi phục vụ cho cộng đồng và gieo những điều tốt lành.'
       },
       {
         period: 'Năm 2022 - 2023',
-        title: 'Lập trình viên Front-end (Freelance Developer)',
+        title: 'Làm lập trình viên tự do (Freelance Developer)',
         role: 'Front-end Developer',
         iconName: 'Code',
-        description: 'Ngay sau khi tốt nghiệp chuyên ngành Công nghệ phần mềm vào tháng 7/2022, mình bắt đầu làm Freelance Developer, lập trình giao diện bằng HTML, CSS, JavaScript (React.js). Công việc kỹ thuật này giúp rèn luyện tư duy logic tốt, nhưng sau 6 tháng ngồi một chỗ liên tục ôm laptop, mình bị đau nhức và cảm thấy quá chán nản. Mình nhận ra tính cách hướng ngoại của bản thân cần một môi trường năng động và kết nối con người nhiều hơn là làm coder thuần túy.',
-        lesson: 'Bài học: Lắng nghe tiếng nói của cơ thể và dũng cảm bước ra khỏi vùng an toàn khi nhận ra con đường hiện tại không còn phù hợp.'
+        description: 'Sau khi tốt nghiệp, tôi bắt đầu làm Freelance Developer thiết kế giao diện web. Công việc giúp tôi rèn luyện tư duy logic tốt. Tuy nhiên, sau 6 tháng ngồi lì trước laptop, tôi bị đau mỏi vai gáy và cảm thấy chán nản. Tôi nhận ra tính cách mình cần sự vận động và kết nối nhiều hơn.',
+        lesson: 'Bài học: Tôi học cách dũng cảm lắng nghe cơ thể và bước ra khỏi vùng an toàn khi nhận ra công việc không còn phù hợp.'
       }
     ];
   }
