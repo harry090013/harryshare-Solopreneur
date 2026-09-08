@@ -35,7 +35,7 @@ export default function ProjectsClient({
   categories?: Category[];
 }) {
   const [filterType, setFilterType] = useState<'tool' | 'freebie'>('tool');
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('cong-cu-online');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedResource, setSelectedResource] = useState<ProjectResource | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,15 +47,25 @@ export default function ProjectsClient({
     });
   }, [categories, initialItems, filterType]);
 
+  // Sort so that "cong-cu-online" is always first
+  const sortedCategories = useMemo(() => {
+    return [...visibleCategories].sort((a, b) => {
+      if (a.slug === 'cong-cu-online') return -1;
+      if (b.slug === 'cong-cu-online') return 1;
+      return a.name.localeCompare(b.name, 'vi');
+    });
+  }, [visibleCategories]);
+
   // Sync selectedCategory when visibleCategories change
   useEffect(() => {
     if (visibleCategories.length > 0) {
-      const isStillVisible = visibleCategories.some(cat => cat.slug === selectedCategory);
+      const isStillVisible = selectedCategory === 'all' || visibleCategories.some(cat => cat.slug === selectedCategory);
       if (!isStillVisible) {
-        setSelectedCategory(visibleCategories[0].slug);
+        const onlineCat = visibleCategories.find(c => c.slug === 'cong-cu-online');
+        setSelectedCategory(onlineCat ? onlineCat.slug : 'all');
       }
     } else {
-      setSelectedCategory('');
+      setSelectedCategory('all');
     }
   }, [visibleCategories, selectedCategory]);
 
@@ -67,7 +77,7 @@ export default function ProjectsClient({
   const filteredItems = useMemo(() => {
     return initialItems.filter(item => {
       const matchesType = item.type === filterType;
-      const matchesCategory = item.category?.slug === selectedCategory;
+      const matchesCategory = selectedCategory === 'all' || item.category?.slug === selectedCategory;
       return matchesType && matchesCategory;
     });
   }, [initialItems, filterType, selectedCategory]);
@@ -263,7 +273,24 @@ export default function ProjectsClient({
               <Folder className="w-3.5 h-3.5 text-olive" /> Bộ lọc danh mục:
             </span>
 
-            {visibleCategories.map((cat) => (
+            {/* "All" button */}
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`text-xs font-bold px-4 py-1.5 rounded-full transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+                selectedCategory === 'all'
+                  ? 'bg-olive text-cream shadow-xs'
+                  : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
+              }`}
+            >
+              Tất cả
+              <span className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded-md ${
+                selectedCategory === 'all' ? 'bg-cream/20 text-cream' : 'bg-sand text-stone-400 border border-stone-200'
+              }`}>
+                {filterType === 'tool' ? counts.tools : counts.freebies}
+              </span>
+            </button>
+
+            {sortedCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.slug)}
