@@ -188,6 +188,20 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
                 strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
                 a: ({node, ...props}) => <a className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props} />,
+                hr: ({node, ...props}) => <hr className="border-olive/10 my-4" {...props} />,
+                img: ({node, ...props}) => (
+                  <span className="block my-4">
+                    <img 
+                      {...props} 
+                      className="rounded-2xl border border-olive/10 shadow-sm max-w-full mx-auto object-contain bg-sand/20" 
+                    />
+                    {props.alt && (
+                      <span className="block text-center text-xs text-stone-400 font-medium mt-1.5 italic">
+                        {props.alt}
+                      </span>
+                    )}
+                  </span>
+                ),
               }}
             >
               {product.content || '_Hiện tại sản phẩm chưa có bài đánh giá hoặc thông tin chi tiết thêm._'}
