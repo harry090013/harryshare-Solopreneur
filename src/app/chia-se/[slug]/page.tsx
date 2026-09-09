@@ -83,11 +83,6 @@ export default async function PostDetailPage({
   const { slug } = await params;
   let post = await getPost(slug);
   
-  // Hide future posts unless published is false (meaning draft/admin mode can preview, but standard visitor cannot access future published posts)
-  if (post && post.published && new Date(post.date) > new Date()) {
-    post = null;
-  }
-
   let relatedPosts: any[] = [];
 
   // Fallbacks if DB query fails or post not found in DB
