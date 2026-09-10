@@ -6,12 +6,12 @@ import {
   ArrowLeft, Upload, Download, Sparkles, Image as ImageIcon, 
   RotateCw, Move, Layers, RefreshCw, Eye, Sliders, Type,
   Smartphone, Laptop, Globe, Film, Camera, Copy, Check,
-  Palette, Maximize2, Shield, AlertCircle
+  Palette, Maximize2, Award, FlipHorizontal, ZoomIn
 } from 'lucide-react';
 import NewsletterCallout from '@/components/NewsletterCallout';
 
 // --- Types ---
-type FrameCategory = 'device' | 'vintage' | 'gallery' | 'minimal';
+type FrameCategory = 'campaign' | 'device' | 'vintage' | 'gallery' | 'minimal';
 type FrameStyle = 
   // Devices
   | 'iphone' | 'macbook' | 'safari'
@@ -22,6 +22,7 @@ type FrameStyle =
   // Minimal
   | 'floating_card' | 'glass_card';
 
+type CampaignPreset = 'solopreneur' | 'school' | 'anniversary' | 'teamwork' | 'custom';
 type AspectRatio = 'auto' | '1:1' | '4:5' | '16:9' | '9:16';
 type BgPreset = 'blur' | 'sand' | 'olive' | 'sunset' | 'midnight' | 'aurora' | 'white' | 'cream' | 'transparent' | 'custom';
 type ShadowLevel = 'none' | 'soft' | 'floating' | 'deep';
@@ -35,13 +36,24 @@ export default function MockupCollageStudioPage() {
   // Custom Background Image
   const [bgCustomImage, setBgCustomImage] = useState<HTMLImageElement | null>(null);
 
-  // Selected Options
-  const [frameCategory, setFrameCategory] = useState<FrameCategory>('device');
+  // Selected Category & Style
+  const [frameCategory, setFrameCategory] = useState<FrameCategory>('campaign');
   const [frameStyle, setFrameStyle] = useState<FrameStyle>('iphone');
-  const [aspectRatio, setAspectRatio] = useState<AspectRatio>('auto');
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>('1:1');
   const [bgPreset, setBgPreset] = useState<BgPreset>('blur');
 
-  // Controls & Sliders
+  // Campaign Avatar (Twibbon) Specific State
+  const [campaignPreset, setCampaignPreset] = useState<CampaignPreset>('solopreneur');
+  const [customFrameImage, setCustomFrameImage] = useState<HTMLImageElement | null>(null);
+  const [customFrameFileName, setCustomFrameFileName] = useState<string>('');
+  const [avatarOffsetX, setAvatarOffsetX] = useState<number>(0);
+  const [avatarOffsetY, setAvatarOffsetY] = useState<number>(0);
+  const [avatarZoom, setAvatarZoom] = useState<number>(100); // 30% - 250%
+  const [avatarRotation, setAvatarRotation] = useState<number>(0); // -45 to 45 deg
+  const [avatarFlipX, setAvatarFlipX] = useState<boolean>(false);
+  const [showCircleGuide, setShowCircleGuide] = useState<boolean>(true);
+
+  // General Controls & Sliders
   const [scale, setScale] = useState<number>(80); // % of canvas
   const [rotation, setRotation] = useState<number>(0); // -30 to 30 deg
   const [shadow, setShadow] = useState<ShadowLevel>('floating');
@@ -55,13 +67,18 @@ export default function MockupCollageStudioPage() {
   const [captionColor, setCaptionColor] = useState<string>('#2C3527');
   const [browserUrl, setBrowserUrl] = useState<string>('harryshare.vn');
 
-  // Interactive State
+  // Interactive Dragging on Canvas State
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const dragStartRef = useRef<{ startX: number; startY: number; origX: number; origY: number } | null>(null);
+
+  // Toast & UX State
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
   const fgInputRef = useRef<HTMLInputElement>(null);
   const bgInputRef = useRef<HTMLInputElement>(null);
+  const customFrameInputRef = useRef<HTMLInputElement>(null);
 
   // Toast Helper
   const showToast = (msg: string) => {
@@ -88,6 +105,10 @@ export default function MockupCollageStudioPage() {
     img.onload = () => {
       setFgImage(img);
       setFgFileName(name);
+      setAvatarOffsetX(0);
+      setAvatarOffsetY(0);
+      setAvatarZoom(100);
+      setAvatarRotation(0);
       showToast(`Đã nạp ảnh mẫu: ${name}`);
     };
   };
@@ -109,6 +130,10 @@ export default function MockupCollageStudioPage() {
             img.onload = () => {
               setFgImage(img);
               setFgFileName(`clipboard-${Date.now()}.png`);
+              setAvatarOffsetX(0);
+              setAvatarOffsetY(0);
+              setAvatarZoom(100);
+              setAvatarRotation(0);
               showToast('✨ Đã dán ảnh từ Clipboard thành công!');
             };
             break;
@@ -132,7 +157,28 @@ export default function MockupCollageStudioPage() {
       img.src = url;
       img.onload = () => {
         setFgImage(img);
-        showToast('Tải ảnh lên thành công!');
+        setAvatarOffsetX(0);
+        setAvatarOffsetY(0);
+        setAvatarZoom(100);
+        setAvatarRotation(0);
+        showToast('Tải ảnh đại diện thành công!');
+      };
+    }
+  };
+
+  // Custom Campaign Frame Upload
+  const handleCustomFrameUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setCustomFrameFileName(file.name);
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = () => {
+        setCustomFrameImage(img);
+        setCampaignPreset('custom');
+        showToast(`Đã nạp khung viền: ${file.name}`);
       };
     }
   };
@@ -151,6 +197,10 @@ export default function MockupCollageStudioPage() {
         img.src = url;
         img.onload = () => {
           setFgImage(img);
+          setAvatarOffsetX(0);
+          setAvatarOffsetY(0);
+          setAvatarZoom(100);
+          setAvatarRotation(0);
           showToast('Tải ảnh thả vào thành công!');
         };
       }
@@ -173,21 +223,90 @@ export default function MockupCollageStudioPage() {
     }
   };
 
+  // Canvas Mouse & Touch Drag Event Handlers
+  const handleCanvasMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!fgImage) return;
+    setIsDragging(true);
+    dragStartRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      origX: avatarOffsetX,
+      origY: avatarOffsetY
+    };
+  };
+
+  const handleCanvasMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!isDragging || !dragStartRef.current || !canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const scaleFactor = canvas.width / rect.width;
+
+    const deltaX = (e.clientX - dragStartRef.current.startX) * scaleFactor;
+    const deltaY = (e.clientY - dragStartRef.current.startY) * scaleFactor;
+
+    setAvatarOffsetX(dragStartRef.current.origX + deltaX);
+    setAvatarOffsetY(dragStartRef.current.origY + deltaY);
+  };
+
+  const handleCanvasMouseUp = () => {
+    setIsDragging(false);
+    dragStartRef.current = null;
+  };
+
+  const handleCanvasTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!fgImage || e.touches.length !== 1) return;
+    setIsDragging(true);
+    dragStartRef.current = {
+      startX: e.touches[0].clientX,
+      startY: e.touches[0].clientY,
+      origX: avatarOffsetX,
+      origY: avatarOffsetY
+    };
+  };
+
+  const handleCanvasTouchMove = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDragging || !dragStartRef.current || !canvasRef.current || e.touches.length !== 1) return;
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const scaleFactor = canvas.width / rect.width;
+
+    const deltaX = (e.touches[0].clientX - dragStartRef.current.startX) * scaleFactor;
+    const deltaY = (e.touches[0].clientY - dragStartRef.current.startY) * scaleFactor;
+
+    setAvatarOffsetX(dragStartRef.current.origX + deltaX);
+    setAvatarOffsetY(dragStartRef.current.origY + deltaY);
+  };
+
+  const handleCanvasTouchEnd = () => {
+    setIsDragging(false);
+    dragStartRef.current = null;
+  };
+
+  // Canvas Mouse Wheel to Zoom
+  const handleCanvasWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+    if (frameCategory !== 'campaign') return;
+    e.preventDefault();
+    const zoomDelta = e.deltaY > 0 ? -5 : 5;
+    setAvatarZoom(prev => Math.min(250, Math.max(30, prev + zoomDelta)));
+  };
+
   // Calculate Base Canvas Dimensions
   const getCanvasDimensions = useCallback((): { width: number; height: number } => {
+    if (frameCategory === 'campaign') {
+      return { width: 1200, height: 1200 }; // Standard 1:1 square for Campaign Avatars
+    }
+
     if (aspectRatio === '1:1') return { width: 1400, height: 1400 };
     if (aspectRatio === '4:5') return { width: 1200, height: 1500 };
     if (aspectRatio === '16:9') return { width: 1920, height: 1080 };
     if (aspectRatio === '9:16') return { width: 1080, height: 1920 };
 
-    // 'auto' mode adapts to frame style
     if (frameStyle === 'iphone') return { width: 1300, height: 1600 };
     if (frameStyle === 'macbook') return { width: 1700, height: 1150 };
     if (frameStyle === 'safari') return { width: 1600, height: 1200 };
     if (frameStyle === 'polaroid') return { width: 1200, height: 1500 };
     if (frameStyle === 'film35mm') return { width: 1600, height: 1100 };
 
-    // For artwork/cards, adapt to image aspect ratio if available
     if (fgImage && fgImage.naturalWidth > 0 && fgImage.naturalHeight > 0) {
       const imgAspect = fgImage.naturalWidth / fgImage.naturalHeight;
       if (imgAspect > 1.3) return { width: 1600, height: Math.round(1600 / imgAspect) + 300 };
@@ -196,10 +315,10 @@ export default function MockupCollageStudioPage() {
     }
 
     return { width: 1400, height: 1200 };
-  }, [aspectRatio, frameStyle, fgImage]);
+  }, [frameCategory, aspectRatio, frameStyle, fgImage]);
 
   // --- DRAW CANVAS ENGINE ---
-  const drawCanvas = useCallback(() => {
+  const drawCanvas = useCallback((isExport: boolean = false) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -209,13 +328,296 @@ export default function MockupCollageStudioPage() {
     canvas.width = width;
     canvas.height = height;
 
-    // 1. DRAW BACKGROUND
+    // =========================================================
+    // MODE A: CAMPAIGN AVATAR (TWIBBON) STUDIO MODE
+    // =========================================================
+    if (frameCategory === 'campaign') {
+      // 1. Clear background
+      ctx.clearRect(0, 0, width, height);
+
+      // Default clean background behind transparent frame
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, width, height);
+
+      // 2. Draw Avatar Photo Underneath (with pan, zoom, rotate, flip)
+      if (fgImage) {
+        ctx.save();
+        const cx = width / 2 + avatarOffsetX;
+        const cy = height / 2 + avatarOffsetY;
+        ctx.translate(cx, cy);
+        ctx.rotate((avatarRotation * Math.PI) / 180);
+        ctx.scale(avatarFlipX ? -1 : 1, 1);
+
+        // Base cover fit
+        const baseScale = Math.max(width / fgImage.naturalWidth, height / fgImage.naturalHeight);
+        const finalScale = baseScale * (avatarZoom / 100);
+        const drawW = fgImage.naturalWidth * finalScale;
+        const drawH = fgImage.naturalHeight * finalScale;
+
+        ctx.drawImage(fgImage, -drawW / 2, -drawH / 2, drawW, drawH);
+        ctx.restore();
+      }
+
+      // 3. Draw Campaign Frame Overlay (On Top)
+      if (campaignPreset === 'custom' && customFrameImage) {
+        // Draw user's uploaded PNG frame covering the canvas
+        ctx.drawImage(customFrameImage, 0, 0, width, height);
+      } else {
+        // Draw Beautiful High-Resolution Vector Preset Frames
+        const radius = 450;
+        const cx = width / 2;
+        const cy = height / 2;
+
+        // Preset 1: HarryShare Solopreneur
+        if (campaignPreset === 'solopreneur') {
+          // Circular Donut Cutout Mask
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, 0, width, height);
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2, true);
+          const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+          bgGrad.addColorStop(0, '#2C3527');
+          bgGrad.addColorStop(0.5, '#3B4834');
+          bgGrad.addColorStop(1, '#1A2117');
+          ctx.fillStyle = bgGrad;
+          ctx.fill();
+
+          // Gold Accent Rings
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = '#D4AF37';
+          ctx.lineWidth = 14;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius + 12, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Top Header Emblem
+          ctx.fillStyle = '#D4AF37';
+          ctx.beginPath();
+          ctx.arc(cx, cy - radius + 15, 22, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#2C3527';
+          ctx.font = 'bold 20px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('✨', cx, cy - radius + 15);
+
+          // Top Curved Text / Banner
+          ctx.fillStyle = '#FDFBF7';
+          ctx.font = 'bold 32px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText('HARRYSHARE • 2026', cx, 42);
+
+          // Bottom Elegant Ribbon Banner
+          const ribbonW = 760;
+          const ribbonH = 100;
+          const ribbonX = (width - ribbonW) / 2;
+          const ribbonY = height - 145;
+
+          ctx.beginPath();
+          ctx.roundRect(ribbonX, ribbonY, ribbonW, ribbonH, 20);
+          const ribGrad = ctx.createLinearGradient(ribbonX, ribbonY, ribbonX + ribbonW, ribbonY);
+          ribGrad.addColorStop(0, '#C98A42');
+          ribGrad.addColorStop(0.5, '#E5B869');
+          ribGrad.addColorStop(1, '#C98A42');
+          ctx.fillStyle = ribGrad;
+          ctx.fill();
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          // Ribbon Text
+          ctx.fillStyle = '#2C3527';
+          ctx.font = '900 36px serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('SOLOPRENEUR • TỰ CHỦ & LÀM BỀN', cx, ribbonY + 48);
+          ctx.restore();
+        }
+
+        // Preset 2: Chào Năm Học Mới & Tốt Nghiệp (Academic / School)
+        else if (campaignPreset === 'school') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, 0, width, height);
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2, true);
+          const blueGrad = ctx.createLinearGradient(0, 0, width, height);
+          blueGrad.addColorStop(0, '#1E3A8A');
+          blueGrad.addColorStop(0.5, '#2563EB');
+          blueGrad.addColorStop(1, '#1D4ED8');
+          ctx.fillStyle = blueGrad;
+          ctx.fill();
+
+          // Outer Ring
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = '#FDE047';
+          ctx.lineWidth = 14;
+          ctx.stroke();
+
+          // Top Header Banner
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 36px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText('🎓 NIỀM TỰ HÀO TRI THỨC', cx, 45);
+
+          // Bottom Banner
+          const ribbonW = 820;
+          const ribbonH = 105;
+          const ribbonX = (width - ribbonW) / 2;
+          const ribbonY = height - 150;
+
+          ctx.beginPath();
+          ctx.roundRect(ribbonX, ribbonY, ribbonW, ribbonH, 22);
+          ctx.fillStyle = '#FDE047';
+          ctx.fill();
+          ctx.strokeStyle = '#1E3A8A';
+          ctx.lineWidth = 4;
+          ctx.stroke();
+
+          ctx.fillStyle = '#1E3A8A';
+          ctx.font = '900 38px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('CHÀO MỪNG NĂM HỌC MỚI', cx, ribbonY + 52);
+          ctx.restore();
+        }
+
+        // Preset 3: Kỷ Niệm Thành Lập & Sự Kiện (Anniversary)
+        else if (campaignPreset === 'anniversary') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, 0, width, height);
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2, true);
+          const redGrad = ctx.createLinearGradient(0, 0, width, height);
+          redGrad.addColorStop(0, '#991B1B');
+          redGrad.addColorStop(0.5, '#DC2626');
+          redGrad.addColorStop(1, '#7F1D1D');
+          ctx.fillStyle = redGrad;
+          ctx.fill();
+
+          // Gold Accent Ring
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = '#F59E0B';
+          ctx.lineWidth = 14;
+          ctx.stroke();
+
+          // Top Banner
+          ctx.fillStyle = '#FDE68A';
+          ctx.font = 'bold 34px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText('⭐ KỶ NIỆM SỰ KIỆN TRỌNG ĐẠI ⭐', cx, 45);
+
+          // Bottom Banner
+          const ribbonW = 840;
+          const ribbonH = 105;
+          const ribbonX = (width - ribbonW) / 2;
+          const ribbonY = height - 150;
+
+          ctx.beginPath();
+          ctx.roundRect(ribbonX, ribbonY, ribbonW, ribbonH, 22);
+          ctx.fillStyle = '#F59E0B';
+          ctx.fill();
+          ctx.strokeStyle = '#991B1B';
+          ctx.lineWidth = 4;
+          ctx.stroke();
+
+          ctx.fillStyle = '#7F1D1D';
+          ctx.font = '900 38px serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('TỰ HÀO GẮN KẾT • VƯƠN TẦM CAO', cx, ribbonY + 52);
+          ctx.restore();
+        }
+
+        // Preset 4: Đồng Đội & Sáng Tạo (Teamwork)
+        else if (campaignPreset === 'teamwork') {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, 0, width, height);
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2, true);
+          const teamGrad = ctx.createLinearGradient(0, 0, width, height);
+          teamGrad.addColorStop(0, '#EA580C');
+          teamGrad.addColorStop(0.5, '#C026D3');
+          teamGrad.addColorStop(1, '#4F46E5');
+          ctx.fillStyle = teamGrad;
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.lineWidth = 12;
+          ctx.stroke();
+
+          // Top Banner
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 34px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText('🚀 WE ARE ONE TEAM', cx, 45);
+
+          // Bottom Banner
+          const ribbonW = 780;
+          const ribbonH = 100;
+          const ribbonX = (width - ribbonW) / 2;
+          const ribbonY = height - 145;
+
+          ctx.beginPath();
+          ctx.roundRect(ribbonX, ribbonY, ribbonW, ribbonH, 20);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fill();
+
+          ctx.fillStyle = '#EA580C';
+          ctx.font = '900 36px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('CÙNG NHAU BỨC PHÁ THÀNH CÔNG', cx, ribbonY + 50);
+          ctx.restore();
+        }
+      }
+
+      // 4. Circular Social Crop Guide (Only visible in Preview, hidden on Export)
+      if (showCircleGuide && !isExport) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.beginPath();
+        ctx.rect(0, 0, width, height);
+        ctx.arc(width / 2, height / 2, 570, 0, Math.PI * 2, true);
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.arc(width / 2, height / 2, 570, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.font = 'bold 22px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Vùng tròn hiển thị trên Facebook/Zalo', width / 2, 85);
+        ctx.restore();
+      }
+
+      return;
+    }
+
+    // =========================================================
+    // MODE B: DEVICE MOCKUPS, FRAMES & GALLERY STUDIO MODE
+    // =========================================================
     if (bgPreset === 'transparent') {
       ctx.clearRect(0, 0, width, height);
     } else if (bgPreset === 'blur' && fgImage) {
       // Magic Blur of Original Image
       ctx.save();
-      // Draw zoomed blurred image
       const bgScale = Math.max(width / fgImage.naturalWidth, height / fgImage.naturalHeight) * 1.25;
       const bW = fgImage.naturalWidth * bgScale;
       const bH = fgImage.naturalHeight * bgScale;
@@ -226,7 +628,6 @@ export default function MockupCollageStudioPage() {
       ctx.drawImage(fgImage, bX, bY, bW, bH);
       ctx.restore();
 
-      // Soft ambient dark overlay for readability
       const grad = ctx.createLinearGradient(0, 0, 0, height);
       grad.addColorStop(0, 'rgba(0,0,0,0.15)');
       grad.addColorStop(1, 'rgba(0,0,0,0.3)');
@@ -238,7 +639,6 @@ export default function MockupCollageStudioPage() {
       const bH = bgCustomImage.naturalHeight * bgScale;
       ctx.drawImage(bgCustomImage, (width - bW) / 2, (height - bH) / 2, bW, bH);
     } else {
-      // Color Presets
       if (bgPreset === 'sand') {
         const grad = ctx.createLinearGradient(0, 0, width, height);
         grad.addColorStop(0, '#FAF6F0');
@@ -281,7 +681,7 @@ export default function MockupCollageStudioPage() {
 
     if (!fgImage) return;
 
-    // 2. CONFIGURE FRAME SHADOW
+    // Shadow Configurator
     const applyShadow = (blur: number, offsetY: number, alpha: number) => {
       if (shadow === 'none') {
         ctx.shadowColor = 'transparent';
@@ -303,7 +703,7 @@ export default function MockupCollageStudioPage() {
       }
     };
 
-    // Helper: Draw Cover/Contain Image Inside Rect
+    // Helper: Draw Cover Image
     const drawImageProp = (
       img: HTMLImageElement,
       dx: number, dy: number, dWidth: number, dHeight: number
@@ -323,7 +723,6 @@ export default function MockupCollageStudioPage() {
       ctx.drawImage(img, sX, sY, sW, sH, dx, dy, dWidth, dHeight);
     };
 
-    // 3. FRAME RENDERING LOGIC
     ctx.save();
     const centerX = width / 2;
     const centerY = height / 2;
@@ -333,9 +732,7 @@ export default function MockupCollageStudioPage() {
     const maxW = width * (scale / 100);
     const maxH = height * (scale / 100);
 
-    // ==========================================
-    // FRAME 1: iPHONE 16 PRO (Dynamic Island)
-    // ==========================================
+    // Frame 1: iPhone 16 Pro
     if (frameStyle === 'iphone') {
       const phoneH = Math.min(maxH, maxW * 2.1);
       const phoneW = phoneH / 2.12;
@@ -344,10 +741,8 @@ export default function MockupCollageStudioPage() {
       const outerRadius = phoneW * 0.125;
       const bezel = phoneW * 0.038;
 
-      // Outer Shadow
       applyShadow(45, 28, 0.45);
 
-      // Outer Titanium Body
       ctx.beginPath();
       ctx.roundRect(x, y, phoneW, phoneH, outerRadius);
       const titaniumGrad = ctx.createLinearGradient(x, y, x + phoneW, y + phoneH);
@@ -357,15 +752,11 @@ export default function MockupCollageStudioPage() {
       ctx.fillStyle = titaniumGrad;
       ctx.fill();
 
-      // Reset Shadow for Inner Elements
       ctx.shadowColor = 'transparent';
-
-      // Titanium Metallic Edge Highlight
       ctx.strokeStyle = '#4A4B4F';
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      // Inner Screen
       const screenX = x + bezel;
       const screenY = y + bezel;
       const screenW = phoneW - bezel * 2;
@@ -376,11 +767,8 @@ export default function MockupCollageStudioPage() {
       ctx.beginPath();
       ctx.roundRect(screenX, screenY, screenW, screenH, innerRadius);
       ctx.clip();
-
-      // Draw Screen Content
       drawImageProp(fgImage, screenX, screenY, screenW, screenH);
 
-      // Subtle Glass Corner Reflection
       const glintGrad = ctx.createLinearGradient(screenX, screenY, screenX + screenW * 0.7, screenY + screenH * 0.3);
       glintGrad.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
       glintGrad.addColorStop(0.4, 'rgba(255, 255, 255, 0.02)');
@@ -399,24 +787,14 @@ export default function MockupCollageStudioPage() {
       ctx.fillStyle = '#000000';
       ctx.fill();
 
-      // Camera lens dot inside pill
       ctx.beginPath();
       ctx.arc(pillX + pillW * 0.76, pillY + pillH / 2, pillH * 0.22, 0, Math.PI * 2);
       ctx.fillStyle = '#080E1C';
       ctx.fill();
-
-      // Specular camera gleam
-      ctx.beginPath();
-      ctx.arc(pillX + pillW * 0.76 - 1, pillY + pillH / 2 - 1, pillH * 0.08, 0, Math.PI * 2);
-      ctx.fillStyle = '#38558A';
-      ctx.fill();
-
       ctx.restore();
     }
 
-    // ==========================================
-    // FRAME 2: MacBOOK M3 PRO
-    // ==========================================
+    // Frame 2: MacBook M3 Pro
     else if (frameStyle === 'macbook') {
       const lidW = Math.min(maxW, maxH * 1.55);
       const lidH = lidW * 0.65;
@@ -425,10 +803,8 @@ export default function MockupCollageStudioPage() {
       const x = -lidW / 2;
       const y = -totalH / 2;
 
-      // Outer Shadow
       applyShadow(50, 30, 0.4);
 
-      // Base Aluminum Lip (Drawn first to sit behind lid)
       const baseExtraW = lidW * 0.07;
       const baseX = x - baseExtraW / 2;
       const baseY = y + lidH - 4;
@@ -443,15 +819,6 @@ export default function MockupCollageStudioPage() {
       ctx.fillStyle = baseGrad;
       ctx.fill();
 
-      // Base thumb notch (cutout to open lid)
-      const notchW = baseW * 0.14;
-      const notchH = baseH * 0.45;
-      ctx.beginPath();
-      ctx.roundRect(-notchW / 2, baseY, notchW, notchH, [0, 0, 6, 6]);
-      ctx.fillStyle = '#5A5D63';
-      ctx.fill();
-
-      // Lid Screen Outer Shell
       ctx.beginPath();
       ctx.roundRect(x, y, lidW, lidH, [14, 14, 2, 2]);
       ctx.fillStyle = '#1A1C1E';
@@ -460,7 +827,6 @@ export default function MockupCollageStudioPage() {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Screen Bezel & Clip
       const bezel = lidW * 0.022;
       const screenX = x + bezel;
       const screenY = y + bezel;
@@ -471,30 +837,18 @@ export default function MockupCollageStudioPage() {
       ctx.beginPath();
       ctx.roundRect(screenX, screenY, screenW, screenH, [6, 6, 0, 0]);
       ctx.clip();
-
-      // Draw Display Content
       drawImageProp(fgImage, screenX, screenY, screenW, screenH);
 
-      // Display Notch (Webcam)
       const camNotchW = lidW * 0.11;
       const camNotchH = lidH * 0.052;
       ctx.beginPath();
       ctx.roundRect(-camNotchW / 2, screenY - 1, camNotchW, camNotchH, [0, 0, 5, 5]);
       ctx.fillStyle = '#1A1C1E';
       ctx.fill();
-
-      // Tiny camera dot
-      ctx.beginPath();
-      ctx.arc(0, screenY + camNotchH * 0.45, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = '#081729';
-      ctx.fill();
-
       ctx.restore();
     }
 
-    // ==========================================
-    // FRAME 3: macOS SAFARI BROWSER
-    // ==========================================
+    // Frame 3: macOS Safari Browser
     else if (frameStyle === 'safari') {
       const winW = Math.min(maxW, maxH * 1.4);
       const winH = winW * 0.68;
@@ -503,16 +857,13 @@ export default function MockupCollageStudioPage() {
       const headerH = 46;
       const radius = 14;
 
-      // Window Drop Shadow
       applyShadow(40, 24, 0.35);
 
-      // Window Body Shell
       ctx.beginPath();
       ctx.roundRect(x, y, winW, winH, radius);
       ctx.fillStyle = '#FFFFFF';
       ctx.fill();
 
-      // Window Header Background
       ctx.save();
       ctx.beginPath();
       ctx.roundRect(x, y, winW, headerH, [radius, radius, 0, 0]);
@@ -522,36 +873,27 @@ export default function MockupCollageStudioPage() {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Three macOS Traffic Light Dots
       const dotRadius = 5.5;
       const dotY = y + headerH / 2;
       const dotStartX = x + 20;
 
-      // Close Dot
+      // Traffic light dots
       ctx.beginPath();
       ctx.arc(dotStartX, dotY, dotRadius, 0, Math.PI * 2);
       ctx.fillStyle = '#FF5F56';
       ctx.fill();
-      ctx.strokeStyle = '#E0443E';
-      ctx.stroke();
 
-      // Minimize Dot
       ctx.beginPath();
       ctx.arc(dotStartX + 18, dotY, dotRadius, 0, Math.PI * 2);
       ctx.fillStyle = '#FFBD2E';
       ctx.fill();
-      ctx.strokeStyle = '#DEA123';
-      ctx.stroke();
 
-      // Zoom Dot
       ctx.beginPath();
       ctx.arc(dotStartX + 36, dotY, dotRadius, 0, Math.PI * 2);
       ctx.fillStyle = '#27C93F';
       ctx.fill();
-      ctx.strokeStyle = '#1AAB29';
-      ctx.stroke();
 
-      // URL Address Capsule
+      // URL capsule
       const urlW = Math.min(winW * 0.45, 340);
       const urlH = 26;
       const urlX = -urlW / 2;
@@ -565,7 +907,6 @@ export default function MockupCollageStudioPage() {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Lock Icon + URL Text
       ctx.fillStyle = '#5A606A';
       ctx.font = '500 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
       ctx.textAlign = 'center';
@@ -573,7 +914,6 @@ export default function MockupCollageStudioPage() {
       ctx.fillText(`🔒  ${browserUrl || 'harryshare.vn'}`, 0, urlY + urlH / 2 + 1);
       ctx.restore();
 
-      // Web Page Viewport
       const viewX = x;
       const viewY = y + headerH;
       const viewW = winW;
@@ -587,9 +927,7 @@ export default function MockupCollageStudioPage() {
       ctx.restore();
     }
 
-    // ==========================================
-    // FRAME 4: CLASSIC POLAROID VINTAGE
-    // ==========================================
+    // Frame 4: Classic Polaroid
     else if (frameStyle === 'polaroid') {
       const polW = Math.min(maxW, maxH * 0.82);
       const polH = polW * 1.22;
@@ -598,32 +936,23 @@ export default function MockupCollageStudioPage() {
 
       applyShadow(45, 26, 0.35);
 
-      // Card Paper Stock (Warm textured cardstock)
       ctx.beginPath();
       ctx.roundRect(x, y, polW, polH, 6);
       ctx.fillStyle = '#FAF8F4';
       ctx.fill();
 
-      // Subtle paper border line
-      ctx.strokeStyle = 'rgba(0,0,0,0.06)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      // Photo Aperture (Square 1:1)
       const margin = polW * 0.085;
       const photoW = polW - margin * 2;
       const photoH = photoW;
       const photoX = x + margin;
       const photoY = y + margin;
 
-      // Inset photo aperture shadow
       ctx.save();
       ctx.beginPath();
       ctx.rect(photoX, photoY, photoW, photoH);
       ctx.clip();
       drawImageProp(fgImage, photoX, photoY, photoW, photoH);
 
-      // Soft vignette on the photo itself
       const vignette = ctx.createRadialGradient(
         photoX + photoW / 2, photoY + photoH / 2, photoW * 0.3,
         photoX + photoW / 2, photoY + photoH / 2, photoW * 0.75
@@ -634,36 +963,26 @@ export default function MockupCollageStudioPage() {
       ctx.fillRect(photoX, photoY, photoW, photoH);
       ctx.restore();
 
-      // Subtle inner frame rim
-      ctx.strokeStyle = 'rgba(0,0,0,0.12)';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(photoX, photoY, photoW, photoH);
-
-      // Handwritten Polaroid Caption at Bottom Chin
       if (showCaption && captionText.trim()) {
         ctx.save();
         ctx.fillStyle = captionColor;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-
         const chinCenterY = photoY + photoH + (y + polH - (photoY + photoH)) / 2;
 
         if (captionFont === 'handwriting') {
-          ctx.font = 'italic 28px "Caveat", "Brush Script MT", "Segoe Script", cursive';
+          ctx.font = 'italic 28px "Caveat", "Brush Script MT", cursive';
         } else if (captionFont === 'serif') {
-          ctx.font = '600 22px Georgia, "Playfair Display", serif';
+          ctx.font = '600 22px Georgia, serif';
         } else {
-          ctx.font = '500 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+          ctx.font = '500 18px sans-serif';
         }
-
         ctx.fillText(captionText, 0, chinCenterY);
         ctx.restore();
       }
     }
 
-    // ==========================================
-    // FRAME 5: 35mm VINTAGE FILM STRIP
-    // ==========================================
+    // Frame 5: 35mm Film Strip
     else if (frameStyle === 'film35mm') {
       const filmW = Math.min(maxW, maxH * 1.5);
       const filmH = filmW * 0.68;
@@ -672,7 +991,6 @@ export default function MockupCollageStudioPage() {
 
       applyShadow(45, 25, 0.45);
 
-      // Deep Black Film Plastic Base
       ctx.beginPath();
       ctx.roundRect(x, y, filmW, filmH, 6);
       ctx.fillStyle = '#141414';
@@ -684,7 +1002,6 @@ export default function MockupCollageStudioPage() {
       const photoX = -photoW / 2;
       const photoY = -photoH / 2;
 
-      // Draw Film Sprockets (Perforations) Along Top and Bottom
       const sprocW = 12;
       const sprocH = 18;
       const sprocGap = 28;
@@ -693,20 +1010,16 @@ export default function MockupCollageStudioPage() {
 
       ctx.fillStyle = bgPreset === 'transparent' ? '#000000' : 'rgba(255,255,255,0.85)';
 
-      // Top & Bottom Holes
       for (let i = 0; i < sprocCount; i++) {
         const sx = sprocStartX + i * sprocGap;
-        // Top hole
         ctx.beginPath();
         ctx.roundRect(sx, y + (trackH - sprocH) / 2, sprocW, sprocH, 3);
         ctx.fill();
-        // Bottom hole
         ctx.beginPath();
         ctx.roundRect(sx, y + filmH - trackH + (trackH - sprocH) / 2, sprocW, sprocH, 3);
         ctx.fill();
       }
 
-      // Golden Edge Markings (Kodak 400, Frame numbers)
       ctx.fillStyle = '#E5A93C';
       ctx.font = 'bold 12px monospace';
       ctx.textBaseline = 'middle';
@@ -715,37 +1028,22 @@ export default function MockupCollageStudioPage() {
       ctx.fillText('▶ 24', -photoW / 2, y + filmH - trackH / 2);
       ctx.fillText('24A', photoW / 2 - 35, y + filmH - trackH / 2);
 
-      // Film Photo Exposure Area
       ctx.save();
       ctx.beginPath();
       ctx.rect(photoX, photoY, photoW, photoH);
       ctx.clip();
       drawImageProp(fgImage, photoX, photoY, photoW, photoH);
-
-      // Vintage Warm Film Tint Overlay
-      const tint = ctx.createLinearGradient(photoX, photoY, photoX + photoW, photoY + photoH);
-      tint.addColorStop(0, 'rgba(230, 160, 80, 0.08)');
-      tint.addColorStop(1, 'rgba(50, 20, 80, 0.06)');
-      ctx.fillStyle = tint;
-      ctx.fillRect(photoX, photoY, photoW, photoH);
       ctx.restore();
-
-      // Film Frame Border
-      ctx.strokeStyle = '#2A2A2A';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(photoX, photoY, photoW, photoH);
     }
 
-    // ==========================================
-    // FRAME 6-10: GALLERY & FINE ART FRAMES
-    // ==========================================
+    // Gallery Frames
     else if (['oak_wood', 'dark_walnut', 'gold_luxury', 'gallery_black', 'gallery_white'].includes(frameStyle)) {
       const artAspect = fgImage.naturalWidth / fgImage.naturalHeight;
       let artW = Math.min(maxW * 0.7, maxH * 0.7 * artAspect);
       let artH = artW / artAspect;
 
-      const borderThick = 28; // Outer frame molding
-      const mat = Math.max(0, matWidth); // Passe-partout width
+      const borderThick = 28;
+      const mat = Math.max(0, matWidth);
       const totalPad = borderThick + mat;
 
       const frameW = artW + totalPad * 2;
@@ -753,10 +1051,8 @@ export default function MockupCollageStudioPage() {
       const x = -frameW / 2;
       const y = -frameH / 2;
 
-      // Physical Frame Shadow
       applyShadow(55, 32, 0.45);
 
-      // 1. Outer Frame Molding
       ctx.beginPath();
       ctx.roundRect(x, y, frameW, frameH, 4);
 
@@ -787,34 +1083,16 @@ export default function MockupCollageStudioPage() {
       }
       ctx.fill();
 
-      // Molding Bevel Highlight & Shadow (3D effect)
-      ctx.strokeStyle = frameStyle === 'gallery_white' ? '#E0E0E0' : 'rgba(255,255,255,0.15)';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // 2. Passe-Partout (Mat Board)
       if (mat > 0) {
         const matX = x + borderThick;
         const matY = y + borderThick;
         const matW = frameW - borderThick * 2;
         const matH = frameH - borderThick * 2;
 
-        ctx.fillStyle = '#FBF9F5'; // Fine archival museum card
+        ctx.fillStyle = '#FBF9F5';
         ctx.fillRect(matX, matY, matW, matH);
-
-        // Mat Inset Bevel Shadow (45 deg angle bevel)
-        const innerMatX = matX + mat;
-        const innerMatY = matY + mat;
-        const innerMatW = artW;
-        const innerMatH = artH;
-
-        // Shadow at top & left of bevel
-        ctx.fillStyle = 'rgba(0,0,0,0.14)';
-        ctx.fillRect(innerMatX - 2, innerMatY - 2, innerMatW + 4, 3);
-        ctx.fillRect(innerMatX - 2, innerMatY - 2, 3, innerMatH + 4);
       }
 
-      // 3. Artwork Inside Opening
       const artX = -artW / 2;
       const artY = -artH / 2;
 
@@ -824,19 +1102,9 @@ export default function MockupCollageStudioPage() {
       ctx.clip();
       drawImageProp(fgImage, artX, artY, artW, artH);
       ctx.restore();
-
-      // Subtle Glass Specular Reflection across Artwork
-      const glassGlint = ctx.createLinearGradient(x, y, x + frameW, y + frameH);
-      glassGlint.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
-      glassGlint.addColorStop(0.35, 'rgba(255, 255, 255, 0.02)');
-      glassGlint.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      ctx.fillStyle = glassGlint;
-      ctx.fillRect(x, y, frameW, frameH);
     }
 
-    // ==========================================
-    // FRAME 11-12: MINIMAL & FLOATING CARDS
-    // ==========================================
+    // Minimal Cards
     else {
       const artAspect = fgImage.naturalWidth / fgImage.naturalHeight;
       const cardW = Math.min(maxW, maxH * artAspect);
@@ -845,11 +1113,9 @@ export default function MockupCollageStudioPage() {
       const y = -cardH / 2;
       const r = Math.min(borderRadius, Math.min(cardW, cardH) / 2);
 
-      // Multi-layer Diffusion Shadow
       applyShadow(48, 26, 0.4);
 
       if (frameStyle === 'glass_card') {
-        // Frosted Glass Border
         const borderPad = 16;
         const glassW = cardW + borderPad * 2;
         const glassH = cardH + borderPad * 2;
@@ -860,9 +1126,6 @@ export default function MockupCollageStudioPage() {
         ctx.roundRect(gx, gy, glassW, glassH, r + 8);
         ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
 
         ctx.save();
         ctx.beginPath();
@@ -871,35 +1134,28 @@ export default function MockupCollageStudioPage() {
         drawImageProp(fgImage, x, y, cardW, cardH);
         ctx.restore();
       } else {
-        // Floating Card
         ctx.save();
         ctx.beginPath();
         ctx.roundRect(x, y, cardW, cardH, r);
         ctx.fillStyle = '#000000';
-        ctx.fill(); // For shadow casting
+        ctx.fill();
         ctx.clip();
         drawImageProp(fgImage, x, y, cardW, cardH);
         ctx.restore();
-
-        // Crisp White/Subtle Outer Stroke
-        ctx.beginPath();
-        ctx.roundRect(x, y, cardW, cardH, r);
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
       }
     }
 
     ctx.restore();
   }, [
-    getCanvasDimensions, bgPreset, bgCustomImage, fgImage, frameStyle,
-    scale, rotation, shadow, matWidth, borderRadius, showCaption,
-    captionText, captionFont, captionColor, browserUrl
+    getCanvasDimensions, frameCategory, campaignPreset, customFrameImage,
+    avatarOffsetX, avatarOffsetY, avatarZoom, avatarRotation, avatarFlipX, showCircleGuide,
+    bgPreset, bgCustomImage, fgImage, frameStyle, scale, rotation, shadow,
+    matWidth, borderRadius, showCaption, captionText, captionFont, captionColor, browserUrl
   ]);
 
   // Re-draw on any parameter change
   useEffect(() => {
-    drawCanvas();
+    drawCanvas(false);
   }, [drawCanvas]);
 
   // Copy Canvas Image to Clipboard
@@ -907,18 +1163,25 @@ export default function MockupCollageStudioPage() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Draw clean copy without guide circle
+    drawCanvas(true);
+
     try {
       canvas.toBlob(async (blob) => {
+        // Re-draw with guide circle
+        drawCanvas(false);
+
         if (!blob) return;
         await navigator.clipboard.write([
           new ClipboardItem({ 'image/png': blob })
         ]);
         setIsCopied(true);
-        showToast('📋 Đã sao chép ảnh vào Clipboard! Bạn có thể dán (Ctrl+V) vào Zalo, Canva, Notion...');
+        showToast('📋 Đã sao chép ảnh vào Clipboard! Bạn có thể dán (Ctrl+V) vào Zalo, Facebook, Canva...');
         setTimeout(() => setIsCopied(false), 2500);
       }, 'image/png');
     } catch (err) {
       console.error('Copy to clipboard failed:', err);
+      drawCanvas(false);
       showToast('⚠️ Không thể tự động copy, vui lòng tải ảnh PNG về máy.');
     }
   };
@@ -928,13 +1191,20 @@ export default function MockupCollageStudioPage() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // Render clean image without guide circle for export
+    drawCanvas(true);
+
     const mime = format === 'png' ? 'image/png' : 'image/webp';
     const ext = format === 'png' ? '.png' : '.webp';
     const dataUrl = canvas.toDataURL(mime, 0.95);
 
+    // Restore guide circle on screen
+    drawCanvas(false);
+
     const a = document.createElement('a');
     a.href = dataUrl;
-    a.download = `mockup-harryshare-${frameStyle}-${Date.now()}${ext}`;
+    const prefix = frameCategory === 'campaign' ? 'avatar-twibbon' : `mockup-${frameStyle}`;
+    a.download = `${prefix}-harryshare-${Date.now()}${ext}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -967,10 +1237,10 @@ export default function MockupCollageStudioPage() {
           Studio Thiết Kế Trực Tuyến Miễn Phí
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-stone-850">
-          Lồng Khung Ảnh & Mockup Thiết Bị
+          Lồng Khung Ảnh, Avatar Chiến Dịch & Mockup Thiết Bị
         </h1>
         <p className="text-stone-550 text-xs sm:text-sm max-w-3xl leading-relaxed">
-          Đóng khung ảnh nghệ thuật, tạo mockup iPhone 16, MacBook M3, dải phim 35mm hoài cổ và ảnh Polaroid tức thì. Hỗ trợ phím tắt <code className="bg-sand/60 px-1.5 py-0.5 rounded font-mono font-bold text-stone-700">Ctrl + V</code> dán ảnh siêu tốc, xuất ảnh chuẩn Retina 100% bảo mật trong trình duyệt.
+          Tạo Avatar chiến dịch sự kiện (Twibbon) kéo zoom chỉnh mặt tiện lợi, lồng khung tranh nghệ thuật và tạo mockup iPhone 16 Pro, MacBook M3 tức thì. 100% xử lý cục bộ trên trình duyệt, miễn phí, không quảng cáo và không dính logo rác.
         </p>
       </div>
 
@@ -992,7 +1262,7 @@ export default function MockupCollageStudioPage() {
               <div className="flex items-center gap-2">
                 <Eye className="w-4 h-4 text-olive" />
                 <span className="text-xs font-bold text-stone-800">
-                  Xem trước thời gian thực
+                  {frameCategory === 'campaign' ? 'Xem trước Avatar Chiến Dịch' : 'Xem trước thời gian thực'}
                 </span>
               </div>
 
@@ -1020,10 +1290,22 @@ export default function MockupCollageStudioPage() {
               </div>
             </div>
 
-            {/* Canvas Container */}
-            <div className="relative max-w-full max-h-[560px] flex items-center justify-center rounded-2xl overflow-hidden border border-olive/15 shadow-inner bg-stone-900/5">
+            {/* Canvas Container with Interactive Mouse / Touch Drag */}
+            <div 
+              className={`relative max-w-full max-h-[560px] flex items-center justify-center rounded-2xl overflow-hidden border border-olive/15 shadow-inner bg-stone-900/5 ${
+                frameCategory === 'campaign' ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : ''
+              }`}
+            >
               <canvas
                 ref={canvasRef}
+                onMouseDown={handleCanvasMouseDown}
+                onMouseMove={handleCanvasMouseMove}
+                onMouseUp={handleCanvasMouseUp}
+                onMouseLeave={handleCanvasMouseUp}
+                onTouchStart={handleCanvasTouchStart}
+                onTouchMove={handleCanvasTouchMove}
+                onTouchEnd={handleCanvasTouchEnd}
+                onWheel={handleCanvasWheel}
                 className="max-h-[520px] max-w-full w-auto h-auto object-contain block select-none"
               />
 
@@ -1038,7 +1320,7 @@ export default function MockupCollageStudioPage() {
                   </div>
                   <div className="flex flex-col gap-1">
                     <p className="text-stone-850 font-bold text-sm">Bấm để tải ảnh lên hoặc nhấn Ctrl + V để dán ảnh</p>
-                    <p className="text-stone-400 text-xs">Hỗ trợ ảnh chụp màn hình, ảnh chân dung, ảnh sản phẩm (PNG, JPG, WebP)</p>
+                    <p className="text-stone-400 text-xs">Hỗ trợ ảnh chụp chân dung, ảnh sản phẩm, ảnh chụp màn hình (PNG, JPG, WebP)</p>
                   </div>
                 </div>
               )}
@@ -1055,7 +1337,7 @@ export default function MockupCollageStudioPage() {
                   className="text-olive hover:underline font-bold cursor-pointer flex items-center gap-1"
                 >
                   <Upload className="w-3.5 h-3.5" />
-                  <span>Đổi ảnh khác</span>
+                  <span>Đổi ảnh đại diện</span>
                 </button>
                 <input
                   ref={fgInputRef}
@@ -1101,7 +1383,7 @@ export default function MockupCollageStudioPage() {
               className="flex-1 sm:flex-initial bg-olive hover:bg-olive-dark text-cream font-bold text-xs px-5 py-3 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:shadow active:scale-98 disabled:opacity-40 disabled:pointer-events-none"
             >
               <Download className="w-4 h-4 text-amber-300" />
-              <span>Tải PNG Sắc Nét</span>
+              <span>{frameCategory === 'campaign' ? 'Tải Avatar PNG Sắc Nét' : 'Tải PNG Sắc Nét'}</span>
             </button>
           </div>
         </div>
@@ -1109,19 +1391,20 @@ export default function MockupCollageStudioPage() {
         {/* Right Column: Customization Inspector Panel */}
         <div className="lg:col-span-5 flex flex-col gap-6 bg-cream/70 border border-olive/15 p-6 rounded-3xl backdrop-blur-md shadow-sm">
           
-          {/* Section 1: Frame Category & Style */}
+          {/* Section 1: Main Categories Selector */}
           <div className="flex flex-col gap-3">
             <label className="text-xs font-bold text-stone-850 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-olive" />
-              1. Chọn Kiểu Khung & Mockup
+              1. Danh Mục Khung Hình
             </label>
 
             {/* Category Tabs */}
-            <div className="grid grid-cols-4 gap-1 p-1 bg-sand/30 rounded-xl border border-olive/10 text-[11px] font-bold">
+            <div className="grid grid-cols-5 gap-1 p-1 bg-sand/30 rounded-xl border border-olive/10 text-[10px] sm:text-[11px] font-bold">
               {[
+                { id: 'campaign', label: 'Avatar', icon: Award },
                 { id: 'device', label: 'Thiết bị', icon: Smartphone },
                 { id: 'vintage', label: 'Vintage', icon: Film },
-                { id: 'gallery', label: 'Phòng tranh', icon: ImageIcon },
+                { id: 'gallery', label: 'Tranh', icon: ImageIcon },
                 { id: 'minimal', label: 'Thẻ nổi', icon: Layers }
               ].map(cat => {
                 const Icon = cat.icon;
@@ -1130,362 +1413,523 @@ export default function MockupCollageStudioPage() {
                     key={cat.id}
                     onClick={() => {
                       setFrameCategory(cat.id as FrameCategory);
+                      if (cat.id === 'campaign') setAspectRatio('1:1');
                       if (cat.id === 'device') setFrameStyle('iphone');
                       if (cat.id === 'vintage') setFrameStyle('polaroid');
                       if (cat.id === 'gallery') setFrameStyle('oak_wood');
                       if (cat.id === 'minimal') setFrameStyle('floating_card');
                     }}
-                    className={`py-1.5 px-1 rounded-lg flex flex-col sm:flex-row items-center justify-center gap-1 transition-all cursor-pointer ${
+                    className={`py-2 px-1 rounded-lg flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
                       frameCategory === cat.id
                         ? 'bg-olive text-cream shadow-xs'
                         : 'text-stone-600 hover:text-olive'
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5" />
-                    <span>{cat.label}</span>
+                    <span className="truncate">{cat.label}</span>
                   </button>
                 );
               })}
             </div>
-
-            {/* Frame Style Options */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1">
-              {frameCategory === 'device' && [
-                { id: 'iphone', label: 'iPhone 16 Pro', desc: 'Titanium & Dynamic Island' },
-                { id: 'macbook', label: 'MacBook M3', desc: 'Notch & gáy nhôm' },
-                { id: 'safari', label: 'macOS Safari', desc: 'Chấm giao diện Apple' }
-              ].map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => setFrameStyle(item.id as FrameStyle)}
-                  className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
-                    frameStyle === item.id
-                      ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
-                      : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
-                  }`}
-                >
-                  <span className="text-xs font-bold">{item.label}</span>
-                  <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
-                </button>
-              ))}
-
-              {frameCategory === 'vintage' && [
-                { id: 'polaroid', label: 'Polaroid Cổ Điển', desc: 'Giấy mộc & Chữ ký tay' },
-                { id: 'film35mm', label: 'Cuộn Phim 35mm', desc: 'Lỗ gai & Mã số Kodak' }
-              ].map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => setFrameStyle(item.id as FrameStyle)}
-                  className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
-                    frameStyle === item.id
-                      ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
-                      : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
-                  }`}
-                >
-                  <span className="text-xs font-bold">{item.label}</span>
-                  <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
-                </button>
-              ))}
-
-              {frameCategory === 'gallery' && [
-                { id: 'oak_wood', label: 'Gỗ Sồi Tự Nhiên', desc: 'Tone ấm thanh lịch' },
-                { id: 'dark_walnut', label: 'Gỗ Óc Chó', desc: 'Trầm sang trọng' },
-                { id: 'gold_luxury', label: 'Mạ Vàng Hoàng Gia', desc: 'Ánh kim cổ điển' },
-                { id: 'gallery_black', label: 'Triển Lãm Đen', desc: 'Phòng tranh hiện đại' },
-                { id: 'gallery_white', label: 'Triển Lãm Trắng', desc: 'Tối giản thuần khiết' }
-              ].map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => setFrameStyle(item.id as FrameStyle)}
-                  className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
-                    frameStyle === item.id
-                      ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
-                      : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
-                  }`}
-                >
-                  <span className="text-xs font-bold">{item.label}</span>
-                  <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
-                </button>
-              ))}
-
-              {frameCategory === 'minimal' && [
-                { id: 'floating_card', label: 'Thẻ Nổi 3D', desc: 'Bóng đổ khuếch tán' },
-                { id: 'glass_card', label: 'Kính Mờ', desc: 'Hiệu ứng Glassmorphism' }
-              ].map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => setFrameStyle(item.id as FrameStyle)}
-                  className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
-                    frameStyle === item.id
-                      ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
-                      : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
-                  }`}
-                >
-                  <span className="text-xs font-bold">{item.label}</span>
-                  <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
-                </button>
-              ))}
-            </div>
           </div>
 
-          {/* Section 2: Background (Fotor-inspired Magic Blur) */}
-          <div className="flex flex-col gap-2.5 border-t border-olive/10 pt-4">
-            <label className="text-xs font-bold text-stone-850 flex items-center justify-between">
-              <span className="flex items-center gap-1.5">
-                <Palette className="w-3.5 h-3.5 text-olive" />
-                2. Phông Nền (Background)
-              </span>
-              {bgPreset === 'blur' && (
-                <span className="text-[10px] font-mono text-olive bg-olive/10 px-2 py-0.5 rounded-full font-bold">
-                  ✨ Magic Blur tự động
-                </span>
-              )}
-            </label>
-
-            <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 text-[11px] font-bold">
-              {[
-                { id: 'blur', label: 'Phông mờ', color: 'linear-gradient(135deg, #a18cd1, #fbc2eb)' },
-                { id: 'sand', label: 'Cát ấm', color: '#FAF6F0' },
-                { id: 'olive', label: 'Olive Harry', color: '#2C3527' },
-                { id: 'sunset', label: 'Hoàng hôn', color: '#FF7043' },
-                { id: 'midnight', label: 'Đêm than', color: '#1E232A' },
-                { id: 'aurora', label: 'Pastel', color: '#C2E9FB' },
-                { id: 'white', label: 'Trắng tinh', color: '#FFFFFF' },
-                { id: 'cream', label: 'Kem mộc', color: '#FDFBF7' },
-                { id: 'transparent', label: 'Trong suốt', color: 'transparent' }
-              ].map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => setBgPreset(p.id as BgPreset)}
-                  className={`p-1.5 rounded-xl border flex flex-col items-center gap-1 transition-all cursor-pointer ${
-                    bgPreset === p.id
-                      ? 'border-olive bg-olive/10 text-olive ring-1 ring-olive'
-                      : 'border-olive/10 bg-sand/15 text-stone-600 hover:border-olive/30'
-                  }`}
-                >
-                  <span 
-                    className="w-4 h-4 rounded-full border border-stone-300 shadow-2xs shrink-0" 
-                    style={{ background: p.color }}
-                  />
-                  <span className="truncate text-[10px]">{p.label}</span>
-                </button>
-              ))}
-
-              {/* Upload Custom BG */}
-              <button
-                onClick={() => bgInputRef.current?.click()}
-                className={`p-1.5 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
-                  bgPreset === 'custom'
-                    ? 'border-olive bg-olive/10 text-olive ring-1 ring-olive'
-                    : 'border-dashed border-olive/30 bg-cream text-stone-600 hover:border-olive'
-                }`}
-              >
-                <Upload className="w-4 h-4" />
-                <span className="text-[10px] truncate">Tự chọn</span>
-              </button>
-              <input
-                ref={bgInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleBgUpload}
-              />
-            </div>
-          </div>
-
-          {/* Section 3: Aspect Ratio & Canvas Format */}
-          <div className="flex flex-col gap-2.5 border-t border-olive/10 pt-4">
-            <label className="text-xs font-bold text-stone-850 flex items-center gap-1.5">
-              <Maximize2 className="w-3.5 h-3.5 text-olive" />
-              3. Tỉ Lệ Khung Hình Canvas
-            </label>
-            <div className="grid grid-cols-5 gap-1.5 text-xs font-bold">
-              {[
-                { id: 'auto', label: 'Tự động' },
-                { id: '1:1', label: '1:1 Vuông' },
-                { id: '4:5', label: '4:5 Feed' },
-                { id: '16:9', label: '16:9 Blog' },
-                { id: '9:16', label: '9:16 Story' }
-              ].map(r => (
-                <button
-                  key={r.id}
-                  onClick={() => setAspectRatio(r.id as AspectRatio)}
-                  className={`py-2 px-1 text-[11px] rounded-xl border transition-all text-center cursor-pointer ${
-                    aspectRatio === r.id
-                      ? 'bg-olive text-cream border-olive shadow-xs'
-                      : 'bg-sand/20 text-stone-600 border-olive/10 hover:border-olive/30'
-                  }`}
-                >
-                  {r.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Section 4: Sliders & Adjustments */}
-          <div className="flex flex-col gap-3.5 border-t border-olive/10 pt-4 text-xs">
-            <label className="font-bold text-stone-850 flex items-center gap-1.5">
-              <Sliders className="w-3.5 h-3.5 text-olive" />
-              4. Cân Chỉnh Chi Tiết
-            </label>
-
-            {/* Scale / Padding */}
-            <div className="flex flex-col gap-1">
-              <div className="flex justify-between text-stone-600">
-                <span>Kích thước khung (Zoom):</span>
-                <span className="font-mono font-bold text-olive">{scale}%</span>
-              </div>
-              <input
-                type="range"
-                min="40"
-                max="95"
-                value={scale}
-                onChange={(e) => setScale(Number(e.target.value))}
-                className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
-              />
-            </div>
-
-            {/* Rotation */}
-            <div className="flex flex-col gap-1">
-              <div className="flex justify-between text-stone-600">
-                <span>Góc xoay nghiêng:</span>
-                <span className="font-mono font-bold text-olive">{rotation}°</span>
-              </div>
-              <input
-                type="range"
-                min="-25"
-                max="25"
-                value={rotation}
-                onChange={(e) => setRotation(Number(e.target.value))}
-                className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
-              />
-            </div>
-
-            {/* Gallery Mat Width (Passe-partout) */}
-            {['oak_wood', 'dark_walnut', 'gold_luxury', 'gallery_black', 'gallery_white'].includes(frameStyle) && (
-              <div className="flex flex-col gap-1">
-                <div className="flex justify-between text-stone-600">
-                  <span>Viền bo đệm tranh (Passe-Partout):</span>
-                  <span className="font-mono font-bold text-olive">{matWidth}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="60"
-                  value={matWidth}
-                  onChange={(e) => setMatWidth(Number(e.target.value))}
-                  className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
-                />
-              </div>
-            )}
-
-            {/* Corner Radius for Cards */}
-            {['floating_card', 'glass_card'].includes(frameStyle) && (
-              <div className="flex flex-col gap-1">
-                <div className="flex justify-between text-stone-600">
-                  <span>Bo tròn góc thẻ:</span>
-                  <span className="font-mono font-bold text-olive">{borderRadius}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="8"
-                  max="60"
-                  value={borderRadius}
-                  onChange={(e) => setBorderRadius(Number(e.target.value))}
-                  className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
-                />
-              </div>
-            )}
-
-            {/* Shadow Selector */}
-            <div className="flex flex-col gap-1.5">
-              <span className="text-stone-600 font-semibold">Độ đổ bóng 3D:</span>
-              <div className="grid grid-cols-4 gap-1.5">
-                {[
-                  { id: 'none', label: 'Tắt' },
-                  { id: 'soft', label: 'Nhẹ' },
-                  { id: 'floating', label: 'Nổi 3D' },
-                  { id: 'deep', label: 'Sâu studio' }
-                ].map(s => (
+          {/* ========================================================= */}
+          {/* TAB CONTENT A: CAMPAIGN AVATAR (TWIBBON) CONTROLS */}
+          {/* ========================================================= */}
+          {frameCategory === 'campaign' && (
+            <div className="flex flex-col gap-5 border-t border-olive/10 pt-4">
+              
+              {/* Frame Selection */}
+              <div className="flex flex-col gap-2.5">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold text-stone-850">Khung chiến dịch sự kiện:</span>
                   <button
-                    key={s.id}
-                    onClick={() => setShadow(s.id as ShadowLevel)}
-                    className={`py-1.5 text-[11px] font-bold rounded-lg border transition-all cursor-pointer ${
-                      shadow === s.id
-                        ? 'bg-olive text-cream border-olive'
-                        : 'bg-sand/15 text-stone-600 border-olive/10 hover:border-olive/30'
+                    onClick={() => customFrameInputRef.current?.click()}
+                    className="text-[11px] font-bold text-olive hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <Upload className="w-3 h-3" />
+                    <span>Tải khung PNG của team</span>
+                  </button>
+                  <input
+                    ref={customFrameInputRef}
+                    type="file"
+                    accept="image/png,image/webp"
+                    className="hidden"
+                    onChange={handleCustomFrameUpload}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  {[
+                    { id: 'solopreneur', label: 'Solopreneur Harry', desc: 'Olive & Gold sang trọng' },
+                    { id: 'school', label: 'Chào Năm Học Mới', desc: 'Sắc xanh tri thức & tốt nghiệp' },
+                    { id: 'anniversary', label: 'Kỷ Niệm Sự Kiện', desc: 'Đỏ & Vàng ngày thành lập' },
+                    { id: 'teamwork', label: 'Đồng Đội Teamwork', desc: 'Cam & Tím năng động' }
+                  ].map(item => (
+                    <button
+                      key={item.id}
+                      onClick={() => setCampaignPreset(item.id as CampaignPreset)}
+                      className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
+                        campaignPreset === item.id
+                          ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
+                          : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
+                      }`}
+                    >
+                      <span className="font-bold text-[11px]">{item.label}</span>
+                      <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {customFrameImage && (
+                  <button
+                    onClick={() => setCampaignPreset('custom')}
+                    className={`p-2 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
+                      campaignPreset === 'custom'
+                        ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
+                        : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
                     }`}
                   >
-                    {s.label}
+                    <div className="flex items-center gap-2 truncate">
+                      <Award className="w-4 h-4 text-olive shrink-0" />
+                      <span className="text-xs font-bold truncate">Khung riêng: {customFrameFileName}</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-olive">Đang chọn</span>
                   </button>
-                ))}
+                )}
               </div>
-            </div>
-          </div>
 
-          {/* Section 5: Specific Frame Customization (Safari URL or Polaroid Caption) */}
-          {frameStyle === 'safari' && (
-            <div className="flex flex-col gap-2 border-t border-olive/10 pt-4 text-xs">
-              <label className="font-bold text-stone-850 flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-olive" />
-                Địa chỉ Web (URL trên Safari)
-              </label>
-              <input
-                type="text"
-                value={browserUrl}
-                onChange={(e) => setBrowserUrl(e.target.value)}
-                placeholder="harryshare.vn"
-                className="w-full px-3 py-2 bg-cream border border-olive/20 rounded-xl focus:outline-none focus:border-olive text-stone-850 font-mono text-xs"
-              />
+              {/* Avatar Drag & Alignment Controls */}
+              <div className="flex flex-col gap-3.5 border-t border-olive/10 pt-4 text-xs">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-stone-850 flex items-center gap-1.5">
+                    <Move className="w-3.5 h-3.5 text-olive" />
+                    Căn Chỉnh Khuôn Mặt (Ảnh)
+                  </span>
+                  <button
+                    onClick={() => {
+                      setAvatarOffsetX(0);
+                      setAvatarOffsetY(0);
+                      setAvatarZoom(100);
+                      setAvatarRotation(0);
+                    }}
+                    className="text-[11px] font-bold text-stone-500 hover:text-olive flex items-center gap-1 cursor-pointer"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                    <span>Đặt lại giữa</span>
+                  </button>
+                </div>
+
+                {/* Helpful Drag Guide Box */}
+                <div className="p-3 bg-amber-50/70 border border-amber-200/60 rounded-xl text-[11px] text-amber-900 leading-relaxed">
+                  💡 <b>Mẹo kéo ảnh:</b> Bấm giữ chuột (hoặc chạm ngón tay trên điện thoại) trực tiếp lên ảnh xem trước để rê khuôn mặt vào đúng tâm khung tròn!
+                </div>
+
+                {/* Zoom Slider */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-stone-600">
+                    <span className="flex items-center gap-1">
+                      <ZoomIn className="w-3.5 h-3.5 text-olive" /> Phóng to / Thu nhỏ:
+                    </span>
+                    <span className="font-mono font-bold text-olive">{avatarZoom}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="30"
+                    max="220"
+                    value={avatarZoom}
+                    onChange={(e) => setAvatarZoom(Number(e.target.value))}
+                    className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
+                  />
+                </div>
+
+                {/* Rotation Slider */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-stone-600">
+                    <span className="flex items-center gap-1">
+                      <RotateCw className="w-3.5 h-3.5 text-olive" /> Xoay góc ảnh:
+                    </span>
+                    <span className="font-mono font-bold text-olive">{avatarRotation}°</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="-45"
+                    max="45"
+                    value={avatarRotation}
+                    onChange={(e) => setAvatarRotation(Number(e.target.value))}
+                    className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
+                  />
+                </div>
+
+                {/* Quick Action Toggles */}
+                <div className="flex items-center justify-between pt-1">
+                  <button
+                    onClick={() => setAvatarFlipX(prev => !prev)}
+                    className={`px-3 py-1.5 rounded-xl border text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                      avatarFlipX ? 'bg-olive text-cream border-olive' : 'bg-sand/20 text-stone-700 border-olive/10 hover:border-olive/30'
+                    }`}
+                  >
+                    <FlipHorizontal className="w-3.5 h-3.5" />
+                    <span>Lật gương ảnh</span>
+                  </button>
+
+                  <label className="flex items-center gap-2 cursor-pointer text-[11px] font-bold text-stone-700">
+                    <input
+                      type="checkbox"
+                      checked={showCircleGuide}
+                      onChange={(e) => setShowCircleGuide(e.target.checked)}
+                      className="cursor-pointer accent-olive w-3.5 h-3.5 rounded"
+                    />
+                    <span>Viền cắt tròn Facebook</span>
+                  </label>
+                </div>
+              </div>
             </div>
           )}
 
-          {frameStyle === 'polaroid' && (
-            <div className="flex flex-col gap-3 border-t border-olive/10 pt-4 text-xs">
-              <div className="flex justify-between items-center">
-                <label className="font-bold text-stone-850 flex items-center gap-1.5">
-                  <Type className="w-3.5 h-3.5 text-olive" />
-                  Chữ ký tay dưới đáy ảnh Polaroid
-                </label>
-                <input
-                  type="checkbox"
-                  checked={showCaption}
-                  onChange={(e) => setShowCaption(e.target.checked)}
-                  className="cursor-pointer accent-olive w-4 h-4 rounded"
-                />
+          {/* ========================================================= */}
+          {/* TAB CONTENT B: DEVICE, VINTAGE, GALLERY & MINIMAL CONTROLS */}
+          {/* ========================================================= */}
+          {frameCategory !== 'campaign' && (
+            <>
+              {/* Frame Style Options */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {frameCategory === 'device' && [
+                  { id: 'iphone', label: 'iPhone 16 Pro', desc: 'Titanium & Dynamic Island' },
+                  { id: 'macbook', label: 'MacBook M3', desc: 'Notch & gáy nhôm' },
+                  { id: 'safari', label: 'macOS Safari', desc: 'Chấm giao diện Apple' }
+                ].map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => setFrameStyle(item.id as FrameStyle)}
+                    className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
+                      frameStyle === item.id
+                        ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
+                        : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
+                    }`}
+                  >
+                    <span className="text-xs font-bold">{item.label}</span>
+                    <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
+                  </button>
+                ))}
+
+                {frameCategory === 'vintage' && [
+                  { id: 'polaroid', label: 'Polaroid Cổ Điển', desc: 'Giấy mộc & Chữ ký tay' },
+                  { id: 'film35mm', label: 'Cuộn Phim 35mm', desc: 'Lỗ gai & Mã số Kodak' }
+                ].map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => setFrameStyle(item.id as FrameStyle)}
+                    className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
+                      frameStyle === item.id
+                        ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
+                        : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
+                    }`}
+                  >
+                    <span className="text-xs font-bold">{item.label}</span>
+                    <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
+                  </button>
+                ))}
+
+                {frameCategory === 'gallery' && [
+                  { id: 'oak_wood', label: 'Gỗ Sồi Tự Nhiên', desc: 'Tone ấm thanh lịch' },
+                  { id: 'dark_walnut', label: 'Gỗ Óc Chó', desc: 'Trầm sang trọng' },
+                  { id: 'gold_luxury', label: 'Mạ Vàng Hoàng Gia', desc: 'Ánh kim cổ điển' },
+                  { id: 'gallery_black', label: 'Triển Lãm Đen', desc: 'Phòng tranh hiện đại' },
+                  { id: 'gallery_white', label: 'Triển Lãm Trắng', desc: 'Tối giản thuần khiết' }
+                ].map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => setFrameStyle(item.id as FrameStyle)}
+                    className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
+                      frameStyle === item.id
+                        ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
+                        : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
+                    }`}
+                  >
+                    <span className="text-xs font-bold">{item.label}</span>
+                    <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
+                  </button>
+                ))}
+
+                {frameCategory === 'minimal' && [
+                  { id: 'floating_card', label: 'Thẻ Nổi 3D', desc: 'Bóng đổ khuếch tán' },
+                  { id: 'glass_card', label: 'Kính Mờ', desc: 'Hiệu ứng Glassmorphism' }
+                ].map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => setFrameStyle(item.id as FrameStyle)}
+                    className={`p-2.5 rounded-xl border text-left flex flex-col gap-0.5 transition-all cursor-pointer ${
+                      frameStyle === item.id
+                        ? 'border-olive bg-olive/10 text-olive shadow-xs ring-1 ring-olive'
+                        : 'border-olive/10 bg-sand/15 text-stone-700 hover:border-olive/30'
+                    }`}
+                  >
+                    <span className="text-xs font-bold">{item.label}</span>
+                    <span className="text-[10px] text-stone-400 truncate">{item.desc}</span>
+                  </button>
+                ))}
               </div>
 
-              {showCaption && (
-                <div className="flex flex-col gap-2.5">
+              {/* Background Options */}
+              <div className="flex flex-col gap-2.5 border-t border-olive/10 pt-4">
+                <label className="text-xs font-bold text-stone-850 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Palette className="w-3.5 h-3.5 text-olive" />
+                    2. Phông Nền (Background)
+                  </span>
+                  {bgPreset === 'blur' && (
+                    <span className="text-[10px] font-mono text-olive bg-olive/10 px-2 py-0.5 rounded-full font-bold">
+                      ✨ Magic Blur tự động
+                    </span>
+                  )}
+                </label>
+
+                <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 text-[11px] font-bold">
+                  {[
+                    { id: 'blur', label: 'Phông mờ', color: 'linear-gradient(135deg, #a18cd1, #fbc2eb)' },
+                    { id: 'sand', label: 'Cát ấm', color: '#FAF6F0' },
+                    { id: 'olive', label: 'Olive Harry', color: '#2C3527' },
+                    { id: 'sunset', label: 'Hoàng hôn', color: '#FF7043' },
+                    { id: 'midnight', label: 'Đêm than', color: '#1E232A' },
+                    { id: 'aurora', label: 'Pastel', color: '#C2E9FB' },
+                    { id: 'white', label: 'Trắng tinh', color: '#FFFFFF' },
+                    { id: 'cream', label: 'Kem mộc', color: '#FDFBF7' },
+                    { id: 'transparent', label: 'Trong suốt', color: 'transparent' }
+                  ].map(p => (
+                    <button
+                      key={p.id}
+                      onClick={() => setBgPreset(p.id as BgPreset)}
+                      className={`p-1.5 rounded-xl border flex flex-col items-center gap-1 transition-all cursor-pointer ${
+                        bgPreset === p.id
+                          ? 'border-olive bg-olive/10 text-olive ring-1 ring-olive'
+                          : 'border-olive/10 bg-sand/15 text-stone-600 hover:border-olive/30'
+                      }`}
+                    >
+                      <span 
+                        className="w-4 h-4 rounded-full border border-stone-300 shadow-2xs shrink-0" 
+                        style={{ background: p.color }}
+                      />
+                      <span className="truncate text-[10px]">{p.label}</span>
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() => bgInputRef.current?.click()}
+                    className={`p-1.5 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+                      bgPreset === 'custom'
+                        ? 'border-olive bg-olive/10 text-olive ring-1 ring-olive'
+                        : 'border-dashed border-olive/30 bg-cream text-stone-600 hover:border-olive'
+                    }`}
+                  >
+                    <Upload className="w-4 h-4" />
+                    <span className="text-[10px] truncate">Tự chọn</span>
+                  </button>
                   <input
-                    type="text"
-                    value={captionText}
-                    onChange={(e) => setCaptionText(e.target.value)}
-                    placeholder="Nhập ghi chú hoặc chữ ký..."
-                    className="w-full px-3 py-2 bg-cream border border-olive/20 rounded-xl focus:outline-none focus:border-olive text-stone-850"
+                    ref={bgInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleBgUpload}
                   />
-                  <div className="flex gap-2">
+                </div>
+              </div>
+
+              {/* Aspect Ratio */}
+              <div className="flex flex-col gap-2.5 border-t border-olive/10 pt-4">
+                <label className="text-xs font-bold text-stone-850 flex items-center gap-1.5">
+                  <Maximize2 className="w-3.5 h-3.5 text-olive" />
+                  3. Tỉ Lệ Khung Hình Canvas
+                </label>
+                <div className="grid grid-cols-5 gap-1.5 text-xs font-bold">
+                  {[
+                    { id: 'auto', label: 'Tự động' },
+                    { id: '1:1', label: '1:1 Vuông' },
+                    { id: '4:5', label: '4:5 Feed' },
+                    { id: '16:9', label: '16:9 Blog' },
+                    { id: '9:16', label: '9:16 Story' }
+                  ].map(r => (
+                    <button
+                      key={r.id}
+                      onClick={() => setAspectRatio(r.id as AspectRatio)}
+                      className={`py-2 px-1 text-[11px] rounded-xl border transition-all text-center cursor-pointer ${
+                        aspectRatio === r.id
+                          ? 'bg-olive text-cream border-olive shadow-xs'
+                          : 'bg-sand/20 text-stone-600 border-olive/10 hover:border-olive/30'
+                      }`}
+                    >
+                      {r.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Adjustments */}
+              <div className="flex flex-col gap-3.5 border-t border-olive/10 pt-4 text-xs">
+                <label className="font-bold text-stone-850 flex items-center gap-1.5">
+                  <Sliders className="w-3.5 h-3.5 text-olive" />
+                  4. Cân Chỉnh Chi Tiết
+                </label>
+
+                {/* Scale */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-stone-600">
+                    <span>Kích thước khung:</span>
+                    <span className="font-mono font-bold text-olive">{scale}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="40"
+                    max="95"
+                    value={scale}
+                    onChange={(e) => setScale(Number(e.target.value))}
+                    className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
+                  />
+                </div>
+
+                {/* Rotation */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-stone-600">
+                    <span>Góc xoay nghiêng:</span>
+                    <span className="font-mono font-bold text-olive">{rotation}°</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="-25"
+                    max="25"
+                    value={rotation}
+                    onChange={(e) => setRotation(Number(e.target.value))}
+                    className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
+                  />
+                </div>
+
+                {/* Passe-partout */}
+                {['oak_wood', 'dark_walnut', 'gold_luxury', 'gallery_black', 'gallery_white'].includes(frameStyle) && (
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between text-stone-600">
+                      <span>Viền bo đệm tranh (Passe-Partout):</span>
+                      <span className="font-mono font-bold text-olive">{matWidth}px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="60"
+                      value={matWidth}
+                      onChange={(e) => setMatWidth(Number(e.target.value))}
+                      className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
+                    />
+                  </div>
+                )}
+
+                {/* Border Radius */}
+                {['floating_card', 'glass_card'].includes(frameStyle) && (
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between text-stone-600">
+                      <span>Bo tròn góc thẻ:</span>
+                      <span className="font-mono font-bold text-olive">{borderRadius}px</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="8"
+                      max="60"
+                      value={borderRadius}
+                      onChange={(e) => setBorderRadius(Number(e.target.value))}
+                      className="w-full h-1.5 bg-olive/10 rounded-lg appearance-none cursor-pointer accent-olive"
+                    />
+                  </div>
+                )}
+
+                {/* Shadow */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-stone-600 font-semibold">Độ đổ bóng 3D:</span>
+                  <div className="grid grid-cols-4 gap-1.5">
                     {[
-                      { id: 'handwriting', label: 'Viết tay' },
-                      { id: 'serif', label: 'Cổ điển' },
-                      { id: 'sans', label: 'Hiện đại' }
-                    ].map(f => (
+                      { id: 'none', label: 'Tắt' },
+                      { id: 'soft', label: 'Nhẹ' },
+                      { id: 'floating', label: 'Nổi 3D' },
+                      { id: 'deep', label: 'Sâu studio' }
+                    ].map(s => (
                       <button
-                        key={f.id}
-                        onClick={() => setCaptionFont(f.id as any)}
-                        className={`px-3 py-1 text-[11px] font-bold rounded-lg border cursor-pointer transition-all ${
-                          captionFont === f.id
+                        key={s.id}
+                        onClick={() => setShadow(s.id as ShadowLevel)}
+                        className={`py-1.5 text-[11px] font-bold rounded-lg border transition-all cursor-pointer ${
+                          shadow === s.id
                             ? 'bg-olive text-cream border-olive'
-                            : 'bg-sand/15 text-stone-600 border-olive/10'
+                            : 'bg-sand/15 text-stone-600 border-olive/10 hover:border-olive/30'
                         }`}
                       >
-                        {f.label}
+                        {s.label}
                       </button>
                     ))}
                   </div>
                 </div>
+              </div>
+
+              {/* Custom Safari / Polaroid */}
+              {frameStyle === 'safari' && (
+                <div className="flex flex-col gap-2 border-t border-olive/10 pt-4 text-xs">
+                  <label className="font-bold text-stone-850 flex items-center gap-1.5">
+                    <Globe className="w-3.5 h-3.5 text-olive" />
+                    Địa chỉ Web (URL trên Safari)
+                  </label>
+                  <input
+                    type="text"
+                    value={browserUrl}
+                    onChange={(e) => setBrowserUrl(e.target.value)}
+                    placeholder="harryshare.vn"
+                    className="w-full px-3 py-2 bg-cream border border-olive/20 rounded-xl focus:outline-none focus:border-olive text-stone-850 font-mono text-xs"
+                  />
+                </div>
               )}
-            </div>
+
+              {frameStyle === 'polaroid' && (
+                <div className="flex flex-col gap-3 border-t border-olive/10 pt-4 text-xs">
+                  <div className="flex justify-between items-center">
+                    <label className="font-bold text-stone-850 flex items-center gap-1.5">
+                      <Type className="w-3.5 h-3.5 text-olive" />
+                      Chữ ký tay dưới đáy ảnh Polaroid
+                    </label>
+                    <input
+                      type="checkbox"
+                      checked={showCaption}
+                      onChange={(e) => setShowCaption(e.target.checked)}
+                      className="cursor-pointer accent-olive w-4 h-4 rounded"
+                    />
+                  </div>
+
+                  {showCaption && (
+                    <div className="flex flex-col gap-2.5">
+                      <input
+                        type="text"
+                        value={captionText}
+                        onChange={(e) => setCaptionText(e.target.value)}
+                        placeholder="Nhập ghi chú hoặc chữ ký..."
+                        className="w-full px-3 py-2 bg-cream border border-olive/20 rounded-xl focus:outline-none focus:border-olive text-stone-850"
+                      />
+                      <div className="flex gap-2">
+                        {[
+                          { id: 'handwriting', label: 'Viết tay' },
+                          { id: 'serif', label: 'Cổ điển' },
+                          { id: 'sans', label: 'Hiện đại' }
+                        ].map(f => (
+                          <button
+                            key={f.id}
+                            onClick={() => setCaptionFont(f.id as any)}
+                            className={`px-3 py-1 text-[11px] font-bold rounded-lg border cursor-pointer transition-all ${
+                              captionFont === f.id
+                                ? 'bg-olive text-cream border-olive'
+                                : 'bg-sand/15 text-stone-600 border-olive/10'
+                            }`}
+                          >
+                            {f.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
           )}
 
         </div>
@@ -1497,19 +1941,19 @@ export default function MockupCollageStudioPage() {
           <div className="w-9 h-9 rounded-xl bg-olive/10 flex items-center justify-center text-olive font-bold">
             ⚡
           </div>
-          <h4 className="font-serif font-bold text-stone-850 text-sm">Dán Ảnh Nhanh (Ctrl + V)</h4>
+          <h4 className="font-serif font-bold text-stone-850 text-sm">Kéo & Zoom Trực Tiếp</h4>
           <p className="text-stone-500 text-xs leading-relaxed">
-            Chụp màn hình ở bất cứ đâu, quay lại trang này và nhấn phím tắt <code className="bg-sand/50 px-1 py-0.5 rounded font-mono font-bold">Ctrl + V</code> để ảnh lập tức được đưa vào khung hình.
+            Dễ dàng căn chỉnh khuôn mặt vào tâm khung avatar tròn bằng thao tác rê chuột trực tiếp, thanh trượt phóng to thu nhỏ và lật gương ảnh.
           </p>
         </div>
 
         <div className="bg-cream/60 border border-olive/15 p-5 rounded-2xl flex flex-col gap-2">
           <div className="w-9 h-9 rounded-xl bg-olive/10 flex items-center justify-center text-olive font-bold">
-            ✨
+            🎗️
           </div>
-          <h4 className="font-serif font-bold text-stone-850 text-sm">Magic Blur Hậu Cảnh</h4>
+          <h4 className="font-serif font-bold text-stone-850 text-sm">Tải Khung PNG Riêng Biệt</h4>
           <p className="text-stone-500 text-xs leading-relaxed">
-            Thuật toán tự động lấy màu sắc từ chính bức ảnh của bạn và làm mờ sâu 55px, giúp khung ảnh trông như chụp trong studio chuyên nghiệp.
+            Hỗ trợ ban tổ chức, đội ngũ, trường học tải file PNG khung viền đục lỗ trong suốt để toàn thể thành viên tự lồng ảnh thay avatar đồng loạt.
           </p>
         </div>
 
@@ -1519,7 +1963,7 @@ export default function MockupCollageStudioPage() {
           </div>
           <h4 className="font-serif font-bold text-stone-850 text-sm">Bảo Mật Cục Bộ 100%</h4>
           <p className="text-stone-500 text-xs leading-relaxed">
-            Hình ảnh được xử lý hoàn toàn bằng vi xử lý đồ họa trên máy tính của bạn thông qua Canvas HTML5, tuyệt đối không tải lên máy chủ ngoài.
+            Ảnh cá nhân xử lý hoàn toàn trên trình duyệt người dùng qua HTML5 Canvas, không tải lên server, xuất ảnh vuông 1200x1200 chuẩn nét.
           </p>
         </div>
       </div>
