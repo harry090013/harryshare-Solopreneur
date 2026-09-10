@@ -613,6 +613,8 @@ Thảo Mộc Hương tái khởi, sức khỏe được phục hồi, và một 
           authorName: "Hoàng Mai",
           authorEmail: "hoangmai@gmail.com",
           content: "Đọc bài viết cảm nhận được sự chín chắn và định hướng rõ ràng của anh. Chúc Thảo Mộc Hương lần này sẽ thành công rực rỡ!",
+          approved: true
+        }
       ]
     },
     {
