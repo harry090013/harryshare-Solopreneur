@@ -244,7 +244,7 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
                 <ArrowLeft className="w-3.5 h-3.5" /> Góc chia sẻ
               </Link>
               {post.category && (
-                <Link href={`/chia-se?category=${post.category.slug}`} className="text-xs font-bold text-olive bg-olive/5 border border-olive/10 rounded-lg px-3 py-1 cursor-pointer hover:bg-olive hover:text-cream transition-all uppercase tracking-wider">
+                <Link href={`/chia-se/chu-de/${post.category.slug}`} className="text-xs font-bold text-olive bg-olive/5 border border-olive/10 rounded-lg px-3 py-1 cursor-pointer hover:bg-olive hover:text-cream transition-all uppercase tracking-wider">
                   {post.category.name}
                 </Link>
               )}

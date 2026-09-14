@@ -32,18 +32,18 @@ async function main() {
     console.log('✓ Created fallback cover image:', outCoverPath);
   }
 
-  // 2. Fetch category ID for "hanh-trinh-lam-nghe"
+  // 2. Fetch category ID for "tuoi-tre-thanh-xuan"
   const cat = await prisma.category.findUnique({
     where: {
       slug_type: {
-        slug: 'hanh-trinh-lam-nghe',
+        slug: 'tuoi-tre-thanh-xuan',
         type: 'post'
       }
     }
   });
 
   if (!cat) {
-    throw new Error('Category hanh-trinh-lam-nghe not found');
+    throw new Error('Category tuoi-tre-thanh-xuan not found');
   }
 
   // 3. Post data

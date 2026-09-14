@@ -83,34 +83,38 @@ export default function ChiaSeClient({
           </span>
         </div>
 
-        {/* Row 2: Categories Grid (5 columns, from left to right) */}
+        {/* Row 2: Categories Grid (6 columns on desktop, from left to right) */}
         <div className="flex flex-col gap-2.5 border-t border-olive/10 pt-4">
           <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold">
             Lọc theo chủ đề:
           </span>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 w-full">
-            <button
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 w-full">
+            <Link
+              href="/chia-se"
+              scroll={false}
               onClick={() => setSelectedCategory('all')}
-              className={`text-xs font-semibold py-2.5 px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
+              className={`text-xs font-semibold py-2.5 px-3 sm:px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
                 selectedCategory === 'all'
                   ? 'bg-olive text-cream shadow-sm font-bold'
                   : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
               }`}
             >
               Tất cả
-            </button>
+            </Link>
             {categories.map((cat) => (
-              <button
+              <Link
                 key={cat.id}
+                href={`/chia-se/chu-de/${cat.slug}`}
+                scroll={false}
                 onClick={() => setSelectedCategory(cat.slug)}
-                className={`text-xs font-semibold py-2.5 px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
+                className={`text-xs font-semibold py-2.5 px-3 sm:px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
                   selectedCategory === cat.slug
                     ? 'bg-olive text-cream shadow-sm font-bold'
                     : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
                 }`}
               >
                 {cat.name}
-              </button>
+              </Link>
             ))}
           </div>
         </div>

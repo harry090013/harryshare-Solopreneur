@@ -5,6 +5,21 @@ import type { Metadata } from 'next';
 
 export const revalidate = 60;
 
+export async function generateStaticParams() {
+  try {
+    const categories = await db.category.findMany({
+      where: { type: 'post' },
+      select: { slug: true }
+    });
+    return categories.map((cat) => ({
+      categorySlug: cat.slug,
+    }));
+  } catch (err) {
+    console.error('Failed to generate static params for category:', err);
+    return [];
+  }
+}
+
 interface Props {
   params: Promise<{ categorySlug: string }>;
   searchParams: Promise<{ search?: string }>;
@@ -71,6 +86,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       { id: '2', name: 'Thương hiệu cá nhân', slug: 'thuong-hieu-ca-nhan' },
       { id: '3', name: 'Công nghệ & AI', slug: 'cong-nghe-ai' },
       { id: '4', name: 'Hành trình làm nghề', slug: 'hanh-trinh-lam-nghe' },
+      { id: '5', name: 'Tuổi trẻ & Thanh Xuân', slug: 'tuoi-tre-thanh-xuan' },
     ];
     
     posts = [
@@ -86,11 +102,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       }
     ];
   }
-
-  // Filter posts for this category
-  const categoryFilteredPosts = posts.filter(
-    (post) => post.category?.slug === categorySlug
-  );
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col gap-12 animate-slide-up">
@@ -108,7 +119,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       </div>
 
       <ChiaSeClient 
-        initialPosts={categoryFilteredPosts} 
+        initialPosts={posts} 
         categories={categories} 
         urlCategory={categorySlug}
         urlSearch={urlSearch}
