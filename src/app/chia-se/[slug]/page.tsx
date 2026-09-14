@@ -28,6 +28,33 @@ export async function generateStaticParams() {
   }
 }
 
+function extractYoutubeId(str: string): string | null {
+  if (!str || typeof str !== 'string') return null;
+  const match = str.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  return match ? match[1] : null;
+}
+
+function findYoutubeInChildren(children: React.ReactNode): string | null {
+  for (const child of React.Children.toArray(children)) {
+    if (typeof child === 'string') {
+      const yt = extractYoutubeId(child);
+      if (yt) return yt;
+    }
+    if (React.isValidElement(child)) {
+      const props = child.props as any;
+      if (props && props.href) {
+        const yt = extractYoutubeId(props.href);
+        if (yt) return yt;
+      }
+      if (props && props.children) {
+        const sub = findYoutubeInChildren(props.children);
+        if (sub) return sub;
+      }
+    }
+  }
+  return null;
+}
+
 // Cache post fetch to prevent multiple DB queries for metadata & page render
 const getPost = cache(async (slug: string) => {
   try {
@@ -262,43 +289,46 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
                 components={{
                   h2: ({node, ...props}) => <h2 className="text-2xl font-bold font-serif text-stone-850 mt-8 mb-4 leading-snug border-b border-olive/5 pb-2" {...props} />,
                   h3: ({node, ...props}) => <h3 className="text-xl font-bold font-serif text-stone-850 mt-6 mb-3 leading-snug" {...props} />,
-                  p: ({node, ...props}) => <p className="leading-relaxed mb-4 text-stone-700 text-justify" {...props} />,
+                  p: ({node, children, ...props}: any) => {
+                    const ytId = findYoutubeInChildren(children);
+                    if (ytId) {
+                      return (
+                        <div className="my-8 not-prose w-full">
+                          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-olive/20 bg-stone-900">
+                            <iframe
+                              src={`https://www.youtube.com/embed/${ytId}?rel=0`}
+                              title="YouTube video player"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                              className="absolute inset-0 w-full h-full border-0"
+                            />
+                          </div>
+                        </div>
+                      );
+                    }
+                    return <p className="leading-relaxed mb-4 text-stone-700 text-justify" {...props}>{children}</p>;
+                  },
                   blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-olive bg-sand/30 pl-4 py-2 my-4 rounded-r-lg font-serif italic text-stone-600" {...props} />,
                   ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
                   ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
                   li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
                   strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
                   a: ({node, href, children, ...props}: any) => {
-                    const urlStr = href || '';
-                    if (urlStr.includes('youtube.com/watch') || urlStr.includes('youtu.be/')) {
-                      let videoId = '';
-                      try {
-                        if (urlStr.includes('youtu.be/')) {
-                          videoId = urlStr.split('youtu.be/')[1]?.split('?')[0]?.split('&')[0] || '';
-                        } else if (urlStr.includes('youtube.com/watch')) {
-                          const urlObj = new URL(urlStr.startsWith('http') ? urlStr : `https://${urlStr}`);
-                          videoId = urlObj.searchParams.get('v') || '';
-                        }
-                      } catch {}
-
-                      if (videoId) {
-                        return (
-                          <span className="block my-6 not-prose">
-                            <span className="relative block w-full aspect-video rounded-2xl overflow-hidden shadow-lg border border-olive/15 bg-stone-900">
-                              <iframe
-                                src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-                                title="YouTube video player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowFullScreen
-                                className="absolute inset-0 w-full h-full border-0"
-                              />
-                            </span>
-                            <span className="block text-center text-xs text-stone-500 mt-2 font-sans italic">
-                              {children || 'Thước phim kỷ niệm'}
-                            </span>
-                          </span>
-                        );
-                      }
+                    const ytId = extractYoutubeId(href || '');
+                    if (ytId) {
+                      return (
+                        <div className="my-8 not-prose w-full">
+                          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-olive/20 bg-stone-900">
+                            <iframe
+                              src={`https://www.youtube.com/embed/${ytId}?rel=0`}
+                              title="YouTube video player"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                              className="absolute inset-0 w-full h-full border-0"
+                            />
+                          </div>
+                        </div>
+                      );
                     }
                     return <a href={href} className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props}>{children}</a>;
                   },
