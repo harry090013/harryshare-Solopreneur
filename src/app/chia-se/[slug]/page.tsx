@@ -268,7 +268,40 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
                   ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
                   li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
                   strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
-                  a: ({node, ...props}) => <a className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props} />,
+                  a: ({node, href, children, ...props}: any) => {
+                    const urlStr = href || '';
+                    if (urlStr.includes('youtube.com/watch') || urlStr.includes('youtu.be/')) {
+                      let videoId = '';
+                      try {
+                        if (urlStr.includes('youtu.be/')) {
+                          videoId = urlStr.split('youtu.be/')[1]?.split('?')[0]?.split('&')[0] || '';
+                        } else if (urlStr.includes('youtube.com/watch')) {
+                          const urlObj = new URL(urlStr.startsWith('http') ? urlStr : `https://${urlStr}`);
+                          videoId = urlObj.searchParams.get('v') || '';
+                        }
+                      } catch {}
+
+                      if (videoId) {
+                        return (
+                          <span className="block my-6 not-prose">
+                            <span className="relative block w-full aspect-video rounded-2xl overflow-hidden shadow-lg border border-olive/15 bg-stone-900">
+                              <iframe
+                                src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                                title="YouTube video player"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                                className="absolute inset-0 w-full h-full border-0"
+                              />
+                            </span>
+                            <span className="block text-center text-xs text-stone-500 mt-2 font-sans italic">
+                              {children || 'Thước phim kỷ niệm'}
+                            </span>
+                          </span>
+                        );
+                      }
+                    }
+                    return <a href={href} className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props}>{children}</a>;
+                  },
                 }}
               >
                 {post.content}
