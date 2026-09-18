@@ -241,7 +241,7 @@ export default function ProjectsClient({
                     {item.title}
                   </h3>
                   
-                  <p className="text-stone-550 text-xs leading-relaxed font-sans line-clamp-3 text-left">
+                  <p className="text-stone-550 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
                     {item.description}
                   </p>
                   
