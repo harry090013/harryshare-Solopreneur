@@ -79,14 +79,14 @@ export default function Footer() {
             <p className="text-sm text-stone-600 leading-relaxed font-sans max-w-sm">
               HarryShare là góc nhỏ chia sẻ về tư duy sản phẩm, thương hiệu cá nhân, công nghệ, AI và câu chuyện chân thực về hành trình làm nghề của Harry.
             </p>
-            <p className="text-xs text-stone-400 font-semibold uppercase tracking-wider mt-2">
+            <p className="text-[13px] text-stone-500 font-semibold uppercase tracking-wider mt-2">
               © {new Date().getFullYear()} HarryShare. All rights reserved.
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="md:col-span-2 flex flex-col gap-4">
-            <p className="text-xs font-bold text-stone-400 uppercase tracking-widest leading-none">Liên kết</p>
+            <p className="text-[13px] font-bold text-stone-500 uppercase tracking-widest leading-none">Liên kết</p>
             <ul className="flex flex-col gap-2">
               {quickLinks.map((link) => (
                 <li key={link.path}>
@@ -100,7 +100,7 @@ export default function Footer() {
 
           {/* Topics Links */}
           <div className="md:col-span-2 flex flex-col gap-4">
-            <p className="text-xs font-bold text-stone-400 uppercase tracking-widest leading-none">Chủ đề</p>
+            <p className="text-[13px] font-bold text-stone-500 uppercase tracking-widest leading-none">Chủ đề</p>
             <ul className="flex flex-col gap-2">
               {topics.map((topic) => (
                 <li key={topic.path}>
@@ -114,36 +114,47 @@ export default function Footer() {
 
           {/* Newsletter Box */}
           <div className="md:col-span-3 flex flex-col gap-4">
-            <p className="text-xs font-bold text-stone-400 uppercase tracking-widest leading-none">Newsletter</p>
+            <p id="newsletter-heading" className="text-[13px] font-bold text-stone-500 uppercase tracking-widest leading-none">Newsletter</p>
             <p className="text-xs text-stone-600 leading-relaxed">
               Nhận thông báo bài viết mới nhất và tài nguyên độc quyền trực tiếp vào hòm thư của bạn.
             </p>
-            <form onSubmit={handleSubscribe} className="flex flex-col gap-2 mt-1">
+            <form onSubmit={handleSubscribe} aria-labelledby="newsletter-heading" className="flex flex-col gap-2 mt-1">
+              <label id="newsletter-label" htmlFor="newsletter-email" className="sr-only">
+                Đăng ký nhận bản tin qua email
+              </label>
               <div className="relative flex items-center">
                 <input
+                  id="newsletter-email"
+                  name="email"
                   type="email"
-                  placeholder="Email của bạn..."
                   required
+                  autoComplete="email"
+                  inputMode="email"
+                  placeholder="Email của bạn..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={status === 'loading'}
-                  className="w-full pl-3 pr-10 py-2 text-sm rounded-xl border border-olive/10 bg-cream/80 focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all placeholder:text-stone-400"
+                  aria-label="Nhập email của bạn để đăng ký nhận bản tin"
+                  aria-invalid={status === 'error'}
+                  aria-describedby={status !== 'idle' ? 'newsletter-status' : undefined}
+                  className="w-full pl-3 pr-10 py-2 text-sm rounded-xl border border-olive/10 bg-cream/80 focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all placeholder:text-stone-500"
                 />
                 <button
                   type="submit"
                   disabled={status === 'loading'}
                   className="absolute right-1 p-1.5 rounded-lg bg-olive text-cream hover:bg-olive-dark transition-all disabled:opacity-50 cursor-pointer active:scale-95"
-                  title="Đăng ký"
+                  aria-label="Đăng ký nhận bản tin"
+                  title="Đăng ký nhận bản tin"
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  <Send className="w-3.5 h-3.5" aria-hidden="true" />
                 </button>
               </div>
 
               {/* Status Message */}
               {status === 'success' && (
-                <div className="flex flex-col gap-1.5 mt-1 animate-fade-in">
+                <div id="newsletter-status" role="status" aria-live="polite" className="flex flex-col gap-1.5 mt-1 animate-fade-in">
                   <div className="flex items-center gap-1.5 text-xs text-olive font-medium">
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                     <span>{message}</span>
                   </div>
                   {downloadUrl && (
@@ -158,8 +169,8 @@ export default function Footer() {
                 </div>
               )}
               {status === 'error' && (
-                <div className="flex items-center gap-1.5 text-xs text-red-600 font-medium mt-1 animate-fade-in">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <div id="newsletter-status" role="status" aria-live="polite" className="flex items-center gap-1.5 text-xs text-red-600 font-medium mt-1 animate-fade-in">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                   <span>{message}</span>
                 </div>
               )}

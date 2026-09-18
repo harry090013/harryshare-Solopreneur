@@ -149,7 +149,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-20 pb-20">
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden pt-12 md:pt-20">
+      <section aria-labelledby="hero-title" className="relative overflow-hidden pt-12 md:pt-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
@@ -157,10 +157,10 @@ export default async function Home() {
               <span className="text-xs font-bold text-olive uppercase tracking-widest bg-olive/5 px-3 py-1.5 rounded-full w-fit">
                 {homepageSetting.welcomeText}
               </span>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-black text-stone-850 leading-tight">
+              <h1 id="hero-title" className="font-serif text-4xl sm:text-5xl lg:text-6xl font-black text-stone-850 leading-tight">
                 {homepageSetting.title}
               </h1>
-              <p className="text-lg text-stone-600 leading-relaxed font-sans text-justify">
+              <p className="text-lg text-stone-600 leading-relaxed font-sans text-left">
                 {homepageSetting.description}
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
@@ -187,13 +187,13 @@ export default async function Home() {
       </section>
 
       {/* 2. Brand Pillars Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+      <section aria-labelledby="pillars-heading" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
         <div className="bg-cream/45 border border-olive/10 rounded-3xl p-8 md:p-10 backdrop-blur-md shadow-sm">
           <div className="text-center max-w-2xl mx-auto mb-10 flex flex-col gap-2">
             <span className="text-[10px] font-bold text-olive uppercase tracking-widest bg-olive/5 px-3 py-1 rounded-full w-fit mx-auto">
               Định vị giá trị
             </span>
-            <h2 className="font-serif text-2xl md:text-3xl font-extrabold text-stone-850">
+            <h2 id="pillars-heading" className="font-serif text-2xl md:text-3xl font-extrabold text-stone-850">
               3 Trụ Cột Hành Trình của Harry
             </h2>
             <p className="text-stone-500 text-sm font-sans">
@@ -210,7 +210,7 @@ export default async function Home() {
               <h3 className="font-serif font-bold text-lg text-stone-850">
                 {homepageSetting.pillar1Title}
               </h3>
-              <p className="text-stone-600 text-sm leading-relaxed font-sans text-justify">
+              <p className="text-stone-600 text-sm leading-relaxed font-sans text-left">
                 {homepageSetting.pillar1Desc}
               </p>
             </div>
@@ -223,7 +223,7 @@ export default async function Home() {
               <h3 className="font-serif font-bold text-lg text-stone-850">
                 {homepageSetting.pillar2Title}
               </h3>
-              <p className="text-stone-600 text-sm leading-relaxed font-sans text-justify">
+              <p className="text-stone-600 text-sm leading-relaxed font-sans text-left">
                 {homepageSetting.pillar2Desc}
               </p>
             </div>
@@ -236,7 +236,7 @@ export default async function Home() {
               <h3 className="font-serif font-bold text-lg text-stone-850">
                 {homepageSetting.pillar3Title}
               </h3>
-              <p className="text-stone-600 text-sm leading-relaxed font-sans text-justify">
+              <p className="text-stone-600 text-sm leading-relaxed font-sans text-left">
                 {homepageSetting.pillar3Desc}
               </p>
             </div>
@@ -245,10 +245,11 @@ export default async function Home() {
       </section>
 
       {/* 3. Topics Grid (4 Categories) */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 3. Topics Grid (4 Categories) */}
+      <section aria-labelledby="topics-heading" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-10">
           <div className="text-center max-w-xl mx-auto flex flex-col gap-2">
-            <h2 className="font-serif text-3xl font-extrabold text-stone-850">
+            <h2 id="topics-heading" className="font-serif text-3xl font-extrabold text-stone-850">
               Các cụm nội dung chính
             </h2>
             <p className="text-stone-500 text-sm">
@@ -272,7 +273,7 @@ export default async function Home() {
                     <h3 className="font-serif font-bold text-stone-800 group-hover:text-olive transition-colors leading-snug">
                       {topic.name}
                     </h3>
-                    <p className="text-stone-500 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
+                    <p className="text-stone-500 text-xs leading-relaxed font-sans line-clamp-3 text-left">
                       {topic.description}
                     </p>
                   </div>
@@ -288,11 +289,11 @@ export default async function Home() {
       </section>
 
       {/* 4. Recent Notes (Ghi chép mới) */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section aria-labelledby="recent-notes-heading" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-10">
           <div className="flex justify-between items-end border-b border-olive/5 pb-4">
             <div className="flex flex-col gap-1.5 text-left">
-              <h2 className="font-serif text-3xl font-extrabold text-stone-850">
+              <h2 id="recent-notes-heading" className="font-serif text-3xl font-extrabold text-stone-850">
                 Ghi chép mới nhất
               </h2>
               <p className="text-stone-500 text-sm">Những đúc kết, góc nhìn thực tế được cập nhật hàng tuần.</p>
@@ -345,7 +346,7 @@ export default async function Home() {
                     </Link>
                   </h3>
                   
-                  <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
+                  <p className="text-stone-600 text-xs leading-relaxed font-sans line-clamp-3 text-left">
                     {post.description}
                   </p>
 
@@ -375,10 +376,10 @@ export default async function Home() {
 
       {/* 5. Projects & Resources (Dự án & Tài nguyên số nổi bật) */}
       {featuredResources.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section aria-labelledby="featured-resources-heading" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-10">
             <div className="text-left border-b border-olive/5 pb-4 flex flex-col gap-1.5">
-              <h2 className="font-serif text-3xl font-extrabold text-stone-850">
+              <h2 id="featured-resources-heading" className="font-serif text-3xl font-extrabold text-stone-850">
                 Dự án & Tài nguyên nổi bật
               </h2>
               <p className="text-stone-500 text-sm">Các công cụ đắc lực và bộ tài liệu miễn phí hỗ trợ bạn tối đa.</p>
@@ -404,7 +405,7 @@ export default async function Home() {
                   </div>
 
                   <div className="p-5 flex flex-col gap-2 flex-1">
-                    <h3 className="font-serif font-bold text-stone-850 leading-snug group-hover:text-olive transition-colors line-clamp-1">
+                    <h3 className="font-serif font-bold text-stone-850 leading-snug group-hover:text-olive transition-colors line-clamp-2">
                       {resource.title}
                     </h3>
                     <p className="text-stone-500 text-xs leading-relaxed font-sans line-clamp-2">
@@ -414,19 +415,22 @@ export default async function Home() {
                     <a 
                       href={resource.url} 
                       target={resource.url.startsWith('http') ? "_blank" : "_self"}
-                      rel="noopener noreferrer"
+                      rel={resource.url.startsWith('http') ? "noopener noreferrer" : undefined}
                       className="flex items-center gap-1.5 text-xs font-bold text-olive uppercase tracking-widest mt-auto pt-4 group-hover:text-olive-dark transition-colors"
                     >
                       {resource.type === 'tool' ? (
                         <>
                           Khám phá công cụ
-                          <ExternalLink className="w-3.5 h-3.5" />
+                          <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                         </>
                       ) : (
                         <>
                           Tải tài liệu ngay
-                          <Download className="w-3.5 h-3.5" />
+                          <Download className="w-3.5 h-3.5" aria-hidden="true" />
                         </>
+                      )}
+                      {resource.url.startsWith('http') && (
+                        <span className="sr-only">(mở trong tab mới)</span>
                       )}
                     </a>
                   </div>

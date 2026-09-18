@@ -241,7 +241,7 @@ export default function ProjectsClient({
                     {item.title}
                   </h3>
                   
-                  <p className="text-stone-550 text-xs leading-relaxed font-sans line-clamp-3 text-justify">
+                  <p className="text-stone-550 text-xs leading-relaxed font-sans line-clamp-3 text-left">
                     {item.description}
                   </p>
                   
@@ -251,11 +251,14 @@ export default function ProjectsClient({
                       <a 
                         href={item.url} 
                         target={item.url.startsWith('http') ? "_blank" : "_self"}
-                        rel="noopener noreferrer"
+                        rel={item.url.startsWith('http') ? "noopener noreferrer" : undefined}
                         className="inline-flex items-center justify-between w-full py-2.5 px-4 text-xs font-bold text-olive hover:text-cream border border-olive/20 hover:bg-olive rounded-xl shadow-xs transition-all duration-300 cursor-pointer"
                       >
                         <span>Khám Phá Công Cụ</span>
-                        <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
+                        {item.url.startsWith('http') && (
+                          <span className="sr-only">(mở trong tab mới)</span>
+                        )}
                       </a>
                     ) : (
                       <button 

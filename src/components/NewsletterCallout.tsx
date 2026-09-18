@@ -46,36 +46,47 @@ export default function NewsletterCallout() {
         </p>
       </div>
 
-      <form onSubmit={handleSubscribe} className="w-full md:w-auto flex flex-col gap-2 shrink-0 min-w-[280px] md:min-w-[340px]">
+      <form onSubmit={handleSubscribe} aria-label="Đăng ký nhận tài nguyên" className="w-full md:w-auto flex flex-col gap-2 shrink-0 min-w-[280px] md:min-w-[340px]">
+        <label htmlFor="callout-email" className="sr-only">
+          Đăng ký nhận tài nguyên và cẩm nang qua email
+        </label>
         {status === 'success' ? (
-          <div className="flex items-center gap-2 text-olive text-xs font-semibold bg-olive/5 border border-olive/10 rounded-xl p-3">
-            <CheckCircle className="w-4 h-4 shrink-0" />
+          <div id="callout-status" role="status" aria-live="polite" className="flex items-center gap-2 text-olive text-xs font-semibold bg-olive/5 border border-olive/10 rounded-xl p-3">
+            <CheckCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span>{message}</span>
           </div>
         ) : (
           <>
             <div className="flex gap-2">
               <input
+                id="callout-email"
+                name="email"
                 type="email"
-                placeholder="Email của bạn..."
                 required
+                autoComplete="email"
+                inputMode="email"
+                placeholder="Email của bạn..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={status === 'loading'}
-                className="flex-1 px-4 py-2 text-xs rounded-xl border border-olive/10 bg-cream focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all text-stone-700 placeholder:text-stone-400"
+                aria-label="Nhập email của bạn để đăng ký nhận bản tin"
+                aria-invalid={status === 'error'}
+                aria-describedby={status === 'error' ? 'callout-status' : undefined}
+                className="flex-1 px-4 py-2 text-xs rounded-xl border border-olive/10 bg-cream focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all text-stone-700 placeholder:text-stone-500"
               />
               <button
                 type="submit"
                 disabled={status === 'loading'}
                 className="bg-olive hover:bg-olive-dark text-cream text-xs font-bold px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-sm hover:shadow active:scale-[0.98]"
+                aria-label="Đăng ký nhận bản tin"
               >
                 <span>Đăng ký</span>
-                <Send className="w-3 h-3" />
+                <Send className="w-3 h-3" aria-hidden="true" />
               </button>
             </div>
             {status === 'error' && (
-              <div className="flex items-center gap-1.5 text-red-600 text-[10px] font-semibold">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <div id="callout-status" role="status" aria-live="polite" className="flex items-center gap-1.5 text-red-600 text-[10px] font-semibold">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                 <span>{message}</span>
               </div>
             )}

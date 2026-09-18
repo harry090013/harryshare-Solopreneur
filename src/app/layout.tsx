@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Merriweather } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import MusicPlayer from '@/components/MusicPlayer';
 import JsonLd from '@/components/JsonLd';
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -74,6 +75,13 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Harry (Quang Hiếu)',
+    jobTitle: 'Solopreneur & Product Builder',
+    knowsAbout: [
+      'Product Thinking',
+      'Personal Branding',
+      'AI',
+      'Solopreneurship',
+    ],
     url: 'https://harryshare.vn',
     image: 'https://harryshare.vn/harry_share_avt.png',
     logo: 'https://harryshare.vn/logo.png',
@@ -89,6 +97,14 @@ export default function RootLayout({
       className={`${inter.variable} ${merriweather.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream bg-dot-pattern selection:bg-olive/10 selection:text-olive">
+        {/* WCAG Skip Link */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-xl focus:bg-olive focus:text-cream focus:shadow-lg focus:outline-none font-semibold text-sm"
+        >
+          Bỏ qua tới nội dung chính
+        </a>
+
         <JsonLd data={websiteSchema} />
         <JsonLd data={personSchema} />
         
@@ -96,12 +112,13 @@ export default function RootLayout({
         <Navbar />
 
         {/* Main Content Pages */}
-        <main className="flex-grow flex flex-col">
+        <main id="main-content" className="flex-grow flex flex-col">
           {children}
         </main>
 
-        {/* Footer */}
+        {/* Footer & Floating Music Player */}
         <Footer />
+        <MusicPlayer />
         <Analytics />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />

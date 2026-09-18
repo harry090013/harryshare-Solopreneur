@@ -153,4 +153,41 @@ html {
   animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* WCAG 2.4.7 Focus Visible */
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  a.bg-olive:focus-visible,
+  button.bg-olive:focus-visible,
+  a.border:focus-visible {
+    outline-color: var(--color-olive-dark);
+    outline-offset: 3px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* WCAG 2.3.3 Animation from Interactions */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
 
