@@ -43,7 +43,7 @@ export default async function AboutPage() {
   let aboutSetting = {
     title: "Về Harry (Quang Hiếu)",
     subtitle: "📖 Câu chuyện của mình",
-    avatarUrl: "/ve-harry.webp",
+    avatarUrl: "/harry-ca-mau.webp",
     description: "Harry sinh năm 2000, học chuyên ngành Công nghệ phần mềm. Nhưng tốt nghiệp xong, Harry nhận ra mình không hợp ngồi một chỗ ôm máy tính cả ngày. Chân Harry muốn đi, miệng Harry muốn nói. Nhờ kiến thức công nghệ làm nền tảng, Harry bước sang tự học marketing, làm vận hành, đi bưng bê tiệc cưới, và giờ là tự làm chủ. Trang web này đơn giản là cuốn nhật ký Harry tự viết cho bản thân 10 năm sau nhìn lại, và chia sẻ lại những bài học Harry đã tự thử sai trên hành trình của mình."
   };
   let timelineSteps = [];
