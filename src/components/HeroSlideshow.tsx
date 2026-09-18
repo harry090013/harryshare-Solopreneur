@@ -79,7 +79,8 @@ export default function HeroSlideshow({ slides }: HeroSlideshowProps) {
                   src={slide.imageUrl} 
                   alt={`Harry Hero Slide ${index + 1}`} 
                   fill 
-                  sizes="(max-width: 640px) 300px, (max-width: 768px) 350px, 380px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  quality={90}
                   priority={index === 0}
                   fetchPriority={index === 0 ? 'high' : 'low'}
                   className="object-cover hover:scale-105 transition-transform duration-700 ease-out" 
