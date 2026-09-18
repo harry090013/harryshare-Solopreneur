@@ -43,7 +43,7 @@ export default async function AboutPage() {
   let aboutSetting = {
     title: "Về Harry (Quang Hiếu)",
     subtitle: "📖 Câu chuyện của mình",
-    avatarUrl: "/api/media/53a545d8-073a-4a0d-b98f-a929df9a372c",
+    avatarUrl: "/ve-harry.webp",
     description: "Harry sinh năm 2000, học chuyên ngành Công nghệ phần mềm. Nhưng tốt nghiệp xong, Harry nhận ra mình không hợp ngồi một chỗ ôm máy tính cả ngày. Chân Harry muốn đi, miệng Harry muốn nói. Nhờ kiến thức công nghệ làm nền tảng, Harry bước sang tự học marketing, làm vận hành, đi bưng bê tiệc cưới, và giờ là tự làm chủ. Trang web này đơn giản là cuốn nhật ký Harry tự viết cho bản thân 10 năm sau nhìn lại, và chia sẻ lại những bài học Harry đã tự thử sai trên hành trình của mình."
   };
   let timelineSteps = [];
@@ -180,7 +180,7 @@ export default async function AboutPage() {
       {/* 1. Header Hero */}
       <div className="flex flex-col md:flex-row gap-10 items-center border-b border-olive/5 pb-12">
         <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-olive/15 bg-sand shrink-0 shadow-md">
-          <Image src={aboutSetting.avatarUrl} alt="Harry" fill sizes="(max-width: 768px) 144px, 176px" className="object-cover" />
+          <Image src={aboutSetting.avatarUrl} alt="Harry" fill sizes="(max-width: 768px) 144px, 176px" className="object-cover" priority />
         </div>
         <div className="flex flex-col gap-4 text-center md:text-left">
           <span className="text-xs font-bold text-olive uppercase tracking-widest bg-olive/5 px-3 py-1.5 rounded-full w-fit mx-auto md:mx-0">
@@ -189,7 +189,7 @@ export default async function AboutPage() {
           <h1 className="font-serif text-4xl font-black text-stone-850 leading-tight">
             {aboutSetting.title}
           </h1>
-          <p className="text-stone-600 text-sm md:text-base leading-relaxed whitespace-pre-line text-justify">
+          <p className="text-stone-600 text-sm md:text-base leading-relaxed whitespace-pre-line text-left">
             {aboutSetting.description}
           </p>
         </div>
@@ -234,7 +234,7 @@ export default async function AboutPage() {
                         {step.title}
                       </h3>
                       
-                      <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-sans whitespace-pre-line text-justify">
+                      <p className="text-stone-600 text-xs sm:text-sm leading-relaxed font-sans whitespace-pre-line text-left">
                         {step.description}
                       </p>
 
@@ -273,7 +273,7 @@ export default async function AboutPage() {
         <h3 className="font-serif text-xl sm:text-2xl font-bold z-10">
           Bạn có muốn trò chuyện sâu hơn cùng mình?
         </h3>
-        <p className="text-xs sm:text-sm text-cream/80 leading-relaxed max-w-lg z-10 text-justify">
+        <p className="text-xs sm:text-sm text-cream/80 leading-relaxed max-w-lg z-10 text-left">
           Hãy ghé thăm trang Liên hệ để gửi tin nhắn trực tiếp, hoặc đơn giản là bật khung chat ở góc phải bên dưới để tương tác ngay với Trợ lý AI của mình nhé!
         </p>
         <Link 
