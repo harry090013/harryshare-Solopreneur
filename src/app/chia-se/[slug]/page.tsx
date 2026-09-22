@@ -2,6 +2,7 @@ import React, { cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { ArrowLeft, Calendar, Clock, Bookmark } from 'lucide-react';
 import { db } from '@/lib/db';
 import ReadingProgressBar from '@/components/ReadingProgressBar';
@@ -286,6 +287,7 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
             {/* Markdown Rendered Content */}
             <div className="prose prose-stone max-w-none prose-headings:font-serif prose-headings:font-bold prose-headings:text-stone-850 prose-p:text-stone-700 prose-p:leading-relaxed prose-a:text-olive hover:prose-a:text-olive-dark prose-a:font-semibold prose-blockquote:border-l-4 prose-blockquote:border-olive prose-blockquote:bg-sand/30 prose-blockquote:pl-4 prose-blockquote:py-1 prose-blockquote:rounded-r-lg font-sans text-stone-700 text-base md:text-lg flex flex-col gap-6">
               <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
                 components={{
                   h2: ({node, ...props}) => <h2 className="text-2xl font-bold font-serif text-stone-850 mt-8 mb-4 leading-snug border-b border-olive/5 pb-2" {...props} />,
                   h3: ({node, ...props}) => <h3 className="text-xl font-bold font-serif text-stone-850 mt-6 mb-3 leading-snug" {...props} />,
@@ -313,6 +315,17 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
                   ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 flex flex-col gap-1.5 text-stone-700" {...props} />,
                   li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
                   strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
+                  hr: ({node, ...props}) => <hr className="my-8 border-t border-olive/10" {...props} />,
+                  table: ({node, ...props}) => (
+                    <div className="w-full my-6 overflow-x-auto rounded-2xl border border-olive/15 bg-cream/70 backdrop-blur-md shadow-xs not-prose">
+                      <table className="w-full text-left border-collapse text-xs sm:text-sm font-sans min-w-[550px]" {...props} />
+                    </div>
+                  ),
+                  thead: ({node, ...props}) => <thead className="bg-olive/10 border-b border-olive/15 text-stone-850 font-serif font-bold" {...props} />,
+                  tbody: ({node, ...props}) => <tbody className="divide-y divide-olive/10" {...props} />,
+                  tr: ({node, ...props}) => <tr className="hover:bg-olive/5 transition-colors" {...props} />,
+                  th: ({node, ...props}) => <th className="py-3 px-4 font-bold text-stone-850 whitespace-nowrap" {...props} />,
+                  td: ({node, ...props}) => <td className="py-3 px-4 text-stone-700 leading-relaxed align-top" {...props} />,
                   a: ({node, href, children, ...props}: any) => {
                     const ytId = extractYoutubeId(href || '');
                     if (ytId) {
@@ -341,7 +354,7 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
             {/* Author Box */}
             <div className="flex flex-col sm:flex-row gap-5 p-6 rounded-2xl border border-olive/10 bg-cream/70 backdrop-blur-md items-center sm:items-start text-center sm:text-left mt-4 shadow-sm">
               <div className="relative w-16 h-16 rounded-full overflow-hidden border border-olive/10 shrink-0 bg-sand">
-                <Image src="/harry_share_avt.webp" alt="Harry" fill sizes="64px" className="object-cover" />
+                <Image src="/harry-ca-mau.webp" alt="Harry" fill sizes="64px" className="object-cover" />
               </div>
               <div className="flex flex-col gap-2">
                 <div className="flex flex-col">

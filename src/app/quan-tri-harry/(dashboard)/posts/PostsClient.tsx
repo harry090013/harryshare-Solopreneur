@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { 
   Plus, Search, Edit, Trash2, Eye, Calendar, Clock, 
   ArrowLeft, Check, FileText, Sparkles, Globe, Lock, 
@@ -940,6 +941,7 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                       </div>
 
                       <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
                         components={{
                           h2: ({node, ...props}) => <h2 className="text-lg font-bold font-serif text-stone-850 mt-6 mb-3 leading-snug border-b border-olive/5 pb-1" {...props} />,
                           h3: ({node, ...props}) => <h3 className="text-base font-bold font-serif text-stone-850 mt-4 mb-2 leading-snug" {...props} />,
@@ -949,6 +951,17 @@ export default function PostsClient({ initialPosts, categories }: PostsClientPro
                           ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 flex flex-col gap-1 text-stone-700 text-xs" {...props} />,
                           li: ({node, ...props}) => <li className="leading-relaxed text-justify" {...props} />,
                           strong: ({node, ...props}) => <strong className="font-semibold text-stone-850" {...props} />,
+                          hr: ({node, ...props}) => <hr className="my-6 border-t border-olive/10" {...props} />,
+                          table: ({node, ...props}) => (
+                            <div className="w-full my-4 overflow-x-auto rounded-xl border border-olive/15 bg-cream/70 shadow-xs not-prose">
+                              <table className="w-full text-left border-collapse text-xs font-sans min-w-[450px]" {...props} />
+                            </div>
+                          ),
+                          thead: ({node, ...props}) => <thead className="bg-olive/10 border-b border-olive/15 text-stone-850 font-serif font-bold" {...props} />,
+                          tbody: ({node, ...props}) => <tbody className="divide-y divide-olive/10" {...props} />,
+                          tr: ({node, ...props}) => <tr className="hover:bg-olive/5 transition-colors" {...props} />,
+                          th: ({node, ...props}) => <th className="py-2.5 px-3 font-bold text-stone-850 whitespace-nowrap" {...props} />,
+                          td: ({node, ...props}) => <td className="py-2.5 px-3 text-stone-700 leading-relaxed align-top" {...props} />,
                           a: ({node, ...props}) => <a className="text-olive hover:text-olive-dark font-medium underline underline-offset-4 cursor-pointer" {...props} />,
                         }}
                       >
