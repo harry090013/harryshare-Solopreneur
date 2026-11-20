@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import { sendAdminOrderNotification } from '@/lib/email';
 
 async function checkAuth() {
   const cookieStore = await cookies();
@@ -47,6 +49,15 @@ export async function GET() {
 // POST: Create a new order (public)
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const { allowed, retryAfterSec } = checkRateLimit(`order:${ip}`, 5, 15 * 60 * 1000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: `Vui lòng thử lại sau ${retryAfterSec} giây.` },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { productId, customerName, customerEmail, customerPhone, note } = body;
 
@@ -87,6 +98,15 @@ export async function POST(request: Request) {
         product: true
       }
     });
+
+    // Notify admin via email (non-blocking)
+    sendAdminOrderNotification({
+      customerName,
+      customerEmail,
+      customerPhone,
+      note: note || '',
+      productTitle: product.title,
+    }).catch(() => {});
 
     return NextResponse.json(order, { status: 201 });
   } catch (error) {

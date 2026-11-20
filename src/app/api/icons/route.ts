@@ -12,13 +12,17 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    const topics = await db.topic.findMany({
+    const categories = await db.category.findMany({
       select: {
         icon: true
       }
     });
 
-    const usedIconNames = new Set(topics.map(t => t.icon.toLowerCase().trim()));
+    const usedIconNames = new Set(
+      categories
+        .map((c) => c.icon?.toLowerCase().trim())
+        .filter((icon): icon is string => Boolean(icon))
+    );
 
     const formattedIcons = icons.map(icon => ({
       ...icon,

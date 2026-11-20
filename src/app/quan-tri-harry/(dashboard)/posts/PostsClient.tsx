@@ -26,6 +26,7 @@ interface Post {
   description: string;
   content: string;
   coverImage: string;
+  audioUrl?: string | null;
   readTime: number;
   published: boolean;
   date: Date | string;

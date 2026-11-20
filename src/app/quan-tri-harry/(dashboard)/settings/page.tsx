@@ -7,8 +7,8 @@ export const revalidate = 0;
 export default async function SettingsPage() {
   let homepageSetting = null;
   let aboutSetting = null;
-  let slides = [];
-  let timeline = [];
+  let slides: any[] = [];
+  let timeline: any[] = [];
 
   try {
     const [homeResult, aboutResult, slidesResult, timelineResult] = await Promise.all([

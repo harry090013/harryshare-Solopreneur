@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import { sendAdminCommentNotification } from '@/lib/email';
 
 // GET: Fetch all approved comments for a specific post (by ID or Slug)
+// Security: Explicitly omit authorEmail from public response
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -16,7 +19,8 @@ export async function GET(
           { id },
           { slug: id }
         ]
-      }
+      },
+      select: { id: true }
     });
 
     if (!post) {
@@ -27,6 +31,15 @@ export async function GET(
       where: {
         postId: post.id,
         approved: true
+      },
+      select: {
+        id: true,
+        postId: true,
+        authorName: true,
+        content: true,
+        approved: true,
+        adminReply: true,
+        createdAt: true,
       },
       orderBy: {
         createdAt: 'asc'
@@ -49,13 +62,38 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const ip = getClientIp(request);
+    const { allowed, retryAfterSec } = checkRateLimit(`comment:${ip}`, 5, 10 * 60 * 1000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: `Bạn gửi bình luận hơi nhanh, vui lòng thử lại sau ${retryAfterSec} giây nhé.` },
+        { status: 429 }
+      );
+    }
+
     const { id } = await params;
     const body = await request.json();
-    const { authorName, authorEmail, content } = body;
+    const { authorName, authorEmail, content, website } = body;
 
-    if (!authorName || !content) {
+    // Honeypot silent drop
+    if (website && String(website).trim() !== '') {
+      return NextResponse.json({ success: true }, { status: 201 });
+    }
+
+    const cleanName = String(authorName || '').trim();
+    const cleanContent = String(content || '').trim();
+    const cleanEmail = authorEmail ? String(authorEmail).trim() : null;
+
+    if (!cleanName || !cleanContent) {
       return NextResponse.json(
         { error: 'Vui lòng nhập tên của bạn và nội dung bình luận.' },
+        { status: 400 }
+      );
+    }
+
+    if (cleanName.length > 80 || cleanContent.length > 2000) {
+      return NextResponse.json(
+        { error: 'Tên (tối đa 80 ký tự) hoặc nội dung bình luận (tối đa 2000 ký tự) quá dài.' },
         { status: 400 }
       );
     }
@@ -67,7 +105,8 @@ export async function POST(
           { id },
           { slug: id }
         ]
-      }
+      },
+      select: { id: true, title: true, slug: true }
     });
 
     if (!post) {
@@ -77,12 +116,29 @@ export async function POST(
     const newComment = await db.comment.create({
       data: {
         postId: post.id,
-        authorName,
-        authorEmail: authorEmail || null,
-        content,
+        authorName: cleanName,
+        authorEmail: cleanEmail,
+        content: cleanContent,
         approved: false // Requires admin moderation
+      },
+      select: {
+        id: true,
+        postId: true,
+        authorName: true,
+        content: true,
+        approved: true,
+        createdAt: true,
       }
     });
+
+    // Notify admin via email (non-blocking)
+    sendAdminCommentNotification({
+      authorName: cleanName,
+      authorEmail: cleanEmail,
+      content: cleanContent,
+      postTitle: post.title,
+      postSlug: post.slug,
+    }).catch(() => {});
 
     return NextResponse.json(newComment, { status: 201 });
   } catch (error) {

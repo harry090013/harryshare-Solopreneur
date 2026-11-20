@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function ProductsPage() {
-  let products = [];
-  let categories = [];
+  let products: any[] = [];
+  let categories: any[] = [];
 
   try {
     const [dbProducts, dbCategories] = await Promise.all([

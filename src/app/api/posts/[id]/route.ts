@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { db } from '@/lib/db';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth';
@@ -65,6 +66,11 @@ export async function PUT(
       }
     });
 
+    revalidatePath('/');
+    revalidatePath('/chia-se');
+    revalidatePath(`/chia-se/${updated.slug}`);
+    revalidatePath('/blog-sitemap.xml');
+
     return NextResponse.json(updated);
   } catch (error) {
     console.error('Post PUT error:', error);
@@ -84,9 +90,15 @@ export async function DELETE(
 
     const { id } = await params;
 
-    await db.post.delete({
-      where: { id }
+    const deleted = await db.post.delete({
+      where: { id },
+      select: { slug: true }
     });
+
+    revalidatePath('/');
+    revalidatePath('/chia-se');
+    revalidatePath(`/chia-se/${deleted.slug}`);
+    revalidatePath('/blog-sitemap.xml');
 
     return NextResponse.json({ success: true });
   } catch (error) {

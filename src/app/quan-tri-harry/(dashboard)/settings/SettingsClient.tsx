@@ -62,6 +62,7 @@ interface AboutTimeline {
   iconName: string;
   description: string;
   lesson: string;
+  imageUrl?: string | null;
   order: number;
 }
 

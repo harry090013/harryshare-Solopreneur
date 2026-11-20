@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 interface SearchParams {
   category?: string;
   search?: string;
+  page?: string;
 }
 
 export default async function ChiaSePage({
@@ -27,6 +28,7 @@ export default async function ChiaSePage({
   const resolvedParams = await searchParams;
   const urlCategory = resolvedParams.category || 'all';
   const urlSearch = resolvedParams.search || '';
+  const urlPage = Math.max(1, parseInt(resolvedParams.page || '1', 10) || 1);
 
   try {
     const now = new Date();
@@ -34,10 +36,22 @@ export default async function ChiaSePage({
       db.post.findMany({
         where: { published: true, date: { lte: now } },
         orderBy: { date: 'desc' },
-        include: { category: true }
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          description: true,
+          coverImage: true,
+          readTime: true,
+          date: true,
+          category: {
+            select: { id: true, name: true, slug: true }
+          }
+        }
       }),
       db.category.findMany({
-        where: { type: 'post' }
+        where: { type: 'post' },
+        select: { id: true, name: true, slug: true }
       })
     ]);
 
@@ -86,6 +100,7 @@ export default async function ChiaSePage({
         categories={categories} 
         urlCategory={urlCategory}
         urlSearch={urlSearch}
+        urlPage={urlPage}
       />
     </div>
   );

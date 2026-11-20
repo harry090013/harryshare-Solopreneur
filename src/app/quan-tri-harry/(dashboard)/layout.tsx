@@ -1,5 +1,6 @@
 import React from 'react';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { verifyToken } from '@/lib/auth';
 import AdminSidebar from '@/components/AdminSidebar';
 
@@ -13,7 +14,7 @@ export default async function AdminLayout({
   const decoded = token ? verifyToken(token) : null;
 
   if (!decoded) {
-    return <div className="min-h-screen bg-cream flex flex-col">{children}</div>;
+    redirect('/quan-tri-harry/login');
   }
 
   return (

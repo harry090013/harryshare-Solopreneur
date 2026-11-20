@@ -1,11 +1,18 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const ip = getClientIp(request);
+    const { allowed } = checkRateLimit(`track:${ip}`, 60, 5 * 60 * 1000);
+    if (!allowed) {
+      return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
+    }
+
     const { id } = await params;
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action'); // "view", "like", "share"

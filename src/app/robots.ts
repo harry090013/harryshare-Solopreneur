@@ -16,15 +16,27 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
       {
+        // Allow AI Search / Answer Engines (GEO) to index public articles
         userAgent: [
-          'GPTBot',
+          'OAI-SearchBot',
           'ChatGPT-User',
-          'ClaudeBot',
-          'Google-Extended',
-          'CCBot',
           'PerplexityBot',
+          'Claude-SearchBot',
+          'Google-Extended',
+          'Applebot-Extended',
+        ],
+        allow: '/',
+        disallow: [
+          '/quan-tri-harry/',
+          '/api/',
+          '/_next/',
+        ],
+      },
+      {
+        // Keep bulk scraper bots restricted
+        userAgent: [
+          'CCBot',
           'Omgilibot',
-          'cohere-ai'
         ],
         disallow: '/',
       }

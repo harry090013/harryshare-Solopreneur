@@ -29,9 +29,9 @@ const getTopicIcon = (iconName: string) => {
 };
 
 export default async function Home() {
-  let topics = [];
-  let latestPosts = [];
-  let featuredResources = [];
+  let topics: any[] = [];
+  let latestPosts: any[] = [];
+  let featuredResources: any[] = [];
   let slides: { id: string; imageUrl: string; order: number }[] = [];
 
   let homepageSetting = {

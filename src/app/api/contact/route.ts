@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import dns from 'dns/promises';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
+import { sendAdminContactNotification } from '@/lib/email';
 
 // Helper to filter bad words and spam content (Vietnamese & English)
 function isSpamOrBadContent(name: string, subject: string, message: string): boolean {
@@ -60,6 +62,15 @@ async function verifyEmailDomain(email: string): Promise<boolean> {
 
 export async function POST(request: Request) {
   try {
+    const ip = getClientIp(request);
+    const { allowed, retryAfterSec } = checkRateLimit(`contact:${ip}`, 5, 15 * 60 * 1000);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: `Bạn đã gửi quá nhiều tin nhắn. Vui lòng thử lại sau ${retryAfterSec} giây.` },
+        { status: 429 }
+      );
+    }
+
     const { name, email, phone, subject, message, website } = await request.json();
 
     // 1. HONEYPOT CHECK (Silent Drop / Shadow Ban)
@@ -110,6 +121,15 @@ export async function POST(request: Request) {
         message
       }
     });
+
+    // Notify admin via email (non-blocking)
+    sendAdminContactNotification({
+      name,
+      email,
+      phone: phone || null,
+      subject,
+      message,
+    }).catch(() => {});
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {

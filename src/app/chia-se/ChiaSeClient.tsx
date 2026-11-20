@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import { Search, Calendar, Clock, ArrowRight, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Category {
@@ -26,26 +27,46 @@ export default function ChiaSeClient({
   initialPosts, 
   categories,
   urlCategory = 'all',
-  urlSearch = ''
+  urlSearch = '',
+  urlPage = 1
 }: { 
   initialPosts: Post[]; 
   categories: Category[];
   urlCategory?: string;
   urlSearch?: string;
+  urlPage?: number;
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [selectedCategory, setSelectedCategory] = useState<string>(urlCategory);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(urlPage);
 
   // Sync category if URL category changes
   useEffect(() => {
     setSelectedCategory(urlCategory);
   }, [urlCategory]);
 
-  // Reset page to 1 when filters change
-  useEffect(() => {
+  // Sync URL query params for shareable pagination & search
+  const updateUrl = (page: number, search: string) => {
+    const params = new URLSearchParams();
+    if (search.trim()) params.set('search', search.trim());
+    if (page > 1) params.set('page', String(page));
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
     setCurrentPage(1);
-  }, [searchTerm, selectedCategory]);
+    updateUrl(1, value);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    updateUrl(page, searchTerm);
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  };
 
   const filteredPosts = initialPosts.filter(post => {
     const matchesSearch = 
@@ -57,9 +78,10 @@ export default function ChiaSeClient({
     return matchesSearch && matchesCategory;
   });
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
   const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  const safePage = Math.min(currentPage, Math.max(1, totalPages));
+  const startIndex = (safePage - 1) * itemsPerPage;
   const paginatedPosts = filteredPosts.slice(startIndex, startIndex + itemsPerPage);
 
   return (
@@ -73,7 +95,7 @@ export default function ChiaSeClient({
               type="text"
               placeholder="Tìm kiếm chia sẻ..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-olive/10 bg-cream focus:outline-none focus:border-olive/30 focus:ring-1 focus:ring-olive/30 transition-all placeholder:text-stone-400"
             />
             <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-stone-400" />
@@ -190,12 +212,9 @@ export default function ChiaSeClient({
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-2 mt-4">
               <button
-                onClick={() => {
-                  setCurrentPage(prev => Math.max(prev - 1, 1));
-                  window.scrollTo({ top: 300, behavior: 'smooth' });
-                }}
-                disabled={currentPage === 1}
-                className="p-2.5 rounded-xl border border-olive/10 bg-cream text-stone-600 hover:border-olive/35 hover:text-olive disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer bg-cream"
+                onClick={() => handlePageChange(Math.max(safePage - 1, 1))}
+                disabled={safePage === 1}
+                className="p-2.5 rounded-xl border border-olive/10 bg-cream text-stone-600 hover:border-olive/35 hover:text-olive disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
                 title="Trang trước"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -204,12 +223,9 @@ export default function ChiaSeClient({
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                 <button
                   key={page}
-                  onClick={() => {
-                    setCurrentPage(page);
-                    window.scrollTo({ top: 300, behavior: 'smooth' });
-                  }}
+                  onClick={() => handlePageChange(page)}
                   className={`w-10 h-10 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    currentPage === page
+                    safePage === page
                       ? 'bg-olive text-cream shadow-sm'
                       : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/35 hover:text-olive'
                   }`}
@@ -219,12 +235,9 @@ export default function ChiaSeClient({
               ))}
 
               <button
-                onClick={() => {
-                  setCurrentPage(prev => Math.min(prev + 1, totalPages));
-                  window.scrollTo({ top: 300, behavior: 'smooth' });
-                }}
-                disabled={currentPage === totalPages}
-                className="p-2.5 rounded-xl border border-olive/10 bg-cream text-stone-600 hover:border-olive/35 hover:text-olive disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer bg-cream"
+                onClick={() => handlePageChange(Math.min(safePage + 1, totalPages))}
+                disabled={safePage === totalPages}
+                className="p-2.5 rounded-xl border border-olive/10 bg-cream text-stone-600 hover:border-olive/35 hover:text-olive disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
                 title="Trang sau"
               >
                 <ChevronRight className="w-4 h-4" />

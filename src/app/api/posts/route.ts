@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { db } from '@/lib/db';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth';
@@ -52,6 +53,11 @@ export async function POST(request: Request) {
         date: date ? new Date(date) : new Date()
       }
     });
+
+    revalidatePath('/');
+    revalidatePath('/chia-se');
+    revalidatePath(`/chia-se/${post.slug}`);
+    revalidatePath('/blog-sitemap.xml');
 
     return NextResponse.json(post, { status: 201 });
   } catch (error) {

@@ -13,12 +13,11 @@ export default function Navbar() {
   const toggleRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
-  if (pathname?.startsWith('/quan-tri-harry')) {
-    return null;
-  }
+  const isAdminRoute = pathname?.startsWith('/quan-tri-harry');
 
   // Optimized passive scroll listener with requestAnimationFrame
   useEffect(() => {
+    if (isAdminRoute) return;
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -32,11 +31,11 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isAdminRoute]);
 
   // Mobile menu focus trap and ESC key handling
   useEffect(() => {
-    if (!isOpen) return;
+    if (isAdminRoute || !isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -76,7 +75,11 @@ export default function Navbar() {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = prevOverflow;
     };
-  }, [isOpen]);
+  }, [isAdminRoute, isOpen]);
+
+  if (isAdminRoute) {
+    return null;
+  }
 
   const navItems = [
     { name: 'Trang chủ', path: '/', icon: Compass },

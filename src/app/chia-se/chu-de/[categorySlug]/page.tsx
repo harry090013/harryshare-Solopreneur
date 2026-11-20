@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 
 interface Props {
   params: Promise<{ categorySlug: string }>;
-  searchParams: Promise<{ search?: string }>;
+  searchParams: Promise<{ search?: string; page?: string }>;
 }
 
 // Caching query function to avoid duplicate calls for metadata and render
@@ -31,15 +31,32 @@ const getCategoryData = React.cache(async (categorySlug: string) => {
     const now = new Date();
     const [category, dbPosts, dbCategories] = await Promise.all([
       db.category.findFirst({
-        where: { slug: categorySlug, type: 'post' }
+        where: { slug: categorySlug, type: 'post' },
+        select: { id: true, name: true, slug: true, description: true }
       }),
       db.post.findMany({
-        where: { published: true, date: { lte: now } },
+        where: {
+          published: true,
+          date: { lte: now },
+          category: { slug: categorySlug }
+        },
         orderBy: { date: 'desc' },
-        include: { category: true }
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          description: true,
+          coverImage: true,
+          readTime: true,
+          date: true,
+          category: {
+            select: { id: true, name: true, slug: true }
+          }
+        }
       }),
       db.category.findMany({
-        where: { type: 'post' }
+        where: { type: 'post' },
+        select: { id: true, name: true, slug: true }
       })
     ]);
     return { category, dbPosts, dbCategories };
@@ -75,10 +92,20 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const { category, dbPosts, dbCategories } = await getCategoryData(categorySlug);
   const resolvedSearchParams = await searchParams;
   const urlSearch = resolvedSearchParams.search || '';
+  const urlPage = Math.max(1, parseInt(resolvedSearchParams.page || '1', 10) || 1);
 
   // Fallback mocks if DB connection is empty/failed
-  let posts = dbPosts || [];
-  let categories = dbCategories || [];
+  let posts: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    description: string;
+    coverImage: string;
+    readTime: number;
+    date: Date;
+    category: { id: string; name: string; slug: string };
+  }> = dbPosts || [];
+  let categories: Array<{ id: string; name: string; slug: string }> = dbCategories || [];
 
   if (posts.length === 0 && categories.length === 0) {
     categories = [
@@ -123,6 +150,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         categories={categories} 
         urlCategory={categorySlug}
         urlSearch={urlSearch}
+        urlPage={urlPage}
       />
     </div>
   );

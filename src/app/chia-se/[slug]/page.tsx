@@ -1,15 +1,17 @@
 import React, { cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ArrowLeft, Calendar, Clock, Bookmark } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Clock, Bookmark } from 'lucide-react';
 import { db } from '@/lib/db';
 import ReadingProgressBar from '@/components/ReadingProgressBar';
 import PostComments from '@/components/PostComments';
 import ArticleActionsWrapper from '@/components/ArticleActionsWrapper';
 import JsonLd from '@/components/JsonLd';
 import TableOfContents from '@/components/TableOfContents';
+import NewsletterCallout from '@/components/NewsletterCallout';
 import type { Metadata } from 'next';
 
 export const revalidate = 60;
@@ -109,38 +111,27 @@ export default async function PostDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let post = await getPost(slug);
-  
-  let relatedPosts: any[] = [];
+  const post = await getPost(slug);
 
-  // Fallbacks if DB query fails or post not found in DB
   if (!post) {
-    const mockPosts = [
-      {
-        id: '1',
-        title: 'Tư duy Product-Led Growth cho Solopreneur',
-        slug: 'tu-duy-product-led-growth-cho-solopreneur',
-        description: 'Làm sao để sản phẩm của bạn tự bán chính nó? Khám phá cách Solopreneur áp dụng mô hình Product-Led Growth để phát triển bền vững.',
-        coverImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
-        readTime: 6,
-        date: new Date('2026-05-10'),
-        views: 120,
-        likes: 15,
-        shares: 4,
-        category: { name: 'Tư duy sản phẩm', slug: 'tu-duy-san-pham' },
-        categoryId: 't1',
-        content: `## Giới thiệu về Product-Led Growth (PLG)
-Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một chiến lược kinh doanh trong đó **sản phẩm chính là động lực thúc đẩy chính**...`
-      }
-    ];
-    post = mockPosts.find(p => p.slug === slug) || null;
+    notFound();
   }
 
-  // Query related posts
-  if (post && post.id) {
-    try {
-      const now = new Date();
-      relatedPosts = await db.post.findMany({
+  let relatedPosts: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    coverImage: string;
+    category: { name: string; slug: string } | null;
+  }> = [];
+  let prevPost: { title: string; slug: string } | null = null;
+  let nextPost: { title: string; slug: string } | null = null;
+
+  // Query related posts and prev/next navigation in parallel
+  try {
+    const now = new Date();
+    const [dbRelated, dbPrev, dbNext] = await Promise.all([
+      db.post.findMany({
         where: {
           published: true,
           date: { lte: now },
@@ -149,23 +140,36 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
         },
         orderBy: { date: 'desc' },
         take: 3,
-        include: { category: true }
-      });
-    } catch (err) {
-      console.error('Failed to query related posts:', err);
-    }
-  }
-
-  if (!post) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center flex flex-col items-center gap-4">
-        <h1 className="font-serif text-3xl font-bold text-stone-850">Bài viết không tồn tại</h1>
-        <p className="text-stone-500">Bài viết bạn đang tìm kiếm không tồn tại hoặc đã bị ẩn.</p>
-        <Link href="/chia-se" className="flex items-center gap-1.5 text-sm font-semibold text-olive hover:underline">
-          <ArrowLeft className="w-4 h-4" /> Quay lại góc chia sẻ
-        </Link>
-      </div>
-    );
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          coverImage: true,
+          category: { select: { name: true, slug: true } }
+        }
+      }),
+      db.post.findFirst({
+        where: {
+          published: true,
+          date: { lt: post.date }
+        },
+        orderBy: { date: 'desc' },
+        select: { title: true, slug: true }
+      }),
+      db.post.findFirst({
+        where: {
+          published: true,
+          date: { gt: post.date, lte: now }
+        },
+        orderBy: { date: 'asc' },
+        select: { title: true, slug: true }
+      })
+    ]);
+    relatedPosts = dbRelated;
+    prevPost = dbPrev;
+    nextPost = dbNext;
+  } catch (err) {
+    console.error('Failed to query related or adjacent posts:', err);
   }
 
   const articleSchema = {
@@ -354,18 +358,61 @@ Product-Led Growth (Tăng trưởng dẫn dắt bằng sản phẩm) là một c
             {/* Author Box */}
             <div className="flex flex-col sm:flex-row gap-5 p-6 rounded-2xl border border-olive/10 bg-cream/70 backdrop-blur-md items-center sm:items-start text-center sm:text-left mt-4 shadow-sm">
               <div className="relative w-16 h-16 rounded-full overflow-hidden border border-olive/10 shrink-0 bg-sand">
-                <Image src="/harry-ca-mau.webp" alt="Harry" fill sizes="64px" className="object-cover" />
+                <Image src="/harry-ca-mau.webp" alt="Harry (Quang Hiếu)" fill sizes="64px" className="object-cover" />
               </div>
               <div className="flex flex-col gap-2">
                 <div className="flex flex-col">
-                  <span className="font-serif font-bold text-stone-850">Harry (Quang Hiếu)</span>
-                  <span className="text-[10px] text-stone-400 font-semibold uppercase tracking-widest">Creative Solopreneur</span>
+                  <Link href="/ve-harry" className="font-serif font-bold text-stone-850 hover:text-olive transition-colors">
+                    Harry (Quang Hiếu)
+                  </Link>
+                  <span className="text-[10px] text-stone-400 font-semibold uppercase tracking-widest">Solopreneur &amp; Product Builder</span>
                 </div>
-                <p className="text-xs text-stone-500 leading-relaxed font-sans">
-                  Chào bạn! Cảm ơn bạn đã đọc bài viết này. Mình hi vọng những chia sẻ chân thực từ thực tế làm sản phẩm và thương hiệu của mình mang lại giá trị hữu ích cho bạn. Hãy chia sẻ cảm nghĩ của bạn hoặc nhắn tin trực tiếp cho mình qua hộp chat AI ở góc nhé! 😊
+                <p className="text-xs text-stone-600 leading-relaxed font-sans">
+                  Cảm ơn bạn đã dành thời gian đọc bài viết này. Mình hy vọng những chia sẻ chân thực từ hành trình làm sản phẩm và xây dựng thương hiệu cá nhân mang lại góc nhìn hữu ích cho bạn. Nếu muốn trao đổi sâu hơn, hãy để lại bình luận bên dưới hoặc{' '}
+                  <Link href="/lien-he" className="text-olive font-semibold underline underline-offset-4 hover:text-olive-dark">
+                    kết nối trực tiếp với mình tại đây
+                  </Link>
+                  .
                 </p>
               </div>
             </div>
+
+            {/* Previous / Next Post Navigation */}
+            {(prevPost || nextPost) && (
+              <nav aria-label="Điều hướng bài viết" className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                {prevPost ? (
+                  <Link
+                    href={`/chia-se/${prevPost.slug}`}
+                    className="flex flex-col gap-1.5 p-4 rounded-2xl border border-olive/10 bg-cream/60 hover:border-olive/30 hover:bg-cream transition-all group"
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400 flex items-center gap-1">
+                      <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" /> Bài viết trước
+                    </span>
+                    <span className="font-serif text-sm font-bold text-stone-850 group-hover:text-olive transition-colors line-clamp-2 leading-snug">
+                      {prevPost.title}
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="hidden sm:block" />
+                )}
+                {nextPost && (
+                  <Link
+                    href={`/chia-se/${nextPost.slug}`}
+                    className="flex flex-col gap-1.5 p-4 rounded-2xl border border-olive/10 bg-cream/60 hover:border-olive/30 hover:bg-cream transition-all text-left sm:text-right items-start sm:items-end group"
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400 flex items-center gap-1">
+                      Bài viết tiếp theo <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                    <span className="font-serif text-sm font-bold text-stone-850 group-hover:text-olive transition-colors line-clamp-2 leading-snug">
+                      {nextPost.title}
+                    </span>
+                  </Link>
+                )}
+              </nav>
+            )}
+
+            {/* Newsletter Callout */}
+            <NewsletterCallout />
 
             {/* Related Posts Section (Task 5.1) */}
             {relatedPosts.length > 0 && (

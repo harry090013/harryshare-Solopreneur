@@ -73,7 +73,7 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let product = await getProduct(slug);
+  let product: any = await getProduct(slug);
 
   if (!product) {
     const mockProducts = [

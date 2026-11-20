@@ -31,8 +31,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Không tìm thấy biểu tượng gợi ý.' }, { status: 404 });
     }
 
-    // Check if icon is in use by any topic (case-insensitive check on dynamic names)
-    const topicsUsingIcon = await db.topic.findFirst({
+    // Check if icon is in use by any category (case-insensitive check on dynamic names)
+    const categoryUsingIcon = await db.category.findFirst({
       where: {
         icon: {
           equals: icon.name,
@@ -41,10 +41,10 @@ export async function DELETE(
       }
     });
 
-    if (topicsUsingIcon) {
+    if (categoryUsingIcon) {
       return NextResponse.json(
         { 
-          error: `Không thể xóa biểu tượng "${icon.label}" vì nó đang được sử dụng ở chủ đề "${topicsUsingIcon.name}".` 
+          error: `Không thể xóa biểu tượng "${icon.label}" vì nó đang được sử dụng ở danh mục "${categoryUsingIcon.name}".` 
         },
         { status: 400 }
       );
