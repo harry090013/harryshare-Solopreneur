@@ -257,13 +257,13 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {topics.map((topic) => {
               const Icon = getTopicIcon(topic.icon);
               return (
                 <Link
                   key={topic.id}
-                  href={`/chia-se?category=${topic.slug}`}
+                  href={`/chia-se/chu-de/${topic.slug}`}
                   className="flex flex-col gap-4 p-6 rounded-2xl border border-olive/10 bg-cream/70 backdrop-blur-md hover:border-olive/30 hover:bg-cream hover:shadow-md transition-all group cursor-pointer animate-slide-up"
                 >
                   <div className="w-10 h-10 rounded-xl bg-olive/5 flex items-center justify-center text-olive group-hover:bg-olive group-hover:text-cream transition-all duration-300 shadow-sm">

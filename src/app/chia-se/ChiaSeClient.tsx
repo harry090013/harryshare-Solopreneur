@@ -110,12 +110,12 @@ export default function ChiaSeClient({
           <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold">
             Lọc theo chủ đề:
           </span>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 w-full">
+          <div className="flex flex-wrap gap-2.5 w-full">
             <Link
               href="/chia-se"
               scroll={false}
               onClick={() => setSelectedCategory('all')}
-              className={`text-xs font-semibold py-2.5 px-3 sm:px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
+              className={`text-xs font-semibold py-2 px-4 rounded-xl transition-all cursor-pointer text-center ${
                 selectedCategory === 'all'
                   ? 'bg-olive text-cream shadow-sm font-bold'
                   : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
@@ -129,7 +129,7 @@ export default function ChiaSeClient({
                 href={`/chia-se/chu-de/${cat.slug}`}
                 scroll={false}
                 onClick={() => setSelectedCategory(cat.slug)}
-                className={`text-xs font-semibold py-2.5 px-3 sm:px-4 rounded-xl transition-all cursor-pointer text-center truncate ${
+                className={`text-xs font-semibold py-2 px-4 rounded-xl transition-all cursor-pointer text-center ${
                   selectedCategory === cat.slug
                     ? 'bg-olive text-cream shadow-sm font-bold'
                     : 'bg-cream border border-olive/10 text-stone-600 hover:border-olive/30 hover:text-olive'
