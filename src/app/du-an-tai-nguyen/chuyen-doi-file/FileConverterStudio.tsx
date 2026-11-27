@@ -155,36 +155,49 @@ function PdfWordPanel() {
 
       setProgress('Đang dàn trang A4 & dựng font tiếng Việt...');
 
-      // Create offscreen A4 container (794px ~ 210mm at 96dpi)
-      const wrapper = document.createElement('div');
-      wrapper.style.position = 'fixed';
-      wrapper.style.left = '-10000px';
-      wrapper.style.top = '0';
-      wrapper.style.width = '794px';
-      wrapper.style.background = '#ffffff';
-      wrapper.style.color = '#1c1917';
-      wrapper.style.padding = '56px 60px';
-      wrapper.style.fontFamily = 'Inter, "Segoe UI", Arial, sans-serif';
-      wrapper.style.fontSize = '14px';
-      wrapper.style.lineHeight = '1.65';
-      wrapper.style.boxSizing = 'border-box';
-      wrapper.innerHTML = `
-        <style>
-          .hs-docx-root h1 { font-size: 24px; font-weight: 700; margin: 0 0 14px; color: #1c1917; }
-          .hs-docx-root h2 { font-size: 19px; font-weight: 700; margin: 18px 0 10px; color: #1c1917; }
-          .hs-docx-root h3 { font-size: 16px; font-weight: 700; margin: 14px 0 8px; color: #1c1917; }
-          .hs-docx-root p { margin: 0 0 10px; }
-          .hs-docx-root ul, .hs-docx-root ol { margin: 0 0 12px; padding-left: 24px; }
-          .hs-docx-root table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-          .hs-docx-root td, .hs-docx-root th { border: 1px solid #d6d3d1; padding: 6px 8px; text-align: left; }
-          .hs-docx-root img { max-width: 100%; height: auto; }
-        </style>
-        <div class="hs-docx-root">${htmlContent}</div>
-      `;
-      document.body.appendChild(wrapper);
+      // Render inside an isolated iframe with pure hex CSS so Tailwind v4 oklch()/lab() never crashes html2canvas
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.left = '-10000px';
+      iframe.style.top = '0';
+      iframe.style.width = '794px';
+      iframe.style.height = '1200px';
+      iframe.style.border = 'none';
+      document.body.appendChild(iframe);
 
       try {
-        const canvas = await html2canvas(wrapper, {
+        const iframeDoc = iframe.contentDocument;
+        if (!iframeDoc) throw new Error('Không khởi tạo được khung dựng trang A4.');
+        iframeDoc.open();
+        iframeDoc.write(`<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #ffffff; color: #1c1917; font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; line-height: 1.65; }
+    .hs-docx-root { width: 794px; padding: 56px 60px; background: #ffffff; color: #1c1917; }
+    .hs-docx-root h1 { font-size: 24px; font-weight: 700; margin: 0 0 14px; color: #1c1917; }
+    .hs-docx-root h2 { font-size: 19px; font-weight: 700; margin: 18px 0 10px; color: #1c1917; }
+    .hs-docx-root h3 { font-size: 16px; font-weight: 700; margin: 14px 0 8px; color: #1c1917; }
+    .hs-docx-root p { margin: 0 0 10px; }
+    .hs-docx-root ul, .hs-docx-root ol { margin: 0 0 12px; padding-left: 24px; }
+    .hs-docx-root table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .hs-docx-root td, .hs-docx-root th { border: 1px solid #d6d3d1; padding: 6px 8px; text-align: left; }
+    .hs-docx-root img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body><div class="hs-docx-root">${htmlContent}</div></body>
+</html>`);
+        iframeDoc.close();
+
+        // Wait a tick for layout & images inside iframe
+        await new Promise((r) => setTimeout(r, 120));
+        const rootEl = iframeDoc.querySelector('.hs-docx-root') as HTMLElement | null;
+        if (!rootEl) throw new Error('Không dựng được nội dung tài liệu Word.');
+        iframe.style.height = `${Math.max(1200, rootEl.scrollHeight + 80)}px`;
+
+        const canvas = await html2canvas(rootEl, {
           scale: 2,
           useCORS: true,
           backgroundColor: '#ffffff',
@@ -259,7 +272,7 @@ function PdfWordPanel() {
         downloadBlob(blob, outName);
         setSuccessMsg(`Đã chuyển đổi thành công file Word sang "${outName}" (${totalPages} trang A4)!`);
       } finally {
-        document.body.removeChild(wrapper);
+        document.body.removeChild(iframe);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể chuyển đổi file Word này (chỉ hỗ trợ .docx).');
