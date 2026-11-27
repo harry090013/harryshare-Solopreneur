@@ -962,7 +962,7 @@ const STUDIO_TABS: {
   { id: 'pdf-word', label: 'PDF ↔ Word', sublabel: 'Đổi qua lại .docx & .pdf', icon: FileText },
   { id: 'pdf-tools', label: 'Công cụ PDF', sublabel: 'Ảnh, Gộp & Tách trang', icon: Layers },
   { id: 'audio-srt', label: 'MP3 → Lyric SRT', sublabel: 'AI tự động + Sync tay', icon: Music },
-  { id: 'youtube-audio', label: 'YouTube & Audio', sublabel: 'Link YT + Tách WAV từ Video', icon: PlayCircle },
+  { id: 'youtube-audio', label: 'Tách Audio Video', sublabel: 'MP4 → WAV & Ảnh bìa YT', icon: PlayCircle },
   { id: 'data-convert', label: 'CSV / JSON / MD', sublabel: 'Chuyển đổi file dữ liệu', icon: FileCode2 },
 ];
 

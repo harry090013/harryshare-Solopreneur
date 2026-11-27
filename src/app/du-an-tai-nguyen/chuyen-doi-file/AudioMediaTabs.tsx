@@ -448,96 +448,7 @@ export function YoutubeAndVideoAudioPanel() {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* Section 1: YouTube URL */}
-      <div className="p-6 rounded-2xl border border-olive/15 bg-cream/80 flex flex-col gap-4">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-red-500/10 text-red-600 flex items-center justify-center">
-            <PlayCircle className="w-5 h-5" />
-          </div>
-          <div>
-            <h3 className="font-serif font-bold text-stone-850 text-base">
-              Trích xuất MP3 &amp; Thông tin từ YouTube
-            </h3>
-            <p className="text-xs text-stone-500">
-              Dán đường dẫn YouTube để lấy thông tin video, ảnh bìa HD và tải âm thanh MP3 (khi kết nối worker).
-            </p>
-          </div>
-        </div>
-
-        <form onSubmit={handleCheckYoutube} className="flex flex-col sm:flex-row gap-2.5">
-          <input
-            type="url"
-            required
-            placeholder="https://www.youtube.com/watch?v=..."
-            value={ytUrl}
-            onChange={(e) => setYtUrl(e.target.value)}
-            className="flex-1 px-4 py-2.5 rounded-xl border border-olive/15 bg-cream text-sm text-stone-800 focus:outline-none focus:border-olive"
-          />
-          <button
-            type="submit"
-            disabled={ytLoading}
-            className="px-6 py-2.5 rounded-xl bg-olive text-cream text-sm font-bold hover:bg-olive-dark disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2 shrink-0"
-          >
-            {ytLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Music className="w-4 h-4" />}
-            Kiểm tra link
-          </button>
-        </form>
-
-        {ytError && (
-          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{ytError}</span>
-          </div>
-        )}
-
-        {ytResult && (
-          <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-olive/15 bg-sand/20 items-start">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={ytResult.thumbnailUrl}
-              alt={ytResult.title}
-              className="w-full sm:w-44 aspect-video object-cover rounded-lg border border-olive/10 shrink-0"
-            />
-            <div className="flex flex-col gap-2 flex-1">
-              <h4 className="font-serif font-bold text-stone-850 text-sm leading-snug">
-                {ytResult.title}
-              </h4>
-              {ytResult.authorName && (
-                <span className="text-xs text-stone-500">Kênh: {ytResult.authorName}</span>
-              )}
-              <div className="flex flex-wrap gap-2 mt-1">
-                {ytResult.directDownloadAvailable && ytResult.downloadUrl ? (
-                  <a
-                    href={ytResult.downloadUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-xl bg-olive text-cream text-xs font-bold hover:bg-olive-dark inline-flex items-center gap-1.5"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    Tải MP3 ngay
-                  </a>
-                ) : null}
-                <a
-                  href={`https://i.ytimg.com/vi/${ytResult.videoId}/maxresdefault.jpg`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl border border-olive/20 bg-cream text-xs font-semibold text-stone-700 hover:text-olive inline-flex items-center gap-1.5"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  Mở ảnh bìa HD
-                </a>
-              </div>
-              {ytResult.note && (
-                <p className="text-[11px] text-stone-600 leading-relaxed bg-cream/80 p-3 rounded-lg border border-olive/10 mt-1">
-                  {ytResult.note}
-                </p>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Section 2: 100% Client-Side Video -> Audio Extractor */}
+      {/* Section 1: 100% Client-Side Video -> Audio Extractor */}
       <div className="p-6 rounded-2xl border border-olive/15 bg-cream/80 flex flex-col gap-4">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-olive/10 text-olive flex items-center justify-center">
@@ -545,10 +456,10 @@ export function YoutubeAndVideoAudioPanel() {
           </div>
           <div>
             <h3 className="font-serif font-bold text-stone-850 text-base">
-              Tách âm thanh từ Video có sẵn (MP4 / WebM / MOV → WAV)
+              Tách âm thanh từ Video (MP4 / WebM / MOV → WAV)
             </h3>
             <p className="text-xs text-stone-500">
-              Xử lý 100% ngay trên trình duyệt của bạn bằng Web Audio API — không tải lên máy chủ, không giới hạn tốc độ mạng.
+              Xử lý 100% ngay trên trình duyệt bằng Web Audio API — giữ nguyên chất lượng âm thanh gốc, không tải video lên máy chủ.
             </p>
           </div>
         </div>
@@ -594,6 +505,99 @@ export function YoutubeAndVideoAudioPanel() {
               <Download className="w-3.5 h-3.5" />
               Tải file âm thanh (.WAV)
             </a>
+          </div>
+        )}
+      </div>
+
+      {/* Section 2: YouTube HD Thumbnail & Metadata Finder */}
+      <div className="p-6 rounded-2xl border border-olive/15 bg-cream/80 flex flex-col gap-4">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-red-500/10 text-red-600 flex items-center justify-center">
+            <PlayCircle className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="font-serif font-bold text-stone-850 text-base">
+              Lấy ảnh bìa HD &amp; Thông tin Video YouTube
+            </h3>
+            <p className="text-xs text-stone-500">
+              Dán đường dẫn YouTube để lấy nhanh tiêu đề, tên kênh và ảnh bìa độ phân giải cao (Full HD / HQ).
+            </p>
+          </div>
+        </div>
+
+        <form onSubmit={handleCheckYoutube} className="flex flex-col sm:flex-row gap-2.5">
+          <input
+            type="url"
+            required
+            placeholder="https://www.youtube.com/watch?v=..."
+            value={ytUrl}
+            onChange={(e) => setYtUrl(e.target.value)}
+            className="flex-1 px-4 py-2.5 rounded-xl border border-olive/15 bg-cream text-sm text-stone-800 focus:outline-none focus:border-olive"
+          />
+          <button
+            type="submit"
+            disabled={ytLoading}
+            className="px-6 py-2.5 rounded-xl bg-olive text-cream text-sm font-bold hover:bg-olive-dark disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2 shrink-0"
+          >
+            {ytLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <PlayCircle className="w-4 h-4" />}
+            Lấy ảnh bìa
+          </button>
+        </form>
+
+        {ytError && (
+          <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{ytError}</span>
+          </div>
+        )}
+
+        {ytResult && (
+          <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-olive/15 bg-sand/20 items-start">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={ytResult.thumbnailUrl}
+              alt={ytResult.title}
+              className="w-full sm:w-44 aspect-video object-cover rounded-lg border border-olive/10 shrink-0"
+            />
+            <div className="flex flex-col gap-2 flex-1">
+              <h4 className="font-serif font-bold text-stone-850 text-sm leading-snug">
+                {ytResult.title}
+              </h4>
+              {ytResult.authorName && (
+                <span className="text-xs text-stone-500">Kênh: {ytResult.authorName}</span>
+              )}
+              <div className="flex flex-wrap gap-2 mt-1">
+                {ytResult.directDownloadAvailable && ytResult.downloadUrl ? (
+                  <a
+                    href={ytResult.downloadUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-xl bg-olive text-cream text-xs font-bold hover:bg-olive-dark inline-flex items-center gap-1.5"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    Tải MP3 ngay
+                  </a>
+                ) : null}
+                <a
+                  href={`https://i.ytimg.com/vi/${ytResult.videoId}/maxresdefault.jpg`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-xl bg-olive text-cream text-xs font-bold hover:bg-olive-dark inline-flex items-center gap-1.5"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Ảnh bìa Full HD (1280×720)
+                </a>
+                <a
+                  href={`https://i.ytimg.com/vi/${ytResult.videoId}/hqdefault.jpg`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-xl border border-olive/20 bg-cream text-xs font-semibold text-stone-700 hover:text-olive inline-flex items-center gap-1.5"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Ảnh bìa chuẩn (HQ)
+                </a>
+              </div>
+            </div>
           </div>
         )}
       </div>

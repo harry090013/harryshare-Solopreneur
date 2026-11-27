@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Trung tâm Chuyển đổi File & Media Miễn phí | HarryShare',
     description:
-      'PDF ↔ Word, Gộp/Tách PDF, Ảnh ↔ PDF, MP3 → Lyric SRT bằng AI, YouTube Audio & Tách âm thanh Video miễn phí.',
+      'PDF ↔ Word, Gộp/Tách PDF, Ảnh ↔ PDF, MP3 → Lyric SRT bằng AI, Tách âm thanh Video & Ảnh bìa HD YouTube miễn phí.',
     url: 'https://harryshare.vn/du-an-tai-nguyen/chuyen-doi-file',
   },
 };

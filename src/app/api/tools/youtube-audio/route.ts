@@ -90,14 +90,13 @@ export async function POST(request: Request) {
       }
     }
 
-    // 3. Honest fallback when running purely on Vercel Serverless without a dedicated audio worker
+    // 3. Return verified YouTube metadata & HD thumbnails cleanly
     return NextResponse.json({
       videoId,
       title,
       authorName,
       thumbnailUrl,
       directDownloadAvailable: false,
-      note: 'Do máy chủ Serverless (Vercel) bị YouTube chặn tải trực tiếp theo IP trung tâm dữ liệu, hệ thống đã lấy sẵn thông tin video & ảnh bìa HD. Nếu bạn đã có tệp video (MP4/WebM), hãy dùng công cụ "Tách âm thanh từ Video" ngay bên dưới để trích xuất âm thanh 100% miễn phí trên trình duyệt, hoặc kết nối biến YOUTUBE_AUDIO_API_URL để bật tải MP3 trực tiếp.',
     });
   } catch (error) {
     console.error('[youtube-audio] Error:', error);
