@@ -53,7 +53,27 @@ export async function POST(request: Request) {
       );
     }
 
-    const mimeType = file.type || 'audio/mpeg';
+    const ext = (file.name || '').split('.').pop()?.toLowerCase() || '';
+    const extMimeMap: Record<string, string> = {
+      mp3: 'audio/mpeg',
+      wav: 'audio/wav',
+      m4a: 'audio/mp4',
+      aac: 'audio/aac',
+      ogg: 'audio/ogg',
+      flac: 'audio/flac',
+      webm: 'audio/webm',
+      mp4: 'audio/mp4',
+    };
+    const rawMime = (file.type || '').toLowerCase();
+    const mimeType =
+      rawMime === 'audio/x-m4a'
+        ? 'audio/mp4'
+        : rawMime === 'audio/mp3'
+          ? 'audio/mpeg'
+          : rawMime && rawMime !== 'application/octet-stream'
+            ? rawMime
+            : extMimeMap[ext] || 'audio/mpeg';
+
     if (!ALLOWED_MIME_PREFIXES.some((prefix) => mimeType.startsWith(prefix))) {
       return NextResponse.json({ error: 'Định dạng tệp không phải âm thanh hợp lệ.' }, { status: 400 });
     }

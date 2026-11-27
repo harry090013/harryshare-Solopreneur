@@ -12,6 +12,7 @@ import {
   YoutubeAndVideoAudioPanel,
   DataConvertPanel,
 } from './AudioMediaTabs';
+import { convertPdfDocumentToDocx, type PdfToWordMode } from '@/lib/pdfToDocx';
 
 type StudioTab = 'pdf-word' | 'pdf-tools' | 'audio-srt' | 'youtube-audio' | 'data-convert';
 type PdfWordMode = 'pdf-to-word' | 'word-to-pdf';
@@ -34,12 +35,6 @@ async function loadPdfJs() {
   const pdfjsLib = await import('pdfjs-dist');
   pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
   return pdfjsLib;
-}
-
-interface TextItemLike {
-  str?: string;
-  transform?: number[];
-  hasEOL?: boolean;
 }
 
 function parsePageRanges(input: string, totalPages: number): number[] {
@@ -68,6 +63,7 @@ function parsePageRanges(input: string, totalPages: number): number[] {
    ============================================================================ */
 function PdfWordPanel() {
   const [mode, setMode] = useState<PdfWordMode>('pdf-to-word');
+  const [pdfToWordMode, setPdfToWordMode] = useState<PdfToWordMode>('editable');
   const [file, setFile] = useState<File | null>(null);
   const [processing, setProcessing] = useState(false);
   const [progress, setProgress] = useState('');
@@ -93,83 +89,44 @@ function PdfWordPanel() {
 
     try {
       const pdfjsLib = await loadPdfJs();
-      const { Document, Packer, Paragraph, TextRun, PageBreak } = await import('docx');
-
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
-      const totalPages = pdf.numPages;
 
-      const docChildren: InstanceType<typeof Paragraph>[] = [];
-      const previewChunks: string[] = [];
+      const renderPageToPng = async (pageNumber: number, scale: number) => {
+        const page = await pdf.getPage(pageNumber);
+        const viewport = page.getViewport({ scale });
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(viewport.width);
+        canvas.height = Math.round(viewport.height);
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return null;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        await page.render({ canvasContext: ctx, viewport, canvas }).promise;
+        const dataUrl = canvas.toDataURL('image/png');
+        const imgRes = await fetch(dataUrl);
+        const ab = await imgRes.arrayBuffer();
+        const bytes = new Uint8Array(ab);
+        return { bytes, widthPx: canvas.width, heightPx: canvas.height };
+      };
 
-      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-        setProgress(`Đang trích xuất nội dung trang ${pageNum}/${totalPages}...`);
-        const page = await pdf.getPage(pageNum);
-        const textContent = await page.getTextContent();
-
-        // Group text items by approximate Y coordinate to preserve lines
-        const linesMap = new Map<number, { x: number; text: string }[]>();
-        for (const rawItem of textContent.items) {
-          const item = rawItem as TextItemLike;
-          if (!item.str || !item.transform) continue;
-          const yBucket = Math.round(item.transform[5] / 4) * 4;
-          const x = item.transform[4];
-          if (!linesMap.has(yBucket)) linesMap.set(yBucket, []);
-          linesMap.get(yBucket)!.push({ x, text: item.str });
-        }
-
-        // Sort top-to-bottom (higher Y is top in PDF coordinate system)
-        const sortedYs = Array.from(linesMap.keys()).sort((a, b) => b - a);
-        const pageLines: string[] = [];
-
-        for (const y of sortedYs) {
-          const segments = linesMap.get(y)!.sort((a, b) => a.x - b.x);
-          const line = segments.map((s) => s.text).join(' ').replace(/\s+/g, ' ').trim();
-          if (line) pageLines.push(line);
-        }
-
-        if (pageLines.length === 0) {
-          docChildren.push(
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: `[Trang ${pageNum}: Không tìm thấy lớp chữ — có thể là trang ảnh scan]`,
-                  italics: true,
-                  color: '78716C',
-                }),
-              ],
-            })
-          );
-        } else {
-          for (const line of pageLines) {
-            docChildren.push(
-              new Paragraph({
-                spacing: { after: 120 },
-                children: [new TextRun({ text: line, font: 'Calibri', size: 22 })],
-              })
-            );
-          }
-          if (previewChunks.length < 3) {
-            previewChunks.push(`--- Trang ${pageNum} ---\n${pageLines.slice(0, 12).join('\n')}`);
-          }
-        }
-
-        if (pageNum < totalPages) {
-          docChildren.push(new Paragraph({ children: [new PageBreak()] }));
-        }
-      }
-
-      setProgress('Đang đóng gói file Word (.docx)...');
-      const doc = new Document({
-        sections: [{ properties: {}, children: docChildren }],
+      const result = await convertPdfDocumentToDocx(pdf, {
+        mode: pdfToWordMode,
+        onProgress: (msg) => setProgress(msg),
+        renderPageToPng,
       });
 
-      const blob = await Packer.toBlob(doc);
       const outName = `${stripExt(file.name)}.docx`;
-      downloadBlob(blob, outName);
+      downloadBlob(result.blob, outName);
 
-      setPreviewText(previewChunks.join('\n\n'));
-      setSuccessMsg(`Đã chuyển đổi thành công ${totalPages} trang PDF sang "${outName}"!`);
+      setPreviewText(result.previewText);
+      const summaryParts: string[] = [];
+      if (result.stats.headings > 0) summaryParts.push(`${result.stats.headings} tiêu đề`);
+      if (result.stats.paragraphs > 0) summaryParts.push(`${result.stats.paragraphs} đoạn văn`);
+      if (result.stats.tables > 0) summaryParts.push(`${result.stats.tables} bảng biểu`);
+      if (result.stats.scannedPages > 0) summaryParts.push(`${result.stats.scannedPages} trang ảnh/bố cục`);
+      const detail = summaryParts.length > 0 ? ` (${summaryParts.join(', ')})` : '';
+      setSuccessMsg(`Đã chuyển đổi thành công ${result.totalPages} trang PDF sang "${outName}"${detail}!`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể đọc file PDF này.');
     } finally {
@@ -239,13 +196,39 @@ function PdfWordPanel() {
         const a4WidthPt = 595.28;
         const a4HeightPt = 841.89;
 
-        // Calculate slice height in canvas pixels corresponding to A4 aspect ratio
+        // Smart A4 slicing: find clean whitespace row near page boundary so lines aren't cut in half
         const pageSliceHeightPx = Math.floor(canvas.width * (a4HeightPt / a4WidthPt));
-        const totalPages = Math.max(1, Math.ceil(canvas.height / pageSliceHeightPx));
+        const fullCtx = canvas.getContext('2d', { willReadFrequently: true });
+        const slices: { sy: number; sh: number }[] = [];
+        let cursorY = 0;
+
+        while (cursorY < canvas.height) {
+          let nextY = Math.min(canvas.height, cursorY + pageSliceHeightPx);
+          if (nextY < canvas.height && fullCtx) {
+            const searchWindow = Math.min(140, Math.floor(pageSliceHeightPx * 0.12));
+            for (let scanY = nextY; scanY > nextY - searchWindow && scanY > cursorY + 200; scanY -= 2) {
+              const rowData = fullCtx.getImageData(0, scanY, canvas.width, 1).data;
+              let isBlank = true;
+              for (let px = 0; px < rowData.length; px += 16) {
+                if (rowData[px] < 245 || rowData[px + 1] < 245 || rowData[px + 2] < 245) {
+                  isBlank = false;
+                  break;
+                }
+              }
+              if (isBlank) {
+                nextY = scanY;
+                break;
+              }
+            }
+          }
+          slices.push({ sy: cursorY, sh: nextY - cursorY });
+          cursorY = nextY;
+        }
+
+        const totalPages = slices.length;
 
         for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
-          const sy = pageIndex * pageSliceHeightPx;
-          const sh = Math.min(pageSliceHeightPx, canvas.height - sy);
+          const { sy, sh } = slices[pageIndex];
 
           const pageCanvas = document.createElement('canvas');
           pageCanvas.width = canvas.width;
@@ -347,10 +330,43 @@ function PdfWordPanel() {
           </h3>
           <p className="text-xs sm:text-sm text-stone-500 mt-1">
             {mode === 'pdf-to-word'
-              ? 'Trích xuất văn bản theo từng dòng & từng trang từ file PDF gốc sang tài liệu Word có thể chỉnh sửa. 100% xử lý trực tiếp trên máy bạn.'
-              : 'Dàn trang chuẩn A4, hỗ trợ trọn vẹn dấu tiếng Việt, bảng biểu và hình ảnh trong file .docx. Có thêm tùy chọn lưu PDF vector.'}
+              ? 'Tự động giữ tiêu đề (H1–H3), in đậm/in nghiêng, cỡ chữ, căn lề, gộp đoạn văn thông minh và nhận diện bảng biểu. Có thêm chế độ giữ nguyên 100% bố cục cho CV/tờ rơi/PDF scan.'
+              : 'Dàn trang chuẩn A4 tự động tránh cắt ngang dòng chữ, hỗ trợ trọn vẹn dấu tiếng Việt, bảng biểu và hình ảnh trong file .docx. Có thêm tùy chọn lưu PDF vector.'}
           </p>
         </div>
+
+        {mode === 'pdf-to-word' && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button
+              type="button"
+              onClick={() => setPdfToWordMode('editable')}
+              className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                pdfToWordMode === 'editable'
+                  ? 'border-olive bg-olive/5 ring-1 ring-olive/20'
+                  : 'border-stone-200 hover:bg-sand/40'
+              }`}
+            >
+              <div className="text-xs font-bold text-stone-850">Giữ định dạng &amp; Chỉnh sửa được (Khuyên dùng)</div>
+              <div className="text-[11px] text-stone-500 mt-0.5">
+                Phục hồi tiêu đề, đậm/nghiêng, cỡ chữ, căn lề, bảng biểu &amp; đoạn văn liền mạch.
+              </div>
+            </button>
+            <button
+              type="button"
+              onClick={() => setPdfToWordMode('exact-layout')}
+              className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                pdfToWordMode === 'exact-layout'
+                  ? 'border-olive bg-olive/5 ring-1 ring-olive/20'
+                  : 'border-stone-200 hover:bg-sand/40'
+              }`}
+            >
+              <div className="text-xs font-bold text-stone-850">Giữ nguyên 100% bố cục (CV / Thiết kế / Scan)</div>
+              <div className="text-[11px] text-stone-500 mt-0.5">
+                Xuất từng trang PDF nét cao đúng kích thước chuẩn vào Word, không xê dịch layout.
+              </div>
+            </button>
+          </div>
+        )}
 
         <label className="flex flex-col items-center justify-center gap-3 p-8 rounded-2xl border-2 border-dashed border-stone-200 hover:border-olive/50 hover:bg-olive/[0.02] transition-all cursor-pointer text-center">
           <div className="w-12 h-12 rounded-2xl bg-olive/10 text-olive flex items-center justify-center">
